@@ -101,7 +101,7 @@ public class GameManager implements IGameManager {
     }
 
     // Track buildings that are affected by an entity's movement.
-    private HashMap<Building, Boolean> affectedBldgs = new HashMap<>();
+    private Hashtable<Building, Boolean> affectedBldgs = new Hashtable<>();
 
     // Track Physical Action results, HACK to deal with opposing pushes
     // canceling each other
