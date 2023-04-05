@@ -81,7 +81,7 @@ public class MegaMek {
                 return;
             }
 
-            getMMPreferences().loadFromFile(MMConstants.MM_PREFERENCES_FILE);
+            getMMPreferences().loadFromFile(SuiteConstants.MM_PREFERENCES_FILE);
             initializeSuiteGraphicalSetups(MMConstants.PROJECT_NAME);
 
             if (parser.host()) {
@@ -165,7 +165,6 @@ public class MegaMek {
      */
     public static @Nullable String getMegaMekSHA256() {
         StringBuilder sb = new StringBuilder();
-        byte[] buffer = new byte[8192];
 
         // Assume UNIX/Linux, which has the jar in the root folder
         String filename = "MegaMek.jar";
@@ -187,9 +186,7 @@ public class MegaMek {
         }
         try (InputStream is = new FileInputStream(filename);
              InputStream dis = new DigestInputStream(is, md)) {
-            while (0 < dis.read(buffer)) {
 
-            }
             // gets digest
             byte[] digest = md.digest();
             // convert the byte to hex format
@@ -323,7 +320,7 @@ public class MegaMek {
                                                   final String currentProject) {
         final LocalDateTime buildDate = getBuildDate();
         return String.format("Starting %s v%s\n\tBuild Date: %s\n\tToday: %s\n\tOrigin Project: %s\n\tJava Vendor: %s\n\tJava Version: %s\n\tPlatform: %s %s (%s)\n\tSystem Locale: %s\n\tTotal memory available to %s: %,.0f GB",
-                currentProject, MMConstants.VERSION, ((buildDate == null) ? "N/A" : buildDate),
+                currentProject, SuiteConstants.VERSION, ((buildDate == null) ? "N/A" : buildDate),
                 LocalDate.now(), originProject,
                 System.getProperty("java.vendor"), System.getProperty("java.version"),
                 System.getProperty("os.name"), System.getProperty("os.version"),
@@ -350,7 +347,7 @@ public class MegaMek {
      */
     public static void initializeSuiteGraphicalSetups(final String currentProject) {
         // Setup Fonts
-        parseFontDirectory(new File(MMConstants.FONT_DIRECTORY));
+        parseFontDirectory(new File(SuiteConstants.FONT_DIRECTORY));
 
         // Setup Themes
         UIManager.installLookAndFeel("Flat Light", "com.formdev.flatlaf.FlatLightLaf");
@@ -379,7 +376,7 @@ public class MegaMek {
         }
 
         for (final String filename : filenames) {
-            if (filename.toLowerCase().endsWith(MMConstants.TRUETYPE_FONT)) {
+            if (filename.toLowerCase().endsWith(SuiteConstants.TRUETYPE_FONT)) {
                 try (InputStream fis = new FileInputStream(directory.getPath() + '/' + filename)) {
                     GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(
                             Font.createFont(Font.TRUETYPE_FONT, fis));
