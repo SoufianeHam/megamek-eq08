@@ -106,7 +106,6 @@ public class EmailService {
 
     private final InternetAddress from;
     private final Map<Player, Integer> messageSequences = new HashMap<>();
-    private final Properties mailProperties;
     private final Session mailSession;
 
     private final BlockingQueue<Message> mailQueue = new LinkedBlockingQueue<>();
@@ -118,7 +117,6 @@ public class EmailService {
         this.from = InternetAddress.parse(
             mailProperties.getProperty("megamek.smtp.from", "")
         )[0];
-        this.mailProperties = mailProperties;
 
         Authenticator auth = null;
         var login = mailProperties.getProperty("megamek.smtp.login", "").trim();

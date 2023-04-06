@@ -222,10 +222,10 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
 
     public int getAltitudeLoss(Game game) {
         if (isAirToGround(game)) {
-            if (((WeaponType) getEntity(game).getEquipment(getWeaponId()).getType()).hasFlag(WeaponType.F_DIVE_BOMB)) {
+            if (getEntity(game).getEquipment(getWeaponId()).getType().hasFlag(WeaponType.F_DIVE_BOMB)) {
                 return 2;
             }
-            if (((WeaponType) getEntity(game).getEquipment(getWeaponId()).getType()).hasFlag(WeaponType.F_ALT_BOMB)) {
+            if (getEntity(game).getEquipment(getWeaponId()).getType().hasFlag(WeaponType.F_ALT_BOMB)) {
                 return 0;
             }
             if (isStrafing) {
@@ -306,7 +306,6 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
             // and movement mods, and add those for the new target
             Targetable tempTarget = target;
             target = originalTarget;
-            originalTarget = tempTarget;
         }
 
         Entity te = null;
@@ -2115,11 +2114,11 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
             // only woods and buildings can be set intentionally on fire
             if ((target.getTargetType() == Targetable.TYPE_HEX_IGNITE)
                     && game.getOptions().booleanOption(OptionsConstants.ADVANCED_NO_IGNITE_CLEAR)
-                    && !(game.getBoard().getHex(((HexTarget) target).getPosition()).containsTerrain(Terrains.WOODS)
-                            || game.getBoard().getHex(((HexTarget) target).getPosition()).containsTerrain(Terrains.JUNGLE)
-                            || game.getBoard().getHex(((HexTarget) target).getPosition())
+                    && !(game.getBoard().getHex(target.getPosition()).containsTerrain(Terrains.WOODS)
+                            || game.getBoard().getHex(target.getPosition()).containsTerrain(Terrains.JUNGLE)
+                            || game.getBoard().getHex(target.getPosition())
                                     .containsTerrain(Terrains.FUEL_TANK)
-                            || game.getBoard().getHex(((HexTarget) target).getPosition())
+                            || game.getBoard().getHex(target.getPosition())
                                     .containsTerrain(Terrains.BUILDING))) {
                 return Messages.getString("WeaponAttackAction.CantIntentionallyBurn");
             }
@@ -2225,7 +2224,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
             
             // only one ground-to-air attack allowed per turn
             // grounded spheroid dropships dont have this limitation
-            if (!ae.isAirborne() && !((ae instanceof Dropship) && !((Aero) ae).isSpheroid())) {
+            if (!ae.isAirborne() && !((ae instanceof Dropship) && !ae.isSpheroid())) {
                 for (Enumeration<EntityAction> i = game.getActions(); i.hasMoreElements();) {
                     EntityAction ea = i.nextElement();
                     if (!(ea instanceof WeaponAttackAction)) {
@@ -4319,7 +4318,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
         // Unit-specific modifiers
         
         // -1 to hit a SuperHeavy mech
-        if ((te instanceof Mech) && ((Mech) te).isSuperHeavy()) {
+        if ((te instanceof Mech) && te.isSuperHeavy()) {
             toHit.addModifier(-1, Messages.getString("WeaponAttackAction.TeSuperheavyMech"));
         }
 
@@ -4389,7 +4388,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
                     }
                 }
                 for (Entity en : game.getEntitiesVector(target.getPosition())) {
-                    if (!en.isEnemyOf(te) && en.isLargeCraft() && !en.equals((Entity) a)
+                    if (!en.isEnemyOf(te) && en.isLargeCraft() && !en.equals(a)
                             && ((en.getWeight() - te.getWeight()) >= -STRATOPS_SENSOR_SHADOW_WEIGHT_DIFF)) {
                         toHit.addModifier(+1, Messages.getString("WeaponAttackAction.SensorShadow"));
                         break;
@@ -4504,7 +4503,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
 
         // target in water?
         int partialWaterLevel = 1;
-        if (te != null && (te instanceof Mech) && ((Mech) te).isSuperHeavy()) {
+        if (te != null && (te instanceof Mech) && te.isSuperHeavy()) {
             partialWaterLevel = 2;
         }
         if ((te != null) && targetHexContainsWater
@@ -4745,7 +4744,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
         // Leg attacks and Swarm attacks have their own base toHit values
         if (Infantry.LEG_ATTACK.equals(wtype.getInternalName())) {
             toHit = Compute.getLegAttackBaseToHit(ae, te, game);
-            if ((te instanceof Mech) && ((Mech) te).isSuperHeavy()) {
+            if ((te instanceof Mech) && te.isSuperHeavy()) {
                 toHit.addModifier(-1, Messages.getString("WeaponAttackAction.TeSuperheavyMech"));
             }
             srt.setSpecialResolution(true);
@@ -4761,7 +4760,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
             if (te instanceof Tank) {
                 toHit.addModifier(-2, Messages.getString("WeaponAttackAction.TeVehicle"));
             }
-            if ((te instanceof Mech) && ((Mech) te).isSuperHeavy()) {
+            if ((te instanceof Mech) && te.isSuperHeavy()) {
                 toHit.addModifier(-1, Messages.getString("WeaponAttackAction.TeSuperheavyMech"));
             }
             if (te.isProne()) {

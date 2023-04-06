@@ -160,7 +160,7 @@ public final class FiringPlanCalculationParameters {
         this.shooterState = builder.shooterState;
         this.target = builder.target;
         this.targetState = builder.targetState;
-        maxHeat = builder.maxHeat < 0 ? 0 : builder.maxHeat;
+        maxHeat = Math.max(builder.maxHeat, 0);
         this.ammoConservation = builder.ammoConservation;
         this.calculationType = builder.calculationType;
     }

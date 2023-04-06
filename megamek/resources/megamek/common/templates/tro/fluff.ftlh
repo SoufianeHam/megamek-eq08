@@ -1,3 +1,4 @@
+<#--noinspection Annotator-->
 <p>
 <b>Mass: </b>${massDesc}<br/>
 <#if chassisDesc??><b>Chassis: </b>${chassisDesc}<br/></#if>

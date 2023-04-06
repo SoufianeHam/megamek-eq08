@@ -251,7 +251,7 @@ public class ForceNode extends RulesetNode {
                         faction = ruleset.getParent();
                     }
                     if (faction != null) {
-                        Ruleset rs = null;
+                        Ruleset rs;
                         ForceNode fn = null;
                         do {
                             rs = Ruleset.findRuleset(faction);

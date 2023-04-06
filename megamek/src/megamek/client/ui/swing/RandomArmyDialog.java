@@ -229,7 +229,19 @@ public class RandomArmyDialog extends JDialog implements ActionListener, TreeSel
         setLocation(GUIP.getRndArmyPosX(), GUIP.getRndArmyPosY());
 
         adaptToGUIScale();
-        
+
+        /**
+         * This class now listens for game settings changes and updates the RAT year whenever
+         * the game year changes. Well, whenever any game settings changes.
+         */
+        GameListener gameListener = new GameListenerAdapter() {
+            @Override
+            public void gameSettingsChange(GameSettingsChangeEvent evt) {
+                if (evt.isMapSettingsOnlyChange()) {
+                    updateRATYear();
+                }
+            }
+        };
         m_client.getGame().addGameListener(gameListener);
         addWindowListener(windowListener);
     }
@@ -1104,18 +1116,22 @@ public class RandomArmyDialog extends JDialog implements ActionListener, TreeSel
         String cost = "";
         String bv = "";
 
-        if (tableName.equals("Units")) {
-            bv = UNITS_BV;
-            cost = UNITS_COST;
-            view = UNITS_VIEW;
-        } else if (tableName.equals("Army")) {
-            bv = ARMY_BV;
-            cost = ARMY_COST;
-            view = ARMY_VIEW;
-        } else if (tableName.equals("RAT")) {
-            bv = RAT_BV;
-            cost = RAT_COST;
-            view = RAT_VIEW;
+        switch (tableName) {
+            case "Units":
+                bv = UNITS_BV;
+                cost = UNITS_COST;
+                view = UNITS_VIEW;
+                break;
+            case "Army":
+                bv = ARMY_BV;
+                cost = ARMY_COST;
+                view = ARMY_VIEW;
+                break;
+            case "RAT":
+                bv = RAT_BV;
+                cost = RAT_COST;
+                view = RAT_VIEW;
+                break;
         }
 
         String msg_view = Messages.getString("RandomArmyDialog.View");
@@ -1153,19 +1169,6 @@ public class RandomArmyDialog extends JDialog implements ActionListener, TreeSel
         }
     }
 
-    /**
-     * This class now listens for game settings changes and updates the RAT year whenever
-     * the game year changes. Well, whenever any game settings changes.
-     */
-    private final GameListener gameListener = new GameListenerAdapter() {
-        @Override
-        public void gameSettingsChange(GameSettingsChangeEvent evt) {
-            if (evt.isMapSettingsOnlyChange()) {
-                updateRATYear();
-            }
-        }
-    };
-    
     /**
      * A table model for displaying units
      */

@@ -100,45 +100,66 @@ public class MechFileParser {
             BuildingBlock bb = new BuildingBlock(is);
             if (bb.exists("UnitType")) {
                 String sType = bb.getDataAsString("UnitType")[0];
-                if (sType.equals("Tank") || sType.equals("Naval")
-                        || sType.equals("Surface") || sType.equals("Hydrofoil")) {
-                    loader = new BLKTankFile(bb);
-                } else if (sType.equals("Infantry")) {
-                    loader = new BLKInfantryFile(bb);
-                } else if (sType.equals("BattleArmor")) {
-                    loader = new BLKBattleArmorFile(bb);
-                } else if (sType.equals("ProtoMech")) {
-                    loader = new BLKProtoFile(bb);
-                } else if (sType.equals("Mech")) {
-                    loader = new BLKMechFile(bb);
-                } else if (sType.equals("VTOL")) {
-                    loader = new BLKVTOLFile(bb);
-                } else if (sType.equals("GunEmplacement")) {
-                    loader = new BLKGunEmplacementFile(bb);
-                } else if (sType.equals("SupportTank")) {
-                    loader = new BLKSupportTankFile(bb);
-                } else if (sType.equals("LargeSupportTank")) {
-                    loader = new BLKLargeSupportTankFile(bb);
-                } else if (sType.equals("SupportVTOL")) {
-                    loader = new BLKSupportVTOLFile(bb);
-                } else if (sType.equals("Aero")) {
-                    loader = new BLKAeroFile(bb);
-                } else if (sType.equals("FixedWingSupport")) {
-                    loader = new BLKFixedWingSupportFile(bb);
-                } else if (sType.equals("ConvFighter")) {
-                    loader = new BLKConvFighterFile(bb);
-                } else if (sType.equals("SmallCraft")) {
-                    loader = new BLKSmallCraftFile(bb);
-                } else if (sType.equals("Dropship")) {
-                    loader = new BLKDropshipFile(bb);
-                } else if (sType.equals("Jumpship")) {
-                    loader = new BLKJumpshipFile(bb);
-                } else if (sType.equals("Warship")) {
-                    loader = new BLKWarshipFile(bb);
-                } else if (sType.equals("SpaceStation")) {
-                    loader = new BLKSpaceStationFile(bb);
-                } else {
-                    throw new EntityLoadingException("Unknown UnitType: " + sType);
+                switch (sType) {
+                    case "Tank":
+                    case "Naval":
+                    case "Surface":
+                    case "Hydrofoil":
+                        loader = new BLKTankFile(bb);
+                        break;
+                    case "Infantry":
+                        loader = new BLKInfantryFile(bb);
+                        break;
+                    case "BattleArmor":
+                        loader = new BLKBattleArmorFile(bb);
+                        break;
+                    case "ProtoMech":
+                        loader = new BLKProtoFile(bb);
+                        break;
+                    case "Mech":
+                        loader = new BLKMechFile(bb);
+                        break;
+                    case "VTOL":
+                        loader = new BLKVTOLFile(bb);
+                        break;
+                    case "GunEmplacement":
+                        loader = new BLKGunEmplacementFile(bb);
+                        break;
+                    case "SupportTank":
+                        loader = new BLKSupportTankFile(bb);
+                        break;
+                    case "LargeSupportTank":
+                        loader = new BLKLargeSupportTankFile(bb);
+                        break;
+                    case "SupportVTOL":
+                        loader = new BLKSupportVTOLFile(bb);
+                        break;
+                    case "Aero":
+                        loader = new BLKAeroFile(bb);
+                        break;
+                    case "FixedWingSupport":
+                        loader = new BLKFixedWingSupportFile(bb);
+                        break;
+                    case "ConvFighter":
+                        loader = new BLKConvFighterFile(bb);
+                        break;
+                    case "SmallCraft":
+                        loader = new BLKSmallCraftFile(bb);
+                        break;
+                    case "Dropship":
+                        loader = new BLKDropshipFile(bb);
+                        break;
+                    case "Jumpship":
+                        loader = new BLKJumpshipFile(bb);
+                        break;
+                    case "Warship":
+                        loader = new BLKWarshipFile(bb);
+                        break;
+                    case "SpaceStation":
+                        loader = new BLKSpaceStationFile(bb);
+                        break;
+                    default:
+                        throw new EntityLoadingException("Unknown UnitType: " + sType);
                 }
             } else {
                 loader = new BLKMechFile(bb);

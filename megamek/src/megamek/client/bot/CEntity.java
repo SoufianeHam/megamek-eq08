@@ -347,7 +347,7 @@ public class CEntity {
         double[][] overall_damage = new double[6][MAX_RANGE];
         double[] cur_weapon_damage = new double[MAX_RANGE];
 
-        ArrayList<Integer> cur_weapon_arcs = new ArrayList<>();
+        ArrayList<Integer> cur_weapon_arcs;
         int[][] overall_heat = new int[6][MAX_RANGE];
         int cur_weapon_heat, weapons_count = 0;
         int cur_weapon_arc;
@@ -383,7 +383,7 @@ public class CEntity {
                 overall_damage[Compute.ARC_FORWARD][1] = 2.0 * cur_weapon_damage[1];
 
                 // If the Mech can flip arms, don't consider arm arcs
-                if (!((Mech) entity).canFlipArms()) {
+                if (!entity.canFlipArms()) {
                     overall_damage[Compute.ARC_LEFTARM][1] = cur_weapon_damage[1];
                     overall_damage[Compute.ARC_RIGHTARM][1] = cur_weapon_damage[1];
                 }
@@ -393,7 +393,7 @@ public class CEntity {
             if (entity instanceof BattleArmor) {
 
                 overall_damage[Compute.ARC_360][0] = (hits_by_racksize[number_of_shooters]
-                        * ((BattleArmor) entity).getVibroClaws()
+                        * entity.getVibroClaws()
                         * Compute.oddsAbove(gunnery,
                                             entity.hasAbility(OptionsConstants.PILOT_APTITUDE_GUNNERY))) / 100.0;
             }
@@ -974,7 +974,7 @@ public class CEntity {
         // Battle armor has armor per trooper; treat each trooper as a
         // "location"
         if (entity instanceof BattleArmor) {
-            result = ((BattleArmor) entity).getArmor(loc, false);
+            result = entity.getArmor(loc, false);
         }
 
         if (result <= 0) {
@@ -1159,7 +1159,7 @@ public class CEntity {
         for (int i = 0; i < 6; i++) {
             for (int j = 1; j < 2; j++) {
                 MoveOption.Key key = new MoveOption.Key(dest, i, j);
-                MoveOption es = null;
+                MoveOption es;
                 if ((es = getAllMoves(client).get(key)) != null) {
                     result.add(es);
                 }
@@ -1816,11 +1816,11 @@ public class CEntity {
         InfantryWeapon secondary_weapon = attacker.getSecondaryWeapon();
 
         // Preset the modified damages
-        double raw_damage = 0.0;
+        double raw_damage;
         double[] modified_damages = new double[MAX_RANGE];
 
         // Base range for conventional infantry weapons
-        int base_range = 0;
+        int base_range;
         int total_mod;
 
         // Unarmed infantry unit doesn't do any damage

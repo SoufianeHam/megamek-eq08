@@ -46,7 +46,7 @@ public class RulerCommand extends ClientCommand {
     public String run(String[] args) {
         try {
             int elev1 = 1, elev2 = 1;
-            Coords start = null, end = null;
+            Coords start, end;
             String toHit1 = "", toHit2 = "";
             ToHitData thd;
 

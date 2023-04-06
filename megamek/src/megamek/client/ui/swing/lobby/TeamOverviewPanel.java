@@ -54,7 +54,6 @@ public class TeamOverviewPanel extends JPanel {
     private final TeamOverviewModel teamOverviewModel = new TeamOverviewModel();
     private final JTable teamOverviewTable = new JTable(teamOverviewModel);
     private final TableColumnManager teamOverviewManager = new TableColumnManager(teamOverviewTable, false);
-    private final JScrollPane scrTeams = new JScrollPane(teamOverviewTable);
     private final ClientGUI clientGui;
     private boolean isDetached;
     private int shownColumn;
@@ -76,6 +75,7 @@ public class TeamOverviewPanel extends JPanel {
         colModel.getColumn(TOMCOLS.BV.ordinal()).setCellRenderer(centerRenderer);
         colModel.getColumn(TOMCOLS.TEAM.ordinal()).setCellRenderer(centerRenderer);
         colModel.getColumn(TOMCOLS.HIDDEN.ordinal()).setCellRenderer(centerRenderer);
+        JScrollPane scrTeams = new JScrollPane(teamOverviewTable);
         scrTeams.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         add(scrTeams);
 
@@ -257,17 +257,17 @@ public class TeamOverviewPanel extends JPanel {
         }
         
         private String unitSummary(int[] counts, boolean[] criticals, boolean[] warnings) {
-            String result = ""; 
+            StringBuilder result = new StringBuilder();
             for (int i = 0; i < counts.length; i++) {
                 if (counts[i] > 0) {
-                    result += criticals[i] ? criticalSign() + " " : "";
-                    result += warnings[i] ? warningSign() + " " : "";
-                    result += Messages.getString("ChatLounge.teamOverview.unitSum" + i) + " " + counts[i];
-                    result += "<BR>";
+                    result.append(criticals[i] ? criticalSign() + " " : "");
+                    result.append(warnings[i] ? warningSign() + " " : "");
+                    result.append(Messages.getString("ChatLounge.teamOverview.unitSum" + i)).append(" ").append(counts[i]);
+                    result.append("<BR>");
                 }
                 
             }
-            return result;
+            return result.toString();
         }
         
         /** Finds and sets the required row height (max height of all cells plus margin). */
@@ -309,27 +309,27 @@ public class TeamOverviewPanel extends JPanel {
                 case TEAM:
                     boolean isEnemy = !teams.get(row).players().contains(clientGui.getClient().getLocalPlayer());
                     Color color = isEnemy ? GUIPreferences.getInstance().getEnemyUnitColor() : GUIPreferences.getInstance().getMyUnitColor();
-                    result.append(guiScaledFontHTML(color, textSizeDelta) + "&nbsp;");
-                    result.append(teamNames.get(row) + "</FONT>");
+                    result.append(guiScaledFontHTML(color, textSizeDelta)).append("&nbsp;");
+                    result.append(teamNames.get(row)).append("</FONT>");
                     break;
 
                 case TONNAGE:
-                    result.append(guiScaledFontHTML(textSizeDelta) + "<CENTER>");
+                    result.append(guiScaledFontHTML(textSizeDelta)).append("<CENTER>");
                     double ton = (double) tons.get(row) / 1000;
                     if (ton < 10) {
-                        result.append(String.format("%.2f", ton) + " Tons");
+                        result.append(String.format("%.2f", ton)).append(" Tons");
                     } else {
-                        result.append(String.format("%,d", Math.round(ton)) + " Tons");
+                        result.append(String.format("%,d", Math.round(ton))).append(" Tons");
                     }
                     result.append(relativeValue(tons, row));
                     break;
 
                 case COST:
-                    result.append(guiScaledFontHTML(textSizeDelta) + "<CENTER>");
+                    result.append(guiScaledFontHTML(textSizeDelta)).append("<CENTER>");
                     if (costs.get(row) < 10_000_000) {
-                        result.append(String.format("%,d", costs.get(row)) + " C-Bills");
+                        result.append(String.format("%,d", costs.get(row))).append(" C-Bills");
                     } else {
-                        result.append(String.format("%,d", costs.get(row) / 1_000_000) + "\u00B7M C-Bills");
+                        result.append(String.format("%,d", costs.get(row) / 1_000_000)).append("\u00B7M C-Bills");
                     }
                     result.append(relativeValue(costs, row));
                     break;
@@ -338,7 +338,7 @@ public class TeamOverviewPanel extends JPanel {
                     return teams.get(row).players();
 
                 case BV:
-                    result.append(guiScaledFontHTML(textSizeDelta) + "<CENTER>");
+                    result.append(guiScaledFontHTML(textSizeDelta)).append("<CENTER>");
                     result.append(NumberFormat.getIntegerInstance().format(bvs.get(row)));
                     result.append(relativeValue(bvs, row));
                     break;
@@ -352,7 +352,7 @@ public class TeamOverviewPanel extends JPanel {
                     break;
 
                 case HIDDEN:
-                    result.append(guiScaledFontHTML(textSizeDelta) + "<CENTER>");
+                    result.append(guiScaledFontHTML(textSizeDelta)).append("<CENTER>");
                     var percentage = hidden.get(row);
                     result.append(percentage == 0 ? "--" : NumberFormat.getPercentInstance().format(percentage));
 

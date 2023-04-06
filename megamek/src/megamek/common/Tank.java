@@ -2722,7 +2722,6 @@ public class Tank extends Entity {
                 toReturn += ", ";
             }
             toReturn += "Stabilizer hit";
-            first = false;
         }
         return toReturn;
     }

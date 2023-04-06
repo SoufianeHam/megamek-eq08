@@ -150,8 +150,8 @@ public class ArmlessMechMapSet implements DisplayMapSet {
     public void setEntity(Entity e) {
         Mech m = (Mech) e;
         boolean mtHeat = e.getGame() != null && e.getGame().getOptions().booleanOption(OptionsConstants.ADVCOMBAT_TACOPS_HEAT);
-        int a = 1;
-        int a0 = 1;
+        int a;
+        int a0;
         for (int i = 0; i < m.locations(); i++) {
             if (i == Mech.LOC_LARM || i == Mech.LOC_RARM) {
                 continue;
@@ -349,7 +349,7 @@ public class ArmlessMechMapSet implements DisplayMapSet {
     }
 
     private void drawHeatControl(int t, boolean mtHeat) {
-        int y = 0;
+        int y;
         int maxHeat, steps;
         if (mtHeat) {
             maxHeat = 50;

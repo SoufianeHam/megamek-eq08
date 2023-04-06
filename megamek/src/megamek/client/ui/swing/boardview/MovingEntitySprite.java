@@ -14,8 +14,6 @@ class MovingEntitySprite extends Sprite {
 
     private final Entity entity;
 
-    private final Rectangle modelRect;
-
     private final int elevation;
 
     public MovingEntitySprite(BoardView boardView1, final Entity entity, final Coords position,
@@ -27,7 +25,7 @@ class MovingEntitySprite extends Sprite {
 
         String shortName = entity.getShortName();
         Font font = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 10);
-        modelRect = new Rectangle(47, 55, bv.getFontMetrics(font).stringWidth(shortName) + 1,
+        Rectangle modelRect = new Rectangle(47, 55, bv.getFontMetrics(font).stringWidth(shortName) + 1,
                 bv.getFontMetrics(font).getAscent());
 
         int altAdjust = 0;

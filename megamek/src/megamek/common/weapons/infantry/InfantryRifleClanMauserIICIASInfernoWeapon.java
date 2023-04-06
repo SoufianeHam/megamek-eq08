@@ -37,8 +37,7 @@ public class InfantryRifleClanMauserIICIASInfernoWeapon extends InfantryWeapon {
 		addLookupName("InfantryClanMauserIICIASInferno");
 		addLookupName("Infantry Clan Mauser IIC Inferno");
 		ammoType = AmmoType.T_INFANTRY;
-		tonnage = 0.0012;
-		cost = 18000;
+        cost = 18000;
 		bv = 6.45;
 		tonnage = .012;
 		flags = flags.or(F_INFERNO).or(F_INF_BURST).or(F_DIRECT_FIRE).or(F_ENERGY).or(F_INF_ENCUMBER);

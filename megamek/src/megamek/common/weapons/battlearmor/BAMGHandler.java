@@ -25,7 +25,6 @@ import megamek.common.actions.WeaponAttackAction;
 import megamek.common.weapons.DamageType;
 import megamek.common.weapons.WeaponHandler;
 import megamek.server.GameManager;
-import megamek.server.Server;
 
 /**
  * @author Sebastian Brockxs

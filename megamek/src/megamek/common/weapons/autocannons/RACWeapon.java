@@ -20,7 +20,6 @@ import megamek.common.weapons.AttackHandler;
 import megamek.common.weapons.RACHandler;
 import megamek.common.weapons.UltraWeaponHandler;
 import megamek.server.GameManager;
-import megamek.server.Server;
 
 /**
  * @author Andrew Hunter

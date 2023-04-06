@@ -43,15 +43,14 @@ public class AeroSpacePathFinder extends NewtonianAerospacePathFinder {
      */
     @Override
     protected List<MovePath> generateStartingPaths(MovePath startingEdge) {
-        List<MovePath> startingPaths = new ArrayList<>();
-        
+
         // calculate max and min safe velocity
         // in space, we can go as slow or as fast as we want.
         IAero aero = (IAero) startingEdge.getEntity();
         int maxThrust = AeroPathUtil.calculateMaxSafeThrust(aero);  
         int maxVelocity = aero.getCurrentVelocity() + maxThrust;
         int minVelocity = Math.max(0, aero.getCurrentVelocity() - maxThrust);
-        startingPaths.addAll(AeroPathUtil.generateValidAccelerations(startingEdge, minVelocity, maxVelocity));
+        List<MovePath> startingPaths = new ArrayList<>(AeroPathUtil.generateValidAccelerations(startingEdge, minVelocity, maxVelocity));
         
         // all non-zero-velocity paths must move at least one hex forward
         for (MovePath path : startingPaths) {

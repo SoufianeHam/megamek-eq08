@@ -121,10 +121,10 @@ public enum KeyCommandBind {
     public final String cmd;
     
     /** Defines the keycode for the command, e.g. KeyEvent.VK_X. */
-    public int key;
+    public final int key;
     
     /** Modifiers to the key code, such as InputEvent.CTRL_DOWN_MASK. */ 
-    public int modifiers;
+    public final int modifiers;
     
     /**
      * Defines if an action is exclusive, which means that only one
@@ -132,13 +132,13 @@ public enum KeyCommandBind {
      * that is performed will be the first one encountered. Exclusive binds can't share their key
      * with other binds.
      */
-    public boolean isExclusive = false;
+    public boolean isExclusive;
 
     /**
      * For a repeatable bind, when the key is pressed the action will be added to a 
      * timer and repeated until the key is released.
      */
-    public boolean isRepeatable;
+    public final boolean isRepeatable;
     
     /** 
      * When true, this keybind is used by the CommonMenuBar. Binding it with the MegaMekController like the other

@@ -31,9 +31,6 @@ import java.util.*;
  */
 public class BasicPathRanker extends PathRanker implements IPathRanker {
 
-    // this is a value used to indicate how much we value the unit being at its destination
-    private final int ARRIVED_AT_DESTINATION_FACTOR = 250;
-    
     // this is a value used to indicate how much we dis-value the unit being destroyed as a result of
     // what it's doing
     private final int UNIT_DESTRUCTION_FACTOR = 1000;
@@ -435,13 +432,15 @@ public class BasicPathRanker extends PathRanker implements IPathRanker {
             double selfPreservation = getOwner().getBehaviorSettings()
                                                 .getSelfPreservationValue();
             
-            double selfPreservationMod = 0;
+            double selfPreservationMod;
             
             // normally, we favor being closer to the edge we're trying to get to
             if (newDistanceToHome > 0) {
                 selfPreservationMod = newDistanceToHome * selfPreservation;
             // if this path gets us to the edge, we value it considerably more than we do paths that don't get us there    
             } else {
+                // this is a value used to indicate how much we value the unit being at its destination
+                int ARRIVED_AT_DESTINATION_FACTOR = 250;
                 selfPreservationMod = -ARRIVED_AT_DESTINATION_FACTOR;
             }
             
@@ -534,7 +533,7 @@ public class BasicPathRanker extends PathRanker implements IPathRanker {
 
         // if we're not in the air, we may get hit by friendly artillery
         if (!path.getEntity().isAirborne() && !path.getEntity().isAirborneVTOLorWIGE()) {
-            double friendlyArtilleryDamage = 0;
+            double friendlyArtilleryDamage;
             Map<Coords, Double> artyDamage = getOwner().getPathRankerState().getIncomingFriendlyArtilleryDamage();
             
             if (!artyDamage.containsKey(path.getFinalCoords())) {

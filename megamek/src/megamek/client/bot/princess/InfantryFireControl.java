@@ -111,7 +111,7 @@ public class InfantryFireControl extends FireControl {
                 // field guns can't fire if the infantry unit has done anything
                 // other than turning
             } else if (targetIsActualInfantry && fieldGunsDoDamage) {
-                double damage = 0;
+                double damage;
 
                 // if we're outside, use the direct blow infantry damage
                 // calculation

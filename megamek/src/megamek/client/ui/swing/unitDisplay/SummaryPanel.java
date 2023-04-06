@@ -23,7 +23,6 @@ import megamek.client.ui.swing.GUIPreferences;
 import megamek.client.ui.swing.boardview.BoardView;
 import megamek.client.ui.swing.tooltip.PilotToolTip;
 import megamek.client.ui.swing.tooltip.UnitToolTip;
-import megamek.client.ui.swing.util.UIUtil;
 import megamek.client.ui.swing.widget.*;
 import megamek.common.*;
 import megamek.common.util.fileUtils.MegaMekFile;
@@ -140,8 +139,8 @@ public class SummaryPanel extends PicMap {
             hexTxt.append(PilotToolTip.getPilotTipDetailed(entity, true));
             hexTxt.append(UnitToolTip.getEntityTipUnitDisplay(entity, localPlayer));
 
-            String col = "";
-            String row = "";
+            String col;
+            String row;
 
             BoardView bv = unitDisplay.getClientGUI().getBoardView();
             Hex mhex = entity.getGame().getBoard().getHex(entity.getPosition());
@@ -150,14 +149,14 @@ public class SummaryPanel extends PicMap {
                 bv.appendTerrainTooltip(sb, mhex);
                 col = "<TD>" + sb + "</TD>";
                 row = "<TR>" + col + "</TR>";
-                hexTxt.append("<TABLE BORDER=0 BGCOLOR=" + TERRAIN_BGCOLOR + " width=100%>" + row + "</TABLE>");
+                hexTxt.append("<TABLE BORDER=0 BGCOLOR=" + TERRAIN_BGCOLOR + " width=100%>").append(row).append("</TABLE>");
                 bv.appendBuildingsTooltip(hexTxt, mhex);
             }
 
             String t = PilotToolTip.getCrewAdvs(entity, true).toString();
             col = "<TD>" + t + "</TD>";
             row = "<TR>" + col + "</TR>";
-            hexTxt.append("<TABLE BGCOLOR=#313131 width=100%>" + row + "</TABLE>");
+            hexTxt.append("<TABLE BGCOLOR=#313131 width=100%>").append(row).append("</TABLE>");
 
             unitInfo.setText(HTML_BEGIN + padLeft(hexTxt.toString()) + HTML_END);
         }
@@ -166,10 +165,10 @@ public class SummaryPanel extends PicMap {
 
     private String padLeft(String html) {
         int dist = (int) (GUIPreferences.getInstance().getGUIScale() * 5);
-        String col = "";
-        String row = "";
-        String tbody = "";
-        String table = "";
+        String col;
+        String row;
+        String tbody;
+        String table;
         col = "<TD>" + html + "</TD>";
         row = "<TR>" + col + "</TR>";
         tbody = "<TBODY>" + row + "</TBODY>";

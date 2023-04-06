@@ -73,7 +73,7 @@ public class ElevatorProcessor extends DynamicTerrainProcessor {
         Board b = gameManager.getGame().getBoard();
         int height = b.getHeight();
         int width = b.getWidth();
-        int exits = 0;
+        int exits;
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (b.getHex(x, y).containsTerrain(Terrains.ELEVATOR)) {

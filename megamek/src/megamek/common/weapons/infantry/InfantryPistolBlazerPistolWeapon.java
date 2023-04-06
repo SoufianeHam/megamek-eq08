@@ -50,6 +50,6 @@ public class InfantryPistolBlazerPistolWeapon extends InfantryWeapon {
         techAdvancement.setTechBase(TechAdvancement.TECH_BASE_IS);
         techAdvancement.setISAdvancement(2100, 2290, 2350);
         techAdvancement.setTechRating(RATING_D);
-        techAdvancement.setAvailability( new int[] { RATING_C, RATING_C, RATING_D, RATING_C });
+        techAdvancement.setAvailability(RATING_C, RATING_C, RATING_D, RATING_C);
     }
 }

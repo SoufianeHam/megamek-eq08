@@ -40,7 +40,7 @@ public class CrewTest {
         int piloting = 5;
 
         // Test the default case.
-        Game mockGame = null;
+        Game mockGame;
         double expected = 1.0;
         double actual = BvMultiplier.bvSkillMultiplier(gunnery, piloting);
         assertEquals(expected, actual, 0.001);

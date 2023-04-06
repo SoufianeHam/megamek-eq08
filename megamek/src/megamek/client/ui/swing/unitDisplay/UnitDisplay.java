@@ -46,8 +46,6 @@ import java.util.ArrayList;
 public class UnitDisplay extends JPanel implements IPreferenceChangeListener {
     // buttons & gizmos for top level
     private static final long serialVersionUID = -2060993542227677984L;
-    private final JButton butSwitchView;
-    private final JButton butSwitchLocation;
     private final JPanel panA1;
     private final JPanel panA2;
     private final JPanel panB1;
@@ -159,8 +157,8 @@ public class UnitDisplay extends JPanel implements IPreferenceChangeListener {
         splitA1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitB1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitC1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        butSwitchView = new JButton(Messages.getString("UnitDisplay.SwitchView"));
-        butSwitchLocation = new JButton(Messages.getString("UnitDisplay.SwitchLocation"));
+        JButton butSwitchView = new JButton(Messages.getString("UnitDisplay.SwitchView"));
+        JButton butSwitchLocation = new JButton(Messages.getString("UnitDisplay.SwitchLocation"));
 
         splitABC.setOneTouchExpandable(true);
         splitBC.setOneTouchExpandable(true);

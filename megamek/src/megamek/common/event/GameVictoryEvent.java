@@ -41,7 +41,7 @@ public class GameVictoryEvent extends GameEvent {
     /**
      * Track entities removed from the game (probably by death)
      */
-    Vector<Entity> vOutOfGame = new Vector<>();
+    Vector<Entity> vOutOfGame;
 
     /**
      * @param source event source

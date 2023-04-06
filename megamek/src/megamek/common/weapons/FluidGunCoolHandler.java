@@ -27,7 +27,6 @@ import megamek.common.ToHitData;
 import megamek.common.WeaponType;
 import megamek.common.actions.WeaponAttackAction;
 import megamek.server.GameManager;
-import megamek.server.Server;
 
 /**
  * @author Sebastian Brocks
@@ -103,7 +102,6 @@ public class FluidGunCoolHandler extends AmmoWeaponHandler {
             r.choose(false);
             vPhaseReport.add(r);
             entityTarget.coolFromExternal += nDamage;
-            hits = 0;
         }
     }
 }

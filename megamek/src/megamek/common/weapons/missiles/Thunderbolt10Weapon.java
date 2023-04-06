@@ -20,7 +20,6 @@ package megamek.common.weapons.missiles;
 
 import megamek.common.AmmoType;
 import megamek.common.Mounted;
-import megamek.common.SimpleTechLevel;
 import megamek.common.alphaStrike.AlphaStrikeElement;
 
 public abstract class Thunderbolt10Weapon extends ThunderBoltWeapon {

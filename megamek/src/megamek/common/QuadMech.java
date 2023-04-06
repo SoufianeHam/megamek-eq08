@@ -317,8 +317,8 @@ public class QuadMech extends Mech {
      */
     @Override
     public PilotingRollData addEntityBonuses(PilotingRollData roll) {
-        int[] locsToCheck = new int[4];
-        int destroyedLegs = 0;
+        int[] locsToCheck;
+        int destroyedLegs;
 
         locsToCheck = new int[4];
         locsToCheck[0] = Mech.LOC_RLEG;

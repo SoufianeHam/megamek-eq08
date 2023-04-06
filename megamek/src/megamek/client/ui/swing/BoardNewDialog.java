@@ -14,8 +14,6 @@ import java.awt.event.ActionListener;
 public class BoardNewDialog extends JDialog implements ActionListener {
     private int xvalue;
     private int yvalue;
-    private final JLabel labWidth;
-    private final JLabel labHeight;
     private final JTextField texWidth;
     private final JTextField texHeight;
     private final JButton butOkay;
@@ -25,8 +23,8 @@ public class BoardNewDialog extends JDialog implements ActionListener {
         super(frame, Messages.getString("BoardEditor.SetDimensions"), true);
         xvalue = 0;
         yvalue = 0;
-        labWidth = new JLabel(Messages.getString("BoardEditor.labWidth"), SwingConstants.RIGHT);
-        labHeight = new JLabel(Messages.getString("BoardEditor.labHeight"), SwingConstants.RIGHT);
+        JLabel labWidth = new JLabel(Messages.getString("BoardEditor.labWidth"), SwingConstants.RIGHT);
+        JLabel labHeight = new JLabel(Messages.getString("BoardEditor.labHeight"), SwingConstants.RIGHT);
         texWidth = new JTextField("16", 2);
         texHeight = new JTextField("17", 2);
         butOkay = new JButton(Messages.getString("Okay"));

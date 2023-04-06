@@ -35,8 +35,8 @@ public class ArtilleryWeaponIndirectHomingHandler extends ArtilleryWeaponIndirec
     private static final long serialVersionUID = -7243477723032010917L;
     boolean amsEngaged = false;
     boolean apdsEngaged = false;
-    boolean advancedAMS = false;
-    boolean advancedPD = false;
+    boolean advancedAMS;
+    boolean advancedPD;
 
     /**
      * @param t
@@ -271,8 +271,7 @@ public class ArtilleryWeaponIndirectHomingHandler extends ArtilleryWeaponIndirec
         // do damage to woods, 2 * normal damage (TW page 112)
         // on the other hand, if the hex *is* the target, do full damage
         int hexDamage = targetingHex ? wtype.getRackSize() : ratedDamage * 2;
-        
-        bldg = null;
+
         bldg = game.getBoard().getBuildingAt(coords);
         bldgAbsorbs = (bldg != null) ? bldg.getAbsorbtion(coords) : 0;
         bldgAbsorbs = Math.min(bldgAbsorbs, ratedDamage);

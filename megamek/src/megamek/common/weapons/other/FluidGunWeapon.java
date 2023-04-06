@@ -20,9 +20,6 @@
 package megamek.common.weapons.other;
 
 import megamek.common.*;
-import megamek.common.AmmoType;
-import megamek.common.Game;
-import megamek.common.ToHitData;
 import megamek.common.actions.WeaponAttackAction;
 import megamek.common.alphaStrike.AlphaStrikeElement;
 import megamek.common.weapons.AmmoWeapon;

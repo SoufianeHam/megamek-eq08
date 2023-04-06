@@ -108,8 +108,8 @@ public class HmpFile implements IMechLoader {
     private final Hashtable<EquipmentType, Mounted> spreadEquipment = new Hashtable<>();
     private final Vector<Mounted> vSplitWeapons = new Vector<>();
 
-    private int gyroType = Mech.GYRO_STANDARD;
-    private int cockpitType = Mech.COCKPIT_STANDARD;
+    private int gyroType;
+    private int cockpitType;
     private final int jjType;
 
     private int atmCounter = 0;
@@ -404,7 +404,7 @@ public class HmpFile implements IMechLoader {
     @Override
     public Entity getEntity() throws EntityLoadingException {
         try {
-            Mech mech = null;
+            Mech mech;
             if ((chassisType == ChassisType.QUADRAPED_OMNI) || (chassisType == ChassisType.QUADRAPED)) {
                 mech = new QuadMech(gyroType, cockpitType);
             } else if (chassisType == ChassisType.ARMLESS) {

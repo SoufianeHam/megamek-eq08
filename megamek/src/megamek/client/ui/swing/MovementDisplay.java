@@ -1403,7 +1403,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
             if (!clientgui.getClient().getGame().useVectorMove()) {
                 if (Objects.requireNonNull(ce()).isAero() && !((IAero) Objects.requireNonNull(ce())).isOutControlTotal()) {
                     // check for underuse of velocity
-                    boolean unusedVelocity = false;
+                    boolean unusedVelocity;
                     if (null != cmd.getLastStep()) {
                         unusedVelocity = cmd.getLastStep().getVelocityLeft() > 0;
                     } else {
@@ -1796,7 +1796,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
                 }
 
                 // check if it's a valid charge
-                ToHitData toHit = null;
+                ToHitData toHit;
                 assert ce != null;
                 if (ce.isAirborneVTOLorWIGE()) {
                     toHit = new AirmechRamAttackAction(cen,
@@ -1810,7 +1810,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
 
                 if (toHit.getValue() != TargetRoll.IMPOSSIBLE) {
                     // Determine how much damage the charger will take.
-                    int toDefender = 0;
+                    int toDefender;
                     int toAttacker = 0;
                     if (ce.isAirborneVTOLorWIGE()) {
                         toAttacker = AirmechRamAttackAction.getDamageTakenBy(ce, target, cmd.getHexesMoved());
@@ -2778,7 +2778,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
                                 clientgui,
                                 Messages.getString(
                                         "MovementDisplay.MountUnitBayNumberDialog.message",
-                                        new Object[]{choice.getShortName()}),
+                                        choice.getShortName()),
                                 Messages.getString("MovementDisplay.MountUnitBayNumberDialog.title"),
                                 JOptionPane.QUESTION_MESSAGE, null, retVal,
                                 null);
@@ -2800,7 +2800,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
 
     private @Nullable Entity getLoadedUnit() {
         final Game game = clientgui.getClient().getGame();
-        Entity choice = null;
+        Entity choice;
 
         Vector<Entity> choices = new Vector<>();
         for (Entity other : game.getEntitiesVector(cmd.getFinalCoords())) {
@@ -2822,8 +2822,8 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
                     .showInputDialog(clientgui,
                                      Messages.getString(
                                              "DeploymentDisplay.loadUnitDialog.message",
-                                             new Object[]{Objects.requireNonNull(ce()).getShortName(),
-                                                          Objects.requireNonNull(ce()).getUnusedString()}),
+                                             Objects.requireNonNull(ce()).getShortName(),
+                                             Objects.requireNonNull(ce()).getUnusedString()),
                                      Messages.getString("DeploymentDisplay.loadUnitDialog.title"),
                                      JOptionPane.QUESTION_MESSAGE, null, SharedUtility
                                     .getDisplayArray(choices), null);
@@ -2852,7 +2852,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
                                 clientgui,
                                 Messages.getString(
                                         "MovementDisplay.loadUnitBayNumberDialog.message",
-                                        new Object[]{Objects.requireNonNull(ce()).getShortName()}),
+                                        Objects.requireNonNull(ce()).getShortName()),
                                 Messages.getString("MovementDisplay.loadUnitBayNumberDialog.title"),
                                 JOptionPane.QUESTION_MESSAGE, null, retVal,
                                 null);
@@ -2882,7 +2882,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
                                     clientgui,
                                     Messages.getString(
                                             "MovementDisplay.loadProtoClampMountDialog.message",
-                                            new Object[]{Objects.requireNonNull(ce()).getShortName()}),
+                                            Objects.requireNonNull(ce()).getShortName()),
                                     Messages.getString("MovementDisplay.loadProtoClampMountDialog.title"),
                                     JOptionPane.QUESTION_MESSAGE, null, retVal,
                                     null);
@@ -2912,7 +2912,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
      */
     private Entity getTowedUnit() {
         final Game game = clientgui.getClient().getGame();
-        Entity choice = null;
+        Entity choice;
 
         List<Entity> choices = new ArrayList<>();
 
@@ -2937,7 +2937,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
                     .showInputDialog(clientgui,
                                      Messages.getString(
                                              "DeploymentDisplay.towUnitDialog.message",
-                                             new Object[]{Objects.requireNonNull(ce()).getShortName()}),
+                                             Objects.requireNonNull(ce()).getShortName()),
                                      Messages.getString("DeploymentDisplay.towUnitDialog.title"),
                                      JOptionPane.QUESTION_MESSAGE, null, SharedUtility
                                     .getDisplayArray(choices), null);
@@ -3015,7 +3015,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
             }
             String selection = (String) JOptionPane.showInputDialog(clientgui,
                     Messages.getString("MovementDisplay.loadUnitHitchDialog.message",
-                                    new Object[]{Objects.requireNonNull(ce()).getShortName()}),
+                            Objects.requireNonNull(ce()).getShortName()),
                     Messages.getString("MovementDisplay.loadUnitHitchDialog.title"),
                     JOptionPane.QUESTION_MESSAGE, null, retVal, null);
             HitchChoice hc = null;
@@ -3057,7 +3057,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
      */
     private Entity getDisconnectedUnit() {
         Entity ce = ce();
-        Entity choice = null;
+        Entity choice;
 
         // Handle error condition.
         assert ce != null;
@@ -3070,8 +3070,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
                     .showInputDialog(
                             clientgui,
                             Messages.getString(
-                                    "MovementDisplay.DisconnectUnitDialog.message", new Object[]{
-                                                                                             ce.getShortName(), ce.getUnusedString()}),
+                                    "MovementDisplay.DisconnectUnitDialog.message", ce.getShortName(), ce.getUnusedString()),
                             Messages.getString("MovementDisplay.DisconnectUnitDialog.title"),
                             JOptionPane.QUESTION_MESSAGE, null, SharedUtility
                                     .getDisplayArray(towedUnits), null);
@@ -3172,8 +3171,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
         }
         String selected = (String) JOptionPane.showInputDialog(clientgui,
                                                                Messages.getString(
-                                                                       "MovementDisplay.ChooseHex" + ".message", new Object[]{
-                                                                                                                              ce.getShortName(), ce.getUnusedString()}), Messages
+                                                                       "MovementDisplay.ChooseHex" + ".message", ce.getShortName(), ce.getUnusedString()), Messages
                                                                        .getString("MovementDisplay.ChooseHex.title"),
 
                                                                JOptionPane.QUESTION_MESSAGE, null, choices, null);
@@ -3223,8 +3221,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
         }
         String selected = (String) JOptionPane.showInputDialog(clientgui,
                                                                Messages.getString(
-                                                                       "MovementDisplay.ChooseEjectHex.message", new Object[]{
-                                                                               abandoned.getShortName(), abandoned.getUnusedString()}), Messages
+                                                                       "MovementDisplay.ChooseEjectHex.message", abandoned.getShortName(), abandoned.getUnusedString()), Messages
                                                                        .getString("MovementDisplay.ChooseHex.title"),
 
                                                                JOptionPane.QUESTION_MESSAGE, null, choices, null);
@@ -3302,7 +3299,6 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
                     }
                 }
                 // Nope. Discard it.
-                other = null;
             } // Check the next entity in this position.
             if (!isGood) {
                 setRecoverEnabled(false);
@@ -3367,7 +3363,6 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
                 }
             }
             // Nope. Discard it.
-            other = null;
         } // Check the next entity in this position.
         if (!isGood) {
             setJoinEnabled(false);
@@ -3400,9 +3395,9 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
 
         // cycle through the fighter bays and then the small craft bays
         int bayNum = 1;
-        int i = 0;
+        int i;
         Bay currentBay;
-        int doors = 0;
+        int doors;
         Vector<Bay> FighterBays = ce.getFighterBays();
         for (i = 0; i < FighterBays.size(); i++) {
             currentBay = FighterBays.elementAt(i);
@@ -3421,8 +3416,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
             String[] names = new String[currentFighters.size()];
             String question = Messages
                     .getString(
-                            "MovementDisplay.LaunchFighterDialog.message", new Object[]{
-                                                                                         ce.getShortName(), doors * 2, bayNum});
+                            "MovementDisplay.LaunchFighterDialog.message", ce.getShortName(), doors * 2, bayNum);
             for (int loop = 0; loop < names.length; loop++) {
                 names[loop] = currentFighters.get(loop).getShortName();
             }
@@ -3433,8 +3427,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
                 choiceDialog = new ChoiceDialog(
                         clientgui.frame,
                         Messages.getString(
-                                "MovementDisplay.LaunchFighterDialog.title", new Object[]{
-                                                                                           currentBay.getType(), bayNum}), question,
+                                "MovementDisplay.LaunchFighterDialog.title", currentBay.getType(), bayNum), question,
                         names);
                 choiceDialog.setVisible(true);
                 if (choiceDialog.getChoices() == null) {
@@ -3455,7 +3448,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
                         modifier += currentFighters.get(choice).getCrew().getPiloting();
                         String damageMsg = Messages.getString(
                                 "MovementDisplay.LaunchFighterDialog.controlroll", names[choice], modifier);
-                        psrs.append("\t" + damageMsg + "\n");
+                        psrs.append("\t").append(damageMsg).append("\n");
                     }
                     ConfirmDialog nag = new ConfirmDialog(clientgui.frame,
                             Messages.getString("MovementDisplay.areYouSure"),
@@ -3721,7 +3714,6 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
                 }
             }
             // Nope. Discard it.
-            other = null;
         }
 
         if (choices.size() < 1) {
@@ -3800,7 +3792,6 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
                 }
             }
             // Nope. Discard it.
-            other = null;
         }
 
         if (choices.size() < 1) {
@@ -4194,7 +4185,7 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
             return;
         }
 
-        Map<Coords, MovePath> mvEnvData = new HashMap<>();
+        Map<Coords, MovePath> mvEnvData;
         MovePath mp = new MovePath(clientgui.getClient().getGame(), en);
 
         int maxMP;
@@ -4909,8 +4900,8 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
                 String title = Messages.getString("MovementDisplay.NoTakeOffDialog.title");
                 String body = Messages.getString(
                         "MovementDisplay.NoTakeOffDialog.message",
-                        new Object[] { ((IAero) Objects.requireNonNull(ce()))
-                                .hasRoomForHorizontalTakeOff() });
+                        ((IAero) Objects.requireNonNull(ce()))
+                                .hasRoomForHorizontalTakeOff());
                 clientgui.doAlertDialog(title, body);
             } else {
                 if (clientgui.doYesNoDialog(
@@ -5093,9 +5084,9 @@ public class MovementDisplay extends StatusBarPhaseDisplay {
      */
     private void unloadStranded() {
         Vector<Entity> stranded = new Vector<>();
-        String[] names = null;
-        Entity entity = null;
-        Entity transport = null;
+        String[] names;
+        Entity entity;
+        Entity transport;
 
         // Let the player know what's going on.
         setStatusBarText(Messages.getString("MovementDisplay.AllPlayersUnload"));

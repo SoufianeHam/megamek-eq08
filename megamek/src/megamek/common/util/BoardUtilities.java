@@ -1460,9 +1460,7 @@ public class BoardUtilities {
             midPointStep((double) hilliness / 100, size, 100, tmpElevation, i, true);
         }
         for (int w = 0; w < width; w++) {
-            for (int h = 0; h < height; h++) {
-                elevationMap[w][h] = tmpElevation[w][h];
-            }
+            if (height >= 0) System.arraycopy(tmpElevation[w], 0, elevationMap[w], 0, height);
         }
     }
 
@@ -1497,13 +1495,11 @@ public class BoardUtilities {
         if (newBorder) {
             x = d2;
             do {
-                y = x;
                 elevationMap[0][x] = middleValue(elevationMap[0][x + d2],
                         elevationMap[0][x - d2], elevationMap[d2][x], delta5);
                 elevationMap[size][x] = middleValue(elevationMap[size - 1][x
                         + d2], elevationMap[size - 1][x - d2],
                         elevationMap[size - d2 - 1][x], delta5);
-                y = 0;
                 elevationMap[x][0] = middleValue(elevationMap[x + d2][0],
                         elevationMap[x - d2][0], elevationMap[x][d2], delta5);
                 elevationMap[x][size] = middleValue(

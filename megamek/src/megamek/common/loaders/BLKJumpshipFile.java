@@ -256,12 +256,12 @@ public class BLKJumpshipFile extends BLKFile implements IMechLoader {
             prefix = "IS ";
         }
 
-        boolean rearMount = false;
-        int nAmmo = 1;
+        boolean rearMount;
+        int nAmmo;
         // set up a new weapons bay mount
         Mounted bayMount = null;
         // set up a new bay type
-        boolean newBay = false;
+        boolean newBay;
         double bayDamage = 0;
         if (saEquip[0] != null) {
             for (String element : saEquip) {

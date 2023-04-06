@@ -1,7 +1,8 @@
 <!-- BEGIN TRO 3063 Quirks. -->
 
 <!-- BEGIN 3063 DCMS Quirks. -->
-	<unit>
+	<!--suppress ALL -->
+<unit>
 		<chassis>Ammo Carrier</chassis>
         <model>BU-20a-FC</model>
 		<unitType>Tank</unitType>

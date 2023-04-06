@@ -369,7 +369,6 @@ public class DropShipBVCalculator {
                 if ((heatUsed + adjArcCCWHeat) > aeroHeatEfficiency) {
                     adjArcLMult = 0.25;
                 }
-                heatUsed += adjArcCCWHeat;
             } else {
                 adjArcH = adjArcCCW;
                 if ((heatUsed + adjArcCCWHeat) > aeroHeatEfficiency) {
@@ -380,7 +379,6 @@ public class DropShipBVCalculator {
                 if ((heatUsed + adjArcCWHeat) > aeroHeatEfficiency) {
                     adjArcLMult = 0.25;
                 }
-                heatUsed += adjArcCWHeat;
             }
         }
 

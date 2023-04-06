@@ -32,8 +32,6 @@ import java.util.Vector;
  */
 public class InfantryMapSet implements DisplayMapSet {
 
-    // Picture to represent single trooper
-    private Image infImage;
     // Reference to Component class required to handle images and fonts
     private final JComponent comp;
     // Assuming that it will be no more than 50 men in
@@ -96,7 +94,8 @@ public class InfantryMapSet implements DisplayMapSet {
     private void setAreas() {
         int stepX = 30;
         int stepY = 42;
-        infImage = comp.getToolkit().getImage(new MegaMekFile(Configuration.widgetsDir(), "inf.gif").toString());
+        // Picture to represent single trooper
+        Image infImage = comp.getToolkit().getImage(new MegaMekFile(Configuration.widgetsDir(), "inf.gif").toString());
         PMUtil.setImage(infImage, comp);
         for (int i = 0; i < EjectedCrew.EJ_CREW_MAX_MEN; i++) {
             int shiftX = (i % 5) * stepX;

@@ -30,46 +30,10 @@ public class TestXMLOption implements TestEntityOption {
 
     @XmlElement(name = "ceilWeight")
     private final WeightCeiling weightCeiling = new WeightCeiling();
-    
-    @XmlElement
-    private final double maxOverweight = 0.25;
-
-    @XmlElement
-    private final boolean showOverweighted = true;
-
-    @XmlElement
-    private final double minUnderweight = 1.0;
-
-    @XmlElement
-    private final boolean showUnderweighted = false;
 
     @XmlElement(name = "ignoreFailedEquipment")
     @XmlJavaTypeAdapter(CSVAdapter.class)
     private final List<String> ignoreFailedEquip = new ArrayList<>();
-
-    @XmlElement
-    private final boolean skip = false;
-
-    @XmlElement(name = "showCorrectArmorPlacement")
-    private final boolean showCorrectArmor = true;
-
-    @XmlElement(name = "showCorrectCriticalAllocation")
-    private final boolean showCorrectCritical = true;
-
-    @XmlElement
-    private final boolean showFailedEquip = true;
-    
-    @XmlElement(name = "showIncorrectIntroYear")
-    private final boolean showIncorrectIntroYear = true;
-    
-    @XmlElement(name = "introYearMargin")
-    private final int introYearMargin = 5;
-
-    @XmlElement
-    private final int targCompCrits = 0;
-
-    @XmlElement
-    private final int printSize = 70;
 
     public TestXMLOption() {
     }
@@ -126,21 +90,25 @@ public class TestXMLOption implements TestEntityOption {
 
     @Override
     public double getMaxOverweight() {
+        double maxOverweight = 0.25;
         return maxOverweight;
     }
 
     @Override
     public boolean showOverweightedEntity() {
+        boolean showOverweighted = true;
         return showOverweighted;
     }
 
     @Override
     public boolean showUnderweightedEntity() {
+        boolean showUnderweighted = false;
         return showUnderweighted;
     }
 
     @Override
     public double getMinUnderweight() {
+        double minUnderweight = 1.0;
         return minUnderweight;
     }
 
@@ -156,41 +124,49 @@ public class TestXMLOption implements TestEntityOption {
 
     @Override
     public boolean skip() {
+        boolean skip = false;
         return skip;
     }
 
     @Override
     public boolean showCorrectArmor() {
+        boolean showCorrectArmor = true;
         return showCorrectArmor;
     }
 
     @Override
     public boolean showCorrectCritical() {
+        boolean showCorrectCritical = true;
         return showCorrectCritical;
     }
 
     @Override
     public boolean showFailedEquip() {
+        boolean showFailedEquip = true;
         return showFailedEquip;
     }
     
     @Override
     public boolean showIncorrectIntroYear() {
+        boolean showIncorrectIntroYear = true;
         return showIncorrectIntroYear;
     }
     
     @Override
     public int getIntroYearMargin() {
+        int introYearMargin = 5;
         return introYearMargin;
     }
 
     @Override
     public int getTargCompCrits() {
+        int targCompCrits = 0;
         return targCompCrits;
     }
 
     @Override
     public int getPrintSize() {
+        int printSize = 70;
         return printSize;
     }
 

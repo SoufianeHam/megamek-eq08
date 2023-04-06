@@ -14,7 +14,6 @@
  */
 package megamek.common;
 
-import megamek.common.alphaStrike.ASRange;
 import megamek.common.alphaStrike.AlphaStrikeElement;
 import megamek.common.weapons.*;
 import megamek.common.weapons.artillery.*;
@@ -46,7 +45,6 @@ import megamek.common.weapons.tag.CLTAG;
 import megamek.common.weapons.tag.ISTAG;
 import megamek.common.weapons.unofficial.*;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 // TODO add XML support back in.

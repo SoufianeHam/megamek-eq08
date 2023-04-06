@@ -24,7 +24,6 @@ import megamek.common.*;
 import megamek.common.alphaStrike.AlphaStrikeElement;
 
 import static megamek.common.alphaStrike.BattleForceSUA.*;
-import static megamek.common.alphaStrike.BattleForceSUA.GLD;
 
 public class ASProtoMekSpecialAbilityConverter extends ASSpecialAbilityConverter {
 

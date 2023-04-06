@@ -84,40 +84,22 @@ public class EquipChoicePanel extends JPanel {
     private BombChoicePanel m_bombs;
     private final JPanel panBombs = new JPanel();
 
-    private final JLabel labAutoEject = new JLabel(
-            Messages.getString("CustomMechDialog.labAutoEject"), SwingConstants.RIGHT);
     private final JCheckBox chAutoEject = new JCheckBox();
 
-    private final JLabel labCondEjectAmmo = new JLabel(
-            Messages.getString("CustomMechDialog.labConditional_Ejection_Ammo"), SwingConstants.RIGHT);
     private final JCheckBox chCondEjectAmmo = new JCheckBox();
 
-    private final JLabel labCondEjectEngine = new JLabel(
-            Messages.getString("CustomMechDialog.labConditional_Ejection_Engine"), SwingConstants.RIGHT);
     private final JCheckBox chCondEjectEngine = new JCheckBox();
 
-    private final JLabel labCondEjectCTDest = new JLabel(
-            Messages.getString("CustomMechDialog.labConditional_Ejection_CT_Destroyed"), SwingConstants.RIGHT);
     private final JCheckBox chCondEjectCTDest = new JCheckBox();
 
-    private final JLabel labCondEjectHeadshot = new JLabel(
-            Messages.getString("CustomMechDialog.labConditional_Ejection_Headshot"), SwingConstants.RIGHT);
     private final JCheckBox chCondEjectHeadshot = new JCheckBox();
-    
-    private final JLabel labCondEjectFuel = new JLabel(
-            Messages.getString("CustomMechDialog.labConditional_Ejection_Fuel"), SwingConstants.RIGHT);
+
     private final JCheckBox chCondEjectFuel = new JCheckBox();
 
-    private final JLabel labCondEjectSIDest = new JLabel(
-            Messages.getString("CustomMechDialog.labConditional_Ejection_SI_Destroyed"), SwingConstants.RIGHT);
     private final JCheckBox chCondEjectSIDest = new JCheckBox();
 
-    private final JLabel labSearchlight = new JLabel(
-            Messages.getString("CustomMechDialog.labSearchlight"), SwingConstants.RIGHT);
     private final JCheckBox chSearchlight = new JCheckBox();
 
-    private final JLabel labC3 = new JLabel(
-            Messages.getString("CustomMechDialog.labC3"), SwingConstants.RIGHT);
     private final JComboBox<String> choC3 = new JComboBox<>();
 
     final ClientGUI clientgui;
@@ -133,6 +115,10 @@ public class EquipChoicePanel extends JPanel {
 
         // **EQUIPMENT TAB**//
         // Auto-eject checkbox and conditional ejections.
+        JLabel labCondEjectAmmo = new JLabel(
+                Messages.getString("CustomMechDialog.labConditional_Ejection_Ammo"), SwingConstants.RIGHT);
+        JLabel labAutoEject = new JLabel(
+                Messages.getString("CustomMechDialog.labAutoEject"), SwingConstants.RIGHT);
         if (entity instanceof Mech) {
             Mech mech = (Mech) entity;
 
@@ -148,12 +134,18 @@ public class EquipChoicePanel extends JPanel {
                 add(labCondEjectAmmo, GBC.std());
                 add(chCondEjectAmmo, GBC.eol());
                 chCondEjectAmmo.setSelected(mech.isCondEjectAmmo());
+                JLabel labCondEjectEngine = new JLabel(
+                        Messages.getString("CustomMechDialog.labConditional_Ejection_Engine"), SwingConstants.RIGHT);
                 add(labCondEjectEngine, GBC.std());
                 add(chCondEjectEngine, GBC.eol());
                 chCondEjectEngine.setSelected(mech.isCondEjectEngine());
+                JLabel labCondEjectCTDest = new JLabel(
+                        Messages.getString("CustomMechDialog.labConditional_Ejection_CT_Destroyed"), SwingConstants.RIGHT);
                 add(labCondEjectCTDest, GBC.std());
                 add(chCondEjectCTDest, GBC.eol());
                 chCondEjectCTDest.setSelected(mech.isCondEjectCTDest());
+                JLabel labCondEjectHeadshot = new JLabel(
+                        Messages.getString("CustomMechDialog.labConditional_Ejection_Headshot"), SwingConstants.RIGHT);
                 add(labCondEjectHeadshot, GBC.std());
                 add(chCondEjectHeadshot, GBC.eol());
                 chCondEjectHeadshot.setSelected(mech.isCondEjectHeadshot());
@@ -174,9 +166,13 @@ public class EquipChoicePanel extends JPanel {
                 add(labCondEjectAmmo, GBC.std());
                 add(chCondEjectAmmo, GBC.eol());
                 chCondEjectAmmo.setSelected(aero.isCondEjectAmmo());
+                JLabel labCondEjectFuel = new JLabel(
+                        Messages.getString("CustomMechDialog.labConditional_Ejection_Fuel"), SwingConstants.RIGHT);
                 add(labCondEjectFuel, GBC.std());
                 add(chCondEjectFuel, GBC.eol());
                 chCondEjectFuel.setSelected(aero.isCondEjectFuel());
+                JLabel labCondEjectSIDest = new JLabel(
+                        Messages.getString("CustomMechDialog.labConditional_Ejection_SI_Destroyed"), SwingConstants.RIGHT);
                 add(labCondEjectSIDest, GBC.std());
                 add(chCondEjectSIDest, GBC.eol());
                 chCondEjectSIDest.setSelected(aero.isCondEjectSIDest());
@@ -184,6 +180,8 @@ public class EquipChoicePanel extends JPanel {
         }
 
         if (entity.hasC3() || entity.hasC3i() || entity.hasNavalC3()) {
+            JLabel labC3 = new JLabel(
+                    Messages.getString("CustomMechDialog.labC3"), SwingConstants.RIGHT);
             add(labC3, GBC.std());
             add(choC3, GBC.eol());
             refreshC3();
@@ -263,6 +261,8 @@ public class EquipChoicePanel extends JPanel {
         // Set up searchlight
         if (!entity.getsAutoExternalSearchlight()
                 && (client.getGame().getPlanetaryConditions().getLight() > PlanetaryConditions.L_DUSK)) {
+            JLabel labSearchlight = new JLabel(
+                    Messages.getString("CustomMechDialog.labSearchlight"), SwingConstants.RIGHT);
             add(labSearchlight, GBC.std());
             add(chSearchlight, GBC.eol());
             chSearchlight.setSelected(entity.hasSearchlight()
@@ -461,7 +461,7 @@ public class EquipChoicePanel extends JPanel {
             if (!m.getType().hasFlag(MiscType.F_BA_MEA)) {
                 continue;
             }
-            Mounted currentManip = null;
+            Mounted currentManip;
             if (m.getBaMountLoc() == BattleArmor.MOUNT_LOC_LARM) {
                 currentManip = ((BattleArmor) entity).getLeftManipulator();
             } else if (m.getBaMountLoc() == BattleArmor.MOUNT_LOC_RARM) {
@@ -608,7 +608,7 @@ public class EquipChoicePanel extends JPanel {
                     continue;
                 }
                 SimpleTechLevel legalLevel = SimpleTechLevel.getGameTechLevel(game);
-                boolean bTechMatch = false;
+                boolean bTechMatch;
                 if (game.getOptions().booleanOption(OptionsConstants.ALLOWED_ERA_BASED)) {
                     bTechMatch = atCheck.isLegal(gameYear, legalLevel, entity.isClan(),
                             entity.isMixedTech());
@@ -902,9 +902,8 @@ public class EquipChoicePanel extends JPanel {
                     String manipName = manip.getName() + " ("
                             + manip.getTonnage(entity) + "kg)";
                     m_choice.addItem(manipName);
-                    if (curType != null && 
-                            manip.getInternalName() == 
-                                curType.getInternalName()) {
+                    if (curType != null &&
+                            manip.getInternalName().equals(curType.getInternalName())) {
                         m_choice.setSelectedIndex(x);
                     }
                 }
@@ -1243,7 +1242,7 @@ public class EquipChoicePanel extends JPanel {
              * @param selectedAmmoType The new ammo type.
              */
             public void refreshAmmoBinName(Mounted ammoBin, AmmoType selectedAmmoType) {
-                int index = 0;
+                int index;
                 boolean matchFound = false;
                 
                 for (index = 0; index < matchingAmmoBins.size(); index++) {

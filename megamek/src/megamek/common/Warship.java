@@ -108,7 +108,7 @@ public class Warship extends Jumpship {
     public int getWeaponArc(int wn) {
         final Mounted mounted = getEquipment(wn);
         
-        int arc = Compute.ARC_NOSE;
+        int arc;
         switch (mounted.getLocation()) {
             case LOC_NOSE:
                 if (mounted.isInWaypointLaunchMode()) {

@@ -448,7 +448,7 @@ public class ServerHelper {
         }
         
         Hex fallHex = entity.getGame().getBoard().getHex(entity.getPosition());
-        int waterDepth = 0;
+        int waterDepth;
         
         // we're going hull down, we still sink to the bottom if appropriate
         if (fallHex.containsTerrain(Terrains.WATER)) {

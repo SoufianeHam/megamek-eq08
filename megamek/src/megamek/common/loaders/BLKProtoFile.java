@@ -97,7 +97,7 @@ public class BLKProtoFile extends BLKFile implements IMechLoader {
 
         int[] armor = dataFile.getDataAsInt("armor");
 
-        boolean hasMainGun = false;
+        boolean hasMainGun;
         int armorLocs = armor.length + t.firstArmorIndex();
         if (Protomech.NUM_PMECH_LOCATIONS == armorLocs) {
             hasMainGun = true;

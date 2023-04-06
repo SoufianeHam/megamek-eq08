@@ -19,7 +19,6 @@ import megamek.common.Mounted;
 import megamek.common.ToHitData;
 import megamek.common.actions.WeaponAttackAction;
 import megamek.server.GameManager;
-import megamek.server.Server;
 
 /**
  * @author Andrew Hunter
@@ -54,7 +53,6 @@ public abstract class AmmoWeapon extends Weapon {
         Mounted ammo = weapon.getLinked();
         if (ammo == null || ammo.getUsableShotsLeft() < 1) {
             ae.loadWeaponWithSameAmmo(weapon);
-            ammo = weapon.getLinked();
         }
     }
 

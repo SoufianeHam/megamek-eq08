@@ -81,7 +81,7 @@ public class FireCommand extends ClientCommand {
                     return "Attacks send to the server";
                 } else if (args.length > 2) {
                     if (args[1].equalsIgnoreCase("TARGET")) {
-                        String str = "";
+                        StringBuilder str = new StringBuilder();
                         try {
                             Targetable target = getClient().getEntity(Integer.parseInt(args[2]));
                             if ((args.length == 4) && args[3].equalsIgnoreCase("ALL")) {
@@ -94,8 +94,7 @@ public class FireCommand extends ClientCommand {
                             } else {
                                 for (int i = 3; i < args.length; i++) {
                                     fire(Integer.parseInt(args[i]), target);
-                                    str += "Firing weapon " + args[i] + " at "
-                                           + target.toString() + "\n";
+                                    str.append("Firing weapon ").append(args[i]).append(" at ").append(target.toString()).append("\n");
                                 }
                             }
                         } catch (Exception ignored) {
@@ -107,18 +106,13 @@ public class FireCommand extends ClientCommand {
                         try {
                             Targetable target = getClient().getEntity(Integer.parseInt(args[2]));
                             if (target != null) {
-                                String str = " Weapons for " + ce() + " at " + target + ":\n";
+                                StringBuilder str = new StringBuilder(" Weapons for " + ce() + " at " + target + ":\n");
 
                                 for (Mounted weapon : ce().getWeaponList()) {
-                                    str += "("
-                                           + ce().getEquipmentNum(weapon)
-                                           + ") "
-                                           + weapon.getName()
-                                           + " = "
-                                           + calculateToHit(ce().getEquipmentNum(weapon), target) + "\n";
+                                    str.append("(").append(ce().getEquipmentNum(weapon)).append(") ").append(weapon.getName()).append(" = ").append(calculateToHit(ce().getEquipmentNum(weapon), target)).append("\n");
                                 }
 
-                                return str;
+                                return str.toString();
                             }
                         } catch (Exception ignored) {
 

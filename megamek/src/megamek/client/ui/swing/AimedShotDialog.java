@@ -33,8 +33,6 @@ import megamek.client.ui.swing.widget.IndexedRadioButton;
 public class AimedShotDialog extends JDialog {
     private static final long serialVersionUID = 6527374019085650613L;
 
-    private final JButton butNoAim = new JButton(Messages.getString("AimedShotDialog.dontAim"));
-
     /**
      * The checkboxes for available choices.
      */
@@ -77,6 +75,7 @@ public class AimedShotDialog extends JDialog {
             add(checkboxes[i]);
         }
 
+        JButton butNoAim = new JButton(Messages.getString("AimedShotDialog.dontAim"));
         butNoAim.addActionListener(al);
         c.gridwidth = GridBagConstraints.REMAINDER;
         c.insets = new Insets(5, 0, 5, 0);

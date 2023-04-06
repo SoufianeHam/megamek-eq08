@@ -118,7 +118,7 @@ public final class TipUtil {
             IOptionGroup advGroup = advGroups.nextElement();
             if (counter.apply(advGroup.getKey()) > 0) {
                 // Group title
-                result.append("<I>" + namer.apply(advGroup) + ":</I><BR>");
+                result.append("<I>").append(namer.apply(advGroup)).append(":</I><BR>");
                 
                 // Gather the group options
                 List<String> origList = new ArrayList<>();
@@ -132,7 +132,7 @@ public final class TipUtil {
                 // Arrange the options in lines according to length
                 List<String> advLines = UIUtil.arrangeInLines(origList, 40, " \u2B1D ", false);
                 for (String line: advLines) {
-                    result.append("&nbsp;&nbsp;" + line + "<BR>");
+                    result.append("&nbsp;&nbsp;").append(line).append("<BR>");
                 }
             }
         }
@@ -155,7 +155,7 @@ public final class TipUtil {
         
         // Arrange the option groups in lines according to length
         for (String line: UIUtil.arrangeInLines(origList, 40, "; ", true)) {
-            result.append(line + "<BR>");
+            result.append(line).append("<BR>");
         }
         return result.toString();
     }

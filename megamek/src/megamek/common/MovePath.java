@@ -141,8 +141,8 @@ public class MovePath implements Cloneable, Serializable {
         sb.append("MOVE PATH:");
         sb.append(this.getKey().hashCode());
         sb.append(' '); // it's useful to know for debugging purposes which path you're looking at.
-        sb.append("Length: " + this.length());
-        sb.append("Final Coords: " + this.getFinalCoords());
+        sb.append("Length: ").append(this.length());
+        sb.append("Final Coords: ").append(this.getFinalCoords());
         sb.append(System.lineSeparator());
 
         for (final Enumeration<MoveStep> i = steps.elements(); i.hasMoreElements(); ) {
@@ -1345,7 +1345,6 @@ public class MovePath implements Cloneable, Serializable {
             // Check to see if we have found the destination
             if (candidatePath.getFinalCoords().distance(dest) == 0) {
                 bestPath = candidatePath;
-                keepLooping = false;
                 break;
             }
 

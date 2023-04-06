@@ -182,8 +182,8 @@ public class TripodMechMapSet implements DisplayMapSet {
         Mech m = (Mech) e;
         boolean mtHeat = (e.getGame() != null)
                 && e.getGame().getOptions().booleanOption(OptionsConstants.ADVCOMBAT_TACOPS_HEAT);
-        int a = 1;
-        int a0 = 1;
+        int a;
+        int a0;
         for (int i = 0; i < m.locations(); i++) {
             a = m.getArmor(i);
             a0 = m.getOArmor(i);
@@ -414,7 +414,7 @@ public class TripodMechMapSet implements DisplayMapSet {
     }
 
     private void drawHeatControl(int t, boolean mtHeat) {
-        int y = 0;
+        int y;
         int maxHeat, steps;
         if (mtHeat) {
             maxHeat = 50;

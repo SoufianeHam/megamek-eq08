@@ -506,7 +506,7 @@ public class Client implements IClientCommandHandler {
      * Send command to unload stranded entities to the server
      */
     public void sendUnloadStranded(int... entityIds) {
-        send(new Packet(PacketCommand.UNLOAD_STRANDED, entityIds));
+        send(new Packet(PacketCommand.UNLOAD_STRANDED, (Object) entityIds));
     }
 
     /**

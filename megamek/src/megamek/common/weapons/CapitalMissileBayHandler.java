@@ -27,7 +27,7 @@ import java.util.Vector;
  */
 public class CapitalMissileBayHandler extends AmmoBayWeaponHandler {
     private static final long serialVersionUID = -1618484541772117621L;
-    boolean advancedPD = false;
+    boolean advancedPD;
 
     /**
      * @param t
@@ -264,7 +264,7 @@ public class CapitalMissileBayHandler extends AmmoBayWeaponHandler {
         double av = 0;
         double counterAV = calcCounterAV();
         int armor = 0;
-        int weaponarmor = 0;
+        int weaponarmor;
         int range = RangeType.rangeBracket(nRange, wtype.getATRanges(), true, false);
 
         for (int wId : weapon.getBayWeapons()) {
@@ -372,7 +372,7 @@ public class CapitalMissileBayHandler extends AmmoBayWeaponHandler {
     protected int initializeCapMissileArmor() {
         int armor = 0;
         for (int wId : weapon.getBayWeapons()) {
-            int curr_armor = 0;
+            int curr_armor;
             Mounted bayW = ae.getEquipment(wId);
             // check the currently loaded ammo
             Mounted bayWAmmo = bayW.getLinked();
@@ -401,7 +401,7 @@ public class CapitalMissileBayHandler extends AmmoBayWeaponHandler {
     protected int getCapMisMod() {
         int mod = 0;
         for (int wId : weapon.getBayWeapons()) {
-            int curr_mod = 0;
+            int curr_mod;
             Mounted bayW = ae.getEquipment(wId);
             // check the currently loaded ammo
             Mounted bayWAmmo = bayW.getLinked();

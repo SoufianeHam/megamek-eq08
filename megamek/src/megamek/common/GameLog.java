@@ -31,8 +31,6 @@ public class GameLog {
 
     public static final String LOG_DIR = PreferenceManager.getClientPreferences().getLogDirectory();
 
-    private File logfile;
-
     BufferedWriter writer;
 
     /**
@@ -47,7 +45,7 @@ public class GameLog {
             if (PreferenceManager.getClientPreferences().stampFilenames()) {
                 filename = StringUtil.addDateTimeStamp(filename);
             }
-            logfile = new File(LOG_DIR + File.separator + filename);
+            File logfile = new File(LOG_DIR + File.separator + filename);
             writer = new BufferedWriter(new FileWriter(logfile));
             append("Log file opened " + LocalDate.now());
         } catch (Exception ex) {

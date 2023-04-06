@@ -37,8 +37,7 @@ public class StraightArrowPolygon extends Polygon {
     private int headWidth = 5;
     private int arrowWidthAtHead = 3;
     private int tailWidth = 3;
-    private final int tailLength = 0;
-    private boolean halved = false;
+    private boolean halved;
 
     /**
      * Most extencive constructor with all paremeters given
@@ -108,6 +107,7 @@ public class StraightArrowPolygon extends Polygon {
         double sin = dY / arrowLength;
         double cos = dX / arrowLength;
         this.addPoint(startPoint.x, startPoint.y);
+        int tailLength = 0;
         this.addPoint((int) Math.round(startPoint.x + tailWidth * sin
                 - tailLength * cos), (int) Math.round(startPoint.y - tailWidth
                 * cos - tailLength * sin));

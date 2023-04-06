@@ -17,9 +17,6 @@ class MovementPanel extends PicMap {
 
     private final GeneralInfoMapSet gi;
 
-    private final int minTopMargin = 8;
-    private final int minLeftMargin = 8;
-
     MovementPanel() {
         gi = new GeneralInfoMapSet(this);
         addElement(gi.getContentGroup());
@@ -41,9 +38,11 @@ class MovementPanel extends PicMap {
         int w = getSize().width;
         Rectangle r = getContentBounds();
         int dx = Math.round(((w - r.width) / 2));
+        int minLeftMargin = 8;
         if (dx < minLeftMargin) {
             dx = minLeftMargin;
         }
+        int minTopMargin = 8;
         int dy = minTopMargin;
         setContentMargins(dx, dy, dx, dy);
     }

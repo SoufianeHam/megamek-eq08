@@ -298,13 +298,8 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
     private final JComboBox<String> m_chAmmo;
     public final JComboBox<String> m_chBayWeapon;
 
-    private final JLabel wSortOrder;
-    private final JLabel wAmmo;
     private final JLabel wBayWeapon;
-    private final JLabel wNameL;
-    private final JLabel wHeatL;
     private final JLabel wArcHeatL;
-    private final JLabel wDamL;
     private final JLabel wMinL;
     private final JLabel wShortL;
     private final JLabel wMedL;
@@ -324,12 +319,8 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
     private final JLabel wMedAVR;
     private final JLabel wLongAVR;
     private final JLabel wExtAVR;
-    private final JLabel currentHeatBuildupL;
     private final JLabel currentHeatBuildupR;
 
-    private final JLabel wTargetL;
-    private final JLabel wRangeL;
-    private final JLabel wToHitL;
     public final JLabel wTargetR;
     public final JLabel wRangeR;
     public final JLabel wToHitR;
@@ -356,9 +347,6 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
     private ArrayList<Mounted> vAmmo;
     private Entity entity;
 
-    private final int minTopMargin = 8;
-    private final int minLeftMargin = 8;
-
     public static final int TARGET_DISPLAY_WIDTH = 200;
 
     private static final GUIPreferences GUIP = GUIPreferences.getInstance();
@@ -369,7 +357,7 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
         panelMain = new JPanel(new GridBagLayout());
 
         int gridy = 0;
-        wSortOrder = new JLabel(
+        JLabel wSortOrder = new JLabel(
                 Messages.getString("MechDisplay.WeaponSortOrder.label"),
                 SwingConstants.LEFT);
         wSortOrder.setOpaque(false);
@@ -419,7 +407,7 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
 
         // adding Ammo choice + label
 
-        wAmmo = new JLabel(Messages.getString("MechDisplay.Ammo"), SwingConstants.LEFT);
+        JLabel wAmmo = new JLabel(Messages.getString("MechDisplay.Ammo"), SwingConstants.LEFT);
         wAmmo.setOpaque(false);
         wAmmo.setForeground(Color.WHITE);
         m_chAmmo = new JComboBox<>();
@@ -454,7 +442,7 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
         gridy++;
         // Adding Heat Buildup
 
-        currentHeatBuildupL = new JLabel(Messages.getString("MechDisplay.HeatBuildup"), SwingConstants.RIGHT);
+        JLabel currentHeatBuildupL = new JLabel(Messages.getString("MechDisplay.HeatBuildup"), SwingConstants.RIGHT);
         currentHeatBuildupL.setOpaque(false);
         currentHeatBuildupL.setForeground(Color.WHITE);
         currentHeatBuildupR = new JLabel("--", SwingConstants.LEFT);
@@ -484,13 +472,13 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
         gridy++;
 
         // Adding weapon display labels
-        wNameL = new JLabel(Messages.getString("MechDisplay.Name"), SwingConstants.CENTER);
+        JLabel wNameL = new JLabel(Messages.getString("MechDisplay.Name"), SwingConstants.CENTER);
         wNameL.setOpaque(false);
         wNameL.setForeground(Color.WHITE);
-        wHeatL = new JLabel(Messages.getString("MechDisplay.Heat"), SwingConstants.CENTER);
+        JLabel wHeatL = new JLabel(Messages.getString("MechDisplay.Heat"), SwingConstants.CENTER);
         wHeatL.setOpaque(false);
         wHeatL.setForeground(Color.WHITE);
-        wDamL = new JLabel(Messages.getString("MechDisplay.Damage"), SwingConstants.CENTER);
+        JLabel wDamL = new JLabel(Messages.getString("MechDisplay.Damage"), SwingConstants.CENTER);
         wDamL.setOpaque(false);
         wDamL.setForeground(Color.WHITE);
         wArcHeatL = new JLabel(Messages.getString("MechDisplay.ArcHeat"), SwingConstants.CENTER);
@@ -800,13 +788,13 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
         pgridy = 0;
 
         // target panel
-        wTargetL = new JLabel(Messages.getString("MechDisplay.Target"), SwingConstants.CENTER);
+        JLabel wTargetL = new JLabel(Messages.getString("MechDisplay.Target"), SwingConstants.CENTER);
         wTargetL.setOpaque(false);
         wTargetL.setForeground(Color.WHITE);
-        wRangeL = new JLabel(Messages.getString("MechDisplay.Range"), SwingConstants.CENTER);
+        JLabel wRangeL = new JLabel(Messages.getString("MechDisplay.Range"), SwingConstants.CENTER);
         wRangeL.setOpaque(false);
         wRangeL.setForeground(Color.WHITE);
-        wToHitL = new JLabel(Messages.getString("MechDisplay.ToHit"), SwingConstants.CENTER);
+        JLabel wToHitL = new JLabel(Messages.getString("MechDisplay.ToHit"), SwingConstants.CENTER);
         wToHitL.setOpaque(false);
         wToHitL.setForeground(Color.WHITE);
 
@@ -891,9 +879,11 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
             return;
         }
         int dx = Math.round(((w - r.width) / 2));
+        int minLeftMargin = 8;
         if (dx < minLeftMargin) {
             dx = minLeftMargin;
         }
+        int minTopMargin = 8;
         int dy = minTopMargin;
         setContentMargins(dx, dy, dx, dy);
     }
@@ -2088,7 +2078,7 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
             // prepare fresh ranges, no underwater
             ranges[0] = new int[] { 0, 0, 0, 0, 0 };  
             ranges[1] = new int[] { 0, 0, 0, 0, 0 };
-            int maxr = WeaponType.RANGE_SHORT;
+            int maxr;
             
             // In the WeaponPanel, when the weapon is out of ammo
             // or otherwise nonfunctional, SHORT range will be listed;

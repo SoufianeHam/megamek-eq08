@@ -68,7 +68,7 @@ public class ECMEffects {
      * @return  The color to use to represent the ECM effects in this hex
      */
     public @Nullable Color getHexColor() {
-        Color c = null;
+        Color c;
         Map<Player, ECMInfo> ecmEffectsForPlayer = new HashMap<>();
         // Total the ECM effects for each Player
         for (ECMInfo ecmInfo : ecmEffects) {

@@ -40,6 +40,7 @@ import java.util.Vector;
  * @author Arlith
  * @author Jay Lawson
  */
+@SuppressWarnings("ALL")
 public class AdvancedSearchDialog extends JDialog implements ActionListener, ItemListener,
         KeyListener, ListSelectionListener {
     private static final long serialVersionUID = 1L;
@@ -57,56 +58,35 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
     private final JButton btnClear = new JButton(Messages.getString("MechSelectorDialog.Reset"));
     private final JButton btnBack = new JButton("Back");
 
-    private final JLabel  lblEqExpTxt = new JLabel(Messages.getString("MechSelectorDialog.Search.FilterExpression"));
     private final JTextArea  txtEqExp = new JTextArea("");
-    private final JScrollPane expScroller = new JScrollPane(txtEqExp,
-            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-    private final JLabel lblWalk = new JLabel(Messages.getString("MechSelectorDialog.Search.Walk"));
     private final JTextField tStartWalk = new JTextField(4);
     private final JTextField tEndWalk = new JTextField(4);
 
-    private final JLabel lblJump = new JLabel(Messages.getString("MechSelectorDialog.Search.Jump"));
     private final JTextField tStartJump = new JTextField(4);
     private final JTextField tEndJump = new JTextField(4);
 
-    private final JLabel lblArmor = new JLabel(Messages.getString("MechSelectorDialog.Search.Armor"));
     private final JComboBox<String> cArmor = new JComboBox<>();
 
-    private final JLabel lblTableFilters = new JLabel(Messages.getString("MechSelectorDialog.Search.TableFilters"));
-    private final JLabel lblUnitType = new JLabel(Messages.getString("MechSelectorDialog.Search.UnitType"));
-    private final JLabel lblTechClass = new JLabel(Messages.getString("MechSelectorDialog.Search.TechClass"));
-    private final JLabel lblTechLevel = new JLabel(Messages.getString("MechSelectorDialog.Search.TechLevel"));
     private final JComboBox<String> cboUnitType = new JComboBox<>();
     private final JComboBox<String> cboTechClass = new JComboBox<>();
     private final JComboBox<String> cboTechLevel = new JComboBox<>();
 
-    private final JLabel lblWeapons = new JLabel(Messages.getString("MechSelectorDialog.Search.Weapons"));
     private final JScrollPane scrTableWeapons = new JScrollPane();
     private final MegamekTable tblWeapons;
     private final WeaponsTableModel weaponsModel;
     private final TableRowSorter<WeaponsTableModel> weaponsSorter;
 
-    private final JLabel lblEquipment = new JLabel(Messages.getString("MechSelectorDialog.Search.Equipment"));
     private final JScrollPane scrTableEquipment = new JScrollPane();
     private final MegamekTable tblEquipment;
     private final EquipmentTableModel equipmentModel;
     private final TableRowSorter<EquipmentTableModel> equipmentSorter;
 
-    private final JLabel lblYear = new JLabel(Messages.getString("MechSelectorDialog.Search.Year"));
     private final JTextField tStartYear = new JTextField(4);
     private final JTextField tEndYear = new JTextField(4);
-    private final JLabel lblCockpitType  = new JLabel(Messages.getString("MechSelectorDialog.Search.CockpitType"));
     private final JList<String> listCockpitType  = new JList<>(new DefaultListModel<String>());
-    private final JScrollPane spCockpitType = new JScrollPane(listCockpitType);
-    private final JLabel lblArmorType  = new JLabel(Messages.getString("MechSelectorDialog.Search.ArmorType"));
     private final JList<String> listArmorType  = new JList<>(new DefaultListModel<String>());
-    private final JScrollPane spArmorType = new JScrollPane(listArmorType);
-    private final JLabel lblInternalsType  = new JLabel(Messages.getString("MechSelectorDialog.Search.InternalsType"));
     private final JList<String> listInternalsType  = new JList<>(new DefaultListModel<String>());
-    private final JScrollPane spInternalsType = new JScrollPane(listInternalsType);
-    private final JComboBox<String> cboQty = new JComboBox<>();
 
     /**
      * Stores the games current year.
@@ -251,6 +231,7 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
             }
         });
 
+        JComboBox<String> cboQty = new JComboBox<>();
         for (int i = 0; i <= 20; i++) {
             cboQty.addItem(Integer.toString(i));
         }
@@ -353,6 +334,7 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
         c.anchor = GridBagConstraints.WEST;
         c.insets = new Insets(0, 10, 0, 0);
         c.gridx = 0; c.gridy = 0;
+        JLabel lblWalk = new JLabel(Messages.getString("MechSelectorDialog.Search.Walk"));
         mainPanel.add(lblWalk, c);
         c.gridx = 1; c.gridy = 0;
         c.insets = new Insets(0, 0, 0, 0);
@@ -366,13 +348,16 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
         c.insets = new Insets(0, 40, 0, 0);
         c.anchor = GridBagConstraints.WEST;
         JPanel cockpitPanel = new JPanel(new BorderLayout());
+        JLabel lblCockpitType = new JLabel(Messages.getString("MechSelectorDialog.Search.CockpitType"));
         cockpitPanel.add(lblCockpitType,BorderLayout.NORTH);
+        JScrollPane spCockpitType = new JScrollPane(listCockpitType);
         cockpitPanel.add(spCockpitType,BorderLayout.SOUTH);
         mainPanel.add(cockpitPanel, c);
 
         c.gridx = 0; c.gridy = 1;
         c.anchor = GridBagConstraints.WEST;
         c.insets = new Insets(0, 10, 0, 0);
+        JLabel lblJump = new JLabel(Messages.getString("MechSelectorDialog.Search.Jump"));
         mainPanel.add(lblJump, c);
         c.insets = new Insets(0, 0, 0, 0);
         c.gridx = 1; c.gridy = 1;
@@ -386,13 +371,16 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
         c.gridx = 3; c.gridy = 1;
         c.insets = new Insets(0, 40, 0, 0);
         JPanel internalsPanel = new JPanel(new BorderLayout());
+        JLabel lblInternalsType = new JLabel(Messages.getString("MechSelectorDialog.Search.InternalsType"));
         internalsPanel.add(lblInternalsType,BorderLayout.NORTH);
+        JScrollPane spInternalsType = new JScrollPane(listInternalsType);
         internalsPanel.add(spInternalsType,BorderLayout.EAST);
         mainPanel.add(internalsPanel, c);
 
         c.anchor = GridBagConstraints.WEST;
         c.gridx = 0; c.gridy++;
         c.insets = new Insets(0, 10, 0, 0);
+        JLabel lblArmor = new JLabel(Messages.getString("MechSelectorDialog.Search.Armor"));
         mainPanel.add(lblArmor, c);
         c.insets = new Insets(0, 0, 0, 0);
         c.gridx = 1;
@@ -400,22 +388,28 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
         c.gridx = 3;
         c.insets = new Insets(0, 40, 0, 0);
         JPanel armorPanel = new JPanel(new BorderLayout());
+        JLabel lblArmorType = new JLabel(Messages.getString("MechSelectorDialog.Search.ArmorType"));
         armorPanel.add(lblArmorType,BorderLayout.NORTH);
+        JScrollPane spArmorType = new JScrollPane(listArmorType);
         armorPanel.add(spArmorType,BorderLayout.EAST);
         mainPanel.add(armorPanel, c);
 
         c.anchor = GridBagConstraints.CENTER;
         c.insets = new Insets(16, 0, 0, 0);
         c.gridx = 0; c.gridy++;
+        JLabel lblTableFilters = new JLabel(Messages.getString("MechSelectorDialog.Search.TableFilters"));
         mainPanel.add(lblTableFilters, c);
         c.insets = new Insets(0, 0, 0, 0);
         c.gridx = 0; c.gridy++;
         c.gridwidth = 4;
         JPanel cboPanel = new JPanel();
+        JLabel lblUnitType = new JLabel(Messages.getString("MechSelectorDialog.Search.UnitType"));
         cboPanel.add(lblUnitType);
         cboPanel.add(cboUnitType);
+        JLabel lblTechClass = new JLabel(Messages.getString("MechSelectorDialog.Search.TechClass"));
         cboPanel.add(lblTechClass);
         cboPanel.add(cboTechClass);
+        JLabel lblTechLevel = new JLabel(Messages.getString("MechSelectorDialog.Search.TechLevel"));
         cboPanel.add(lblTechLevel, c);
         cboPanel.add(cboTechLevel, c);
         mainPanel.add(cboPanel, c);
@@ -423,6 +417,7 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
 
         c.insets = new Insets(0, 0, 0, 0);
         c.gridx = 0; c.gridy++;
+        JLabel lblWeapons = new JLabel(Messages.getString("MechSelectorDialog.Search.Weapons"));
         mainPanel.add(lblWeapons, c);
 
 
@@ -434,6 +429,7 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
         c.gridwidth = 1;
         c.insets = new Insets(16, 0, 0, 0);
         c.gridx = 0; c.gridy++;
+        JLabel lblEquipment = new JLabel(Messages.getString("MechSelectorDialog.Search.Equipment"));
         mainPanel.add(lblEquipment, c);
 
 
@@ -457,16 +453,21 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
 
         // Filter Expression
         c.gridx = 0; c.gridy++;
+        JLabel lblEqExpTxt = new JLabel(Messages.getString("MechSelectorDialog.Search.FilterExpression"));
         mainPanel.add(lblEqExpTxt, c);
         c.fill = GridBagConstraints.BOTH;
         c.gridwidth = 4;
         c.gridx = 1;
+        JScrollPane expScroller = new JScrollPane(txtEqExp,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainPanel.add(expScroller, c);
         c.fill = GridBagConstraints.NONE;
         c.insets = new Insets(0, 0, 0, 0);
 
         c.gridwidth  = 1;
         c.gridx = 0; c.gridy++;
+        JLabel lblYear = new JLabel(Messages.getString("MechSelectorDialog.Search.Year"));
         mainPanel.add(lblYear, c);
         c.gridx = 1;
         JPanel designYearPanel = new JPanel();

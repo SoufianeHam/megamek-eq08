@@ -31,12 +31,8 @@ import megamek.common.MechSummaryCache;
 
 public class UnitLoadingDialog extends JDialog {
     private static final long serialVersionUID = -3454307876761238915L;
-    private final JLabel lLoading = new JLabel(Messages.getString("UnitLoadingDialog.LoadingUnits"));
-    private final JLabel lCacheText = new JLabel(Messages.getString("UnitLoadingDialog.fromCache"));
     private final JLabel lCacheCount = new JLabel();
-    private final JLabel lFileText = new JLabel(Messages.getString("UnitLoadingDialog.fromFiles"));
     private final JLabel lFileCount = new JLabel();
-    private final JLabel lZipText = new JLabel(Messages.getString("UnitLoadingDialog.fromZips"));
     private final JLabel lZipCount = new JLabel();
 
     // Determines how often to update the loading dialog.
@@ -44,24 +40,23 @@ public class UnitLoadingDialog extends JDialog {
     private static final long UPDATE_FREQUENCY = 50;
     
     boolean loadingDone = false;
-    
-    private final MechSummaryCache.Listener mechSummaryCacheListener = () -> {
-        loadingDone = true;
-        setVisible(false);
-    };
 
     public UnitLoadingDialog(JFrame frame) {
         super(frame, Messages.getString("UnitLoadingDialog.pleaseWait"));
 
         getContentPane().setLayout(new GridBagLayout());
+        JLabel lLoading = new JLabel(Messages.getString("UnitLoadingDialog.LoadingUnits"));
         getContentPane().add(lLoading, GBC.eol());
 
+        JLabel lCacheText = new JLabel(Messages.getString("UnitLoadingDialog.fromCache"));
         getContentPane().add(lCacheText, GBC.std());
         getContentPane().add(lCacheCount, GBC.eol());
 
+        JLabel lFileText = new JLabel(Messages.getString("UnitLoadingDialog.fromFiles"));
         getContentPane().add(lFileText, GBC.std());
         getContentPane().add(lFileCount, GBC.eol());
 
+        JLabel lZipText = new JLabel(Messages.getString("UnitLoadingDialog.fromZips"));
         getContentPane().add(lZipText, GBC.std());
         getContentPane().add(lZipCount, GBC.eol());
 
@@ -78,6 +73,10 @@ public class UnitLoadingDialog extends JDialog {
                     // not supposed to come here
                 }
             }
+        };
+        MechSummaryCache.Listener mechSummaryCacheListener = () -> {
+            loadingDone = true;
+            setVisible(false);
         };
         MechSummaryCache.getInstance().addListener(mechSummaryCacheListener);
         Thread t = new Thread(r, "Unit Loader Dialog");

@@ -1221,7 +1221,7 @@ public class FiringDisplay extends StatusBarPhaseDisplay implements ItemListener
             Coords targetPos = ((Entity) target).getPlayerPickedPassThrough(cen);
             if (targetPos != null) {
                 clientgui.getClient().sendPlayerPickedPassThrough(
-                        ((Entity) target).getId(), cen, targetPos);
+                        target.getId(), cen, targetPos);
             }
         }
 
@@ -1381,7 +1381,7 @@ public class FiringDisplay extends StatusBarPhaseDisplay implements ItemListener
 
                 toHit = WeaponAttackAction.toHit(game, cen, t, weaponId,
                         Entity.LOC_NONE, AimingMode.NONE, true);
-                toHitBuff.append(t.getShortName() + ": ");
+                toHitBuff.append(t.getShortName()).append(": ");
                 toHitBuff.append(toHit.getDesc());
                 toHitBuff.append("\n");
                 if (m.getType().hasFlag(WeaponType.F_AUTO_TARGET)
@@ -1394,7 +1394,7 @@ public class FiringDisplay extends StatusBarPhaseDisplay implements ItemListener
                 Targetable t = new BuildingTarget(c, game.getBoard(), false);
                 toHit = WeaponAttackAction.toHit(game, cen, t, weaponId,
                         Entity.LOC_NONE, AimingMode.NONE, true);
-                toHitBuff.append(t.getDisplayName() + ": ");
+                toHitBuff.append(t.getDisplayName()).append(": ");
                 toHitBuff.append(toHit.getDesc());
                 toHitBuff.append("\n");
             }

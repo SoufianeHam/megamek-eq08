@@ -563,7 +563,7 @@ public class SmallCraft extends Aero {
     public int getWeaponArc(int wn) {
         final Mounted mounted = getEquipment(wn);
 
-        int arc = Compute.ARC_NOSE;
+        int arc;
         if (isSpheroid()) {
             switch (mounted.getLocation()) {
                 case LOC_NOSE:
@@ -706,6 +706,7 @@ public class SmallCraft extends Aero {
         for (Mounted weap : getWeaponList()) {
             if ((weap.getLocation() == loc) && (weap.isRearMounted() == rearMount)) {
                 hasWeapons = true;
+                break;
             }
         }
         return hasWeapons;

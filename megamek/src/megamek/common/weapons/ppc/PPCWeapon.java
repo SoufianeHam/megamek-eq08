@@ -25,7 +25,6 @@ import megamek.common.weapons.AttackHandler;
 import megamek.common.weapons.PPCHandler;
 import megamek.common.weapons.lasers.EnergyWeapon;
 import megamek.server.GameManager;
-import megamek.server.Server;
 
 /**
  * @author Andrew Hunter

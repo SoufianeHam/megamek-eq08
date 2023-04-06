@@ -36,13 +36,13 @@ public class AvailabilityRating {
     //Used to calculate av rating from weight.
     public static final double LOG_BASE = Math.log(2);
 
-    String faction = "General";
+    String faction;
     int availability = 0;
     String ratings = null;
-    int ratingAdjustment = 0;
+    int ratingAdjustment;
     int era;
     int startYear;
-    String unitName = null;
+    String unitName;
 
     /**
      * @param unit The chassis or model key

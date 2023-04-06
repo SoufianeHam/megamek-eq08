@@ -401,7 +401,7 @@ public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
         aaa.setOriginalTargetId(target.getId());
         aaa.setOriginalTargetType(target.getTargetType());
         int missileFacing = ae.getPosition().direction(tc);
-        Targetable newTarget = null;
+        Targetable newTarget;
         Vector<Aero> targets = new Vector<>();
         
         // get all entities on the opposing side
@@ -680,7 +680,7 @@ public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
         double av = 0;
         double counterAV = calcCounterAV();
         int armor = 0;
-        int weaponarmor = 0;
+        int weaponarmor;
         // A bearings-only shot is, by definition, always going to be at extreme range...
         int range = RangeType.RANGE_EXTREME;
 
@@ -804,7 +804,7 @@ public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
     protected int initializeCapMissileArmor() {
         int armor = 0;
         for (int wId : weapon.getBayWeapons()) {
-            int curr_armor = 0;
+            int curr_armor;
             Mounted bayW = ae.getEquipment(wId);
             // check the currently loaded ammo
             Mounted bayWAmmo = bayW.getLinked();
@@ -833,7 +833,7 @@ public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
     protected int getCapMisMod() {
         int mod = 0;
         for (int wId : weapon.getBayWeapons()) {
-            int curr_mod = 0;
+            int curr_mod;
             Mounted bayW = ae.getEquipment(wId);
             // check the currently loaded ammo
             Mounted bayWAmmo = bayW.getLinked();

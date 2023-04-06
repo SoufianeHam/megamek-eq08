@@ -356,7 +356,6 @@ public class UnitDisplaySpecPanel extends JPanel {
         gbc.gridwidth = 2;
         backgroundTile = new BorderElement(this, Messages.getString("SkinEditor.backgroundTile"), udSpec.getBackgroundTile());
         borderPanel.add(backgroundTile, gbc);
-        gbc.gridwidth = 1;
         gbc.gridy++;
 
         // Mech Outline

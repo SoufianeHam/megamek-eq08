@@ -62,7 +62,6 @@ public class SBFStatsDialog extends AbstractDialog {
     private final JComboBox<String> valueFontChooser = new JComboBox<>();
     private final JScrollPane scrollPane = new JScrollPane();
     private final JPanel centerPanel = new JPanel();
-    private SBFStatsTablePanel statsPanel;
 
     /**
      * Creates a non-modal dialog that shows SBF Formation stats for the given forces. In
@@ -137,7 +136,7 @@ public class SBFStatsDialog extends AbstractDialog {
                 .map(f -> new SBFFormationConverter(f, game).convert())
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-        statsPanel = new SBFStatsTablePanel(getFrame(), formations, elementsToggle.isSelected());
+        SBFStatsTablePanel statsPanel = new SBFStatsTablePanel(getFrame(), formations, elementsToggle.isSelected());
         scrollPane.setViewportView(statsPanel.getPanel());
     }
 

@@ -113,8 +113,8 @@ public class WeaponOrderHandler {
                 // Build weapon and order lists
                 for (Integer weapId : weapOrder.customWeaponOrderMap.keySet()) {
                     Integer order = weapOrder.customWeaponOrderMap.get(weapId);
-                    weaponList.append(weapId + ",");
-                    orderList.append(order + ",");
+                    weaponList.append(weapId).append(",");
+                    orderList.append(order).append(",");
                 }
                 weaponList.deleteCharAt(weaponList.length() - 1);
                 orderList.deleteCharAt(orderList.length() - 1);

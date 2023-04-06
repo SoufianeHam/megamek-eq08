@@ -39,7 +39,6 @@ public class TeleMissileAttackAction extends AbstractAttackAction {
     // Large Craft Point Defense/AMS Bay Stuff
     public int CounterAVInt = 0;
     private boolean pdOverheated = false; // true if counterfire + offensive weapon attacks made this round cause the defending unit to overheat. Used for reporting.
-    private boolean advancedPD = false; // true if advanced StratOps game rule is on
 
     public TeleMissileAttackAction(Entity attacker, Targetable target) {
         super(attacker.getId(), target.getTargetType(), target.getId());
@@ -81,7 +80,8 @@ public class TeleMissileAttackAction extends AbstractAttackAction {
      * entities
      */
     private boolean checkPDConditions(Game game, Targetable target) {
-        advancedPD = game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_STRATOPS_ADV_POINTDEF);
+        // true if advanced StratOps game rule is on
+        boolean advancedPD = game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_STRATOPS_ADV_POINTDEF);
         return (target != null)
                 && (target.getTargetType() == Targetable.TYPE_ENTITY)
                 && advancedPD;
@@ -140,8 +140,8 @@ public class TeleMissileAttackAction extends AbstractAttackAction {
             return;
         }
         int counterAV = 0;
-        int amsAV = 0;
-        double pdAV = 0;
+        int amsAV;
+        double pdAV;
         Entity entityTarget = (Entity) target;
         // any AMS bay attacks by the target?
         ArrayList<Mounted> lCounters = getCounterEquipment();
@@ -263,7 +263,7 @@ public class TeleMissileAttackAction extends AbstractAttackAction {
         if (!game.getOptions().booleanOption(OptionsConstants.BASE_FRIENDLY_FIRE)) {
             // a friendly unit can never be the target of a direct attack.
             if ((target.getTargetType() == Targetable.TYPE_ENTITY)
-                    && ((((Entity) target).getOwnerId() == ae.getOwnerId())
+                    && ((target.getOwnerId() == ae.getOwnerId())
                             || ((((Entity) target).getOwner().getTeam() != Player.TEAM_NONE)
                                     && (ae.getOwner().getTeam() != Player.TEAM_NONE)
                                     && (ae.getOwner().getTeam() == ((Entity) target).getOwner().getTeam())))) {

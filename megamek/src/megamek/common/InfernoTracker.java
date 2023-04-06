@@ -162,7 +162,7 @@ public class InfernoTracker implements Serializable, RoundUpdated {
      *         It will not be negative.
      */
     public int getTurnsLeftToBurn() {
-        int result = 0;
+        int result;
 
         // Add the number of standard burn turns to Inferno IV turns.
         result = turnsLeftToBurn + turnsIVLeftToBurn;

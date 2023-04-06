@@ -41,7 +41,7 @@ public class AMSBayWeapon extends AmmoBayWeapon {
         this.cost = 0;
         this.atClass = CLASS_AMS;
 		flags = flags.or(F_AUTO_TARGET).or(F_AMSBAY).or(F_AERO_WEAPON);
-		setModes(new String[] { "On", "Off" });
+		setModes("On", "Off");
 		setInstantModeSwitch(false);
 		techAdvancement.setTechBase(TECH_BASE_ALL)
                 .setTechRating(RATING_E)

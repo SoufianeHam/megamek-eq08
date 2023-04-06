@@ -17,6 +17,7 @@ import megamek.common.*;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -308,9 +309,7 @@ public class ModelRecord extends AbstractUnitRecord {
     public void setExcludedFactions(String str) {
         excludedFactions.clear();
         String[] fields = str.split(",");
-        for (String faction : fields) {
-            excludedFactions.add(faction);
-        }
+        Collections.addAll(excludedFactions, fields);
     }
 
     public boolean factionIsExcluded(FactionRecord fRec) {

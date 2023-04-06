@@ -189,8 +189,8 @@ public class DfaAttackAction extends DisplacementAttackAction {
             return new ToHitData(TargetRoll.IMPOSSIBLE, "Target is null");
         }
 
-        int targetId = Entity.NONE;
-        Entity te = null;
+        int targetId;
+        Entity te;
         if (target.getTargetType() == Targetable.TYPE_ENTITY) {
             te = (Entity) target;
             targetId = target.getId();
@@ -201,7 +201,7 @@ public class DfaAttackAction extends DisplacementAttackAction {
         if (!game.getOptions().booleanOption(OptionsConstants.BASE_FRIENDLY_FIRE)) {
             // a friendly unit can never be the target of a direct attack.
             if ((target.getTargetType() == Targetable.TYPE_ENTITY)
-                && ((((Entity) target).getOwnerId() == ae.getOwnerId())
+                && ((target.getOwnerId() == ae.getOwnerId())
                     || ((((Entity) target).getOwner().getTeam() != Player.TEAM_NONE)
                     && (ae.getOwner().getTeam() != Player.TEAM_NONE)
                     && (ae.getOwner().getTeam() == ((Entity) target).getOwner().getTeam())))) {
@@ -211,7 +211,7 @@ public class DfaAttackAction extends DisplacementAttackAction {
         }
 
         final boolean targetInBuilding = Compute.isInBuilding(game, te);
-        ToHitData toHit = null;
+        ToHitData toHit;
 
         final int attackerElevation = ae.getElevation()
                                       + game.getBoard().getHex(ae.getPosition()).getLevel();
@@ -309,7 +309,7 @@ public class DfaAttackAction extends DisplacementAttackAction {
             toHit.addModifier(1, "battle armor target");
         }
 
-        if ((ae instanceof Mech) && ((Mech) ae).isSuperHeavy()) {
+        if ((ae instanceof Mech) && ae.isSuperHeavy()) {
             toHit.addModifier(1, "attacker is superheavy mech");
         }
 

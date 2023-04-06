@@ -718,9 +718,7 @@ public class TestAdvancedAerospace extends TestAero {
     public boolean correctHeatSinks(StringBuffer buff) {
         if ((vessel.getHeatType() != Aero.HEAT_SINGLE) 
                 && (vessel.getHeatType() != Aero.HEAT_DOUBLE)) {
-            buff.append("Invalid heatsink type!  Valid types are "
-                    + Aero.HEAT_SINGLE + " and " + Aero.HEAT_DOUBLE
-                    + ".  Found " + vessel.getHeatType() + ".");
+            buff.append("Invalid heatsink type!  Valid types are " + Aero.HEAT_SINGLE + " and " + Aero.HEAT_DOUBLE + ".  Found ").append(vessel.getHeatType()).append(".");
             return false;
         }
         return true;
@@ -740,9 +738,8 @@ public class TestAdvancedAerospace extends TestAero {
         }
         if (getCountHeatSinks() < weightFreeHeatSinks(vessel)) {
             buff.append("Heat Sinks:\n");
-            buff.append(" Total     " + getCountHeatSinks() + "\n");
-            buff.append(" Required  " + weightFreeHeatSinks(vessel)
-                    + "\n");
+            buff.append(" Total     ").append(getCountHeatSinks()).append("\n");
+            buff.append(" Required  ").append(weightFreeHeatSinks(vessel)).append("\n");
             correct = false;
         }                
         
@@ -842,7 +839,7 @@ public class TestAdvancedAerospace extends TestAero {
         for (Mounted m : vessel.getEquipment()) {
             if (m.getType() instanceof MiscType) {
                 if (!m.getType().hasFlag(typeFlag)) {
-                    buff.append("Cannot mount " + m.getType().getName() + "\n");
+                    buff.append("Cannot mount ").append(m.getType().getName()).append("\n");
                     illegal = true;
                 }
             } else if (m.getType() instanceof WeaponType) {
@@ -873,7 +870,7 @@ public class TestAdvancedAerospace extends TestAero {
                         break;
                 }
                 if (isAeroWeapon(m.getType(), vessel)) {
-                    buff.append("Cannot mount " + m.getType().getName() + "\n");
+                    buff.append("Cannot mount ").append(m.getType().getName()).append("\n");
                     illegal = true;
                 }
                 if ((m.getType().hasFlag(WeaponType.F_MASS_DRIVER)
@@ -994,11 +991,11 @@ public class TestAdvancedAerospace extends TestAero {
         int crewSize = vessel.getNCrew() - vessel.getBayPersonnel();
         int reqCrew = minimumBaseCrew(vessel) + requiredGunners(vessel);
         if (crewSize < reqCrew) {
-            buffer.append("Requires " + reqCrew + " crew and only has " + crewSize + "\n");
+            buffer.append("Requires ").append(reqCrew).append(" crew and only has ").append(crewSize).append("\n");
             illegal = true;
         }
         if (vessel.getNOfficers() < Math.ceil(reqCrew / 6.0)) {
-            buffer.append("Requires at least " + (int) Math.ceil(reqCrew / 6.0) + " officers\n");
+            buffer.append("Requires at least ").append((int) Math.ceil(reqCrew / 6.0)).append(" officers\n");
             illegal = true;
         }
         crewSize += vessel.getNPassenger();
@@ -1012,7 +1009,7 @@ public class TestAdvancedAerospace extends TestAero {
             }
         }
         if (quarters < crewSize) {
-            buffer.append("Requires quarters for " + crewSize + " crew but only has " + quarters + "\n");
+            buffer.append("Requires quarters for ").append(crewSize).append(" crew but only has ").append(quarters).append("\n");
             illegal = true;
         }
         return !illegal;
@@ -1026,7 +1023,7 @@ public class TestAdvancedAerospace extends TestAero {
     public boolean correctGravDecks(StringBuffer buffer) {
         boolean illegal = false;
         if (vessel.getGravDecks().size() > getMaxGravDecks(vessel)) {
-            buffer.append("Exceeds maximum " + getMaxGravDecks(vessel) + " gravity decks.\n");
+            buffer.append("Exceeds maximum ").append(getMaxGravDecks(vessel)).append(" gravity decks.\n");
             illegal = true;
         }
         int maxSize = Jumpship.GRAV_DECK_LARGE_MAX;
@@ -1035,7 +1032,7 @@ public class TestAdvancedAerospace extends TestAero {
         }
         for (Integer dia : vessel.getGravDecks()) {
             if (dia > maxSize) {
-                buffer.append("Maximum grav deck diameter is " + maxSize + "\n");
+                buffer.append("Maximum grav deck diameter is ").append(maxSize).append("\n");
                 illegal = true;
                 break;
             }
@@ -1058,7 +1055,7 @@ public class TestAdvancedAerospace extends TestAero {
         for (Bay bay : vessel.getTransportBays()) {
             if (bay.hardpointCost() > 0) {
                 if ((bay.getFacing() < 0) || (bay.getFacing() >= Warship.LOC_LBS)) {
-                    buffer.append(bay.getType() + " is not assigned a legal armor facing.\n");
+                    buffer.append(bay.getType()).append(" is not assigned a legal armor facing.\n");
                     legal = false;
                 } else if (facings.contains(bay.getFacing())) {
                     buffer.append("Exceeds maximum of one repair facility or dropshuttle bay per armor facing.\n");

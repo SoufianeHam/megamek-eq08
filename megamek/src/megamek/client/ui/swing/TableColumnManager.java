@@ -39,7 +39,6 @@ public class TableColumnManager implements MouseListener, ActionListener, TableC
         PropertyChangeListener {
     private final JTable table;
     private TableColumnModel tcm;
-    private boolean menuPopup;
 
     private List<TableColumn> allColumns;
 
@@ -93,7 +92,6 @@ public class TableColumnManager implements MouseListener, ActionListener, TableC
             table.getTableHeader().addMouseListener(this);
         }
 
-        this.menuPopup = menuPopup;
     }
 
     /**

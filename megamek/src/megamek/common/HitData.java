@@ -34,17 +34,17 @@ public class HitData {
     private int location;
     private final boolean rear;
     private int effect;
-    private boolean hitAimedLocation = false;
-    private int specCritMod = 0;
-    private boolean specCrit = false;
+    private boolean hitAimedLocation;
+    private int specCritMod;
+    private boolean specCrit;
     private int motiveMod = 0;
-    private int glancing = 0;
-    private boolean fromFront = true; // True if attack came in through hex in
+    private int glancing;
+    private boolean fromFront; // True if attack came in through hex in
     // front of target
     // in case of usage of Edge it is document what the previous location was
     private HitData undoneLocation = null;
     private boolean fallDamage = false; // did the damage come from a fall?
-    private int generalDamageType = HitData.DAMAGE_NONE;
+    private int generalDamageType;
     private boolean capital = false;
     private int capMisCritMod = 0;
     private boolean boxcars = false;

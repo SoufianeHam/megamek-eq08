@@ -22,7 +22,6 @@ import megamek.common.weapons.AttackHandler;
 import megamek.common.weapons.PopUpMineLauncherHandler;
 import megamek.common.weapons.Weapon;
 import megamek.server.GameManager;
-import megamek.server.Server;
 
 /**
  * @author Andrew Hunter

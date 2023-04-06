@@ -1,3 +1,4 @@
+<#--noinspection ALL-->
 ${fullName}
 <#if includeFluff>
 Type: ${chassis}

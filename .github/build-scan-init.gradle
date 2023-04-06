@@ -4,6 +4,11 @@
 // onto a GitHub Actions job step output variable
 // called `buildScanUri`.
 //
+//file:noinspection Annotator
+//file:noinspection Annotator
+//file:noinspection Annotator
+//file:noinspection Annotator
+//file:noinspection Annotator
 import com.gradle.enterprise.gradleplugin.GradleEnterprisePlugin
 import com.gradle.scan.plugin.BuildScanPlugin
 import com.gradle.scan.plugin.PublishedBuildScan

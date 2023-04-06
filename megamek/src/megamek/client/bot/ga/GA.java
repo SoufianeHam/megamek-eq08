@@ -134,7 +134,7 @@ public abstract class GA {
     }
 
     protected int[] selectTwoParents() {
-        boolean found = false;
+        boolean found;
         int[] parents = new int[2];
         parents[0] = -1;
 

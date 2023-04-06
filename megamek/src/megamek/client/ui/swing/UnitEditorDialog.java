@@ -608,7 +608,6 @@ public class UnitEditorDialog extends JDialog {
 
         Tank tank = (Tank) entity;
 
-        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new Insets(2, 2, 2, 2);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.gridx = 0;
@@ -751,7 +750,6 @@ public class UnitEditorDialog extends JDialog {
 
         VTOL vtol = (VTOL) entity;
 
-        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new Insets(2, 2, 2, 2);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.gridx = 0;
@@ -820,7 +818,6 @@ public class UnitEditorDialog extends JDialog {
 
         Aero aero = (Aero) entity;
 
-        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new Insets(2, 2, 2, 2);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.gridx = 0;

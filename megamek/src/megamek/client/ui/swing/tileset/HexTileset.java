@@ -45,8 +45,6 @@ public class HexTileset implements BoardListener {
     public static final int HEX_H = 72;
 
     public static final String TRANSPARENT_THEME = "transparent";
-    
-    private final Game game;
 
     private final ArrayList<HexEntry> bases = new ArrayList<>();
     private final ArrayList<HexEntry> supers = new ArrayList<>();
@@ -60,9 +58,28 @@ public class HexTileset implements BoardListener {
      * Creates new HexTileset
      */
     public HexTileset(Game g) {
-        game = g;
-        game.addGameListener(gameListener);
-        game.getBoard().addBoardListener(this);
+        // The Board and Game listeners
+        // The HexTileSet caches images with the hex object as key. Therefore it
+        // must listen to Board events to clear changed (but not replaced)
+        // hexes from the cache.
+        // It must listen to Game events to catch when a board is entirely replaced
+        // to be able to register itself to the new board.
+        GameListener gameListener = new GameListenerAdapter() {
+
+            @Override
+            public void gameBoardNew(GameBoardNewEvent e) {
+                clearAllHexes();
+                replacedBoard(e);
+            }
+
+            @Override
+            public void gameBoardChanged() {
+                clearAllHexes();
+            }
+
+        };
+        g.addGameListener(gameListener);
+        g.getBoard().addBoardListener(this);
     }
 
     /** Clears the image cache for the given hex. */
@@ -247,9 +264,9 @@ public class HexTileset implements BoardListener {
         while (st.nextToken() != StreamTokenizer.TT_EOF) {
             int elevation = 0;
             // int levity = 0;
-            String terrain = null;
-            String theme = null;
-            String imageName = null;
+            String terrain;
+            String theme;
+            String imageName;
             if ((st.ttype == StreamTokenizer.TT_WORD)
                     && (st.sval.equals("base") || st.sval.equals("super") || st.sval.equals("ortho"))) {
                 boolean bas = st.sval.equals("base");
@@ -494,7 +511,7 @@ public class HexTileset implements BoardListener {
             if ((cTerr == null) || (oTerr == null)) {
                 continue;
             }
-            double thisMatch = 0;
+            double thisMatch;
 
             if (cTerr.getLevel() == Terrain.WILDCARD) {
                 thisMatch = 1.0;
@@ -521,7 +538,7 @@ public class HexTileset implements BoardListener {
         }
 
         // check theme
-        if ((com.getTheme() == org.getTheme())
+        if ((com.getTheme().equals(org.getTheme()))
                 || ((com.getTheme() != null) && com.getTheme().equalsIgnoreCase(org.getTheme()))) {
             theme = 1.0;
         } else if ((org.getTheme() != null) && (com.getTheme() == null)) {
@@ -587,28 +604,7 @@ public class HexTileset implements BoardListener {
             return "HexTileset: " + hex.toString();
         }
     }
-    
-    // The Board and Game listeners
-    // The HexTileSet caches images with the hex object as key. Therefore it
-    // must listen to Board events to clear changed (but not replaced) 
-    // hexes from the cache. 
-    // It must listen to Game events to catch when a board is entirely replaced
-    // to be able to register itself to the new board.
-    private final GameListener gameListener = new GameListenerAdapter() {
 
-        @Override
-        public void gameBoardNew(GameBoardNewEvent e) {
-            clearAllHexes();
-            replacedBoard(e);
-        }
-
-        @Override
-        public void gameBoardChanged() {
-            clearAllHexes();
-        }
-
-    };
-    
     private void replacedBoard(GameBoardNewEvent e) {
         e.getOldBoard().removeBoardListener(this);
         e.getNewBoard().addBoardListener(this);

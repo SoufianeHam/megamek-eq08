@@ -26,7 +26,7 @@ public class SitrepCommand extends ClientCommand {
         boolean showFriendly = true;
         boolean showHostile = true;
         int hexRange = DEFAULT_HEX_RANGE;
-        int entityID = Entity.NONE;
+        int entityID;
         
         if (args.length > 1) {
             if (args[1].equalsIgnoreCase("HELP")) {

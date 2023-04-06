@@ -20,7 +20,6 @@ class IsometricSprite extends Sprite {
 
     final Entity entity;
     private final Image radarBlipImage;
-    private final Rectangle modelRect;
     private final int secondaryPos;
 
     public IsometricSprite(BoardView boardView1, Entity entity, int secondaryPos, Image radarBlipImage) {
@@ -30,7 +29,7 @@ class IsometricSprite extends Sprite {
         this.secondaryPos = secondaryPos;
         String shortName = entity.getShortName();
         Font font = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 10);
-        modelRect = new Rectangle(47, 55, bv.getFontMetrics(font).stringWidth(
+        Rectangle modelRect = new Rectangle(47, 55, bv.getFontMetrics(font).stringWidth(
                 shortName) + 1, bv.getFontMetrics(font).getAscent());
 
         int altAdjust = 0;

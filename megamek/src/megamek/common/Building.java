@@ -50,7 +50,7 @@ public class Building implements Serializable {
     /**
      * The Building Type of the building; equal to the terrain elevation of the BUILDING terrain of a hex.
      */
-    private int type = Building.UNKNOWN;
+    private int type;
     
     // The Building Classes
     public static final int STANDARD = 0;
@@ -63,12 +63,12 @@ public class Building implements Serializable {
     /**
      * The Building Class of the building; equal to the terrain elevation of the BUILDING CLASS terrain of a hex.
      */
-    private int bldgClass = Building.STANDARD;
+    private int bldgClass;
     
     /**
      * The ID of this building.
      */
-    private int id = Building.UNKNOWN;
+    private int id;
 
     /**
      * The coordinates of every hex of this building.
@@ -110,7 +110,7 @@ public class Building implements Serializable {
     /**
      * The name of the building.
      */
-    private String name = null;
+    private String name;
 
     /**
      * Flag that indicates whether this building is burning

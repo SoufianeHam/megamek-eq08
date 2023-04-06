@@ -28,7 +28,6 @@ import megamek.common.Tank;
 import megamek.common.ToHitData;
 import megamek.common.actions.WeaponAttackAction;
 import megamek.server.GameManager;
-import megamek.server.Server;
 
 public class MechTaserHandler extends AmmoWeaponHandler {
 

@@ -68,9 +68,9 @@ public class HexSetTest {
             @SuppressWarnings("unused")
             int elevation = 0;
             // int levity = 0;
-            String terrain = null;
-            String theme = null;
-            String imageName = null;
+            String terrain;
+            String theme;
+            String imageName;
             if ((st.ttype == StreamTokenizer.TT_WORD)
                     && (st.sval.equals("base") || st.sval.equals("super") || 
                         st.sval.equals("ortho"))) {
@@ -79,9 +79,7 @@ public class HexSetTest {
                 boolean ort = st.sval.equals("ortho");
 
                 if (st.nextToken() == StreamTokenizer.TT_NUMBER) {
-                    elevation = (int) st.nval;
                 } else {
-                    elevation = Terrain.WILDCARD;
                 }
                 st.nextToken();
                 terrain = st.sval;

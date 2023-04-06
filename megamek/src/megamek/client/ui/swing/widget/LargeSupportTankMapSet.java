@@ -146,8 +146,8 @@ public class LargeSupportTankMapSet implements DisplayMapSet {
     @Override
     public void setEntity(Entity e) {
         LargeSupportTank t = (LargeSupportTank) e;
-        int a = 1;
-        int a0 = 1;
+        int a;
+        int a0;
         for (int i = 1; i < 8; i++) {
             a = t.getArmor(i);
             a0 = t.getOArmor(i);
@@ -162,7 +162,7 @@ public class LargeSupportTankMapSet implements DisplayMapSet {
             WidgetUtils.setAreaColor(areas[i], vLabels[i], (double) a
                     / (double) a0);
         }
-        vLabels[15].setValue(String.valueOf(((SupportTank) t).getBARRating(1)));
+        vLabels[15].setValue(String.valueOf(t.getBARRating(1)));
     }
 
     private void setContent() {

@@ -91,7 +91,7 @@ public class KeyBindingsOverlay implements IDisplayable, IPreferenceChangeListen
     );
     
     /** The keybinds to be shown in the Board Editor */
-    private static final List<KeyCommandBind> BINDS_BOARD_EDITOR = Arrays.asList(
+    private static final List<KeyCommandBind> BINDS_BOARD_EDITOR = List.of(
             KeyCommandBind.HEX_COORDS
     );
 
@@ -127,6 +127,21 @@ public class KeyBindingsOverlay implements IDisplayable, IPreferenceChangeListen
     public KeyBindingsOverlay(Game game, ClientGUI cg) {
         visible = GUIP.getBoolean(GUIPreferences.SHOW_KEYBINDS_OVERLAY);
         currentPhase = game.getPhase();
+        /** Detects phase and turn changes to display only relevant keybinds. */
+        // The active player has changed
+        GameListener gameListener = new GameListenerAdapter() {
+            @Override
+            public void gamePhaseChange(GamePhaseChangeEvent e) {
+                currentPhase = e.getNewPhase();
+                changed = true;
+            }
+
+            @Override
+            public void gameTurnChange(GameTurnChangeEvent e) {
+                // The active player has changed
+                changed = true;
+            }
+        };
         game.addGameListener(gameListener);
         clientGui = cg;
         KeyBindParser.addPreferenceChangeListener(this);
@@ -328,21 +343,6 @@ public class KeyBindingsOverlay implements IDisplayable, IPreferenceChangeListen
         }
         return false;
     }
-    
-    /** Detects phase and turn changes to display only relevant keybinds. */
-    private final GameListener gameListener = new GameListenerAdapter() {
-        @Override
-        public void gamePhaseChange(GamePhaseChangeEvent e) {
-            currentPhase = e.getNewPhase();
-            changed = true;
-        }
-        
-        @Override
-        public void gameTurnChange(GameTurnChangeEvent e) {
-            // The active player has changed
-            changed = true;
-        }
-    };
 
     @Override
     public void preferenceChange(PreferenceChangeEvent e) {

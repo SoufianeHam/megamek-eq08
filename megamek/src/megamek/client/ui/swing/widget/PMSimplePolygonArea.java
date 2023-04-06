@@ -48,7 +48,7 @@ public class PMSimplePolygonArea implements PMHotArea {
     public Color backColor = Color.lightGray;
     public Color normalBorderColor = Color.black;
     public Color highlightBorderColor = Color.red;
-    private boolean highlight = true;
+    private boolean highlight;
     private final Polygon areaShape;
     private boolean selected = false;
     private boolean visible = true;

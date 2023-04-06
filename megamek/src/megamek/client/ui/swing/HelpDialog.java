@@ -32,17 +32,14 @@ public class HelpDialog extends JDialog {
     private static final int WIDTH = 600;
     private static final int HEIGHT = 400;
 
-    private final URL helpUrl;
-
     public HelpDialog(String title, URL helpURL) {
         setTitle(title);
         getContentPane().setLayout(new BorderLayout());
-        this.helpUrl = helpURL;
 
         JEditorPane mainView = new JEditorPane();
         mainView.setEditable(false);
         try {
-            mainView.setPage(helpUrl);
+            mainView.setPage(helpURL);
         } catch (Exception ex) {
             LogManager.getLogger().error("", ex);
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);

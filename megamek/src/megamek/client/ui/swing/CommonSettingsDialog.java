@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.*;
 
 /** The Client Settings Dialog offering GUI options concerning tooltips, map display, keybinds etc. */
+@SuppressWarnings("ALL")
 public class CommonSettingsDialog extends AbstractButtonDialog implements ItemListener,
         FocusListener, ListSelectionListener, ChangeListener {
 

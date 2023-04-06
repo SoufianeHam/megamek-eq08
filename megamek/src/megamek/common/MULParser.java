@@ -589,14 +589,15 @@ public class MULParser {
         Entity newEntity = null;
 
         // First check for ejected MechWarriors, vee crews, escape pods and spacecraft crews
-        if (chassis.equals(EjectedCrew.VEE_EJECT_NAME) 
-                || chassis.equals(EjectedCrew.SPACE_EJECT_NAME)) {
-            return new EjectedCrew();
-        } else if (chassis.equals(EjectedCrew.PILOT_EJECT_NAME)
-                    || chassis.equals(EjectedCrew.MW_EJECT_NAME)) {
-            return new MechWarrior();
-        } else if (chassis.equals(EscapePods.POD_EJECT_NAME)) {
-            return new EscapePods();
+        switch (chassis) {
+            case EjectedCrew.VEE_EJECT_NAME:
+            case EjectedCrew.SPACE_EJECT_NAME:
+                return new EjectedCrew();
+            case EjectedCrew.PILOT_EJECT_NAME:
+            case EjectedCrew.MW_EJECT_NAME:
+                return new MechWarrior();
+            case EscapePods.POD_EJECT_NAME:
+                return new EscapePods();
         }
 
         // Did we find required attributes?
@@ -1522,7 +1523,6 @@ public class MULParser {
                 // Handled by the next if test.
             }
             if (index.equals(NA)) {
-                indexVal = IArmorState.ARMOR_NA;
 
                 // Protomechs only have system slots,
                 // so we have to handle the ammo specially.
@@ -1562,7 +1562,6 @@ public class MULParser {
                                         // Handled by the next if test.
                                     }
                                     if (shots.equals(NA)) {
-                                        shotsVal = IArmorState.ARMOR_NA;
                                         warning.append(
                                                 "Expected to find number of " +
                                                 "shots for ")
@@ -1724,7 +1723,6 @@ public class MULParser {
                             // Handled by the next if test.
                         }
                         if (shots.equals(NA)) {
-                            shotsVal = IArmorState.ARMOR_NA;
                             warning.append(
                                     "Expected to find number of shots for ")
                                     .append(type)
@@ -1744,17 +1742,17 @@ public class MULParser {
                         } // End have-good-shots-value
                         try {
                             double capVal = Double.parseDouble(capacity);
-                            mounted.setAmmoCapacity(capVal);
+                            mounted.setSize(capVal);
                         } catch (NumberFormatException excep) {
                             // Handled by the next if test.
                         }
                         if (capacity.equals(NA)) {
                             if (entity.hasETypeFlag(Entity.ETYPE_BATTLEARMOR)
                                     || entity.hasETypeFlag(Entity.ETYPE_PROTOMECH)) {
-                                mounted.setAmmoCapacity(mounted.getOriginalShots()
-                                         * ((AmmoType) mounted.getType()).getKgPerShot() * 1000);
+                                mounted.setSize(mounted.getOriginalShots()
+                                        * ((AmmoType) mounted.getType()).getKgPerShot() * 1000);
                             } else {
-                                mounted.setAmmoCapacity(mounted.getOriginalShots()
+                                mounted.setSize(mounted.getOriginalShots()
                                         * mounted.getTonnage()
                                         / ((AmmoType) mounted.getType()).getShots());
                             }
@@ -1849,9 +1847,9 @@ public class MULParser {
         try {
             int motiveDamage = Integer.parseInt(value);
             ((Tank) entity).setMotiveDamage(motiveDamage);
-            if (motiveDamage >= ((Tank) entity).getOriginalWalkMP()) {
+            if (motiveDamage >= entity.getOriginalWalkMP()) {
                 ((Tank) entity).immobilize();
-                ((Tank) entity).applyDamage();
+                entity.applyDamage();
             }
         } catch (Exception e) {
             warning.append("Invalid motive damage value in movement tag.\n");

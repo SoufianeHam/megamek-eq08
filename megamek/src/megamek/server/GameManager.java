@@ -61,6 +61,7 @@ import java.util.zip.GZIPOutputStream;
 /**
  * Manages the Game and processes player actions.
  */
+@SuppressWarnings("ALL")
 public class GameManager implements IGameManager {
     private static class EntityTargetPair {
         final Entity ent;
@@ -2995,7 +2996,7 @@ public class GameManager implements IGameManager {
                 // If there's only one team moving, we don't need to bother
                 // with the evenTracker, just make sure the even turns are
                 // evenly distributed
-                numEven += (int) Math.round(teamEvenTurns / min);
+                numEven += Math.round(teamEvenTurns / min);
             } else if (prevTeam == null) {
                 // Increment the number of times we've checked for "leftovers".
                 evenTracker[0]++;
@@ -3777,7 +3778,7 @@ public class GameManager implements IGameManager {
             addReport(r);
 
             int side = ToHitData.SIDE_FRONT;
-            if ((entity instanceof Aero) && !((Aero) entity).isSpheroid()) {
+            if ((entity instanceof Aero) && !entity.isSpheroid()) {
                 side = ToHitData.SIDE_REAR;
             }
             while (damage > 0) {
@@ -5475,7 +5476,7 @@ public class GameManager implements IGameManager {
                 vReport.add(r);
                 while (crash_damage > 0) {
                     HitData hit;
-                    if ((entity instanceof SmallCraft) && !((SmallCraft) entity).isSpheroid()) {
+                    if ((entity instanceof SmallCraft) && !entity.isSpheroid()) {
                         hit = entity.rollHitLocation(ToHitData.HIT_SPHEROID_CRASH, ToHitData.SIDE_REAR);
                     } else {
                         hit = entity.rollHitLocation(ToHitData.HIT_NORMAL, ToHitData.SIDE_FRONT);
@@ -7843,7 +7844,7 @@ public class GameManager implements IGameManager {
                     if (!(unloaded instanceof Infantry)) {
                         GameTurn newTurn = new GameTurn.SpecificEntityTurn(
                                 ((Entity) unloaded).getOwner().getId(),
-                                ((Entity) unloaded).getId());
+                                unloaded.getId());
                         // Need to set the new turn's multiTurn state
                         newTurn.setMultiTurn(true);
                         game.insertNextTurn(newTurn);
@@ -8003,7 +8004,7 @@ public class GameManager implements IGameManager {
             boolean vehicleAffectedByCliff = entity instanceof Tank
                     && !entity.isAirborneVTOLorWIGE();
             boolean quadveeVehMode = entity instanceof QuadVee
-                    && ((QuadVee) entity).getConversionMode() == QuadVee.CONV_MODE_VEHICLE;
+                    && entity.getConversionMode() == QuadVee.CONV_MODE_VEHICLE;
             boolean mechAffectedByCliff = (entity instanceof Mech || entity instanceof Protomech)
                     && moveType != EntityMovementType.MOVE_JUMP
                     && !entity.isAero();
@@ -24774,10 +24775,8 @@ public class GameManager implements IGameManager {
             case Aero.CRIT_WEAPON_BROAD:
                 if (aero instanceof Warship) {
                     if ((loc == Jumpship.LOC_ALS) || (loc == Jumpship.LOC_FLS)) {
-                        loc = Warship.LOC_LBS;
                     } else if ((loc == Jumpship.LOC_ARS)
                             || (loc == Jumpship.LOC_FRS)) {
-                        loc = Warship.LOC_RBS;
                     }
                 }
                 break;
@@ -30889,7 +30888,6 @@ public class GameManager implements IGameManager {
 
             boolean recheckLoop = true;
             for (int i = 0; (i < 2) && recheckLoop; i++) {
-                recheckLoop = false;
                 Arrays.fill(loads, 0);
 
                 // Walk through the entities in this position.
@@ -32629,7 +32627,7 @@ public class GameManager implements IGameManager {
             // tons of ship
             int escapeMultiplier = (int) (entity.getWeight() / 100000);
             // Set up the maximum number that CAN launch
-            int toLaunch = 0;
+            int toLaunch;
             if (roll < rollTarget.getValue()) {
                 toLaunch = 1;
             } else {
@@ -32640,7 +32638,7 @@ public class GameManager implements IGameManager {
             int totalLaunched = 0;
             boolean isPod = false;
             while (launchCounter > 0) {
-                int launched = 0;
+                int launched;
                 if (entity.getPodsLeft() > 0 && (airborne || entity.getPodsLeft() >= entity.getLifeBoatsLeft())) {
                     // Entity has more escape pods than lifeboats (or equal numbers)
                     launched = Math.min(launchCounter, entity.getPodsLeft());
@@ -32785,7 +32783,7 @@ public class GameManager implements IGameManager {
                 crew.setPosition(entity.getPosition());
             } else {
                 // On the ground, crew must abandon into a legal hex
-                Coords legalPosition = null;
+                Coords legalPosition;
                 // Small Craft can just abandon into the hex they occupy
                 if (!entity.isLargeCraft() && !crew.isLocationProhibited(entity.getPosition())) {
                     legalPosition = entity.getPosition();

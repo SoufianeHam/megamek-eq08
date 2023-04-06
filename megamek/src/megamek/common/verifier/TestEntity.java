@@ -40,10 +40,10 @@ public abstract class TestEntity implements TestEntityOption {
         }
     }
     
-    protected Engine engine = null;
-    protected Armor[] armor = null;
-    protected Structure structure = null;
-    private TestEntityOption options = null;
+    protected Engine engine;
+    protected Armor[] armor;
+    protected Structure structure;
+    private TestEntityOption options;
 
     public abstract Entity getEntity();
 

@@ -1423,7 +1423,7 @@ public class LandAirMech extends BipedMech implements IAero, IBomber {
         if (mounted.isWeaponGroup()) {
             return (mounted.getLocation() == Aero.LOC_AFT) ? Compute.ARC_AFT : Compute.ARC_NOSE;
         }
-        int arc = Compute.ARC_NOSE;
+        int arc;
         switch (mounted.getLocation()) {
             case LOC_HEAD:
                 break;

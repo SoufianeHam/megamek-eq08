@@ -34,8 +34,6 @@ import megamek.codeUtilities.StringUtility;
  */
 public class VibrabombSettingDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -7642956136536119067L;
-    private final GridBagLayout gridbag = new GridBagLayout();
-    private final GridBagConstraints c = new GridBagConstraints();
     private final JButton butOk = new JButton(Messages.getString("Okay"));
     private final JTextField fldSetting = new JTextField("20", 2);
     private int setting;
@@ -47,7 +45,9 @@ public class VibrabombSettingDialog extends JDialog implements ActionListener {
         frame = p;
         butOk.addActionListener(this);
         JLabel labMessage = new JLabel(Messages.getString("VibrabombSettingDialog.selectSetting"));
+        GridBagLayout gridbag = new GridBagLayout();
         getContentPane().setLayout(gridbag);
+        GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.VERTICAL;
         c.insets = new Insets(1, 1, 1, 1);
         c.weightx = 1.0;

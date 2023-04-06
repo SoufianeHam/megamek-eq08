@@ -144,7 +144,7 @@ public class ConfirmDialog extends JDialog{
         butYes = new JButton(yesAction);
         butYes.setText(Messages.getString("Yes"));
         butYes.setMnemonic(KeyEvent.VK_Y);
-        KeyStroke ks = null;
+        KeyStroke ks;
         ks = KeyStroke.getKeyStroke(KeyEvent.VK_Y, 0);
 
         InputMap imap = butYes.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);

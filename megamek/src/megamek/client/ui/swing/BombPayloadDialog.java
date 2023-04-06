@@ -56,8 +56,6 @@ public class BombPayloadDialog extends JDialog implements ActionListener, ItemLi
 
     @SuppressWarnings("rawtypes")
     private JComboBox[] b_choices;
-    private JLabel[] b_labels;
-    private JLabel description;
 
     /**
      * Keeps track of the number of fighters in the squadron, 0 implies a
@@ -96,7 +94,7 @@ public class BombPayloadDialog extends JDialog implements ActionListener, ItemLi
         c.gridy = 0;
         c.insets = new Insets(5, 5, 5, 5);
 
-        description = new JLabel();
+        JLabel description = new JLabel();
         if (numFighters != 0) {
             description.setText(Messages
                     .getString("BombPayloadDialog.SquadronBombDesc"));
@@ -112,7 +110,7 @@ public class BombPayloadDialog extends JDialog implements ActionListener, ItemLi
         c.gridy = 1;
 
         b_choices = new JComboBox[bombs.length];
-        b_labels = new JLabel[bombs.length];
+        JLabel[] b_labels = new JLabel[bombs.length];
         //initialize the bomb choices
         for (int i = 0; i< bombs.length; i++) {
             b_choices[i] = new JComboBox<String>();
@@ -197,7 +195,6 @@ public class BombPayloadDialog extends JDialog implements ActionListener, ItemLi
         GridBagConstraints c = new GridBagConstraints();
         panButtons.setLayout(gridbag);
 
-        c.fill = GridBagConstraints.BOTH;
         c.insets = new Insets(10, 5, 5, 5);
         c.weightx = 1.0;
         c.weighty = 1.0;

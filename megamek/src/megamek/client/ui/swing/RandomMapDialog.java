@@ -43,8 +43,6 @@ public class RandomMapDialog extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 7758433698878123806L;
 
-    // External helpers.
-    private final JFrame PARENT;
     private final IMapSettingsObserver MAP_SETTINGS_OBSERVER;
     private final Client CLIENT;
     private final GUIPreferences guip = GUIPreferences.getInstance();
@@ -107,7 +105,7 @@ public class RandomMapDialog extends JDialog implements ActionListener {
                            MapSettings mapSettings, String title) {
         super(parent, title, true);
         this.mapSettings = mapSettings;
-        PARENT = parent;
+        // External helpers.
         MAP_SETTINGS_OBSERVER = mapSettingsObserver;
         CLIENT = client;
         basicPanel = new RandomMapPanelBasic(mapSettings);
@@ -124,7 +122,7 @@ public class RandomMapDialog extends JDialog implements ActionListener {
         pack();
         validate();
         setSize(new Dimension(600, 600));
-        setLocationRelativeTo(PARENT);
+        setLocationRelativeTo(parent);
     }
 
     private void initGUI() {
@@ -192,7 +190,6 @@ public class RandomMapDialog extends JDialog implements ActionListener {
         GridBagConstraints constraints = new GridBagConstraints();
         JPanel panel = new JPanel(layout);
 
-        constraints.gridwidth = 1;
         constraints.gridheight = 1;
         constraints.weightx = 0;
         constraints.weighty = 0;

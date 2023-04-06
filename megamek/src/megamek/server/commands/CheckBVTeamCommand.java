@@ -19,8 +19,6 @@ import megamek.common.Team;
 import megamek.common.options.OptionsConstants;
 import megamek.server.Server;
 
-import java.util.Enumeration;
-
 public class CheckBVTeamCommand extends ServerCommand {
 
     public CheckBVTeamCommand(Server server) {

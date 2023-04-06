@@ -32,8 +32,8 @@ public class TestBot extends BotClient {
 
     public final CEntity.Table centities = new CEntity.Table(this);
     protected final ChatProcessor chatp = new ChatProcessor();
-    protected int ignore = 10;
-    boolean debug = false;
+    protected int ignore;
+    boolean debug;
     private int enemies_moved = 0;
     private GALance old_moves = null;
 
@@ -148,7 +148,7 @@ public class TestBot extends BotClient {
                 threads.add(worker);
 
             }
-            int running = 0;
+            int running;
             synchronized (this) {
                 do {
                     running = 0;
@@ -479,7 +479,7 @@ public class TestBot extends BotClient {
                         if (target.getEntity().getId() == enemy.getEntity()
                                                                .getId()) {
                             if (!target.isPhysicalTarget) {
-                                ToHitData toHit = null;
+                                ToHitData toHit;
                                 double self_threat = 0;
                                 double damage = 0;
                                 if (option.isJumping()
@@ -776,7 +776,7 @@ public class TestBot extends BotClient {
                 ArrayList<MoveOption> to_check = new ArrayList<>();
                 // check some enemy moves
                 for (MoveOption element : move_array) {
-                    MoveOption option = null;
+                    MoveOption option;
                     to_check.clear();
                     option = element;
                     option.setState();
@@ -1076,13 +1076,13 @@ public class TestBot extends BotClient {
     protected ArrayList<AttackOption> calculateWeaponAttacks(Entity en, Mounted mw) {
         int from = en.getId();
         int weaponID = en.getEquipmentNum(mw);
-        int spin_mode = 0;
+        int spin_mode;
         int starg_mod;
         ArrayList<AttackOption> result = new ArrayList<>();
         List<Entity> ents = myEnemies(en);
         WeaponAttackAction wep_test;
         WeaponType spinner;
-        AttackOption a = null;
+        AttackOption a;
         AttackOption max = new AttackOption(null, null, 0, null, 1, 
                 en.hasAbility(OptionsConstants.PILOT_APTITUDE_GUNNERY));
         for (Entity e : ents) {
@@ -1162,7 +1162,7 @@ public class TestBot extends BotClient {
     public GAAttack bestAttack(MoveOption es, CEntity target, int search_level) {
         Entity en = es.getEntity();
         int[] attacks = new int[4];
-        ArrayList<AttackOption> c = new ArrayList<>();
+        ArrayList<AttackOption> c;
         ArrayList<ArrayList<AttackOption>> front = new ArrayList<>();
         ArrayList<ArrayList<AttackOption>> left = new ArrayList<>();
         ArrayList<ArrayList<AttackOption>> right = new ArrayList<>();
@@ -1414,7 +1414,7 @@ public class TestBot extends BotClient {
         int first_entity = game.getFirstEntityNum(getMyTurn());
         int entity_num = first_entity;
         int best_entity = first_entity;
-        int spin_mode = 0;
+        int spin_mode;
         double max = java.lang.Double.NEGATIVE_INFINITY;
         int[] results = null;
         ArrayList<ArrayList<AttackOption>> winner = null;
@@ -1697,9 +1697,9 @@ public class TestBot extends BotClient {
         weapon_count = 0;
         for (Mounted mounted : getEntity(entNum).getWeaponList()) {
             WeaponType wtype = (WeaponType) mounted.getType();
-            if ((wtype.getName() != "ATM 3") && (wtype.getName() != "ATM 6")
-                && (wtype.getName() != "ATM 9")
-                && (wtype.getName() != "ATM 12")) {
+            if ((!wtype.getName().equals("ATM 3")) && (!wtype.getName().equals("ATM 6"))
+                && (!wtype.getName().equals("ATM 9"))
+                && (!wtype.getName().equals("ATM 12"))) {
                 if (getEntity(entNum).getC3Master() != null) {
                     av_range += ((wtype.getLongRange()) * 1.25);
                 } else {
@@ -1792,7 +1792,7 @@ public class TestBot extends BotClient {
         boolean short_circuit = false;
 
         if (result.length < 6) {
-            min = result.length > 0 ? (MoveOption) result[0] : null;
+            min = result.length > 0 ? result[0] : null;
             short_circuit = true;
         }
         possible.add(result);
@@ -1994,7 +1994,7 @@ public class TestBot extends BotClient {
         int[] pen_counters = {0, 0, 0, 0, 0, 0, 0, 0};
 
         int attacker_id, test_target;
-        int action_index = 0;
+        int action_index;
 
         // Base to-hit
         int base_to_hit;
@@ -2014,7 +2014,7 @@ public class TestBot extends BotClient {
             if (aea instanceof WeaponAttackAction) {
                 // Get the attacker
 
-                attacker_id = ((WeaponAttackAction) atk_action_list.get(0))
+                attacker_id = atk_action_list.get(0)
                         .getEntityId();
 
                 // Check to see if the attacker has a tcomp
@@ -2288,7 +2288,6 @@ public class TestBot extends BotClient {
 
             double loc_mod;
             for (int arr_index = 0; arr_index < 8; arr_index++) {
-                loc_mod = 0.0;
 
                 // If any location has had its armor stripped but is not
                 // destroyed,

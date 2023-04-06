@@ -70,7 +70,7 @@ public class MissileBayWeaponHandler extends AmmoBayWeaponHandler {
     protected int calcAttackValue() {
 
         double av = 0;
-        double counterAV = 0;
+        double counterAV;
         int weaponarmor = 0;
         int range = RangeType.rangeBracket(nRange, wtype.getATRanges(), true, false);
 
@@ -187,7 +187,7 @@ public class MissileBayWeaponHandler extends AmmoBayWeaponHandler {
     protected int initializeCapMissileArmor() {
         int armor = 0;
         for (int wId : weapon.getBayWeapons()) {
-            int curr_armor = 0;
+            int curr_armor;
             Mounted bayW = ae.getEquipment(wId);
             WeaponType bayWType = ((WeaponType) bayW.getType());
             curr_armor = bayWType.getMissileArmor();
@@ -214,7 +214,7 @@ public class MissileBayWeaponHandler extends AmmoBayWeaponHandler {
                                      WeaponType bayWType, int range, int wId) {
         Mounted bayW = ae.getEquipment(wId);
         Mounted mLinker = bayW.getLinkedBy();
-        int bonus = 0;
+        int bonus;
         if ((mLinker != null && mLinker.getType() instanceof MiscType
                 && !mLinker.isDestroyed() && !mLinker.isMissing()
                 && !mLinker.isBreached() && mLinker.getType().hasFlag(
@@ -234,9 +234,7 @@ public class MissileBayWeaponHandler extends AmmoBayWeaponHandler {
                 && (atype.getMunitionType() == AmmoType.M_ARTEMIS_V_CAPABLE)) {
             // MML3 WOULD get a bonus from Artemis V, if you were crazy enough
             // to cross-tech it
-            bonus = (int) Math.ceil(atype.getRackSize() / 5.0);
             if ((atype.getAmmoType() == AmmoType.T_SRM) || (atype.getAmmoType() == AmmoType.T_SRM_IMP))  {
-                bonus = 2;
             }
         }
 

@@ -46,8 +46,6 @@ public class ConfigurableASCardPanel extends JPanel {
 
     private final JComboBox<String> fontChooser = new JComboBox<>();
     private final JComboBox<Float> sizeChooser = new JComboBox<>();
-    private final JButton copyButton = new JButton("Copy to Clipboard");
-    private final JButton printButton = new JButton("Print");
     private final JButton mulButton = new JButton("MUL");
     private final JButton conversionButton = new JButton("Conversion Report");
     private final ASCardPanel cardPanel = new ASCardPanel();
@@ -81,7 +79,9 @@ public class ConfigurableASCardPanel extends JPanel {
         sizeChooser.addActionListener(ev -> updateSize());
         sizeChooser.setRenderer((list, value, index, isSelected, cellHasFocus) -> new JLabel(Float.toString(value)));
 
+        JButton copyButton = new JButton("Copy to Clipboard");
         copyButton.addActionListener(ev -> copyCardToClipboard());
+        JButton printButton = new JButton("Print");
         printButton.addActionListener(ev -> printCard());
 
         mulButton.addActionListener(ev -> showMUL());

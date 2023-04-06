@@ -255,7 +255,7 @@ public class BoardEdgePathFinder {
         }
 
         MoveStepType turnDirection = leftTurnCount > rightTurnCount ? MoveStepType.TURN_RIGHT : MoveStepType.TURN_LEFT;
-        int turnCount = leftTurnCount > rightTurnCount ? rightTurnCount : leftTurnCount;
+        int turnCount = Math.min(leftTurnCount, rightTurnCount);
 
         for (int count = 0; count < turnCount; count++) {
             initialPath.addStep(turnDirection);

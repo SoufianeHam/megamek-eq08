@@ -40,13 +40,13 @@ public class ChatProcessor {
              || message.contains("declares team victory at the end of the turn."))) {
             String[] splitMessage = message.split(" ");
             int i = 1;
-            String name = splitMessage[i];
+            StringBuilder name = new StringBuilder(splitMessage[i]);
             while (!splitMessage[i + 1].equals("declares")) {
-                name += " " + splitMessage[i + 1];
+                name.append(" ").append(splitMessage[i + 1]);
                 i++;
             }
             for (Player p : bot.getGame().getPlayersVector()) {
-                if (p.getName().equals(name)) {
+                if (p.getName().equals(name.toString())) {
                     if (p.isEnemyOf(bot.getLocalPlayer())) {
                         bot.sendChat("/defeat");
                         result = true;
@@ -64,14 +64,14 @@ public class ChatProcessor {
         if (!StringUtility.isNullOrBlank(message) && message.contains(DefeatCommand.wantsDefeat)) {
             String[] splitMessage = message.split(" ");
             int i = 1;
-            String name = splitMessage[i];
+            StringBuilder name = new StringBuilder(splitMessage[i]);
             while (!splitMessage[i + 1].equals("wants")
                    && !splitMessage[i + 1].equals("admits")) {
-                name += " " + splitMessage[i + 1];
+                name.append(" ").append(splitMessage[i + 1]);
                 i++;
             }
             for (Player p : bot.getGame().getPlayersVector()) {
-                if (p.getName().equals(name)) {
+                if (p.getName().equals(name.toString())) {
                     if (p.isEnemyOf(bot.getLocalPlayer())) {
                         bot.sendChat("/victory");
                         result = true;

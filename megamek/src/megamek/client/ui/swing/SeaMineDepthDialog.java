@@ -26,11 +26,7 @@ import java.util.Objects;
  */
 public class SeaMineDepthDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -7642956136536119067L;
-    private final GridBagLayout gridbag = new GridBagLayout();
-    private final GridBagConstraints c = new GridBagConstraints();
     private final JButton butOk = new JButton(Messages.getString("Okay"));
-    private final JLabel labDepth = new JLabel(Messages.getString("SeaMineDepthDialog.labDepth"),
-            SwingConstants.RIGHT);
     private final JComboBox<String> choDepth = new JComboBox<>();
     private int depth;
 
@@ -44,13 +40,17 @@ public class SeaMineDepthDialog extends JDialog implements ActionListener {
             choDepth.addItem(Integer.toString(i));
         }
         choDepth.setSelectedIndex(0);
-        
+
+        GridBagLayout gridbag = new GridBagLayout();
         getContentPane().setLayout(gridbag);
+        GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.VERTICAL;
         c.insets = new Insets(1, 1, 1, 1);
         c.weightx = 1.0;
         c.weighty = 0.0;
         c.gridwidth = GridBagConstraints.REMAINDER;
+        JLabel labDepth = new JLabel(Messages.getString("SeaMineDepthDialog.labDepth"),
+                SwingConstants.RIGHT);
         gridbag.setConstraints(labDepth, c);
         getContentPane().add(labDepth);
         c.fill = GridBagConstraints.BOTH;

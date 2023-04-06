@@ -199,7 +199,6 @@ public class ChoiceDialog extends JDialog implements ActionListener {
         GridBagConstraints c = new GridBagConstraints();
         panButtons.setLayout(gridbag);
 
-        c.fill = GridBagConstraints.BOTH;
         c.insets = new Insets(10, 5, 5, 5);
         c.weightx = 1.0;
         c.weighty = 1.0;

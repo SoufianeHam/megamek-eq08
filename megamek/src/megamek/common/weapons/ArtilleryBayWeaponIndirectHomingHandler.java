@@ -49,9 +49,9 @@ import megamek.server.GameManager;
 
 public class ArtilleryBayWeaponIndirectHomingHandler extends ArtilleryBayWeaponIndirectFireHandler {
     private static final long serialVersionUID = -7243477723032010917L;
-    boolean advancedPD = false;
-    boolean advancedAMS = false;
-    boolean multiAMS = false;
+    boolean advancedPD;
+    boolean advancedAMS;
+    boolean multiAMS;
 
     /**
      * @param t
@@ -297,7 +297,6 @@ public class ArtilleryBayWeaponIndirectHomingHandler extends ArtilleryBayWeaponI
                 ratedDamage = 0;
             }
 
-            bldg = null;
             bldg = game.getBoard().getBuildingAt(coords);
             bldgAbsorbs = (bldg != null) ? bldg.getAbsorbtion(coords) : 0;
             bldgAbsorbs = Math.min(bldgAbsorbs, ratedDamage);

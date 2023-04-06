@@ -864,7 +864,7 @@ public class TripodMech extends Mech {
             if ((mounted.getLocation() == Mech.LOC_LLEG)
                 || (mounted.getLocation() == Mech.LOC_RLEG)
                 || (mounted.getLocation() == Mech.LOC_CLEG)) {
-                if (((MiscType) mounted.getType())
+                if (mounted.getType()
                             .hasFlag(MiscType.F_ACTUATOR_ENHANCEMENT_SYSTEM)
                     && !mounted.isDestroyed()
                     && !mounted.isBreached()
@@ -877,7 +877,7 @@ public class TripodMech extends Mech {
                         centerLeg = true;
                     }
                 }// AES is destroyed their for it cannot be used.
-                else if (((MiscType) mounted.getType())
+                else if (mounted.getType()
                         .hasFlag(MiscType.F_ACTUATOR_ENHANCEMENT_SYSTEM)) {
                     return false;
                 }
@@ -1008,7 +1008,7 @@ public class TripodMech extends Mech {
     @Override
     public HitData rollHitLocation(int table, int side, int aimedLocation, AimingMode aimingMode,
                                    int cover) {
-        int roll = -1;
+        int roll;
 
         if ((aimedLocation != LOC_NONE) && aimingMode.isNone()) {
 

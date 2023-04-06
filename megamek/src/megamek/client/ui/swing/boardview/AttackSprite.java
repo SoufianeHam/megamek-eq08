@@ -47,8 +47,6 @@ class AttackSprite extends Sprite {
 
     private final int entityId;
 
-    private final int targetType;
-
     private final int targetId;
 
     private final String attackerDesc;
@@ -71,7 +69,7 @@ class AttackSprite extends Sprite {
         super(boardView1);
         this.boardView1 = boardView1;
         entityId = attack.getEntityId();
-        targetType = attack.getTargetType();
+        int targetType = attack.getTargetType();
         targetId = attack.getTargetId();
         ae = this.boardView1.game.getEntity(attack.getEntityId());
         target = this.boardView1.game.getTarget(targetType, targetId);
@@ -293,8 +291,8 @@ class AttackSprite extends Sprite {
 
     public void addWeapon(KickAttackAction attack) {
         String bufer = "";
-        String rollLeft = "";
-        String rollRight = "";
+        String rollLeft;
+        String rollRight;
         final int leg = attack.getLeg();
         switch (leg) {
             case KickAttackAction.BOTH:
@@ -406,15 +404,15 @@ class AttackSprite extends Sprite {
     @Override
     public StringBuffer getTooltip() {
         GamePhase phase = this.boardView1.game.getPhase();
-        String result = "";
-        String sAttacherDesc = "";
+        String result;
+        String sAttacherDesc;
 
         sAttacherDesc = attackerDesc + "<BR>&nbsp;&nbsp;" + Messages.getString("BoardView1.on") + " " + targetDesc;
         result = guiScaledFontHTML(attackColor) + sAttacherDesc + "</FONT>";
-        String sAttacks = "";
+        StringBuilder sAttacks = new StringBuilder();
         if ((phase.isFiring()) || (phase.isPhysical())) {
             for (String wpD : weaponDescs) {
-                sAttacks += "<BR>" + wpD;
+                sAttacks.append("<BR>").append(wpD);
             }
             result += guiScaledFontHTML(uiBlack()) + sAttacks + "</FONT>";
         }

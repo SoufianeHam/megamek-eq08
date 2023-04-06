@@ -35,11 +35,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Enumeration;
+import java.util.*;
 import java.util.List;
-import java.util.Vector;
 import java.util.stream.Collectors;
 
 /**
@@ -49,10 +46,10 @@ import java.util.stream.Collectors;
  * @author Jay Lawson
  * @author Simon (Juliez)
  */
+@SuppressWarnings("ALL")
 public class TWAdvancedSearchPanel extends JPanel implements ActionListener, ItemListener,
         KeyListener, ListSelectionListener {
 
-    private final boolean isCanceled = true;
     public MechSearchFilter mechFilter;
     private final Vector<FilterTokens> filterToks;
 
@@ -78,8 +75,6 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
     private final JLabel lblWeaponClass = new JLabel(Messages.getString("MechSelectorDialog.Search.WeaponClass"));
     private final JScrollPane scrTableWeaponType = new JScrollPane();
     private MegamekTable tblWeaponType;
-    private WeaponClassTableModel weaponTypesModel;
-    private TableRowSorter<WeaponClassTableModel> weaponTypesSorter;
     private final JLabel lblWeapons = new JLabel(Messages.getString("MechSelectorDialog.Search.Weapons"));
     private final JScrollPane scrTableWeapons = new JScrollPane();
     private MegamekTable tblWeapons;
@@ -1265,12 +1260,12 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
         cboTechClass.addActionListener(this);
 
         // Set up Weapon Class table
-        weaponTypesModel = new WeaponClassTableModel();
+        WeaponClassTableModel weaponTypesModel = new WeaponClassTableModel();
         tblWeaponType = new MegamekTable(weaponTypesModel, WeaponClassTableModel.COL_NAME);
         TableColumn wpsTypeCol = tblWeaponType.getColumnModel().getColumn(WeaponClassTableModel.COL_QTY);
         wpsTypeCol.setCellEditor(new DefaultCellEditor(cboQty));
         tblWeaponType.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        weaponTypesSorter = new TableRowSorter<>(weaponTypesModel);
+        TableRowSorter<WeaponClassTableModel> weaponTypesSorter = new TableRowSorter<>(weaponTypesModel);
         tblWeaponType.setRowSorter(weaponTypesSorter);
         tblWeaponType.addKeyListener(this);
         tblWeaponType.setFont(new Font(MMConstants.FONT_MONOSPACED, Font.PLAIN, 12));
@@ -1899,6 +1894,7 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
             disableSelectionButtons();
         }
         setVisible(true);
+        boolean isCanceled = true;
         if (isCanceled) {
             mechFilter = currFilter;
         } else {
@@ -2369,10 +2365,7 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
         private final Vector<WeaponClass> weaponClasses = new Vector<>();
 
         public WeaponClassTableModel() {
-            for (WeaponClass cl : WeaponClass.values())
-            {
-                weaponClasses.add(cl);
-            }
+            Collections.addAll(weaponClasses, WeaponClass.values());
             qty = new int[weaponClasses.size()];
             Arrays.fill(qty, 1);
         }

@@ -30,7 +30,7 @@ public class TankTrailerHitch implements Transporter {
     /**
      * Is this transporter associated with a front or rear-mounted hitch equipment?
      */
-    private boolean rearMounted = false;
+    private boolean rearMounted;
     
     public boolean getRearMounted() {
         return rearMounted;

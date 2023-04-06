@@ -70,8 +70,8 @@ public class AirmechRamAttackAction extends DisplacementAttackAction {
             return new ToHitData(TargetRoll.IMPOSSIBLE, "Attacker is not airborne airmech");
         }
 
-        int targetId = Entity.NONE;
-        Entity te = null;
+        int targetId;
+        Entity te;
         if (target.getTargetType() == Targetable.TYPE_ENTITY) {
             te = (Entity) target;
             targetId = target.getId();
@@ -82,7 +82,7 @@ public class AirmechRamAttackAction extends DisplacementAttackAction {
         if (!game.getOptions().booleanOption(OptionsConstants.BASE_FRIENDLY_FIRE)) {
             // a friendly unit can never be the target of a direct attack.
             if ((target.getTargetType() == Targetable.TYPE_ENTITY)
-                && ((((Entity) target).getOwnerId() == ae.getOwnerId())
+                && ((target.getOwnerId() == ae.getOwnerId())
                         || ((((Entity) target).getOwner().getTeam() != Player.TEAM_NONE)
                                 && (ae.getOwner().getTeam() != Player.TEAM_NONE)
                                 && (ae.getOwner().getTeam() == ((Entity) target).getOwner().getTeam())))) {
@@ -101,7 +101,7 @@ public class AirmechRamAttackAction extends DisplacementAttackAction {
                                     + targHex.getLevel();
         final int targetHeight = targetElevation + target.getHeight();
         Building bldg = game.getBoard().getBuildingAt(getTargetPos());
-        ToHitData toHit = null;
+        ToHitData toHit;
         boolean targIsBuilding = ((getTargetType() == Targetable.TYPE_FUEL_TANK)
                 || (getTargetType() == Targetable.TYPE_BUILDING));
 
@@ -332,11 +332,11 @@ public class AirmechRamAttackAction extends DisplacementAttackAction {
         if ((ramStep != null)) {
             isReachable = target.getPosition().equals(ramStep.getPosition());
             if (!isReachable && (target instanceof Entity)
-                && (null != ((Entity) target).getSecondaryPositions())) {
-                for (int i : ((Entity) target).getSecondaryPositions().keySet()) {
-                    if (null != ((Entity) target).getSecondaryPositions()
+                && (null != target.getSecondaryPositions())) {
+                for (int i : target.getSecondaryPositions().keySet()) {
+                    if (null != target.getSecondaryPositions()
                                                  .get(i)) {
-                        isReachable = ((Entity) target).getSecondaryPositions()
+                        isReachable = target.getSecondaryPositions()
                                                        .get(i).equals(ramStep.getPosition());
                         if (isReachable) {
                             break;

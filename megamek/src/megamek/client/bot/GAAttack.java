@@ -35,8 +35,8 @@ public class GAAttack extends GA {
     protected final CEntity attacker;
     protected final Game game;
     protected final CEntity.Table targets;
-    protected ArrayList<Entity> target_array = null;
-    protected ArrayList<Integer> valid_target_indexes = null;
+    protected ArrayList<Entity> target_array;
+    protected ArrayList<Integer> valid_target_indexes;
     protected boolean overheat_eligible = false;
     protected int firing_arc = 0;
     double[] damages = null;
@@ -115,7 +115,7 @@ public class GAAttack extends GA {
 
         for (int k = 0; k < target_array.size(); k++) {
             Entity en = target_array.get(k);
-            CEntity enemy = null;
+            CEntity enemy;
             result[k] = 0;
             if ((enemy = targets.get(Integer.valueOf(en.getId()))) != null) {
                 result[k] = getThreadUtility(enemy);
@@ -154,7 +154,7 @@ public class GAAttack extends GA {
     protected double getFitness(Chromosome chromArrayList) {
         targets.clear(); // could use ArrayList and not hashtable
         int heat_total = 0;
-        Entity target = null;
+        Entity target;
         try {
             target = target_array.get(chromArrayList.genes[chromosomeDim - 1]);
         } catch (Exception ex) {

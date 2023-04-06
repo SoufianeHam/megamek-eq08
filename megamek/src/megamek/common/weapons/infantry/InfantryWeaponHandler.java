@@ -78,7 +78,7 @@ public class InfantryWeaponHandler extends WeaponHandler {
             nHitMod -= 4;
         }
         
-        int troopersHit = 0;
+        int troopersHit;
         //when swarming all troopers hit
         if (ae.getSwarmTargetId() == target.getId()) {
             troopersHit = ((Infantry) ae).getShootingStrength();

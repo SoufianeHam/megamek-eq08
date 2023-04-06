@@ -34,14 +34,14 @@ public class CriticalSlot implements Serializable {
      * Index is only used for system type critical slots. It is used as an
      * index into a collection to determine what the system actually is.
      */
-    private int index = -1;
+    private int index;
     private Mounted mount;
     private Mounted mount2;
 
     private boolean hit = false; // hit
     private boolean missing = false; // location destroyed
     private boolean destroyed = false;
-    private boolean hittable = true; // false = hits rerolled
+    private boolean hittable; // false = hits rerolled
     private boolean breached = false; // true = breached
     private boolean repairing = false; // true = currently being repaired
     private boolean repairable = true; // true = can be repaired

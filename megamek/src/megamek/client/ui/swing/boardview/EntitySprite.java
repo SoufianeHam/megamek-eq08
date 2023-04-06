@@ -767,8 +767,8 @@ class EntitySprite extends Sprite {
             }
 
             // armor, internal and TMM status bars
-            int barLength = 0;
-            double percentRemaining = 0.00;
+            int barLength;
+            double percentRemaining;
 
             percentRemaining = entity.getArmorRemainingPercent();
             barLength = (int) (STATUS_BAR_LENGTH * percentRemaining);

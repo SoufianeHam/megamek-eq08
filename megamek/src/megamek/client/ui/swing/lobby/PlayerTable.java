@@ -74,24 +74,24 @@ class PlayerTable extends JTable {
 
         StringBuilder result = new StringBuilder("<HTML>");
         result.append(guiScaledFontHTML(player.getColour().getColour()));
-        result.append(player.getName() + "</FONT>");
+        result.append(player.getName()).append("</FONT>");
 
         result.append(guiScaledFontHTML());
         if ((lobby.client() instanceof BotClient) && player.equals(lobby.localPlayer())) {
             String msg_thisbot = Messages.getString("ChatLounge.ThisBot");
-            result.append(" (" + UIUtil.BOT_MARKER + " " + msg_thisbot + ")");
+            result.append(" (" + UIUtil.BOT_MARKER + " ").append(msg_thisbot).append(")");
         } else if (lobby.client().bots.containsKey(player.getName())) {
             String msg_yourbot = Messages.getString("ChatLounge.YourBot");
-            result.append(" (" + UIUtil.BOT_MARKER + " " + msg_yourbot + ")");
+            result.append(" (" + UIUtil.BOT_MARKER + " ").append(msg_yourbot).append(")");
         } else if (lobby.localPlayer().equals(player)) {
             String msg_you = Messages.getString("ChatLounge.You");
-            result.append(" (" + msg_you + ")");
+            result.append(" (").append(msg_you).append(")");
         }
         result.append("<BR>");
         if (player.getConstantInitBonus() != 0) {
             String sign = (player.getConstantInitBonus() > 0) ? "+" : "";
             String msg_initiativemodifier = Messages.getString("ChatLounge.InitiativeModifier");
-            result.append(msg_initiativemodifier + ": ").append(sign);
+            result.append(msg_initiativemodifier).append(": ").append(sign);
             result.append(player.getConstantInitBonus());
         } else {
             String msg_noinitiativemodifier = Messages.getString("ChatLounge.NoInitiativeModifier");
@@ -101,7 +101,7 @@ class PlayerTable extends JTable {
             int mines = player.getNbrMFConventional() + player.getNbrMFActive() 
             + player.getNbrMFInferno() + player.getNbrMFVibra();
             String msg_totalminefields = Messages.getString("ChatLounge.TotalMinefields");
-            result.append("<BR>" + msg_totalminefields + ": ").append(mines);
+            result.append("<BR>").append(msg_totalminefields).append(": ").append(mines);
         }
         return result.toString();
     }
@@ -196,16 +196,16 @@ class PlayerTable extends JTable {
 
             String msg_start = Messages.getString("ChatLounge.Start");
             if ((player.getStartingPos() >= 0) && (player.getStartingPos() <= IStartingPositions.START_LOCATION_NAMES.length)) {
-                result.append(msg_start + ": " + IStartingPositions.START_LOCATION_NAMES[player.getStartingPos()]);
+                result.append(msg_start).append(": ").append(IStartingPositions.START_LOCATION_NAMES[player.getStartingPos()]);
                 int so = player.getStartOffset();
                 int sw = player.getStartWidth();
                 if ((so != 0) || (sw != 3)) {
-                    result.append(", " + so);
-                    result.append(", " + sw);
+                    result.append(", ").append(so);
+                    result.append(", ").append(sw);
                 }
             } else {
                 String msg_none = Messages.getString("ChatLounge.None");
-                result.append(msg_start + ": " + msg_none);
+                result.append(msg_start).append(": ").append(msg_none);
             }
             result.append("</FONT>");
             
@@ -218,7 +218,7 @@ class PlayerTable extends JTable {
             result.append(UIUtil.DOT_SPACER);
             result.append(guiScaledFontHTML());
             String msg_bvplain = Messages.getString("ChatLounge.BVplain");
-            result.append(msg_bvplain + ": ");
+            result.append(msg_bvplain).append(": ");
             NumberFormat formatter = NumberFormat.getIntegerInstance(MegaMek.getMMOptions().getLocale());
             result.append((player.getBV() != 0) ? formatter.format(player.getBV()) : "--");
             result.append("</FONT>");
@@ -229,7 +229,7 @@ class PlayerTable extends JTable {
                 result.append(guiScaledFontHTML());
                 String sign = (player.getConstantInitBonus() > 0) ? "+" : "";
                 String msg_init = Messages.getString("ChatLounge.Init");
-                result.append(msg_init + ": ").append(sign);
+                result.append(msg_init).append(": ").append(sign);
                 result.append(player.getConstantInitBonus());
                 result.append("</FONT>");
             }

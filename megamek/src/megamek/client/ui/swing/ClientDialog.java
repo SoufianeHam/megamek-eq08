@@ -37,7 +37,7 @@ public class ClientDialog extends JDialog {
     private static final double TASKBAR_SIZE = .05;
     private static final int CONTAINER_BUFFER = 10;
 
-    protected JFrame owner = null;
+    protected JFrame owner;
     private boolean isScaling = false;
 
     /** 

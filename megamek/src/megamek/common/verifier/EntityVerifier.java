@@ -243,41 +243,47 @@ public class EntityVerifier implements MechSummaryCache.Listener {
         boolean ignoreUnofficial = true;
         boolean failsOnly = true;
         for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("-file")) {
-                i++;
-                if (i >= args.length) {
-                    System.out.println("Missing argument filename!");
-                    return;
-                }
-                f = new File(args[i]);
-                if (!f.exists()) {
-                    System.out.println("Can't find: " + args[i] + "!");
-                    return;
-                }
-                if (args[i].endsWith(".zip")) {
+            switch (args[i]) {
+                case "-file":
                     i++;
                     if (i >= args.length) {
-                        System.out.println("Missing Entity Name!");
+                        System.out.println("Missing argument filename!");
                         return;
                     }
-                    entityName = args[i];
-                }
-            } else if (args[i].equals("-v") || args[i].equals("-verbose")) {
-                verbose = true;
-            } else if (args[i].equals("-valid")) {
-                failsOnly = false;
-            } else if (args[i].equals("-unofficial")) {
-                ignoreUnofficial = false;
-            } else {
-                System.err.println("Error: Invalid argument.\n");
-                System.err.println("Usage:\n\tEntityVerifier [flags] \n\n" +
-                "Valid Flags: \n" +
-                "-file <FILENAME> \t Specify a file to validate,\n"+
-                "                 \t   else the data directory is checked\n" +
-                "-v               \t Verbose -- print detailed report\n" +
-                "-unofficial      \t Consider unofficial units in data dir\n"+ 
-                "-valid           \t Print verbose reports for valid units\n");
-                return;
+                    f = new File(args[i]);
+                    if (!f.exists()) {
+                        System.out.println("Can't find: " + args[i] + "!");
+                        return;
+                    }
+                    if (args[i].endsWith(".zip")) {
+                        i++;
+                        if (i >= args.length) {
+                            System.out.println("Missing Entity Name!");
+                            return;
+                        }
+                        entityName = args[i];
+                    }
+                    break;
+                case "-v":
+                case "-verbose":
+                    verbose = true;
+                    break;
+                case "-valid":
+                    failsOnly = false;
+                    break;
+                case "-unofficial":
+                    ignoreUnofficial = false;
+                    break;
+                default:
+                    System.err.println("Error: Invalid argument.\n");
+                    System.err.println("Usage:\n\tEntityVerifier [flags] \n\n" +
+                            "Valid Flags: \n" +
+                            "-file <FILENAME> \t Specify a file to validate,\n" +
+                            "                 \t   else the data directory is checked\n" +
+                            "-v               \t Verbose -- print detailed report\n" +
+                            "-unofficial      \t Consider unofficial units in data dir\n" +
+                            "-valid           \t Print verbose reports for valid units\n");
+                    return;
             }
         }
 

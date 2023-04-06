@@ -72,7 +72,6 @@ public class CommonMenuBar extends JMenuBar implements ActionListener, IPreferen
     // The Units menu
     private final JMenuItem fileUnitsReinforce = new JMenuItem(getString("CommonMenuBar.fileUnitsReinforce"));
     private final JMenuItem fileUnitsReinforceRAT = new JMenuItem(getString("CommonMenuBar.fileUnitsReinforceRAT"));
-    private final JMenuItem fileRefreshCache = new JMenuItem(getString("CommonMenuBar.fileUnitsRefreshUnitCache"));
     private final JMenuItem fileUnitsPaste = new JMenuItem(getString("CommonMenuBar.fileUnitsPaste"));
     private final JMenuItem fileUnitsCopy = new JMenuItem(getString("CommonMenuBar.fileUnitsCopy"));
     private final JMenuItem fileUnitsSave = new JMenuItem(getString("CommonMenuBar.fileUnitsSave"));
@@ -110,7 +109,6 @@ public class CommonMenuBar extends JMenuBar implements ActionListener, IPreferen
     private final JMenuItem viewZoomIn = new JMenuItem(getString("CommonMenuBar.viewZoomIn"));
     private final JMenuItem viewZoomOut = new JMenuItem(getString("CommonMenuBar.viewZoomOut"));
     private final JMenuItem viewLabels = new JMenuItem(getString("CommonMenuBar.viewLabels"));
-    private final JMenuItem viewResetWindowPositions = new JMenuItem(getString("CommonMenuBar.viewResetWindowPos"));
     private final JCheckBoxMenuItem toggleIsometric = new JCheckBoxMenuItem(getString("CommonMenuBar.viewToggleIsometric"));
     private final JCheckBoxMenuItem toggleHexCoords = new JCheckBoxMenuItem(getString("CommonMenuBar.viewToggleHexCoords"));
     private final JCheckBoxMenuItem toggleFieldOfFire = new JCheckBoxMenuItem(getString("CommonMenuBar.viewToggleFieldOfFire"));
@@ -124,12 +122,7 @@ public class CommonMenuBar extends JMenuBar implements ActionListener, IPreferen
     private final JMenuItem viewClientSettings = new JMenuItem(getString("CommonMenuBar.viewClientSettings"));
     private final JMenuItem viewIncGUIScale = new JMenuItem(getString("CommonMenuBar.viewIncGUIScale"));
     private final JMenuItem viewDecGUIScale = new JMenuItem(getString("CommonMenuBar.viewDecGUIScale"));
-    
-    // The Help menu
-    private final JMenuItem helpContents = new JMenuItem(getString("CommonMenuBar.helpContents"));
-    private final JMenuItem helpSkinning = new JMenuItem(getString("CommonMenuBar.helpSkinning"));
-    private final JMenuItem helpAbout = new JMenuItem(getString("CommonMenuBar.helpAbout"));
-    
+
     // The Firing Action menu
     private final JMenuItem fireSaveWeaponOrder = new JMenuItem(getString("CommonMenuBar.fireSaveWeaponOrder"));
     
@@ -190,7 +183,8 @@ public class CommonMenuBar extends JMenuBar implements ActionListener, IPreferen
         initMenuItem(fileUnitsReinforceRAT, menu, FILE_UNITS_REINFORCE_RAT);
         initMenuItem(fileUnitsSave, menu, FILE_UNITS_SAVE);
         menu.addSeparator();
-        
+
+        JMenuItem fileRefreshCache = new JMenuItem(getString("CommonMenuBar.fileUnitsRefreshUnitCache"));
         initMenuItem(fileRefreshCache, menu, FILE_REFRESH_CACHE);
         initMenuItem(fileUnitsBrowse, menu, FILE_UNITS_BROWSE);
         menu.addSeparator();
@@ -261,7 +255,8 @@ public class CommonMenuBar extends JMenuBar implements ActionListener, IPreferen
         viewPlanetaryConditionsOverlay.setSelected(GUIP.getBoolean(GUIPreferences.SHOW_PLANETARYCONDITIONS_OVERLAY));
         initMenuItem(viewUnitOverview, menu, VIEW_UNIT_OVERVIEW);
         menu.addSeparator();
-        
+
+        JMenuItem viewResetWindowPositions = new JMenuItem(getString("CommonMenuBar.viewResetWindowPos"));
         initMenuItem(viewResetWindowPositions, menu, VIEW_RESET_WINDOW_POSITIONS);
         initMenuItem(viewAccessibilityWindow, menu, VIEW_ACCESSIBILITY_WINDOW, VK_A);
         viewAccessibilityWindow.setMnemonic(KeyEvent.VK_A);
@@ -300,9 +295,13 @@ public class CommonMenuBar extends JMenuBar implements ActionListener, IPreferen
         menu = new JMenu(Messages.getString("CommonMenuBar.HelpMenu"));
         menu.setMnemonic(VK_H);
         add(menu);
+        // The Help menu
+        JMenuItem helpContents = new JMenuItem(getString("CommonMenuBar.helpContents"));
         initMenuItem(helpContents, menu, HELP_CONTENTS);
+        JMenuItem helpSkinning = new JMenuItem(getString("CommonMenuBar.helpSkinning"));
         initMenuItem(helpSkinning, menu, HELP_SKINNING);
         menu.addSeparator();
+        JMenuItem helpAbout = new JMenuItem(getString("CommonMenuBar.helpAbout"));
         initMenuItem(helpAbout, menu, HELP_ABOUT);
 
         adaptToGUIScale();
@@ -483,30 +482,43 @@ public class CommonMenuBar extends JMenuBar implements ActionListener, IPreferen
     @Override
     public void preferenceChange(PreferenceChangeEvent e) {
         // Adapt the menu checkboxes to a new state where necessary
-        if (e.getName().equals(GUIPreferences.USE_ISOMETRIC)) {
-            toggleIsometric.setSelected((Boolean) e.getNewValue());
-        } else if (e.getName().equals(GUIPreferences.SHOW_FIELD_OF_FIRE)) {
-            toggleFieldOfFire.setSelected((Boolean) e.getNewValue());
-        } else if (e.getName().equals(GUIPreferences.SHOW_KEYBINDS_OVERLAY)) {
-            viewKeybindsOverlay.setSelected((Boolean) e.getNewValue());
-        } else if (e.getName().equals(GUIPreferences.SHOW_PLANETARYCONDITIONS_OVERLAY)) {
-            viewPlanetaryConditionsOverlay.setSelected((Boolean) e.getNewValue());
-        } else if (e.getName().equals(GUIPreferences.SHOW_UNIT_OVERVIEW)) {
-            viewUnitOverview.setSelected((Boolean) e.getNewValue());
-        } else if (e.getName().equals(GUIPreferences.GUI_SCALE)) {
-            adaptToGUIScale();
-        } else if (e.getName().equals(GUIPreferences.MINI_MAP_ENABLED)) {
-            viewMinimap.setSelected(GUIP.getMinimapEnabled());
-        } else if (e.getName().equals(GUIPreferences.SHOW_COORDS)) {
-            toggleHexCoords.setSelected(GUIP.getBoolean(GUIPreferences.SHOW_COORDS));
-        } else if (e.getName().equals(KeyBindParser.KEYBINDS_CHANGED)) {
-            setKeyBinds();
-        } else if (e.getName().equals(GUIPreferences.UNIT_DISPLAY_ENABLED)) {
-            viewMekDisplay.setSelected(GUIP.getUnitDisplayEnabled());
-        } else if (e.getName().equals(GUIPreferences.MINI_REPORT_ENABLED)) {
-            gameRoundReport.setSelected(GUIP.getMiniReportEnabled());
-        } else if (e.getName().equals(GUIPreferences.PLAYER_LIST_ENABLED)) {
-            gamePlayerList.setSelected(GUIP.getPlayerListEnabled());
+        switch (e.getName()) {
+            case GUIPreferences.USE_ISOMETRIC:
+                toggleIsometric.setSelected((Boolean) e.getNewValue());
+                break;
+            case GUIPreferences.SHOW_FIELD_OF_FIRE:
+                toggleFieldOfFire.setSelected((Boolean) e.getNewValue());
+                break;
+            case GUIPreferences.SHOW_KEYBINDS_OVERLAY:
+                viewKeybindsOverlay.setSelected((Boolean) e.getNewValue());
+                break;
+            case GUIPreferences.SHOW_PLANETARYCONDITIONS_OVERLAY:
+                viewPlanetaryConditionsOverlay.setSelected((Boolean) e.getNewValue());
+                break;
+            case GUIPreferences.SHOW_UNIT_OVERVIEW:
+                viewUnitOverview.setSelected((Boolean) e.getNewValue());
+                break;
+            case GUIPreferences.GUI_SCALE:
+                adaptToGUIScale();
+                break;
+            case GUIPreferences.MINI_MAP_ENABLED:
+                viewMinimap.setSelected(GUIP.getMinimapEnabled());
+                break;
+            case GUIPreferences.SHOW_COORDS:
+                toggleHexCoords.setSelected(GUIP.getBoolean(GUIPreferences.SHOW_COORDS));
+                break;
+            case KeyBindParser.KEYBINDS_CHANGED:
+                setKeyBinds();
+                break;
+            case GUIPreferences.UNIT_DISPLAY_ENABLED:
+                viewMekDisplay.setSelected(GUIP.getUnitDisplayEnabled());
+                break;
+            case GUIPreferences.MINI_REPORT_ENABLED:
+                gameRoundReport.setSelected(GUIP.getMiniReportEnabled());
+                break;
+            case GUIPreferences.PLAYER_LIST_ENABLED:
+                gamePlayerList.setSelected(GUIP.getPlayerListEnabled());
+                break;
         }
     }
     

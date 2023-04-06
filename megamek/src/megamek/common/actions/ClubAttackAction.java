@@ -318,7 +318,7 @@ public class ClubAttackAction extends PhysicalAttackAction {
                                     + targHex.getLevel();
         final int targetHeight = targetElevation + target.getHeight();
         final boolean bothArms = (club.getType().hasFlag(MiscType.F_CLUB)
-                                  && ((MiscType) club.getType()).hasSubType(MiscType.S_CLUB)) 
+                                  && club.getType().hasSubType(MiscType.S_CLUB))
                     || zweihandering;
         // Cast is safe because non-'Mechs never even get here.
         final boolean hasClaws = ((Mech) ae).hasClaw(Mech.LOC_RARM)

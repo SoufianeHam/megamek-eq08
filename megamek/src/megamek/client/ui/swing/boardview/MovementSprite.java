@@ -26,24 +26,15 @@ import megamek.common.Entity;
  */
 class MovementSprite extends Sprite {
 
-    private Point a;
-
-    private Point t;
-
     private final double an;
 
     private StraightArrowPolygon movePoly;
 
     private Color moveColor;
 
-    // private MovementVector mv;
-    private final int[] vectors;
-
     private final Coords start;
 
     private final Coords end;
-
-    private final Entity en;
 
     private int vel;
 
@@ -51,11 +42,10 @@ class MovementSprite extends Sprite {
         // this.mv = en.getMV();
 
         super(boardView1);
-        en = e;
-        vectors = v;// en.getVectors();
+        // private MovementVector mv;
         // get the starting and ending position
-        start = en.getPosition();
-        end = Compute.getFinalPosition(start, vectors);
+        start = e.getPosition();
+        end = Compute.getFinalPosition(start, v);
 
         // what is the velocity
         vel = 0;
@@ -65,7 +55,7 @@ class MovementSprite extends Sprite {
 
         // color?
         // player colors
-        moveColor = en.getOwner().getColour().getColour();
+        moveColor = e.getOwner().getColour().getColour();
         // TODO: Its not going transparent. Oh well, it is a minor issue at
         // the moment
         /*
@@ -82,7 +72,7 @@ class MovementSprite extends Sprite {
             moveColor = new Color(colour | (transparency << 24), true);
         }
         // dark gray if done
-        if (en.isDone()) {
+        if (e.isDone()) {
             int colour = 0x696969; // gray
             int transparency = GUIPreferences.getInstance().getInt(
                     GUIPreferences.ADVANCED_ATTACK_ARROW_TRANSPARENCY);
@@ -107,8 +97,8 @@ class MovementSprite extends Sprite {
 
     private void makePoly() {
         // make a polygon
-        a = bv.getHexLocation(start);
-        t = bv.getHexLocation(end);
+        Point a = bv.getHexLocation(start);
+        Point t = bv.getHexLocation(end);
         // OK, that is actually not good. I do not like hard coded figures.
         // HEX_W/2 - x distance in pixels from origin of hex bounding box to
         // the center of hex.

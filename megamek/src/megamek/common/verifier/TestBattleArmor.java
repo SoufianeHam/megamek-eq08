@@ -653,14 +653,12 @@ public class TestBattleArmor extends TestEntity {
 
     public boolean correctMovement(StringBuffer buff) {
         if (ba.getOriginalWalkMP() > ba.getMaximumWalkMP()) {
-            buff.append("Walk MP is " + ba.getOriginalWalkMP()
-                    + " but maximum is " + ba.getMaximumWalkMP() + "!");
+            buff.append("Walk MP is ").append(ba.getOriginalWalkMP()).append(" but maximum is ").append(ba.getMaximumWalkMP()).append("!");
             return false;
         }
 
         if (ba.getOriginalJumpMP() > ba.getMaximumJumpMP()) {
-            buff.append("Jump MP is " + ba.getOriginalWalkMP()
-                    + " but maximum is " + ba.getMaximumWalkMP() + "!");
+            buff.append("Jump MP is ").append(ba.getOriginalWalkMP()).append(" but maximum is ").append(ba.getMaximumWalkMP()).append("!");
             return false;
         }
 
@@ -796,7 +794,7 @@ public class TestBattleArmor extends TestEntity {
             if ((m.getType() instanceof WeaponType)
                     && !m.getType().hasFlag(WeaponType.F_BA_WEAPON)
                     && !m.getType().hasFlag(WeaponType.F_INFANTRY)) {
-                buff.append(m.getName() + " is not a BattleArmor weapon!\n");
+                buff.append(m.getName()).append(" is not a BattleArmor weapon!\n");
                 correct = false;
             }
 
@@ -806,22 +804,18 @@ public class TestBattleArmor extends TestEntity {
                 Mounted link = m.getLinkedBy();
                 if (link == null) {
                     correct = false;
-                    buff.append(m.getName() + " is an infantry weapon but " +
-                            "has no mount point!\n");
+                    buff.append(m.getName()).append(" is an infantry weapon but ").append("has no mount point!\n");
                     continue;
                 }
                 // No AP melee weapons
                 if (m.getType().hasFlag(WeaponType.F_INF_POINT_BLANK)) {
-                    buff.append(m.getName() + " is a melee AP weapon and " +
-                            "BattleArmor cannot mount melee AP weapons!\n");
+                    buff.append(m.getName()).append(" is a melee AP weapon and ").append("BattleArmor cannot mount melee AP weapons!\n");
                     correct = false;   
                 }
                 // Special considerations for AP mounts
                 if (link.getType().hasFlag(MiscType.F_AP_MOUNT)) {
                     if (m.getType().hasFlag(WeaponType.F_INF_SUPPORT)) {
-                        buff.append(m.getName() + " is a support weapon and " +
-                            "BattleArmor AP mounts cannot mount " +
-                            "support weapons!\n");
+                        buff.append(m.getName()).append(" is a support weapon and ").append("BattleArmor AP mounts cannot mount ").append("support weapons!\n");
                         correct = false; 
                     }
                 // Special considerations for armored gloves
@@ -830,15 +824,11 @@ public class TestBattleArmor extends TestEntity {
                         if ((m.getType() instanceof InfantryWeapon)) {
                             int crew = ((InfantryWeapon) m.getType()).getCrew();
                             if (crew > 1) {
-                                buff.append(m.getName()
-                                        + " has a crew size of " + crew
-                                        + " but size can be no greater "
-                                        + "than 1E!\n");
+                                buff.append(m.getName()).append(" has a crew size of ").append(crew).append(" but size can be no greater ").append("than 1E!\n");
                                 correct = false;
                             }
                         } else if (!(m.getType() instanceof InfantryWeapon)) {
-                            buff.append(m.getName() + " has the INF_SUPPORT " +
-                                    "flag but is not an InfantryWeapon!\n");
+                            buff.append(m.getName()).append(" has the INF_SUPPORT ").append("flag but is not an InfantryWeapon!\n");
                             correct = false;   
                         }
                     }
@@ -848,7 +838,7 @@ public class TestBattleArmor extends TestEntity {
             // Check for valid BA equipment
             if ((m.getType() instanceof MiscType)
                     && !m.getType().hasFlag(MiscType.F_BA_EQUIPMENT)) {
-                buff.append(m.getName() + " is not BattleArmor equipment!\n");
+                buff.append(m.getName()).append(" is not BattleArmor equipment!\n");
                 correct = false;
             }
 
@@ -909,8 +899,7 @@ public class TestBattleArmor extends TestEntity {
         }
         
         if (numSSWMs > 1) {
-            buff.append("Squad has " + numSSWMs + " squad support " +
-                    "weapon mounts, but only 1 is allowed!\n");
+            buff.append("Squad has ").append(numSSWMs).append(" squad support ").append("weapon mounts, but only 1 is allowed!\n");
             correct = false;
         }
         
@@ -922,9 +911,7 @@ public class TestBattleArmor extends TestEntity {
         }
         
         if (numGloveMountedAPWeapons > 1) {
-            buff.append("Batle Armor with armored gloves may only mount 1 " +
-                    "additional AP weapon, but " + numGloveMountedAPWeapons 
-                    + " are mounted!\n");
+            buff.append("Batle Armor with armored gloves may only mount 1 " + "additional AP weapon, but ").append(numGloveMountedAPWeapons).append(" are mounted!\n");
             correct = false;
         }
         
@@ -933,9 +920,7 @@ public class TestBattleArmor extends TestEntity {
             for (Mounted ammo : ba.getAmmo()) {
                 if (ammo.isSquadSupportWeapon() && 
                         !AmmoType.isAmmoValid(ammo, sswType)) {
-                    buff.append(ammo.getName() + " is squad support weapon " +
-                            "mounted, but it is not a legal ammo type for " +
-                            "the squad support weapon!\n");
+                    buff.append(ammo.getName()).append(" is squad support weapon ").append("mounted, but it is not a legal ammo type for ").append("the squad support weapon!\n");
                     correct = false;
                 }
             }
@@ -951,11 +936,7 @@ public class TestBattleArmor extends TestEntity {
         for (int t = 0; t <= ba.getTroopers(); t++) {
             for (int loc = 0; loc < BattleArmor.MOUNT_NUM_LOCS; loc++) {
                 if (critsUsed[t][loc] > ba.getNumCrits(loc)) {
-                    buff.append(BattleArmor.getBaMountLocAbbr(loc) + " of "
-                            + ba.getLocationAbbr(t) + " has "
-                            + critsUsed[t][loc]
-                            + " used criticals, but only has "
-                            + ba.getNumCrits(loc) + " available criticsl!\n");
+                    buff.append(BattleArmor.getBaMountLocAbbr(loc)).append(" of ").append(ba.getLocationAbbr(t)).append(" has ").append(critsUsed[t][loc]).append(" used criticals, but only has ").append(ba.getNumCrits(loc)).append(" available criticsl!\n");
                     correct = false;
                 }
                 if (BattleArmor.MOUNT_LOC_TURRET == loc) {
@@ -963,22 +944,12 @@ public class TestBattleArmor extends TestEntity {
                 }
                 if (numAMWeapons[t][loc] > 
                         ba.getNumAllowedAntiMechWeapons(loc)) {
-                    buff.append(BattleArmor.getBaMountLocAbbr(loc) + " of "
-                            + ba.getLocationAbbr(t) + " has "
-                            + numAMWeapons[t][loc]
-                            + " anti-mech weapons, but only "
-                            + ba.getNumAllowedAntiMechWeapons(loc)
-                            + " are allowed!\n");
+                    buff.append(BattleArmor.getBaMountLocAbbr(loc)).append(" of ").append(ba.getLocationAbbr(t)).append(" has ").append(numAMWeapons[t][loc]).append(" anti-mech weapons, but only ").append(ba.getNumAllowedAntiMechWeapons(loc)).append(" are allowed!\n");
                     correct = false;
                 }
                 if (numAPWeapons[t][loc] > ba
                         .getNumAllowedAntiPersonnelWeapons(loc, t)) {
-                    buff.append(BattleArmor.getBaMountLocAbbr(loc) + " of "
-                            + ba.getLocationAbbr(t) + " has "
-                            + numAPWeapons[t][loc]
-                            + " anti-personnel weapons, but only "
-                            + ba.getNumAllowedAntiPersonnelWeapons(loc, t)
-                            + " are allowed!\n");
+                    buff.append(BattleArmor.getBaMountLocAbbr(loc)).append(" of ").append(ba.getLocationAbbr(t)).append(" has ").append(numAPWeapons[t][loc]).append(" anti-personnel weapons, but only ").append(ba.getNumAllowedAntiPersonnelWeapons(loc, t)).append(" are allowed!\n");
                     correct = false;
                 }
             }
@@ -1044,13 +1015,9 @@ public class TestBattleArmor extends TestEntity {
                     raManipType = BAManipulator.getManipulator(m.getType().getInternalName());
                 } else {
                     if (m.getBaMountLoc() != BattleArmor.MOUNT_LOC_NONE) {
-                        buff.append(m.getName()
-                                + "mounted in "
-                                + BattleArmor.MOUNT_LOC_NAMES[m.getBaMountLoc()]
-                                + ", but manipulators must be mounted in arms!");
+                        buff.append(m.getName()).append("mounted in ").append(BattleArmor.MOUNT_LOC_NAMES[m.getBaMountLoc()]).append(", but manipulators must be mounted in arms!");
                     } else {
-                        buff.append(m.getName()
-                                + " not allocated!\n");  
+                        buff.append(m.getName()).append(" not allocated!\n");
                     }
                     correct = false;
                 }
@@ -1088,7 +1055,7 @@ public class TestBattleArmor extends TestEntity {
         boolean correct = true;
         String baDesig = ba.getLocationAbbr(BattleArmor.LOC_SQUAD);
         if (showO && ((weight + getMaxOverweight()) < weightSum)) {
-            buff.append(baDesig + "Weight: ").append(calculateWeight())
+            buff.append(baDesig).append("Weight: ").append(calculateWeight())
                     .append(" is greater than ").append(getWeight())
                     .append("\n");
             correct = false;
@@ -1102,8 +1069,7 @@ public class TestBattleArmor extends TestEntity {
         for (int t = 1; t < ba.getTroopers(); t++) {
             double trooperWeight = calculateWeight(t);
             if (trooperWeight > ba.getTrooperWeight()) {
-                buff.append("Trooper " + t + " Weight: " + trooperWeight
-                        + " is greater than " + ba.getTrooperWeight() + "\n");
+                buff.append("Trooper ").append(t).append(" Weight: ").append(trooperWeight).append(" is greater than ").append(ba.getTrooperWeight()).append("\n");
                 correct = false;
             }
         }

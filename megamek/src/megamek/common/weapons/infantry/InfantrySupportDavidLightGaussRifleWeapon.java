@@ -38,8 +38,7 @@ public class InfantrySupportDavidLightGaussRifleWeapon extends InfantryWeapon {
 		ammoType = AmmoType.T_INFANTRY;
 		cost = 6000;
 		bv = 4.01;
-		tonnage = .018;
-		flags = flags.or(F_NO_FIRES).or(F_DIRECT_FIRE).or(F_BALLISTIC).or(F_INF_ENCUMBER).or(F_INF_SUPPORT);
+        flags = flags.or(F_NO_FIRES).or(F_DIRECT_FIRE).or(F_BALLISTIC).or(F_INF_ENCUMBER).or(F_INF_SUPPORT);
 		infantryDamage = 0.56;
 		infantryRange = 3;
 		crew = 1;

@@ -45,18 +45,12 @@ public class Ruler extends JDialog implements BoardViewListener, IPreferenceChan
     private final BoardView bv;
     private boolean flip;
 
-    private JPanel buttonPanel;
     private final GridBagLayout gridBagLayout1 = new GridBagLayout();
     private final JButton butFlip = new JButton();
-    private JLabel jLabel1;
     private final JTextField tf_start = new JTextField();
-    private JLabel jLabel2;
     private final JTextField tf_end = new JTextField();
-    private JLabel jLabel3;
     private final JTextField tf_distance = new JTextField();
-    private JLabel jLabel4;
     private final JTextField tf_los1 = new JTextField();
-    private JLabel jLabel5;
     private final JTextField tf_los2 = new JTextField();
     private final JButton butClose = new JButton();
     private JLabel heightLabel1;
@@ -92,24 +86,24 @@ public class Ruler extends JDialog implements BoardViewListener, IPreferenceChan
     }
 
     private void jbInit() {
-        buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel();
         butFlip.setText(Messages.getString("Ruler.flip"));
         butFlip.addActionListener(e -> butFlip_actionPerformed());
         JPanel panelMain = new JPanel(gridBagLayout1);
-        jLabel1 = new JLabel(Messages.getString("Ruler.Start"), SwingConstants.RIGHT);
+        JLabel jLabel1 = new JLabel(Messages.getString("Ruler.Start"), SwingConstants.RIGHT);
         tf_start.setEditable(false);
         tf_start.setColumns(16);
-        jLabel2 = new JLabel(Messages.getString("Ruler.End"), SwingConstants.RIGHT);
+        JLabel jLabel2 = new JLabel(Messages.getString("Ruler.End"), SwingConstants.RIGHT);
         tf_end.setEditable(false);
         tf_end.setColumns(16);
-        jLabel3 = new JLabel(Messages.getString("Ruler.Distance"), SwingConstants.RIGHT);
+        JLabel jLabel3 = new JLabel(Messages.getString("Ruler.Distance"), SwingConstants.RIGHT);
         tf_distance.setEditable(false);
         tf_distance.setColumns(5);
-        jLabel4 = new JLabel(Messages.getString("Ruler.POV") + ":", SwingConstants.RIGHT);
+        JLabel jLabel4 = new JLabel(Messages.getString("Ruler.POV") + ":", SwingConstants.RIGHT);
         jLabel4.setForeground(startColor);
         tf_los1.setEditable(false);
         tf_los1.setColumns(30);
-        jLabel5 = new JLabel(Messages.getString("Ruler.POV") + ":", SwingConstants.RIGHT);
+        JLabel jLabel5 = new JLabel(Messages.getString("Ruler.POV") + ":", SwingConstants.RIGHT);
         jLabel5.setForeground(endColor);
         tf_los2.setEditable(false);
         tf_los2.setColumns(30);

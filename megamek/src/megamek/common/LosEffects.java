@@ -444,7 +444,7 @@ public class LosEffects {
         ai.targetPos = targetPosition;
         ai.targetEntity = target.getTargetType() == Targetable.TYPE_ENTITY;
         if (ai.targetEntity) {
-            ai.targetId = ((Entity) target).getId();
+            ai.targetId = target.getId();
             ai.targetIsMech = target instanceof Mech;
         } else {
             ai.targetIsMech = false;

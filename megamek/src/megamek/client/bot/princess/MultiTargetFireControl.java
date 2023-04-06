@@ -114,7 +114,7 @@ public class MultiTargetFireControl extends FireControl {
         WeaponFireInfo bestShot = null;
         
         for (Targetable target : getTargetableEnemyEntities(weapon.getEntity(), owner.getGame(), owner.getFireControlState())) {
-            final int ownerID = (target instanceof Entity) ? ((Entity) target).getOwnerId() : -1;
+            final int ownerID = (target instanceof Entity) ? target.getOwnerId() : -1;
             if (owner.getHonorUtil().isEnemyBroken(target.getId(), ownerID)) {
                 LogManager.getLogger().info(target.getDisplayName() + " is broken - ignoring");
                 continue;
@@ -318,9 +318,7 @@ public class MultiTargetFireControl extends FireControl {
         }
         
         if (alphaStrikeHeat < shooter.getHeatCapacity() - shooter.getHeat() + heatCapacityModifier) {
-            for (WeaponFireInfo shot : shotList) {
-                retVal.add(shot);
-            }
+            retVal.addAll(shotList);
             
             return retVal;
         }

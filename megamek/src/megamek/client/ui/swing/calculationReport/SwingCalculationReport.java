@@ -50,7 +50,6 @@ public class SwingCalculationReport implements CalculationReport {
 
     private final JPanel report = new JPanel(new GridBagLayout());
     private final GridBagConstraints gbc = new GridBagConstraints();
-    private final String LINE_START_SPACER = "        ";
     private final static int COL_SPACER = 35;
 
     /** Tentative Section lines are kept in their own list. */
@@ -125,6 +124,7 @@ public class SwingCalculationReport implements CalculationReport {
         } else {
             newLine();
             gbc.ipadx = 0;
+            String LINE_START_SPACER = "        ";
             report.add(new JLabel(LINE_START_SPACER), gbc);
             gbc.gridx++;
             gbc.ipadx = COL_SPACER;

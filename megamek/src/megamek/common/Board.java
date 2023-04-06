@@ -175,9 +175,7 @@ public class Board implements Serializable {
         this.height = height;
         this.data = new Hex[width * height];
         for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                this.data[(y * width) + x] = data[(y * width) + x];
-            }
+            if (width >= 0) System.arraycopy(data, (y * width) + 0, this.data, (y * width) + 0, width);
         }
     }
 

@@ -52,9 +52,7 @@ class FlyOverSprite extends Sprite {
         // This is a bend
         double diff;
         if (forward) {
-            diff = nextAngle - prevAngle;
         } else {
-            diff = prevAngle - nextAngle;
         }
         diff = nextAngle - prevAngle;
         if (Math.abs(diff) > 0.001) {

@@ -231,7 +231,7 @@ public class LRMHandler extends MissileWeaponHandler {
             // and we are using narc ammo, and we're not firing indirectly.
             // narc capable missiles are only affected if the narc pod, which
             // sits on the target, is ECM affected
-            boolean bTargetECMAffected = false;
+            boolean bTargetECMAffected;
             bTargetECMAffected = ComputeECM.isAffectedByECM(ae,
                     target.getPosition(), target.getPosition());
             if (((atype.getAmmoType() == AmmoType.T_LRM)

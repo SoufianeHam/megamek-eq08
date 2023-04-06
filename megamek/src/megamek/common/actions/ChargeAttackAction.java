@@ -86,7 +86,7 @@ public class ChargeAttackAction extends DisplacementAttackAction {
         if (!game.getOptions().booleanOption(OptionsConstants.BASE_FRIENDLY_FIRE)) {
             // a friendly unit can never be the target of a direct attack.
             if (!skid && (target.getTargetType() == Targetable.TYPE_ENTITY)
-                && ((((Entity) target).getOwnerId() == ae.getOwnerId())
+                && ((target.getOwnerId() == ae.getOwnerId())
                     || ((((Entity) target).getOwner().getTeam() != Player.TEAM_NONE)
                     && (ae.getOwner().getTeam() != Player.TEAM_NONE)
                     && (ae.getOwner().getTeam() == ((Entity) target).getOwner().getTeam())))) {
@@ -245,7 +245,7 @@ public class ChargeAttackAction extends DisplacementAttackAction {
         // target terrain
         toHit.append(Compute.getTargetTerrainModifier(game, te, 0, inSameBuilding));
 
-        if ((ae instanceof Mech) && ((Mech) ae).isSuperHeavy()) {
+        if ((ae instanceof Mech) && ae.isSuperHeavy()) {
             toHit.addModifier(+1, "attacker is superheavy mech");
         }
 

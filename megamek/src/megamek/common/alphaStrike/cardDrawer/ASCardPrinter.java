@@ -46,8 +46,6 @@ public class ASCardPrinter implements Printable {
     private final JFrame parent;
     private final List<CardSlot> cardSlots = new ArrayList<>();
     private ProgressPopup progressPopup;
-    private int row;
-    private int column;
     private AffineTransform baseTransform;
 
     // The column and row count depend on the page format of a given print job and are set anew for each print call
@@ -183,8 +181,8 @@ public class ASCardPrinter implements Printable {
     /** Sets the translate in the given g2D to the given card slot, going down the first column, then the second... */
     private void goToPrintSlot(int slot, Graphics2D g2D) {
         g2D.setTransform(baseTransform);
-        column = slot / rowCount;
-        row = slot - column * rowCount;
+        int column = slot / rowCount;
+        int row = slot - column * rowCount;
         g2D.translate(-ASCard.WIDTH * columnCount / 2 + ASCard.WIDTH * column, ASCard.HEIGHT * row);
     }
 

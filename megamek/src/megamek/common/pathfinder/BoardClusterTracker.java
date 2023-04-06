@@ -165,7 +165,7 @@ public class BoardClusterTracker {
         updateMovableAreas(entity);
         
         MovementType movementType = MovementType.getMovementType(entity);
-        BoardCluster entityCluster = null;
+        BoardCluster entityCluster;
         
         if (terrainReduction) {
             entityCluster = movableAreasWithTerrainReduction.get(movementType).get(entity.getPosition());
@@ -268,7 +268,7 @@ public class BoardClusterTracker {
                     continue;
                 }
                 
-                int myElevation = 0; 
+                int myElevation;
                         
                 if (useBridgeTop && board.getHex(c).containsTerrain(Terrains.BRIDGE) &&
                         canUseBridge && (entity.getWeight() <= board.getBuildingAt(c).getCurrentCF(c))) {
@@ -285,7 +285,7 @@ public class BoardClusterTracker {
                     Coords neighbor = c.translated(direction);
                     
                     if (clusters.containsKey(neighbor)) {
-                        int neighborElevation = 0;
+                        int neighborElevation;
                         
                         if (useBridgeTop && board.getHex(neighbor).containsTerrain(Terrains.BRIDGE) &&
                                 canUseBridge && (entity.getWeight() <= board.getBuildingAt(neighbor).getCurrentCF(neighbor))) {

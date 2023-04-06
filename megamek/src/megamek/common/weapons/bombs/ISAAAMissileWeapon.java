@@ -44,7 +44,6 @@ public class ISAAAMissileWeapon extends ThunderBoltWeapon {
         this.criticals = 0;
         this.hittable = false;
         this.bv = 0;
-        this.cost = 9000;
         this.flags = flags.or(F_MISSILE).or(F_LARGEMISSILE).or(F_BOMB_WEAPON).andNot(F_MECH_WEAPON).andNot(F_TANK_WEAPON);
         this.shortAV = 20;
         this.medAV = 20;

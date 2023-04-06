@@ -36,12 +36,8 @@ import megamek.client.ui.Messages;
 public class Slider extends JDialog implements ActionListener, ChangeListener {
     private static final long serialVersionUID = -7823206132140091543L;
     private final JButton butOk = new JButton(Messages.getString("Okay"));
-    private final JButton butCancel = new JButton(Messages.getString("Cancel"));
     private final JSlider value;
-    private final JLabel lblText = new JLabel();
     private boolean ok;
-    private final JLabel minText = new JLabel();
-    private final JLabel maxText = new JLabel();
     private final JLabel curText = new JLabel();
 
     public Slider(JFrame parent, String title, String question,
@@ -55,13 +51,16 @@ public class Slider extends JDialog implements ActionListener, ChangeListener {
         getContentPane().setLayout(new BorderLayout());
         JPanel qp = new JPanel();
         qp.setLayout(new BorderLayout());
+        JLabel lblText = new JLabel();
         lblText.setText(question);
         qp.add(lblText, BorderLayout.NORTH);
         getContentPane().add(qp, BorderLayout.NORTH);
 
         JPanel sp1 = new JPanel();
         sp1.setLayout(new FlowLayout());
+        JLabel minText = new JLabel();
         minText.setText(String.valueOf(min));
+        JLabel maxText = new JLabel();
         maxText.setText(String.valueOf(max));
         curText.setText(String.valueOf(defaultValue));
         sp1.add(minText);
@@ -74,6 +73,7 @@ public class Slider extends JDialog implements ActionListener, ChangeListener {
         p.setLayout(new FlowLayout());
         butOk.addActionListener(this);
         p.add(butOk);
+        JButton butCancel = new JButton(Messages.getString("Cancel"));
         butCancel.addActionListener(this);
         p.add(butCancel);
         getContentPane().add(p, BorderLayout.SOUTH);

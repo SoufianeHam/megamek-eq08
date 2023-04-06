@@ -641,7 +641,7 @@ public class PointblankShotDisplay extends FiringDisplay implements ItemListener
             Coords targetPos = ((Entity) target).getPlayerPickedPassThrough(cen);
             if (targetPos != null) {
                 clientgui.getClient().sendPlayerPickedPassThrough(
-                        ((Entity) target).getId(), cen, targetPos);
+                        target.getId(), cen, targetPos);
             }
         }
 

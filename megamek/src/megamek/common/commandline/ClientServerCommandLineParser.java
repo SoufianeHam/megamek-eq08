@@ -179,7 +179,7 @@ public class ClientServerCommandLineParser extends AbstractCommandLineParser {
 
     private void parsePort() throws ParseException {
         if (getTokenType() == TOK_LITERAL) {
-            int newPort = -1;
+            int newPort;
             try {
                 newPort = Integer.decode(getTokenValue());
             } catch (NumberFormatException ex) {

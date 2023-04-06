@@ -108,12 +108,12 @@ public class UnitRoleHandler {
      */
     private void loadRoles() {
         File f = new MegaMekFile(Configuration.dataDir(), FILE_LOC).getFile();
-        FileInputStream is = null;
-        BufferedReader reader = null;
+        FileInputStream is;
+        BufferedReader reader;
         try {
             is = new FileInputStream(f);
             reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-            String line = null;
+            String line;
             while (null != (line = reader.readLine())) {
                 if (line.startsWith("#")) {
                     continue;

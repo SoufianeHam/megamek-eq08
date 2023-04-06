@@ -525,7 +525,7 @@ public class MoveStep implements Serializable {
             // If we're DFA-ing, we want to be 1 above the level of the target.
             // However, if that puts us in the ground, we're instead 1 above the
             // level of the hex right before the target.
-            int otherEl = 0;
+            int otherEl;
             Hex hex2 = game.getBoard().getHex(prev.getPosition());
             otherEl = Math.max(0, hex2.terrainLevel(Terrains.BLDG_ELEV));
             if (otherEl > getElevation()) {
@@ -1210,9 +1210,7 @@ public class MoveStep implements Serializable {
         int[] tempMv = entity.getVectors();
 
         mv = new int[]{0, 0, 0, 0, 0, 0};
-        for (int i = 0; i < 6; i++) {
-            mv[i] = tempMv[i];
-        }
+        System.arraycopy(tempMv, 0, mv, 0, 6);
 
         // if ASF get velocity
         if (entity.isAero()) {
@@ -1527,7 +1525,6 @@ public class MoveStep implements Serializable {
         // If this step didn't already know it's status as the ending
         // position of a path, then there are more updates to do.
         boolean moreUpdates = !isEnd;
-        isEndPos = isEnd;
 
         // If this step isn't the end step anymore, we might not be in danger
         // after all
@@ -1848,7 +1845,6 @@ public class MoveStep implements Serializable {
                 switch (type) {
                     case TURN_LEFT:
                     case TURN_RIGHT:
-                        movementType = EntityMovementType.MOVE_WALK;
                     case CONVERT_MODE:
                         movementType = EntityMovementType.MOVE_NONE;
                     default:
@@ -2224,7 +2220,7 @@ public class MoveStep implements Serializable {
                     tmpWalkMP = ((LandAirMech) entity).getAirMechWalkMP();
                     runMPNoBoost = ((LandAirMech) entity).getAirMechRunMP();
                     // LAMs cannot use hardened armor, which makes runMP a simpler calculation.
-                    MPBoosters mpBoosters = ((LandAirMech) entity).getArmedMPBoosters();
+                    MPBoosters mpBoosters = entity.getArmedMPBoosters();
                     if (!mpBoosters.isNone()) {
                         runMPMax = mpBoosters.calculateRunMP(tmpWalkMP);
                     } else {
@@ -2705,7 +2701,7 @@ public class MoveStep implements Serializable {
 
         // super heavy mechs can't climb on buildings
         if ((entity instanceof Mech)
-                && ((Mech) entity).isSuperHeavy()
+                && entity.isSuperHeavy()
                 && climbMode
                 && game.getBoard().getHex(curPos)
                 .containsTerrain(Terrains.BUILDING)) {
@@ -2895,7 +2891,7 @@ public class MoveStep implements Serializable {
         final Hex destHex = game.getBoard().getHex(getPosition());
         final boolean isInfantry = getEntity() instanceof Infantry;
         final boolean isSuperHeavyMech = (getEntity() instanceof Mech)
-                && ((Mech) getEntity()).isSuperHeavy();
+                && getEntity().isSuperHeavy();
         final boolean isMechanizedInfantry = isInfantry
                 && ((Infantry) getEntity()).isMechanized();
         final boolean isProto = getEntity() instanceof Protomech;
@@ -3571,7 +3567,7 @@ public class MoveStep implements Serializable {
                     && type != MoveStepType.UNLOAD
                     && type != MoveStepType.TOW
                     && type != MoveStepType.DISCONNECT)) {
-            boolean prohibitedByTrailer = false;
+            boolean prohibitedByTrailer;
             // Add up the trailers
             for (int id : entity.getAllTowedUnits()) {
                 Entity tr = game.getEntity(id);
@@ -3885,7 +3881,7 @@ public class MoveStep implements Serializable {
         Entity en = getEntity();
         int straight = getNStraight();
         int vel = getVelocity();
-        int thresh = 99;
+        int thresh;
 
         // I will assume that small craft should be treated as DropShips?
         if (en instanceof SmallCraft) {

@@ -51,6 +51,6 @@ public class InfantryPistolAutoPistolNissanWeapon extends InfantryWeapon {
         techAdvancement.setTechBase(TechAdvancement.TECH_BASE_IS);
         techAdvancement.setISAdvancement(2600, 2620, 2630);
         techAdvancement.setTechRating(RATING_C);
-        techAdvancement.setAvailability( new int[] { RATING_B, RATING_B, RATING_B, RATING_B });
+        techAdvancement.setAvailability(RATING_B, RATING_B, RATING_B, RATING_B);
     }
 }

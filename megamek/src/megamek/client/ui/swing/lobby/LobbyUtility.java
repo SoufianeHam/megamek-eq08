@@ -55,7 +55,7 @@ public class LobbyUtility {
      * and "Exclusive Starting Positions" are on and the starting position overlaps
      * with that of other players, if "Teams Share Vision" is off, or enemy players,
      * if "Teams Share Vision" is on.
-     * <P>See also {@link #startPosOverlap(Player, Player)}
+     * <P>See also
      */
     static boolean isValidStartPos(Game game, Player player) {
         return !isValidStartPos(game, player, player.getStartingPos());
@@ -67,7 +67,7 @@ public class LobbyUtility {
      * and "Exclusive Starting Positions" are on and the starting position overlaps
      * with that of other players, if "Teams Share Vision" is off, or enemy players,
      * if "Teams Share Vision" is on.
-     * <P>See also {@link #startPosOverlap(Player, Player)}
+     * <P>See also
      */
     static boolean isValidStartPos(Game game, Player player, int pos) {
         if (!isExclusiveDeployment(game)) {
@@ -215,8 +215,7 @@ public class LobbyUtility {
             boardsString = boardsString.substring(MapSettings.BOARD_SURPRISE.length());
         }
         String[] boards = boardsString.split("\n");
-        ArrayList<String> result = new ArrayList<>();
-        result.addAll(Arrays.asList(boards));
+        ArrayList<String> result = new ArrayList<>(Arrays.asList(boards));
         return result;
     }
     
@@ -366,7 +365,6 @@ public class LobbyUtility {
                     // Loading using mag clamps; user can specify front or rear.
                     // Make use of bayNumber field
                     if ((loaderType & Entity.ETYPE_MECH) != 0) {
-                        bayNumber = loadRear? 1 : 0;
                     }
                 } else if ((entityType & Entity.ETYPE_DROPSHIP) != 0) {
                     entityType = Entity.ETYPE_DROPSHIP;
@@ -398,13 +396,11 @@ public class LobbyUtility {
                 }
             }
             hasEnoughCargoCapacity = true;
-            capacity = 0;
             for (Long typeId : counts.keySet()) {
                 double currCount = counts.get(typeId);
                 double currCapacity = capacities.get(typeId);
                 if (currCount > currCapacity) {
                     hasEnoughCargoCapacity = false;
-                    capacity = currCapacity;
                     String messageName;
                     if (typeId == Entity.ETYPE_INFANTRY) {
                         messageName = "LoadingBay.nonbaytoomanyInf";

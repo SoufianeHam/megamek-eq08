@@ -49,7 +49,7 @@ public class CLAMS extends AmmoWeapon {
 		bv = 32;
 		flags = flags.or(F_AUTO_TARGET).or(F_AMS).or(F_BALLISTIC).or(F_MECH_WEAPON).or(F_AERO_WEAPON).or(F_TANK_WEAPON)
 		        .or(F_PROTO_WEAPON);
-		setModes(new String[] { "On", "Off" });
+		setModes("On", "Off");
 		setInstantModeSwitch(false);
 		cost = 100000;
 		atClass = CLASS_AMS;

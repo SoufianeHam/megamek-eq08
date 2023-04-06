@@ -56,8 +56,6 @@ import megamek.common.actions.TriggerBPodAction;
  */
 public class TriggerBPodDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -5882060083607984056L;
-    private final JButton butOkay = new JButton(Messages.getString("Okay"));
-    private final JTextArea labMessage;
 
     /**
      * The <code>FirePodTracker</code>s for the entity's active Anti-BA Pods.
@@ -67,7 +65,7 @@ public class TriggerBPodDialog extends JDialog implements ActionListener {
     /**
      * The <code>int</code> ID of the entity that can fire Anti-BA Pods.
      */
-    private int entityId = Entity.NONE;
+    private int entityId;
 
     private final ClientGUI clientgui;
 
@@ -80,7 +78,7 @@ public class TriggerBPodDialog extends JDialog implements ActionListener {
         /**
          * The equipment number of the Anti-BA Pod that this is listening to.
          */
-        private int podNum = Entity.NONE;
+        private int podNum;
 
         /**
          * The <code>JCheckBox</code> being tracked.
@@ -129,7 +127,7 @@ public class TriggerBPodDialog extends JDialog implements ActionListener {
         entityId = entity.getId();
         this.clientgui = clientgui;
 
-        labMessage = new JTextArea(Messages.getString("TriggerBPodDialog.selectPodsToTrigger",
+        JTextArea labMessage = new JTextArea(Messages.getString("TriggerBPodDialog.selectPodsToTrigger",
                 entity.getDisplayName()));
         labMessage.setEditable(false);
         labMessage.setOpaque(false);
@@ -191,6 +189,7 @@ public class TriggerBPodDialog extends JDialog implements ActionListener {
         } // Look at the next piece of equipment.
 
         // OK button.
+        JButton butOkay = new JButton(Messages.getString("Okay"));
         butOkay.addActionListener(this);
 
         // layout

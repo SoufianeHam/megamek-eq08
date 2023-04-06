@@ -195,7 +195,7 @@ public class Ruleset {
         //Find the most specific ruleset for this faction.
         Ruleset rs = findRuleset(fd.getFaction());
         boolean applied = false;
-        ForceNode fn = null;
+        ForceNode fn;
         //Find the first node matching node in the ruleset and apply the options to the current force descriptor.
         //If no matching node is found in the ruleset, move to the parent ruleset.
         do {

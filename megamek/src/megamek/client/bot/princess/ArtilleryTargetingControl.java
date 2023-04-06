@@ -292,7 +292,7 @@ public class ArtilleryTargetingControl {
                 // for each enemy unit, evaluate damage value of firing at its hex.
                 // keep track of top target hexes with the same value and fire at them
                 for (Targetable hexTarget : targetSet) {
-                    double damageValue = 0.0;
+                    double damageValue;
                     if (hexTarget.getTargetType() == Targetable.TYPE_ENTITY) {
                         damageValue = damage;
                     } else {
@@ -446,7 +446,7 @@ public class ArtilleryTargetingControl {
                     artySkill = aaa.getEntity(operator.getGame()).getCrew().getArtillery();
                 }
                 
-                double hitOdds = 0.0;
+                double hitOdds;
                 if (operator.getArtilleryAutoHit() != null &&
                         operator.getArtilleryAutoHit().contains(coords)) {
                     hitOdds = 1.0;

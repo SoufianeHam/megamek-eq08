@@ -26,7 +26,6 @@ import org.apache.logging.log4j.LogManager;
 import javax.swing.*;
 import java.io.PrintWriter;
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * This is used for versioning, and to track the current Version the suite is running at.

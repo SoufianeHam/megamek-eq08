@@ -45,8 +45,6 @@ public class MekForceTreeRenderer extends DefaultTreeCellRenderer {
             "unknown_unit.gif").toString();
 
     private final ChatLounge lobby;
-    private boolean isSelected;
-    private Color selectionColor = Color.BLUE;
     private Entity entity;
     private Player localPlayer;
     private final JTree tree;
@@ -56,13 +54,12 @@ public class MekForceTreeRenderer extends DefaultTreeCellRenderer {
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
             boolean leaf, int row, boolean hasFocus) {
 
-        isSelected = sel;
         Game game = lobby.getClientgui().getClient().getGame();
         localPlayer = lobby.getClientgui().getClient().getLocalPlayer();
-        selectionColor = UIManager.getColor("Tree.selectionBackground");
+        Color selectionColor = UIManager.getColor("Tree.selectionBackground");
         setOpaque(true);
         
-        if (isSelected) {
+        if (sel) {
             setBackground(new Color(selectionColor.getRGB()));
         } else {
             setForeground(null);

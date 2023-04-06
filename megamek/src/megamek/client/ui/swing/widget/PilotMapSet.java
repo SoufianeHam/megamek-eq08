@@ -36,8 +36,6 @@ import java.util.Vector;
  */
 public class PilotMapSet implements DisplayMapSet {
 
-    private static final String STAR3 = "***";
-    private static final int N_ADV = 35;
     private final JComponent comp;
     private final PMAreasGroup content = new PMAreasGroup();
     private PMPicArea portraitArea;
@@ -84,6 +82,7 @@ public class PilotMapSet implements DisplayMapSet {
         nickL = createLabel(Messages.getString("GeneralInfoMapSet.LocOstLCT"), fm, 0, getNewYCoord());
         content.addArea(nickL);
 
+        String STAR3 = "***";
         hitsR = createLabel(STAR3, fm, 0, getNewYCoord());
         hitsR.setColor(Color.RED);
         content.addArea(hitsR);
@@ -131,7 +130,8 @@ public class PilotMapSet implements DisplayMapSet {
         content.addArea(gunneryBR);
 
         getNewYCoord();
-        advantagesR = new PMSimpleLabel[N_ADV];
+        int n_ADV = 35;
+        advantagesR = new PMSimpleLabel[n_ADV];
         for (int i = 0; i < advantagesR.length; i++) {
             advantagesR[i] = createLabel(Integer.valueOf(i).toString(), fm, 10, getNewYCoord());
             content.addArea(advantagesR[i]);

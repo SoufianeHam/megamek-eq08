@@ -749,9 +749,9 @@ public class PlanetaryConditions implements Serializable {
      */
     public int getVisualRange(Entity en, boolean targetIlluminated) {
 
-        boolean Spotlight = false;
+        boolean Spotlight;
 
-        boolean isMechVee = false;
+        boolean isMechVee;
         boolean isLargeCraft = false;
         boolean isAero = false;
 

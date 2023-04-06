@@ -44,7 +44,6 @@ public class ASLargeAeroCard extends ASCard {
     private Font pointValueFont;
     private Font largeAeroValueFont;
     private Font largeAeroSpecialFont;
-    private Font damageFont;
     private Font arcTitleFont;
     private Font arcSpecialsFont;
     private Font critTextFont;
@@ -79,7 +78,7 @@ public class ASLargeAeroCard extends ASCard {
         pointValueFont = boldFont.deriveFont(48f);
         largeAeroValueFont = blackFont.deriveFont(42f);
         largeAeroSpecialFont = lightFont.deriveFont(31f);
-        damageFont = lightFont.deriveFont(32f);
+        Font damageFont = lightFont.deriveFont(32f);
         arcTitleFont = blackFont.deriveFont(22f);
         critTextFont = boldFont.deriveFont(20f);
         arcSpecialsFont = lightFont.deriveFont(28f);

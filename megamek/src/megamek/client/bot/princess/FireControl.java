@@ -1186,7 +1186,7 @@ public class FireControl {
             return 0;
         }
 
-        final int id = ((Entity) target).getId();
+        final int id = target.getId();
         if (owner.getPriorityUnitTargets().contains(id)) {
             return PRIORITY_TARGET_UTILITY;
         }
@@ -2297,7 +2297,7 @@ public class FireControl {
             final boolean priorityTarget = owner.getPriorityUnitTargets().contains(enemy.getId());
 
             // Skip retreating enemies so long as they haven't fired on me while retreating.
-            final int playerId = (enemy instanceof Entity) ? ((Entity) enemy).getOwnerId() : -1;
+            final int playerId = (enemy instanceof Entity) ? enemy.getOwnerId() : -1;
             if (!priorityTarget && honorUtil.isEnemyBroken(enemy.getId(), playerId
             )) {
                 LogManager.getLogger().info(enemy.getDisplayName() + " is broken - ignoring");

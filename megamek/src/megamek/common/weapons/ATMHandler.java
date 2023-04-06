@@ -129,7 +129,7 @@ public class ATMHandler extends MissileWeaponHandler {
     @Override
     protected int calcAttackValue() {
         int av = 0;
-        int counterAV = 0;
+        int counterAV;
         int range = RangeType.rangeBracket(nRange, wtype.getATRanges(), true, false);
         AmmoType atype = (AmmoType) ammo.getType();
         if (atype.getMunitionType() == AmmoType.M_HIGH_EXPLOSIVE) {
@@ -261,7 +261,7 @@ public class ATMHandler extends MissileWeaponHandler {
             // and we are using narc ammo, and we're not firing indirectly.
             // narc capable missiles are only affected if the narc pod, which
             // sits on the target, is ECM affected
-            boolean bTargetECMAffected = false;
+            boolean bTargetECMAffected;
             bTargetECMAffected = ComputeECM.isAffectedByECM(ae,
                     target.getPosition(), target.getPosition());
             if (((atype.getAmmoType() == AmmoType.T_LRM) || (atype

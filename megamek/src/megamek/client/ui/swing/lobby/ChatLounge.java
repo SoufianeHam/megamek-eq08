@@ -201,9 +201,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
     private final JPanel panMapButtons = new JPanel();
     private final JLabel lblBoardsAvailable = new JLabel();
     private JList<String> lisBoardsAvailable;
-    private JScrollPane scrBoardsAvailable;
     private final JButton butSpaceSize = new JButton(Messages.getString("ChatLounge.MapSize"));
-    private Set<BoardDimensions> mapSizes = new TreeSet<>();
     boolean resetAvailBoardSelection = false;
     boolean resetSelectedBoards = true;
     private ClientDialog boardPreviewW;
@@ -718,7 +716,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
         lisBoardsAvailable.setVisibleRowCount(-1);
         lisBoardsAvailable.setDragEnabled(true);
         lisBoardsAvailable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        scrBoardsAvailable = new JScrollPane(lisBoardsAvailable);
+        JScrollPane scrBoardsAvailable = new JScrollPane(lisBoardsAvailable);
         refreshBoardsAvailable();
         
         JPanel panAvail = new JPanel();
@@ -872,7 +870,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
     /** Updates the list of available map sizes. */
     private void refreshMapSizes() {
         int oldSelection = comMapSizes.getSelectedIndex();
-        mapSizes = clientgui.getClient().getAvailableMapSizes();
+        Set<BoardDimensions> mapSizes = clientgui.getClient().getAvailableMapSizes();
         comMapSizes.removeActionListener(lobbyListener);
         comMapSizes.removeAllItems();
         for (BoardDimensions size : mapSizes) {
@@ -2151,11 +2149,11 @@ public class ChatLounge extends AbstractPhaseDisplay implements
             }
 
             if (!players.isEmpty()) {
-                String msg = Messages.getString("ChatLounge.noCmdr.msg");
+                StringBuilder msg = new StringBuilder(Messages.getString("ChatLounge.noCmdr.msg"));
                 for (String player : players) {
-                    msg += player + "\n";
+                    msg.append(player).append("\n");
                 }
-                clientgui.doAlertDialog(Messages.getString("ChatLounge.noCmdr.title"), msg);
+                clientgui.doAlertDialog(Messages.getString("ChatLounge.noCmdr.title"), msg.toString());
                 return;
             }
         }
@@ -3058,25 +3056,25 @@ public class ChatLounge extends AbstractPhaseDisplay implements
     }
     
     private String autoTagHTMLTable() {
-        String result = "<TABLE><TR>"+ UIUtil.guiScaledFontHTML();
+        StringBuilder result = new StringBuilder("<TABLE><TR>" + guiScaledFontHTML());
         int colCount = 0;
         var autoTags = BoardsTagger.Tags.values();
         for (BoardsTagger.Tags tag : autoTags) {
             if (colCount == 0) {
-                result += "<TR>";
+                result.append("<TR>");
             }
-            result += "<TD>" + tag.getName() + "</TD>";
+            result.append("<TD>").append(tag.getName()).append("</TD>");
             colCount++;
             if (colCount == 3) {
                 colCount = 0;
-                result += "</TR>";
+                result.append("</TR>");
             }
         }
         if (colCount != 0) {
-            result += "</TR>";
+            result.append("</TR>");
         }
-        result += "</TABLE>";
-        return result;
+        result.append("</TABLE>");
+        return result.toString();
     }
     
     
@@ -3318,9 +3316,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
         private static final long serialVersionUID = -3218595828938299222L;
         
         private float oldGUIScale = GUIPreferences.getInstance().getGUIScale();
-        private Image image;
-        private ImageIcon icon;
-        
+
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, 
                 int index, boolean isSelected, boolean cellHasFocus) {
@@ -3342,11 +3338,12 @@ public class ChatLounge extends AbstractPhaseDisplay implements
             }
             
             // If an icon is present for the current board, use it
-            icon = mapIcons.get(board);
+            ImageIcon icon = mapIcons.get(board);
             if (icon != null) {
                 setIcon(icon);
             } else {
                 // The icon is not present, see if there's a base image
+                Image image;
                 synchronized (baseImages) {
                     image = baseImages.get(board);
                 }

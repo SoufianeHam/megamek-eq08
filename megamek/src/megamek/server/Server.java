@@ -1334,27 +1334,27 @@ public class Server implements Runnable {
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             try (OutputStream os = conn.getOutputStream();
                  DataOutputStream dos = new DataOutputStream(os)) {
-                String content = "port=" + URLEncoder.encode(Integer.toString(serverSocket.getLocalPort()), StandardCharsets.UTF_8);
+                StringBuilder content = new StringBuilder("port=" + URLEncoder.encode(Integer.toString(serverSocket.getLocalPort()), StandardCharsets.UTF_8));
                 if (register) {
                     for (AbstractConnection iconn : connections) {
-                        content += "&players[]=" + getPlayer(iconn.getId()).getName();
+                        content.append("&players[]=").append(getPlayer(iconn.getId()).getName());
                     }
 
                     if (!getGame().getPhase().isLounge() && !getGame().getPhase().isUnknown()) {
-                        content += "&close=yes";
+                        content.append("&close=yes");
                     }
-                    content += "&version=" + MMConstants.VERSION;
+                    content.append("&version=").append(MMConstants.VERSION);
                     if (isPassworded()) {
-                        content += "&pw=yes";
+                        content.append("&pw=yes");
                     }
                 } else {
-                    content += "&delete=yes";
+                    content.append("&delete=yes");
                 }
 
                 if (serverAccessKey != null) {
-                    content += "&key=" + serverAccessKey;
+                    content.append("&key=").append(serverAccessKey);
                 }
-                dos.writeBytes(content);
+                dos.writeBytes(content.toString());
                 dos.flush();
 
                 try (InputStream is = conn.getInputStream();

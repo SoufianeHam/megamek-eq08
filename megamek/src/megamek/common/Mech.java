@@ -207,7 +207,7 @@ public abstract class Mech extends Entity {
 
     private int sinksOnNextRound = -1;
 
-    private boolean autoEject = true;
+    private boolean autoEject;
 
     private boolean condEjectAmmo = true;
 
@@ -221,11 +221,9 @@ public abstract class Mech extends Entity {
 
     private int cockpitStatusNextRound = COCKPIT_ON;
 
-    private int jumpType = JUMP_UNKNOWN;
+    protected int gyroType;
 
-    protected int gyroType = GYRO_STANDARD;
-
-    protected int cockpitType = COCKPIT_STANDARD;
+    protected int cockpitType;
 
     private int cowlArmor = 3;
 
@@ -1332,7 +1330,7 @@ public abstract class Mech extends Entity {
      */
     @Override
     public int getJumpType() {
-        jumpType = JUMP_NONE;
+        int jumpType = JUMP_NONE;
         for (Mounted m : miscList) {
             if (m.getType().hasFlag(MiscType.F_JUMP_JET)) {
                 if (m.getType().hasSubType(MiscType.S_IMPROVED)
@@ -2065,7 +2063,7 @@ public abstract class Mech extends Entity {
     @Override
     public HitData rollHitLocation(int table, int side, int aimedLocation, AimingMode aimingMode,
                                    int cover) {
-        int roll = -1;
+        int roll;
 
         if ((aimedLocation != LOC_NONE) && aimingMode.isNone()) {
             roll = Compute.d6(2);
@@ -2862,7 +2860,7 @@ public abstract class Mech extends Entity {
         if (!isClan()) {
             return;
         }
-        boolean explosiveFound = false;
+        boolean explosiveFound;
         EquipmentType clCase = EquipmentType.get(EquipmentTypeLookup.CLAN_CASE);
         for (int i = 0; i < locations(); i++) {
             explosiveFound = false;

@@ -55,9 +55,9 @@ public class SharedUtility {
         final Entity entity = md.getEntity();
         final Game game = entity.getGame();
         // okay, proceed with movement calculations
-        Coords curPos = entity.getPosition();
+        Coords curPos;
         int curFacing = entity.getFacing();
-        EntityMovementType moveType = EntityMovementType.MOVE_NONE;
+        EntityMovementType moveType;
 
         PilotingRollData rollTarget;
 
@@ -170,9 +170,9 @@ public class SharedUtility {
         int lastElevation = entity.getElevation();
         int curElevation = entity.getElevation();
         int curFacing = entity.getFacing();
-        int distance = 0;
-        EntityMovementType moveType = EntityMovementType.MOVE_NONE;
-        EntityMovementType overallMoveType = EntityMovementType.MOVE_NONE;
+        int distance;
+        EntityMovementType moveType;
+        EntityMovementType overallMoveType;
         boolean firstStep;
         int prevFacing = curFacing;
         Hex prevHex = game.getBoard().getHex(curPos);
@@ -667,8 +667,8 @@ public class SharedUtility {
                 if (thrustUsed > (2 * health)) {
                     int targetroll = 2 + (thrustUsed - (2 * health)) + (2 * hits);
                     nagReport.append(Messages.getString("MovementDisplay.addNag",
-                            new Object[] { Integer.toString(targetroll),
-                                    "Thrust exceeded twice pilot's health in single hex" }));
+                            Integer.toString(targetroll),
+                            "Thrust exceeded twice pilot's health in single hex"));
                 }
 
                 thrustUsed = 0;

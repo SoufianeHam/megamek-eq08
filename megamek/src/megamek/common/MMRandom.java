@@ -142,8 +142,8 @@ public abstract class MMRandom {
          */
         public CryptoRandom() throws NoSuchMethodException {
             // hack: just check to see if there's java.util.Random@nextInt(int)
-            new java.util.Random().getClass().getMethod("nextInt",
-                    new Class[] { Integer.TYPE });
+            Random.class.getMethod("nextInt",
+                    Integer.TYPE);
 
             // all clear, get on with the normal init
             random = new java.security.SecureRandom();

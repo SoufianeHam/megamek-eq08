@@ -61,16 +61,8 @@ public class MechView {
     private final boolean isBA;
     private final boolean isVehicle;
     private final boolean isProto;
-    private final boolean isGunEmplacement;
-    private final boolean isAero;
-    private final boolean isConvFighter;
-    @SuppressWarnings("unused")
-    private final boolean isFixedWingSupport;
-    private final boolean isSquadron;
     private final boolean isSmallCraft;
     private final boolean isJumpship;
-    @SuppressWarnings("unused")
-    private final boolean isSpaceStation;
 
     private final List<ViewElement> sHead = new ArrayList<>();
     private final List<ViewElement> sBasic = new ArrayList<>();
@@ -139,14 +131,14 @@ public class MechView {
         isBA = entity instanceof BattleArmor;
         isVehicle = entity instanceof Tank;
         isProto = entity instanceof Protomech;
-        isGunEmplacement = entity instanceof GunEmplacement;
-        isAero = entity instanceof Aero;
-        isConvFighter = entity instanceof ConvFighter;
-        isFixedWingSupport = entity instanceof FixedWingSupport;
-        isSquadron = entity instanceof FighterSquadron;
+        boolean isGunEmplacement = entity instanceof GunEmplacement;
+        boolean isAero = entity instanceof Aero;
+        boolean isConvFighter = entity instanceof ConvFighter;
+        boolean isFixedWingSupport = entity instanceof FixedWingSupport;
+        boolean isSquadron = entity instanceof FighterSquadron;
         isSmallCraft = entity instanceof SmallCraft;
         isJumpship = entity instanceof Jumpship;
-        isSpaceStation = entity instanceof SpaceStation;
+        boolean isSpaceStation = entity instanceof SpaceStation;
 
         sLoadout.addAll(getWeapons(showDetail));
         sLoadout.add(new SingleLine());

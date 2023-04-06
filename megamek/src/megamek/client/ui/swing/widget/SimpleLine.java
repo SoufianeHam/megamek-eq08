@@ -26,11 +26,11 @@ public class SimpleLine extends JComponent {
      * 
      */
     private static final long serialVersionUID = -5086983596921211407L;
-    private final int h = 2;
     private final int w;
 
     public SimpleLine(int width) {
         w = width;
+        int h = 2;
         setPreferredSize(new Dimension(w, h));
     }
 

@@ -31,8 +31,7 @@ public class InfantrySupportGungnirHeavyGaussWeapon extends InfantryWeapon {
 		addLookupName("GungnirHeavySupportGaussRifle");
 		ammoType = AmmoType.T_INFANTRY;
 		cost = 15000;
-		tonnage = 0.006;
-		bv = 0.0;
+        bv = 0.0;
 		flags = flags.or(F_NO_FIRES).or(F_DIRECT_FIRE).or(F_BALLISTIC).or(F_INF_SUPPORT);
 		infantryDamage = 1.23;
 		infantryRange = 3;

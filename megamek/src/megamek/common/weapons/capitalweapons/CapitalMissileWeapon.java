@@ -20,7 +20,6 @@ import megamek.common.Mounted;
 import megamek.common.RangeType;
 import megamek.common.ToHitData;
 import megamek.common.actions.WeaponAttackAction;
-import megamek.common.alphaStrike.AlphaStrikeElement;
 import megamek.common.weapons.AmmoWeapon;
 import megamek.common.weapons.ArtilleryWeaponIndirectFireHandler;
 import megamek.common.weapons.AttackHandler;

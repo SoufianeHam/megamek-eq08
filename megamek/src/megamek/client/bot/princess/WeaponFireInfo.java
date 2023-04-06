@@ -407,7 +407,7 @@ public class WeaponFireInfo {
         
         // this is a special case - if we're considering hitting a swarmed target
         // that's basically our only option
-        if (weaponType.getInternalName() == Infantry.SWARM_WEAPON_MEK) {
+        if (weaponType.getInternalName().equals(Infantry.SWARM_WEAPON_MEK)) {
             return 1;
         }
         

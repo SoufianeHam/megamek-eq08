@@ -160,7 +160,6 @@ public class Dropship extends SmallCraft {
                 toReturn.append(", ");
             }
             toReturn.append(Messages.getString("Dropship.kfBoomDamageString"));
-            first = false;
         }
         return toReturn.toString();
     }

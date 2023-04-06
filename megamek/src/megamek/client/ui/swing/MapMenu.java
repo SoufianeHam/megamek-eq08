@@ -235,7 +235,7 @@ public class MapMenu extends JPopupMenu {
         String targetCode;
 
         if (t instanceof Entity) {
-            targetCode = "E|" + ((Entity) t).getId();
+            targetCode = "E|" + t.getId();
         } else if (t instanceof BuildingTarget) {
             targetCode = "B|" + t.getPosition().getX() + "|" + t.getPosition().getY() + "|" + t.getTargetType();
         } else if (t instanceof MinefieldTarget) {

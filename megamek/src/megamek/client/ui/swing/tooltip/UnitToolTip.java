@@ -155,17 +155,17 @@ public final class UnitToolTip {
 
         // StratOps quirks, chassis and weapon
         if (game.getOptions().booleanOption(OptionsConstants.ADVANCED_STRATOPS_QUIRKS)) {
-            String sQuirks = "<BR>";
+            StringBuilder sQuirks = new StringBuilder("<BR>");
             String quirksList = getOptionList(entity.getQuirks().getGroups(), entity::countQuirks, details);
             if (!quirksList.isEmpty()) {
-                sQuirks += quirksList;
+                sQuirks.append(quirksList);
             }
             for (Mounted weapon: entity.getWeaponList()) {
                 String wpQuirksList = getOptionList(weapon.getQuirks().getGroups(), 
                         grp -> weapon.countQuirks(), (e) -> weapon.getDesc(), details);
                 if (!wpQuirksList.isEmpty()) {
                     // Line break after weapon name not useful here
-                    sQuirks += wpQuirksList.replace(":</I><BR>", ":</I>");
+                    sQuirks.append(wpQuirksList.replace(":</I><BR>", ":</I>"));
                 }
             }
             result += guiScaledFontHTML(uiQuirksColor(), TT_SMALLFONT_DELTA) + sQuirks + "</FONT>";
@@ -226,11 +226,11 @@ public final class UnitToolTip {
             armorChar = GUIP.getString(GUIPreferences.ADVANCED_ARMORMINI_CAP_ARMOR_CHAR);
         }
         String internalChar = GUIP.getString(GUIPreferences.ADVANCED_ARMORMINI_IS_CHAR);
-        String col1 = "";
-        String col2 = "";
-        String col3 = "";
-        String row = "";
-        String rows = "";
+        String col1;
+        String col2;
+        StringBuilder col3 = new StringBuilder();
+        String row;
+        StringBuilder rows = new StringBuilder();
 
         for (int loc = 0 ; loc < entity.locations(); loc++) {
             // do not show locations that do not support/have armor/internals like HULL on Aero
@@ -281,46 +281,46 @@ public final class UnitToolTip {
 
             switch (loc) {
                 case 0:
-                    col3 = sysCrits(entity, Mech.SYSTEM_SENSORS, loc, msg_abbr_sensors).toString();
-                    col3 += sysCrits(entity, Mech.SYSTEM_LIFE_SUPPORT, loc, msg_abbr_lifesupport).toString();
+                    col3 = new StringBuilder(sysCrits(entity, Mech.SYSTEM_SENSORS, loc, msg_abbr_sensors).toString());
+                    col3.append(sysCrits(entity, Mech.SYSTEM_LIFE_SUPPORT, loc, msg_abbr_lifesupport).toString());
                     break;
                 case 1:
-                    col3 = sysCrits(entity, Mech.SYSTEM_ENGINE, loc, msg_abbr_engine).toString();
-                    col3 += sysCrits(entity, Mech.SYSTEM_GYRO, loc, msg_abbr_gyro).toString();
-                    col3 += sysCrits(entity, Mech.SYSTEM_SENSORS, loc, msg_abbr_sensors).toString();
-                    col3 += sysCrits(entity, Mech.SYSTEM_LIFE_SUPPORT, loc, msg_abbr_lifesupport).toString();
+                    col3 = new StringBuilder(sysCrits(entity, Mech.SYSTEM_ENGINE, loc, msg_abbr_engine).toString());
+                    col3.append(sysCrits(entity, Mech.SYSTEM_GYRO, loc, msg_abbr_gyro).toString());
+                    col3.append(sysCrits(entity, Mech.SYSTEM_SENSORS, loc, msg_abbr_sensors).toString());
+                    col3.append(sysCrits(entity, Mech.SYSTEM_LIFE_SUPPORT, loc, msg_abbr_lifesupport).toString());
                     break;
                 case 2:
                 case 3:
-                    col3 = sysCrits(entity, Mech.SYSTEM_ENGINE, loc, msg_abbr_engine).toString();
-                    col3 += sysCrits(entity, Mech.SYSTEM_LIFE_SUPPORT, loc, msg_abbr_gyro).toString();
+                    col3 = new StringBuilder(sysCrits(entity, Mech.SYSTEM_ENGINE, loc, msg_abbr_engine).toString());
+                    col3.append(sysCrits(entity, Mech.SYSTEM_LIFE_SUPPORT, loc, msg_abbr_gyro).toString());
                     break;
                 case 4:
                 case 5:
-                    col3 = sysCrits(entity, Mech.ACTUATOR_SHOULDER, loc, msg_abbr_shoulder).toString();
-                    col3 += sysCrits(entity, Mech.ACTUATOR_UPPER_ARM, loc, msg_abbr_upperarm).toString();
-                    col3 += sysCrits(entity, Mech.ACTUATOR_LOWER_ARM, loc, msg_abbr_lowerarm).toString();
-                    col3 += sysCrits(entity, Mech.ACTUATOR_HAND, loc, msg_abbr_hand).toString();
-                    col3 += sysCrits(entity, Mech.ACTUATOR_HIP, loc, msg_abbr_hip).toString();
-                    col3 += sysCrits(entity, Mech.ACTUATOR_UPPER_LEG, loc, msg_abbr_upperleg).toString();
-                    col3 += sysCrits(entity, Mech.ACTUATOR_LOWER_LEG, loc, msg_abbr_lowerleg).toString();
-                    col3 += sysCrits(entity, Mech.ACTUATOR_FOOT, loc, msg_abbr_foot).toString();
+                    col3 = new StringBuilder(sysCrits(entity, Mech.ACTUATOR_SHOULDER, loc, msg_abbr_shoulder).toString());
+                    col3.append(sysCrits(entity, Mech.ACTUATOR_UPPER_ARM, loc, msg_abbr_upperarm).toString());
+                    col3.append(sysCrits(entity, Mech.ACTUATOR_LOWER_ARM, loc, msg_abbr_lowerarm).toString());
+                    col3.append(sysCrits(entity, Mech.ACTUATOR_HAND, loc, msg_abbr_hand).toString());
+                    col3.append(sysCrits(entity, Mech.ACTUATOR_HIP, loc, msg_abbr_hip).toString());
+                    col3.append(sysCrits(entity, Mech.ACTUATOR_UPPER_LEG, loc, msg_abbr_upperleg).toString());
+                    col3.append(sysCrits(entity, Mech.ACTUATOR_LOWER_LEG, loc, msg_abbr_lowerleg).toString());
+                    col3.append(sysCrits(entity, Mech.ACTUATOR_FOOT, loc, msg_abbr_foot).toString());
                     break;
                 case 6:
                 case 7:                
                 case 8:
-                    col3 = sysCrits(entity, Mech.ACTUATOR_HIP, loc, msg_abbr_hip).toString();
-                    col3 += sysCrits(entity, Mech.ACTUATOR_UPPER_LEG, loc, msg_abbr_upperleg).toString();
-                    col3 += sysCrits(entity, Mech.ACTUATOR_LOWER_LEG, loc, msg_abbr_lowerleg).toString();
-                    col3 += sysCrits(entity, Mech.ACTUATOR_FOOT, loc, msg_abbr_foot).toString();
+                    col3 = new StringBuilder(sysCrits(entity, Mech.ACTUATOR_HIP, loc, msg_abbr_hip).toString());
+                    col3.append(sysCrits(entity, Mech.ACTUATOR_UPPER_LEG, loc, msg_abbr_upperleg).toString());
+                    col3.append(sysCrits(entity, Mech.ACTUATOR_LOWER_LEG, loc, msg_abbr_lowerleg).toString());
+                    col3.append(sysCrits(entity, Mech.ACTUATOR_FOOT, loc, msg_abbr_foot).toString());
                     break;
             }
 
             col1 = "<TD>" + col1 + "</TD>";
             col2 = "<TD>" + col2 + "</TD>";
-            col3 = "<TD>" + col3 + "</TD>";
+            col3 = new StringBuilder("<TD>" + col3 + "</TD>");
             row = "<TR>" + col1 + col2 + col3 + "</TR>";
-            rows += row;
+            rows.append(row);
         }
 
         String tbody = "<TBODY>" + rows + "</TBODY>";
@@ -519,9 +519,9 @@ public final class UnitToolTip {
                 } else {
                     ranges = wtype.getRanges(curWp);
                 }
-                String rangeString = " \u22EF ";
+                StringBuilder rangeString = new StringBuilder(" \u22EF ");
                 if (ranges[RangeType.RANGE_MINIMUM] > 0) {
-                    rangeString += "(" + ranges[RangeType.RANGE_MINIMUM] + ") ";
+                    rangeString.append("(").append(ranges[RangeType.RANGE_MINIMUM]).append(") ");
                 }
                 int maxRange = RangeType.RANGE_LONG;
                 if (entity.getGame().getOptions().booleanOption(
@@ -529,15 +529,15 @@ public final class UnitToolTip {
                     maxRange = RangeType.RANGE_EXTREME;
                 }
                 for (int i = RangeType.RANGE_SHORT; i <= maxRange; i++) {
-                    rangeString += ranges[i];
+                    rangeString.append(ranges[i]);
                     if (i != maxRange) {
-                        rangeString += "\u2B1D";
+                        rangeString.append("\u2B1D");
                     }
                 }
                 WeaponType wpT = ((WeaponType) curWp.getType());
                 if (!wpT.hasFlag(WeaponType.F_AMS)
                         || entity.getGame().getOptions().booleanOption(OptionsConstants.ADVCOMBAT_TACOPS_MANUAL_AMS)) {
-                    currentWp.range = rangeString;
+                    currentWp.range = rangeString.toString();
                 }
 
                 currentWp.isClan = wpT.isClan();
@@ -595,10 +595,10 @@ public final class UnitToolTip {
         }
         
         // Print to Tooltip
-        String col1 = "";
-        String col2 = "";
-        String row = "";
-        String rows = "";
+        String col1;
+        StringBuilder col2;
+        String row;
+        StringBuilder rows = new StringBuilder();
         boolean subsequentLine = false; 
         // Display sorted by weapon name
         var wps = new ArrayList<>(wpInfos.values());
@@ -651,33 +651,33 @@ public final class UnitToolTip {
                         col1 = "";
                     }
 
-                    col2 = addToTT("Weapon", false, currentEquip.count, techBase, nameStr, destStr).toString();
-                    col2 += weaponModifier(isDestroyed, currentEquip);
+                    col2 = new StringBuilder(addToTT("Weapon", false, currentEquip.count, techBase, nameStr, destStr).toString());
+                    col2.append(weaponModifier(isDestroyed, currentEquip));
                     if (isDestroyed) {
-                        col2 = "<S>" + col2 + "</S>";
+                        col2 = new StringBuilder("<S>" + col2 + "</S>");
                     }
                 } else {
                     col1 = "";
-                    col2 = "";
+                    col2 = new StringBuilder();
                     // few weapons: list each weapon separately
                     for (int i = 0; i < currentEquip.count; i++) {
-                        col2 += addToTT("Weapon", false, currentEquip.count, techBase, nameStr, destStr).toString();
-                        col2 += weaponModifier(isDestroyed, currentEquip);
+                        col2.append(addToTT("Weapon", false, currentEquip.count, techBase, nameStr, destStr).toString());
+                        col2.append(weaponModifier(isDestroyed, currentEquip));
                         if (isDestroyed) {
-                            col2 = "<S>" + col2 + "</S>";
+                            col2 = new StringBuilder("<S>" + col2 + "</S>");
                         }
-                        col2 += "<BR>";
+                        col2.append("<BR>");
                     }
                 }
 
                 col1 = guiScaledFontHTML(uiTTWeaponColor()) + col1 + "</FONT>";
                 col1 = "<TD>" + col1 + "</TD>";
-                col2 = guiScaledFontHTML(uiTTWeaponColor()) + col2 + "</FONT>";
-                col2 = "<TD>" + col2 + "</TD>";
+                col2 = new StringBuilder(guiScaledFontHTML(uiTTWeaponColor()) + col2 + "</FONT>");
+                col2 = new StringBuilder("<TD>" + col2 + "</TD>");
                 row = "<TR>" + col1 + col2 + "</TR>";
             }
 
-            rows += row;
+            rows.append(row);
         }
 
         String tbody = "<TBODY>" + rows + "</TBODY>";
@@ -687,15 +687,15 @@ public final class UnitToolTip {
     }
 
     private static StringBuilder bombList(Entity entity) {
-        String col1 = "";
-        String col2 = "";
-        String col3= "";
-        String row = "";
-        String rows = "";
+        String col1;
+        String col2;
+        String col3;
+        String row;
+        StringBuilder rows = new StringBuilder();
         String table = "";
 
         if (entity.isBomber()) {
-            int[] loadout = { };
+            int[] loadout;
 
             if (entity.getGame().getPhase().isLounge()) {
                 loadout = ((IBomber) entity).getBombChoices();
@@ -722,7 +722,7 @@ public final class UnitToolTip {
                     row = "";
                 }
 
-                rows += row;
+                rows.append(row);
             }
 
             String tbody = "<TBODY>" + rows + "</TBODY>";
@@ -751,9 +751,9 @@ public final class UnitToolTip {
     /** Returns the ammo line(s) for the ammo of one weapon type. */
     private static StringBuilder createAmmoEntry(WeaponInfo ammoInfo) {
         String col1 = "";
-        String col2 = "";
-        String row = "";
-        String rows = "";
+        String col2;
+        String row;
+        StringBuilder rows = new StringBuilder();
 
         int totalAmmo = ammoInfo.ammos.values().stream().mapToInt(n -> n).sum();
         if (totalAmmo == 0 && ammoInfo.ammoActiveWeaponCount > 0) {
@@ -763,7 +763,7 @@ public final class UnitToolTip {
             col2 = guiScaledFontHTML(uiYellow(), -0.2f) + col2 + "</FONT>";
             col2 = "<TD>" + col2 + "</TD>";
             row = "<TR>" + col1 + col2 + "</TR>";
-            rows += row;
+            rows.append(row);
         } else {
             for (Entry<String, Integer> ammo: ammoInfo.ammos.entrySet()) {
                 String msg_standard = Messages.getString("BoardView1.Tooltip.Standard");
@@ -790,7 +790,7 @@ public final class UnitToolTip {
                 col2 = guiScaledFontHTML(uiYellow(), -0.2f) + col2 + "</FONT>";
                 col2 = "<TD>" + col2 + "</TD>";
                 row = "<TR>" + col1 + col2 + "</TR>";
-                rows += row;
+                rows.append(row);
             }
         }
 
@@ -800,7 +800,7 @@ public final class UnitToolTip {
     /** Returns a line showing ECM / ECCM. */
     private static StringBuilder ecmInfo(Entity entity) {
         String sECMInfo = "";
-        String result = "";
+        String result;
         if (entity.hasActiveECM()) {
             String msg_ecmsource = Messages.getString("BoardView1.ecmSource");
             sECMInfo += ECM_SIGN + " " + msg_ecmsource;
@@ -875,7 +875,7 @@ public final class UnitToolTip {
                     || (game.getPhase().isPhysical())
                     || (game.getPhase().isPhysicalReport())) {
                 int tmm = Compute.getTargetMovementModifier(game, entity.getId()).getValue();
-                String sMove = "";
+                String sMove;
 
                 if (entity.moved == EntityMovementType.MOVE_NONE) {
                     sMove = addToTT("NoMove", BR, tmm).toString();
@@ -1026,7 +1026,7 @@ public final class UnitToolTip {
             boolean teamVision = game.getOptions().booleanOption(
                     OptionsConstants.ADVANCED_TEAM_VISION);
             int seenByResolution = GUIP.getAdvancedUnitToolTipSeenByResolution();
-            String tmpStr = "";
+            String tmpStr;
 
             dance: for (Player player :  entity.getWhoCanSee()) {
                 if (player.isEnemyOf(entity.getOwner()) || !teamVision) {
@@ -1213,7 +1213,7 @@ public final class UnitToolTip {
             }
 
             if (entity instanceof IBomber) {
-                int bombMod = 0;
+                int bombMod;
                 bombMod = ((IBomber) entity).reduceMPByBombLoad(walkMP);
                 if (bombMod != walkMP) {
                     sMove += DOT_SPACER;
@@ -1356,20 +1356,20 @@ public final class UnitToolTip {
     
     /** Returns a list of units loaded onto this unit. */
     private static StringBuilder carriedUnits(Entity entity) {
-        String result = "";
-        String sCarriedUnits = "";
+        String result;
+        StringBuilder sCarriedUnits = new StringBuilder();
 
         if (entity instanceof FighterSquadron) {
             String msg_fighter = Messages.getString("BoardView1.Tooltip.Fighters");
-            sCarriedUnits += msg_fighter + ":";
+            sCarriedUnits.append(msg_fighter).append(":");
         } else {
             String msg_carriedunits = Messages.getString("BoardView1.Tooltip.CarriedUnits");
-            sCarriedUnits += msg_carriedunits + ":";
+            sCarriedUnits.append(msg_carriedunits).append(":");
         }
         for (Entity carried: entity.getLoadedUnits()) {
-            sCarriedUnits += "<BR>&nbsp;&nbsp;" + carried.getShortNameRaw();
+            sCarriedUnits.append("<BR>&nbsp;&nbsp;").append(carried.getShortNameRaw());
             if (PreferenceManager.getClientPreferences().getShowUnitId()) {
-                sCarriedUnits += " [" + carried.getId() + "]";
+                sCarriedUnits.append(" [").append(carried.getId()).append("]");
             }
         }
 
@@ -1380,7 +1380,7 @@ public final class UnitToolTip {
     /** Returns the full force chain the entity is in as one text line. */
     private static StringBuilder forceEntry(Entity entity, Player localPlayer) {
         String result = "";
-        String sForceEntry = "";
+        StringBuilder sForceEntry;
 
         if (entity.partOfForce()) {
             // Get the my / ally / enemy color and desaturate it
@@ -1391,11 +1391,11 @@ public final class UnitToolTip {
                 color = GUIP.getAllyUnitColor();
             }
             color = addGray(color, 128).brighter();
-            sForceEntry = "<BR>";
+            sForceEntry = new StringBuilder("<BR>");
             var forceChain = entity.getGame().getForces().forceChain(entity);
             for (int i = forceChain.size() - 1; i >= 0; i--) {
-                sForceEntry += forceChain.get(i).getName();
-                sForceEntry += i != 0 ? ", " : "";
+                sForceEntry.append(forceChain.get(i).getName());
+                sForceEntry.append(i != 0 ? ", " : "");
             }
             result = guiScaledFontHTML(color) + sForceEntry + "</FONT>";
         }
@@ -1405,7 +1405,7 @@ public final class UnitToolTip {
     
     /** Returns an overview of the C3 system the unit is in. */
     private static StringBuilder c3Info(Entity entity) {
-        String result = "";
+        String result;
         String sC3Info = "";
 
         List<String> members = entity.getGame().getEntitiesVector().stream()
@@ -1434,8 +1434,8 @@ public final class UnitToolTip {
     private static String c3UnitName(Entity c3member, Entity entity) {
         String result = "";
         String msg_c3 = "";
-        String sC3UnitName = "";
-        String tmp = "";
+        String sC3UnitName;
+        String tmp;
 
         sC3UnitName = " [" + c3member.getId() + "] ";
 

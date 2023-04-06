@@ -24,8 +24,6 @@ import java.util.Vector;
 public class TurnVectors implements Enumeration<ITurnOrdered> {
     private final int numEven;
     private final int numNormal;
-    //need to keep an enumeration of all non-even turns
-    private final int numTotal;
     private final int numSS;
     private final int numJS;
     private final int numWS;
@@ -187,7 +185,7 @@ public class TurnVectors implements Enumeration<ITurnOrdered> {
                        int wsCount, int dsCount, int scCount, int tmCount, int aeroCount, int evenCount, int min) {
         this.numEven = evenCount;
         this.numNormal = normalCount;
-        this.numTotal = totalCount;
+        //need to keep an enumeration of all non-even turns
         this.numSS = ssCount;
         this.numJS = jsCount;
         this.numWS = wsCount;
@@ -196,7 +194,7 @@ public class TurnVectors implements Enumeration<ITurnOrdered> {
         this.numTM = tmCount;
         this.numAero = aeroCount;
         this.normal_turns = new Vector<>(normalCount);
-        this.total_turns = new Vector<>(this.numTotal);
+        this.total_turns = new Vector<>(totalCount);
         this.even_turns = new Vector<>(evenCount);
         this.space_station_turns = new Vector<>(ssCount);
         this.jumpship_turns = new Vector<>(jsCount);

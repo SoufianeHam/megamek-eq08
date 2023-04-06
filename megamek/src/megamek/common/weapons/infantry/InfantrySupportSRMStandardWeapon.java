@@ -41,8 +41,7 @@ public class InfantrySupportSRMStandardWeapon extends InfantryWeapon {
 		ammoType = AmmoType.T_INFANTRY;
 		cost = 1500;
 		bv = 5.83;
-		tonnage = .030;
-		flags = flags.or(F_NO_FIRES).or(F_DIRECT_FIRE).or(F_MISSILE).or(F_INF_ENCUMBER).or(F_INF_SUPPORT);
+        flags = flags.or(F_NO_FIRES).or(F_DIRECT_FIRE).or(F_MISSILE).or(F_INF_ENCUMBER).or(F_INF_SUPPORT);
 		infantryDamage = 1.14;
 		infantryRange = 2;
 		crew = 1;

@@ -226,7 +226,7 @@ public class MoveOption extends MovePath {
             return 0;
         }
         int heat = last.getTotalHeat();
-        int move = 0;
+        int move;
         switch (last.getMovementType(true)) {
             case MOVE_WALK:
             case MOVE_VTOL_WALK:
@@ -323,13 +323,13 @@ public class MoveOption extends MovePath {
 
         int attHeight = ae.isProne() ? 0 : 1;
         int targHeight = te.isProne() ? 0 : 1;
-        int attEl = 0;
-        int targEl = 0;
+        int attEl;
+        int targEl;
         attEl = ae.getElevation() + attHeight;
         targEl = te.getElevation() + targHeight;
 
-        boolean pc = false;
-        boolean apc = false;
+        boolean pc;
+        boolean apc;
 
         // get all relevent modifiers
         ToHitData toHita = new ToHitData();
@@ -354,12 +354,10 @@ public class MoveOption extends MovePath {
             toHitd.addModifier(TargetRoll.IMPOSSIBLE,
                     "Defender in depth 2+ water");
         } else if ((attHex.getLevel() == attEl) && (ae.height() > 0)) {
-            apc = true;
         }
         Hex targHex = getGame().getBoard().getHex(te.getPosition());
         if (targHex.containsTerrain(Terrains.WATER)) {
             if ((targHex.getLevel() == targEl) && (te.height() > 0)) {
-                pc = true;
             } else if (targHex.getLevel() > targEl) {
                 toHita.addModifier(TargetRoll.IMPOSSIBLE,
                         "Attacker in depth 2+ water");
@@ -467,7 +465,7 @@ public class MoveOption extends MovePath {
      * enemy mech
      */
     public double getMaxModifiedDamage(MoveOption enemy, int modifier, int apc) {
-        double max = 0;
+        double max;
         int distance = getFinalCoords().distance(enemy.getFinalCoords());
         double mod = 1;
         // heat effect modifiers

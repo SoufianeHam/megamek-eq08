@@ -89,7 +89,7 @@ public class CityBuilder {
         ArrayList<BuildingTemplate> buildingList = new ArrayList<>();
         HashSet<Coords> buildingUsed = new HashSet<>();
 
-        ArrayList<Coords> coordList = new ArrayList<>();
+        ArrayList<Coords> coordList;
 
         Coords centre = new Coords(width / 2, height / 2);
         double falloff = (double) mapSettings.getCityDensity()
@@ -202,10 +202,10 @@ public class CityBuilder {
         roads = Math.max(roads, 4);
         cityPlan.add(new Coords(midX, midY));
 
-        int x = 0;
-        int y = 0;
+        int x;
+        int y;
         for (int dir = 0; dir < roads; dir++) {
-            int baseDirection = -1;
+            int baseDirection;
             int roadStyle = Compute.randomInt(2) + 1;
 
             if (dir < 8) {

@@ -23,6 +23,7 @@ import java.util.Vector;
  * such as displayable name, description etc. The derived classes must implement
  * the Singleton pattern
  */
+@SuppressWarnings("ALL")
 public class AbstractOptionsInfo implements IOptionsInfo {
     protected static final String GROUP_SUFFIX = ".group.";
     protected static final String OPTION_SUFFIX = ".option.";
@@ -189,9 +190,6 @@ public class AbstractOptionsInfo implements IOptionsInfo {
      */
     private class OptionInfo implements IOptionInfo {
         private final String name;
-        private final int textFieldLength = 3;
-
-        private final boolean labelBeforeTextField = false;
 
         public OptionInfo(String optionName) {
             this.name = optionName;
@@ -214,11 +212,13 @@ public class AbstractOptionsInfo implements IOptionsInfo {
 
         @Override
         public int getTextFieldLength() {
+            int textFieldLength = 3;
             return textFieldLength;
         }
 
         @Override
         public boolean isLabelBeforeTextField() {
+            boolean labelBeforeTextField = false;
             return labelBeforeTextField;
         }
     }

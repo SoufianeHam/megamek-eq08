@@ -56,6 +56,6 @@ public class AlamoMissileWeapon extends CapitalMissileWeapon {
         techAdvancement.setTechBase(TechAdvancement.TECH_BASE_IS);
         techAdvancement.setISAdvancement(3071, DATE_NONE, DATE_NONE);
         techAdvancement.setTechRating(RATING_C);
-        techAdvancement.setAvailability( new int[] { RATING_E, RATING_E, RATING_E, RATING_E });
+        techAdvancement.setAvailability(RATING_E, RATING_E, RATING_E, RATING_E);
     }
 }

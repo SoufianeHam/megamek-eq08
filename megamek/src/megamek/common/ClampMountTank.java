@@ -93,7 +93,7 @@ public class ClampMountTank extends BattleArmorHandlesTank {
     @Override
     public boolean canLoad(Entity unit) {
         // Assume that we can carry the unit.
-        boolean result = true;
+        boolean result;
 
         if (!(unit instanceof BattleArmor)) {
             // Only BattleArmor can be carried in BattleArmorHandles.

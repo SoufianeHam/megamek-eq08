@@ -57,7 +57,6 @@ public class SquadronMapSet implements DisplayMapSet {
     private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
     private final PMAreasGroup content = new PMAreasGroup();
 
-    private final int stepY = 11;
     private final int squareSize = 7;
     private final int armorRows = 6;
     private final int armorCols = 8;
@@ -280,6 +279,7 @@ public class SquadronMapSet implements DisplayMapSet {
 
     private void translateAreas() {
         // get size of each fighter block
+        int stepY = 11;
         int blockSize = 6 * stepY;
         for (int i = 0; i < max_size; i++) {
             nameLabel[i].translate(0, blockSize * i);

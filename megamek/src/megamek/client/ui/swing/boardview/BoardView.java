@@ -323,7 +323,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     private Map<Coords, Color> eccmCenters = null;
 
     // reference to our timertask for redraw
-    private TimerTask ourTask = null;
+    private TimerTask ourTask;
 
     BufferedImage bvBgImage = null;
     boolean bvBgShouldTile = false;
@@ -350,10 +350,6 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     private boolean shouldIgnoreKeys = false;
 
     FovHighlightingAndDarkening fovHighlightingAndDarkening;
-
-    private final String FILENAME_FLARE_IMAGE = "flare.png";
-
-    private final String FILENAME_RADAR_BLIP_IMAGE = "radarBlip.png";
 
     private final Image flareImage;
 
@@ -429,6 +425,182 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         tileManager = new TilesetManager(this);
         ToolTipManager.sharedInstance().registerComponent(this);
 
+        // For Entities that have converted to another mode, check for a different sprite
+        // for units that have been blown up, damaged or ejected, force a reload
+        // Clear some information regardless of what phase it is
+        GameListener gameListener = new GameListenerAdapter() {
+
+            @Override
+            public void gameEntityNew(GameEntityNewEvent e) {
+                updateEcmList();
+                redrawAllEntities();
+                if (game.getPhase().isMovement()) {
+                    refreshMoveVectors();
+                }
+            }
+
+            @Override
+            public void gameEntityRemove(GameEntityRemoveEvent e) {
+                updateEcmList();
+                redrawAllEntities();
+                if (game.getPhase().isMovement()) {
+                    refreshMoveVectors();
+                }
+            }
+
+            @Override
+            public void gameEntityChange(GameEntityChangeEvent e) {
+                final Vector<UnitLocation> mp = e.getMovePath();
+                final Entity en = e.getEntity();
+                final GameOptions gopts = game.getOptions();
+
+                updateEcmList();
+
+                // For Entities that have converted to another mode, check for a different sprite
+                if (game.getPhase().isMovement() && en.isConvertingNow()) {
+                    tileManager.reloadImage(en);
+                }
+
+                // for units that have been blown up, damaged or ejected, force a reload
+                if ((e.getOldEntity() != null) &&
+                        ((en.getDamageLevel() != e.getOldEntity().getDamageLevel()) ||
+                                (en.isDestroyed() != e.getOldEntity().isDestroyed()) ||
+                                (en.getCrew().isEjected() != e.getOldEntity().getCrew().isEjected()))) {
+                    tileManager.reloadImage(en);
+                }
+
+                redrawAllEntities();
+                if (game.getPhase().isMovement()) {
+                    refreshMoveVectors();
+                }
+                if ((mp != null) && !mp.isEmpty() && GUIP.getShowMoveStep()
+                        && !gopts.booleanOption(OptionsConstants.INIT_SIMULTANEOUS_MOVEMENT)) {
+                    if ((localPlayer == null)
+                            || !game.getOptions().booleanOption(OptionsConstants.ADVANCED_DOUBLE_BLIND)
+                            || !en.getOwner().isEnemyOf(localPlayer)
+                            || en.hasSeenEntity(localPlayer)) {
+                        addMovingUnit(en, mp);
+                    }
+                }
+            }
+
+            @Override
+            public void gameNewAction(GameNewActionEvent e) {
+                EntityAction ea = e.getAction();
+                if (ea instanceof AttackAction) {
+                    addAttack((AttackAction) ea);
+                }
+            }
+
+            @Override
+            public void gameBoardNew(GameBoardNewEvent e) {
+                Board b = e.getOldBoard();
+                if (b != null) {
+                    b.removeBoardListener(BoardView.this);
+                }
+                b = e.getNewBoard();
+                if (b != null) {
+                    b.addBoardListener(BoardView.this);
+                }
+                boardBackgrounds.clear();
+                assert b != null;
+                if (b.hasBoardBackground()) {
+                    ListIterator<Boolean> flipItHoriz = b.getFlipBGHoriz().listIterator();
+                    ListIterator<Boolean> flipItVert = b.getFlipBGVert().listIterator();
+                    for (String path : b.getBackgroundPaths()) {
+                        boolean flipHoriz = flipItHoriz.next();
+                        boolean flipVert = flipItVert.next();
+                        if (path == null) {
+                            boardBackgrounds.add(null);
+                        } else {
+                            Image bgImg = ImageUtil.loadImageFromFile(path);
+                            ImageProducer prod = bgImg.getSource();
+                            if (flipHoriz || flipVert) {
+                                AffineTransform at = new AffineTransform();
+
+                                if (flipHoriz) {
+                                    at.concatenate(AffineTransform.getScaleInstance(1, -1));
+                                }
+                                if (flipVert) {
+                                    at.concatenate(AffineTransform.getTranslateInstance(0,
+                                            -bgImg.getHeight(null)));
+                                }
+                                ((Graphics2D) bgImg.getGraphics()).setTransform(at);
+                            }
+                            boardBackgrounds.add(Toolkit.getDefaultToolkit().createImage(prod));
+                        }
+                    }
+                }
+                game.getBoard().initializeAllAutomaticTerrain(GUIP.getHexInclines());
+                clearHexImageCache();
+                updateBoard();
+                clearShadowMap();
+            }
+
+            @Override
+            public void gameBoardChanged() {
+                clearHexImageCache();
+                boardChanged();
+            }
+
+            @Override
+            public void gamePhaseChange(GamePhaseChangeEvent e) {
+                if (GUIP.getGameSummaryBoardView()
+                        && (e.getOldPhase().isDeployment() || e.getOldPhase().isMovement()
+                        || e.getOldPhase().isTargeting() || e.getOldPhase().isFiring()
+                        || e.getOldPhase().isPhysical())) {
+                    File dir = new File(Configuration.gameSummaryImagesBVDir(), game.getUUIDString());
+                    if (!dir.exists()) {
+                        dir.mkdirs();
+                    }
+                    File imgFile = new File(dir, "round_" + String.format("%03d", game.getRoundCount())
+                            + '_' + String.format("%03d", e.getOldPhase().ordinal()) + '_' + e.getOldPhase() + ".png");
+                    try {
+                        ImageIO.write(getEntireBoardImage(false, true), "png", imgFile);
+                    } catch (Exception ex) {
+                        LogManager.getLogger().error("", ex);
+                    }
+                }
+
+                refreshAttacks();
+
+                // Clear some information regardless of what phase it is
+                clearFiringSolutionData();
+                clearMovementEnvelope();
+
+                switch (e.getNewPhase()) {
+                    case MOVEMENT:
+                        refreshMoveVectors();
+                    case FIRING:
+                        clearAllMoveVectors();
+                    case PHYSICAL:
+                        refreshAttacks();
+                        break;
+                    case INITIATIVE:
+                        clearAllAttacks();
+                        break;
+                    case END:
+                    case VICTORY:
+                        clearSprites();
+                    case LOUNGE:
+                        clearHexImageCache();
+                        clearAllMoveVectors();
+                        clearAllAttacks();
+                        clearSprites();
+                        select(null);
+                        cursor(null);
+                        highlight(null);
+                    default:
+                }
+                for (Entity en : game.getEntitiesVector()) {
+                    if ((en.getDamageLevel() != Entity.DMG_NONE) &&
+                            ((en.damageThisRound != 0) || (en instanceof GunEmplacement))) {
+                        tileManager.reloadImage(en);
+                    }
+                }
+
+            }
+        };
         game.addGameListener(gameListener);
         game.getBoard().addBoardListener(this);
         
@@ -639,8 +811,10 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
         fovHighlightingAndDarkening = new FovHighlightingAndDarkening(this);
 
+        String FILENAME_FLARE_IMAGE = "flare.png";
         flareImage = ImageUtil.loadImageFromFile(
                 new MegaMekFile(Configuration.miscImagesDir(), FILENAME_FLARE_IMAGE).toString());
+        String FILENAME_RADAR_BLIP_IMAGE = "radarBlip.png";
         radarBlipImage = ImageUtil.loadImageFromFile(
                 new MegaMekFile(Configuration.miscImagesDir(), FILENAME_RADAR_BLIP_IMAGE).toString());
     }
@@ -1048,7 +1222,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
         if (bvBgShouldTile && (bvBgImage != null)) {
             Rectangle clipping = g.getClipBounds();
-            int x = 0;
+            int x;
             int y = 0;
             int w = bvBgImage.getWidth();
             int h = bvBgImage.getHeight();
@@ -1433,8 +1607,8 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
         // the shadowmap needs to be painted as if scale == 1
         // therefore some of the methods of boardview1 cannot be used
-        int width = game.getBoard().getWidth() * HEX_WC + (int) (HEX_W / 4);
-        int height = game.getBoard().getHeight() * (int) (HEX_H) + (int) (HEX_H / 2);
+        int width = game.getBoard().getWidth() * HEX_WC + (HEX_W / 4);
+        int height = game.getBoard().getHeight() * HEX_H + (HEX_H / 2);
 
         GraphicsConfiguration config = GraphicsEnvironment
                 .getLocalGraphicsEnvironment().getDefaultScreenDevice()
@@ -1446,7 +1620,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         Graphics2D g = shadowMap.createGraphics();
 
         // Compute shadow angle based on planentary conditions.
-        double[] lightDirection = { -19, 7 };
+        double[] lightDirection;
         if ((game.getPlanetaryConditions().getLight() == PlanetaryConditions.L_MOONLESS) ||
         (game.getPlanetaryConditions().getLight() == PlanetaryConditions.L_PITCH_BLACK)) {
             lightDirection = new double[] { 0, 0 };
@@ -2667,7 +2841,6 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                         GUIPreferences.ADVANCED_LOW_FOLIAGE_COLOR));  
                 drawCenteredString(Messages.getString("BoardView1.LowFoliage"), 
                         0, (int) (ypos * scale), font_elev, g);
-                ypos -= 10;
             }
         }
 
@@ -4140,7 +4313,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             }
 
             // ECM cuts off the network
-            boolean blocked = false;
+            boolean blocked;
             if (e.hasBoostedC3() && eMaster.hasBoostedC3()) {
                 blocked = ComputeECM.isAffectedByAngelECM(e, e.getPosition(), eMaster.getPosition())
                         || ComputeECM.isAffectedByAngelECM(eMaster, eMaster.getPosition(), eMaster.getPosition());
@@ -4369,7 +4542,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             if (!le.canSee()) {
                 message.append(Messages.getString("BoardView1.LOSBlocked", c1.distance(c2)));
                 ToHitData thd = le.losModifiers(game);
-                message.append("\t" + thd.getDesc() + "\n");
+                message.append("\t").append(thd.getDesc()).append("\n");
             } else {
                 message.append(Messages.getString("BoardView1.LOSNotBlocked", c1.distance(c2)));
                 if (le.getHeavyWoods() > 0) {
@@ -4924,180 +5097,6 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         repaint();
     }
 
-    private final GameListener gameListener = new GameListenerAdapter() {
-
-        @Override
-        public void gameEntityNew(GameEntityNewEvent e) {
-            updateEcmList();
-            redrawAllEntities();
-            if (game.getPhase().isMovement()) {
-                refreshMoveVectors();
-            }
-        }
-
-        @Override
-        public void gameEntityRemove(GameEntityRemoveEvent e) {
-            updateEcmList();
-            redrawAllEntities();
-            if (game.getPhase().isMovement()) {
-                refreshMoveVectors();
-            }
-        }
-
-        @Override
-        public void gameEntityChange(GameEntityChangeEvent e) {
-            final Vector<UnitLocation> mp = e.getMovePath();
-            final Entity en = e.getEntity();
-            final GameOptions gopts = game.getOptions();
-
-            updateEcmList();
-            
-            // For Entities that have converted to another mode, check for a different sprite
-            if (game.getPhase().isMovement() && en.isConvertingNow()) {
-                tileManager.reloadImage(en);
-            }
-            
-            // for units that have been blown up, damaged or ejected, force a reload
-            if ((e.getOldEntity() != null) &&
-                    ((en.getDamageLevel() != e.getOldEntity().getDamageLevel()) ||
-                    (en.isDestroyed() != e.getOldEntity().isDestroyed()) ||
-                    (en.getCrew().isEjected() != e.getOldEntity().getCrew().isEjected()))) {
-                tileManager.reloadImage(en);
-            }
-            
-            redrawAllEntities();
-            if (game.getPhase().isMovement()) {
-                refreshMoveVectors();
-            }
-            if ((mp != null) && !mp.isEmpty() && GUIP.getShowMoveStep()
-                    && !gopts.booleanOption(OptionsConstants.INIT_SIMULTANEOUS_MOVEMENT)) {
-                if ((localPlayer == null)
-                        || !game.getOptions().booleanOption(OptionsConstants.ADVANCED_DOUBLE_BLIND)
-                        || !en.getOwner().isEnemyOf(localPlayer)
-                        || en.hasSeenEntity(localPlayer)) {
-                    addMovingUnit(en, mp);
-                }
-            }
-        }
-
-        @Override
-        public void gameNewAction(GameNewActionEvent e) {
-            EntityAction ea = e.getAction();
-            if (ea instanceof AttackAction) {
-                addAttack((AttackAction) ea);
-            }
-        }
-
-        @Override
-        public void gameBoardNew(GameBoardNewEvent e) {
-            Board b = e.getOldBoard();
-            if (b != null) {
-                b.removeBoardListener(BoardView.this);
-            }
-            b = e.getNewBoard();
-            if (b != null) {
-                b.addBoardListener(BoardView.this);
-            }
-            boardBackgrounds.clear();
-            assert b != null;
-            if (b.hasBoardBackground()) {
-                ListIterator<Boolean> flipItHoriz = b.getFlipBGHoriz().listIterator();
-                ListIterator<Boolean> flipItVert = b.getFlipBGVert().listIterator();
-                for (String path : b.getBackgroundPaths()) {
-                    boolean flipHoriz = flipItHoriz.next();
-                    boolean flipVert = flipItVert.next();
-                    if (path == null) {
-                        boardBackgrounds.add(null);
-                    } else {
-                        Image bgImg = ImageUtil.loadImageFromFile(path);
-                        ImageProducer prod = bgImg.getSource();
-                        if (flipHoriz || flipVert) {
-                            AffineTransform at = new AffineTransform();
-
-                            if (flipHoriz) {
-                                at.concatenate(AffineTransform.getScaleInstance(1, -1));
-                            }
-                            if (flipVert) {
-                                at.concatenate(AffineTransform.getTranslateInstance(0,
-                                        -bgImg.getHeight(null)));
-                            }
-                            ((Graphics2D) bgImg.getGraphics()).setTransform(at);
-                        }
-                        boardBackgrounds.add(Toolkit.getDefaultToolkit().createImage(prod));
-                    }
-                }
-            }
-            game.getBoard().initializeAllAutomaticTerrain(GUIP.getHexInclines());
-            clearHexImageCache();
-            updateBoard();
-            clearShadowMap();
-        }
-
-        @Override
-        public void gameBoardChanged() {
-            clearHexImageCache();
-            boardChanged();
-        }
-
-        @Override
-        public void gamePhaseChange(GamePhaseChangeEvent e) {
-            if (GUIP.getGameSummaryBoardView()
-                    && (e.getOldPhase().isDeployment() || e.getOldPhase().isMovement()
-                            || e.getOldPhase().isTargeting() || e.getOldPhase().isFiring()
-                            || e.getOldPhase().isPhysical())) {
-                File dir = new File(Configuration.gameSummaryImagesBVDir(), game.getUUIDString());
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
-                File imgFile = new File(dir, "round_" +  String.format("%03d" , game.getRoundCount())
-                        + '_' +  String.format("%03d" , e.getOldPhase().ordinal()) + '_' + e.getOldPhase() + ".png");
-                try {
-                    ImageIO.write(getEntireBoardImage(false, true), "png", imgFile);
-                } catch (Exception ex) {
-                    LogManager.getLogger().error("", ex);
-                }
-            }
-
-            refreshAttacks();
-
-            // Clear some information regardless of what phase it is
-            clearFiringSolutionData();
-            clearMovementEnvelope();
-
-            switch (e.getNewPhase()) {
-                case MOVEMENT:
-                    refreshMoveVectors();
-                case FIRING:
-                    clearAllMoveVectors();
-                case PHYSICAL:
-                    refreshAttacks();
-                    break;
-                case INITIATIVE:
-                    clearAllAttacks();
-                    break;
-                case END:
-                case VICTORY:
-                    clearSprites();
-                case LOUNGE:
-                    clearHexImageCache();
-                    clearAllMoveVectors();
-                    clearAllAttacks();
-                    clearSprites();
-                    select(null);
-                    cursor(null);
-                    highlight(null);
-                default:
-            }
-            for (Entity en: game.getEntitiesVector()) {
-                if ((en.getDamageLevel() != Entity.DMG_NONE) && 
-                        ((en.damageThisRound != 0) || (en instanceof GunEmplacement))) {
-                    tileManager.reloadImage(en);
-                }
-            }
-
-        }
-    };
-
     synchronized void boardChanged() {
         redrawAllEntities();
         redrawAllFlares();
@@ -5448,7 +5447,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
         Hex mhex = game.getBoard().getHex(mcoords);
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
         //StringBuffer txt = new StringBuffer();
 
         // Hex Terrain
@@ -5491,7 +5490,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                 if (game.getPhase().isMovement() && (movementTarget != null)) {
                     sTrerain += "<BR>";
                     int disPM = movementTarget.distance(mcoords);
-                    String sDinstanceMove = "";
+                    String sDinstanceMove;
                     if (disPM == 1) {
                         sDinstanceMove = Messages.getString("BoardView1.Tooltip.DistanceMove1");
                     } else {
@@ -5505,11 +5504,11 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             String col = "<TD>" + sTrerain + "</TD>";
             String row = "<TR>" + col + "</TR>";
             String table = "<TABLE BORDER=0 BGCOLOR=" + TERRAIN_BGCOLOR + " width=100%>" + row + "</TABLE>";
-            result += table;
+            result.append(table);
 
             StringBuffer sbBuildings = new StringBuffer();
             appendBuildingsTooltip(sbBuildings, mhex);
-            result += sbBuildings.toString();
+            result.append(sbBuildings.toString());
 
             if (displayInvalidHexInfo) {
                 StringBuffer errBuff = new StringBuffer();
@@ -5520,7 +5519,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                     errors = errors.replace("\n", "<BR>");
                     sInvalidHex += errors;
                     sInvalidHex = guiScaledFontHTML(uiWhite()) + sInvalidHex + "</FONT>";
-                    result += "<BR>" + sInvalidHex;
+                    result.append("<BR>").append(sInvalidHex);
                 }
             }
         }
@@ -5528,7 +5527,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         // Show the player(s) that may deploy here
         // in the artillery autohit designation phase
         if (game.getPhase().isSetArtilleryAutohitHexes() && (mhex != null)) {
-            String sAttilleryAutoHix = "";
+            StringBuilder sAttilleryAutoHix = new StringBuilder();
             Enumeration<Player> allP = game.getPlayers();
             boolean foundPlayer = false;
             // loop through all players
@@ -5537,17 +5536,17 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                 if (game.getBoard().isLegalDeployment(mcoords, cp)) {
                     if (!foundPlayer) {
                         foundPlayer = true;
-                        sAttilleryAutoHix += Messages.getString("BoardView1.Tooltip.ArtyAutoHeader") + "<BR>";
+                        sAttilleryAutoHix.append(Messages.getString("BoardView1.Tooltip.ArtyAutoHeader")).append("<BR>");
                     }
 
                     String sName = "&nbsp;&nbsp;" + cp.getName();
                     sName = guiScaledFontHTML(cp.getColour().getColour()) + sName + "</FONT>";
-                    sAttilleryAutoHix += "<B>"  + sName + "</B>";
-                    sAttilleryAutoHix += "<BR>";
+                    sAttilleryAutoHix.append("<B>").append(sName).append("</B>");
+                    sAttilleryAutoHix.append("<BR>");
                 }
             }
             if (foundPlayer) {
-                sAttilleryAutoHix += "<BR>";
+                sAttilleryAutoHix.append("<BR>");
             }
 
             // Add a hint with keybind that the zones can be shown graphically
@@ -5555,20 +5554,20 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             String msg_artyautohit = Messages.getString("BoardView1.Tooltip.ArtyAutoHint1") + "<BR>";
             msg_artyautohit += Messages.getString("BoardView1.Tooltip.ArtyAutoHint2") + "<BR>";
             msg_artyautohit += Messages.getString("BoardView1.Tooltip.ArtyAutoHint3", keybindText);
-            sAttilleryAutoHix += "<I>" + msg_artyautohit + "</I>";
+            sAttilleryAutoHix.append("<I>").append(msg_artyautohit).append("</I>");
 
-            sAttilleryAutoHix = guiScaledFontHTML(uiWhite()) + sAttilleryAutoHix + "</FONT>";
+            sAttilleryAutoHix = new StringBuilder(guiScaledFontHTML(uiWhite()) + sAttilleryAutoHix + "</FONT>");
 
             String col = "<TD>" + sAttilleryAutoHix + "</TD>";
             String row = "<TR>" + col + "</TR>";
             String table = "<TABLE BORDER=0 width=100%>" + row + "</TABLE>";
-            result += table;
+            result.append(table);
         }
 
         // check if it's on any flares
         for (FlareSprite fSprite : flareSprites) {
             if (fSprite.isInside(point)) {
-                result += fSprite.getTooltip().toString();
+                result.append(fSprite.getTooltip().toString());
             }
         }
 
@@ -5581,7 +5580,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                 String col = "<TD>" + sWreck + "</TD>";
                 String row = "<TR>" + col + "</TR>";
                 String table = "<TABLE BORDER=0 BGCOLOR=" + ALT_BGCOLOR + " width=100%>" + row + "</TABLE>";
-                result += table;
+                result.append(table);
             }
         }
 
@@ -5598,7 +5597,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             if (entityCount <= maxShown) {
                 StringBuffer sbEntity = new StringBuffer();
                 appendEntityTooltip(sbEntity, entity);
-                result += sbEntity.toString();
+                result.append(sbEntity.toString());
             }
         }
         // Info block if there are more than 4 units in that hex
@@ -5615,7 +5614,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             String col = "<TD>" + sUnitsInfo + "</TD>";
             String row = "<TR>" + col + "</TR>";
             String table = "<TABLE BORDER=0 BGCOLOR=" + BLOCK_BGCOLOR + " width=100%>" + row + "</TABLE>";
-            result += table;
+            result.append(table);
         }
 
         // check if it's on any attacks
@@ -5626,7 +5625,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                 String col = "<TD>" + sAttackSprite + "</TD>";
                 String row = "<TR>" + col + "</TR>";
                 String table = "<TABLE BORDER=0 BGCOLOR=" + ALT_BGCOLOR + " width=100%>" + row + "</TABLE>";
-                result += table;
+                result.append(table);
             }
         }
 
@@ -5663,14 +5662,14 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             String col = "<TD>" + msg_artilleryatack + "</TD>";
             String row = "<TR>" + col + "</TR>";
             String table = "<TABLE BORDER=0 BGCOLOR=" + BLOCK_BGCOLOR + " width=100%>" + row + "</TABLE>";
-            result += table;
+            result.append(table);
         }
 
         // Artillery fire adjustment
         final Mounted curWeapon = getSelectedArtilleryWeapon();
         if ((curWeapon != null) && (selectedEntity != null)) {
             // process targeted hexes
-            int amod = 0;
+            int amod;
             // Check the predesignated hexes
             if (selectedEntity.getOwner().getArtyAutoHitHexes().contains(mcoords)) {
                 amod = TargetRoll.AUTOMATIC_SUCCESS;
@@ -5686,13 +5685,13 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                 msg_artilleryautohit = Messages.getString("BoardView1.ArtilleryAdjustment", amod);
             }
             msg_artilleryautohit = guiScaledFontHTML(UIUtil.uiWhite()) + msg_artilleryautohit + "</FONT>";
-            result += msg_artilleryautohit + "<BR>";
+            result.append(msg_artilleryautohit).append("<BR>");
         }
 
         final Collection<SpecialHexDisplay> shdList = game.getBoard().getSpecialHexDisplay(mcoords);
         int round = game.getRoundCount();
         if (shdList != null) {
-            String sSpecialHex = "";
+            StringBuilder sSpecialHex = new StringBuilder();
             boolean isHexAutoHit = localPlayer.getArtyAutoHitHexes().contains(mcoords);
             for (SpecialHexDisplay shd : shdList) {
                 boolean isTypeAutoHit = shd.getType() == SpecialHexDisplay.Type.ARTILLERY_AUTOHIT;
@@ -5706,25 +5705,25 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                                 || (isHexAutoHit && isTypeAutoHit))) {
                     if (shd.getType() == SpecialHexDisplay.Type.PLAYER_NOTE) {
                         if (localPlayer.equals(shd.getOwner())) {
-                            sSpecialHex += "Note: ";
+                            sSpecialHex.append("Note: ");
                         } else {
-                            sSpecialHex += "Note (" + shd.getOwner().getName() + "): ";
+                            sSpecialHex.append("Note (").append(shd.getOwner().getName()).append("): ");
                         }
                     }
                     String buf = shd.getInfo();
                     buf = buf.replaceAll("\\n", "<BR>");
-                    sSpecialHex += buf;
-                    sSpecialHex = guiScaledFontHTML(UIUtil.uiWhite()) + sSpecialHex + "</FONT>";
-                    sSpecialHex += "<BR>";
+                    sSpecialHex.append(buf);
+                    sSpecialHex = new StringBuilder(guiScaledFontHTML(uiWhite()) + sSpecialHex + "</FONT>");
+                    sSpecialHex.append("<BR>");
                 }
             }
 
-            result += sSpecialHex;
+            result.append(sSpecialHex);
         }
 
         String div = "<DIV WIDTH=" + UIUtil.scaleForGUI(500) + ">" + result + "</DIV>";
         StringBuffer txt = new StringBuffer();
-        txt.append(HTML_BEGIN + div + HTML_END);
+        txt.append(HTML_BEGIN).append(div).append(HTML_END);
 
         // Check to see if the tool tip is completely empty
         if (txt.toString().equals(HTML_BEGIN +HTML_END)) {
@@ -5753,7 +5752,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
         Coords mcoords = mhex.getCoords();
         String result = "";
-        String sTerrian = Messages.getString("BoardView1.Tooltip.Hex", mcoords.getBoardNum(), mhex.getLevel()) + "<BR>";
+        StringBuilder sTerrian = new StringBuilder(Messages.getString("BoardView1.Tooltip.Hex", mcoords.getBoardNum(), mhex.getLevel()) + "<BR>");
 
         // cycle through the terrains and report types found
         for (int terType: mhex.getTerrainTypes()) {
@@ -5763,7 +5762,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             if (name != null) {
                 String msg_tf =  Messages.getString("BoardView1.Tooltip.TF");
                 name += (tf > 0) ? " (" + msg_tf + ": " + tf + ")" : "";
-                sTerrian += name + "<BR>";
+                sTerrian.append(name).append("<BR>");
             }
         }
 
@@ -5780,11 +5779,11 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         }
         Coords mcoords = mhex.getCoords();
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         // Fuel Tank
         if (mhex.containsTerrain(Terrains.FUEL_TANK)) {
-            String sFuelTank = "";
+            String sFuelTank;
             // In the BoardEditor, buildings have no entry in the
             // buildings list of the board, so get the info from the hex
             if (clientgui == null) {
@@ -5804,7 +5803,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             String col = "<TD>" + sFuelTank + "</TD>";
             String row = "<TR>" + col + "</TR>";
             String table = "<TABLE BORDER=0 BGCOLOR=" + LIGHT_BGCOLOR + " width=100%>" + row + "</TABLE>";
-            result += table;
+            result.append(table);
         }
 
         // Building
@@ -5821,7 +5820,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                 String col = "<TD>" + sBuilding + "</TD>";
                 String row = "<TR>" + col + "</TR>";
                 String table = "<TABLE BORDER=0 BGCOLOR=" + LIGHT_BGCOLOR + " width=100%>" + row + "</TABLE>";
-                result += table;
+                result.append(table);
             } else {
                 Building bldg = game.getBoard().getBuildingAt(mcoords);
                 sBuilding = Messages.getString("BoardView1.Tooltip.Building",
@@ -5836,7 +5835,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                 String col = "<TD>" + sBuilding + "</TD>";
                 String row = "<TR>" + col + "</TR>";
                 String table = "<TABLE BORDER=0 BGCOLOR=" + BUILDING_BGCOLOR + " width=100%>" + row + "</TABLE>";
-                result += table;
+                result.append(table);
             }
         }
 
@@ -5858,7 +5857,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             String col = "<TD>" + sBridge + "</TD>";
             String row = "<TR>" + col + "</TR>";
             String table = "<TABLE BORDER=0 BGCOLOR=" + LIGHT_BGCOLOR + " width=100%>" + row + "</TABLE>";
-            result += table;
+            result.append(table);
         }
 
         if (game.containsMinefield(mcoords)) {
@@ -5887,8 +5886,8 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                 }
 
                 sMinefield = guiScaledFontHTML(UIUtil.uiWhite()) + sMinefield + "</FONT>";
-                result += sMinefield;
-                result += "<BR>";
+                result.append(sMinefield);
+                result.append("<BR>");
             }
         }
 

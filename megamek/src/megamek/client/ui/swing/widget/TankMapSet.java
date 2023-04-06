@@ -116,8 +116,8 @@ public class TankMapSet implements DisplayMapSet {
     @Override
     public void setEntity(Entity e) {
         Tank t = (Tank) e;
-        int a = 1;
-        int a0 = 1;
+        int a;
+        int a0;
         for (int i = 1; i < 6; i++) {
             a = t.getArmor(i);
             a0 = t.getOArmor(i);

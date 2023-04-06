@@ -44,6 +44,7 @@ import java.util.Objects;
 /**
  * Shows reports, with an Okay JButton
  */
+@SuppressWarnings("ALL")
 public class MiniReportDisplay extends JPanel implements ActionListener, HyperlinkListener, IPreferenceChangeListener {
     private JButton butSwitchLocation;
     private JTabbedPane tabs;  
@@ -71,6 +72,21 @@ public class MiniReportDisplay extends JPanel implements ActionListener, Hyperli
 
         currentClientgui = clientgui;
         currentClient = clientgui.getClient();
+        GameListener gameListener = new GameListenerAdapter() {
+            @Override
+            public void gamePhaseChange(GamePhaseChangeEvent e) {
+                if (e.getOldPhase() == GamePhase.VICTORY) {
+                    setVisible(false);
+                } else {
+                    if ((!e.getNewPhase().equals((e.getOldPhase())))
+                            && ((e.getNewPhase().isReport()) || ((e.getNewPhase().isOnMap()) && (tabs.getTabCount() == 0)))) {
+                        addReportPages();
+                        updatePlayerChoice();
+                        updateEntityChoice();
+                    }
+                }
+            }
+        };
         currentClient.getGame().addGameListener(gameListener);
 
         butSwitchLocation = new JButton(Messages.getString("MiniReportDisplay.SwitchLocation"));
@@ -140,7 +156,7 @@ public class MiniReportDisplay extends JPanel implements ActionListener, Hyperli
                             currentPos = 0;
                         }
 
-                        int newPos = -1;
+                        int newPos;
 
                         if (searchDown){
                             newPos = text.indexOf(searchPattern, currentPos);
@@ -196,8 +212,8 @@ public class MiniReportDisplay extends JPanel implements ActionListener, Hyperli
     }
 
     private String addEntity(JComboBox comboBox, String name) {
-        boolean found = false;
-        int len = (name.length() < MRD_MAXNAMELENGHT ? name.length() : MRD_MAXNAMELENGHT);
+        boolean found;
+        int len = (Math.min(name.length(), MRD_MAXNAMELENGHT));
         String displayNane = String.format("%-12s", name).substring(0, len);
         for (int i = 0; i < comboBox.getItemCount(); i++) {
             if (comboBox.getItemAt(i).equals(displayNane)) {
@@ -347,22 +363,6 @@ public class MiniReportDisplay extends JPanel implements ActionListener, Hyperli
             activePane().setToolTipText(null);
         }
     }
-
-    private final GameListener gameListener = new GameListenerAdapter() {
-        @Override
-        public void gamePhaseChange(GamePhaseChangeEvent e) {
-            if (e.getOldPhase() == GamePhase.VICTORY) {
-                setVisible(false);
-            } else {
-                if ((!e.getNewPhase().equals((e.getOldPhase())))
-                        && ((e.getNewPhase().isReport()) || ((e.getNewPhase().isOnMap()) && (tabs.getTabCount() == 0)))) {
-                    addReportPages();
-                    updatePlayerChoice();
-                    updateEntityChoice();
-                }
-            }
-        }
-    };
 
     private void adaptToGUIScale() {
         UIUtil.adjustContainer(this, UIUtil.FONT_SCALE1);

@@ -47,7 +47,6 @@ public class MapPreviewButton extends JButton {
     private Image scaledImage;
     private Image baseImage;
     private final ChatLounge lobby;
-    private final MapButtonTransferHandler dndHandler;
     private int index;
     private boolean isExample = false;
     private String boardName = "";
@@ -56,7 +55,7 @@ public class MapPreviewButton extends JButton {
     public MapPreviewButton(ChatLounge cl, int nr) {
         super("");
         lobby = cl;
-        dndHandler = new MapButtonTransferHandler(lobby, this);
+        MapButtonTransferHandler dndHandler = new MapButtonTransferHandler(lobby, this);
         index = nr;
         setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
         setTransferHandler(dndHandler);

@@ -127,8 +127,6 @@ public class EntityImage {
     private final int pos;
     /** True for units that occupy one hex (all but some dropships). */
     private final boolean isSingleHex;
-    /** True for tanks */
-    private final boolean isTank;
 
     public EntityImage(Image base, Camouflage camouflage, Component comp, Entity entity) {
         this(base, null, camouflage, comp, entity, -1, true);
@@ -150,7 +148,8 @@ public class EntityImage {
         this.weight = entity instanceof GunEmplacement ?
                 SMOKE_THREE + 1 : entity.getWeight();
         isInfantry = entity instanceof Infantry;
-        isTank = entity instanceof Tank;
+        /** True for tanks */
+        boolean isTank = entity instanceof Tank;
         isPreview = preview;
         isSlim = (isTank && !(entity instanceof GunEmplacement));
         isVerySlim = entity instanceof VTOL;

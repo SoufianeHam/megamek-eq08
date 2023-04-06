@@ -32,13 +32,24 @@ import java.util.Vector;
  */
 public class GeneralInfoMapSet implements DisplayMapSet {
 
-    private static final String STAR3 = "***";
     private final JComponent comp;
     private final PMAreasGroup content = new PMAreasGroup();
-    private PMSimpleLabel mechTypeL0, statusL, pilotL, playerL,
-            teamL, weightL, bvL, mpL0, mpL1, mpL2, mpL3, mpL4, curMoveL, heatL,
-            movementTypeL, ejectL, elevationL, fuelL, curSensorsL,
-            visualRangeL;
+    private PMSimpleLabel mechTypeL0;
+    private PMSimpleLabel teamL;
+    private PMSimpleLabel weightL;
+    private PMSimpleLabel bvL;
+    private PMSimpleLabel mpL0;
+    private PMSimpleLabel mpL1;
+    private PMSimpleLabel mpL2;
+    private PMSimpleLabel mpL3;
+    private PMSimpleLabel mpL4;
+    private PMSimpleLabel curMoveL;
+    private PMSimpleLabel heatL;
+    private PMSimpleLabel movementTypeL;
+    private PMSimpleLabel elevationL;
+    private PMSimpleLabel fuelL;
+    private PMSimpleLabel curSensorsL;
+    private PMSimpleLabel visualRangeL;
     private PMSimpleLabel statusR, pilotR, playerR, teamR, weightR, bvR, mpR0,
             mpR1, mpR2, mpR3, mpR4, curMoveR, heatR, movementTypeR, ejectR,
             elevationR, fuelR, curSensorsR, visualRangeR;
@@ -79,14 +90,14 @@ public class GeneralInfoMapSet implements DisplayMapSet {
 
         fm = comp.getFontMetrics(FONT_VALUE);
 
-        pilotL = createLabel(Messages.getString("GeneralInfoMapSet.pilotL"), fm, 0, getNewYCoord());
+        PMSimpleLabel pilotL = createLabel(Messages.getString("GeneralInfoMapSet.pilotL"), fm, 0, getNewYCoord());
         content.addArea(pilotL);
 
         pilotR = createLabel(Messages.getString("GeneralInfoMapSet.playerR"), fm,
                 pilotL.getSize().width + 10, getYCoord());
         content.addArea(pilotR);
 
-        playerL = createLabel(Messages.getString("GeneralInfoMapSet.playerL"), fm, 0, getNewYCoord());
+        PMSimpleLabel playerL = createLabel(Messages.getString("GeneralInfoMapSet.playerL"), fm, 0, getNewYCoord());
         content.addArea(playerL);
 
         playerR = createLabel(Messages.getString("GeneralInfoMapSet.playerR"), fm,
@@ -100,9 +111,10 @@ public class GeneralInfoMapSet implements DisplayMapSet {
                 teamL.getSize().width + 10, getYCoord());
         content.addArea(teamR);
 
-        statusL = createLabel(Messages.getString("GeneralInfoMapSet.statusL"), fm, 0, getNewYCoord());
+        PMSimpleLabel statusL = createLabel(Messages.getString("GeneralInfoMapSet.statusL"), fm, 0, getNewYCoord());
         content.addArea(statusL);
 
+        String STAR3 = "***";
         statusR = createLabel(STAR3, fm, statusL.getSize().width + 10, getYCoord());
         content.addArea(statusR);
 
@@ -175,7 +187,7 @@ public class GeneralInfoMapSet implements DisplayMapSet {
         movementTypeR = createLabel(STAR3, fm, movementTypeL.getSize().width + 10, getYCoord());
         content.addArea(movementTypeR);
 
-        ejectL = createLabel(Messages.getString("GeneralInfoMapSet.ejectL"), fm, 0,
+        PMSimpleLabel ejectL = createLabel(Messages.getString("GeneralInfoMapSet.ejectL"), fm, 0,
                 getNewYCoord());
         content.addArea(ejectL);
         ejectR = createLabel(STAR3, fm, ejectL.getSize().width + 10, getYCoord());

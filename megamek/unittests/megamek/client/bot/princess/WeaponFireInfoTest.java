@@ -60,9 +60,7 @@ public class WeaponFireInfoTest {
     private static Mounted mockWeapon;
     private static WeaponType mockWeaponType;
     private static WeaponAttackAction mockWeaponAttackAction;
-    private static EquipmentMode mockEquipmentMode;
     private static Princess mockPrincess;
-    private static FireControl mockFireControl;
 
     @BeforeAll
     public static void beforeAll() {
@@ -77,7 +75,7 @@ public class WeaponFireInfoTest {
         mockToHitThirteen = mock(ToHitData.class);
         when(mockToHitThirteen.getValue()).thenReturn(ToHitData.AUTOMATIC_FAIL);
 
-        mockFireControl = mock(FireControl.class);
+        FireControl mockFireControl = mock(FireControl.class);
         when(mockFireControl.guessToHitModifierForWeapon(any(Entity.class), any(EntityState.class),
                 any(Targetable.class), any(EntityState.class), any(Mounted.class), any(Game.class)))
                 .thenReturn(mockToHitEight);
@@ -109,7 +107,7 @@ public class WeaponFireInfoTest {
 
         mockWeaponType = mock(WeaponType.class);
         mockWeapon = mock(Mounted.class);
-        mockEquipmentMode = mock(EquipmentMode.class);
+        EquipmentMode mockEquipmentMode = mock(EquipmentMode.class);
         when(mockWeapon.getType()).thenReturn(mockWeaponType);
         when(mockEquipmentMode.getName()).thenReturn("");
         when(mockWeapon.curMode()).thenReturn(mockEquipmentMode);

@@ -234,22 +234,27 @@ public class MepFile implements IMechLoader {
                 String eqName = new String(equipData[i]);
                 eqName = eqName.substring(5, 28).trim();
 
-                if (eqName.equals("No Lower Right Arm")) {
-                    mech.removeCriticals(Mech.LOC_RARM, new CriticalSlot(
-                            CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_LOWER_ARM));
-                    mech.removeCriticals(Mech.LOC_RARM, new CriticalSlot(
-                            CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_HAND));
-                } else if (eqName.equals("No Lower Left Arm")) {
-                    mech.removeCriticals(Mech.LOC_LARM, new CriticalSlot(
-                            CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_LOWER_ARM));
-                    mech.removeCriticals(Mech.LOC_LARM, new CriticalSlot(
-                            CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_HAND));
-                } else if (eqName.equals("No Right Hand")) {
-                    mech.removeCriticals(Mech.LOC_RARM, new CriticalSlot(
-                            CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_HAND));
-                } else if (eqName.equals("No Left Hand")) {
-                    mech.removeCriticals(Mech.LOC_LARM, new CriticalSlot(
-                            CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_HAND));
+                switch (eqName) {
+                    case "No Lower Right Arm":
+                        mech.removeCriticals(Mech.LOC_RARM, new CriticalSlot(
+                                CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_LOWER_ARM));
+                        mech.removeCriticals(Mech.LOC_RARM, new CriticalSlot(
+                                CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_HAND));
+                        break;
+                    case "No Lower Left Arm":
+                        mech.removeCriticals(Mech.LOC_LARM, new CriticalSlot(
+                                CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_LOWER_ARM));
+                        mech.removeCriticals(Mech.LOC_LARM, new CriticalSlot(
+                                CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_HAND));
+                        break;
+                    case "No Right Hand":
+                        mech.removeCriticals(Mech.LOC_RARM, new CriticalSlot(
+                                CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_HAND));
+                        break;
+                    case "No Left Hand":
+                        mech.removeCriticals(Mech.LOC_LARM, new CriticalSlot(
+                                CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_HAND));
+                        break;
                 }
             }
 

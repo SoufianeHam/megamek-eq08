@@ -248,14 +248,18 @@ public abstract class StatusBarPhaseDisplay extends AbstractPhaseDisplay
 
     @Override
     public void preferenceChange(PreferenceChangeEvent e) {
-        if (e.getName().equals(GUIPreferences.ADVANCED_BUTTONS_PER_ROW)) {
-            buttonsPerRow = GUIP.getInt(GUIPreferences.ADVANCED_BUTTONS_PER_ROW);
-            buttonsPerGroup = 2 * buttonsPerRow;
-            setupButtonPanel();
-        } else if (e.getName().equals(GUIPreferences.GUI_SCALE)) {
-            adaptToGUIScale();
-        } else if (e.getName().equals(KeyBindParser.KEYBINDS_CHANGED)) {
-            setButtonsTooltips();
+        switch (e.getName()) {
+            case GUIPreferences.ADVANCED_BUTTONS_PER_ROW:
+                buttonsPerRow = GUIP.getInt(GUIPreferences.ADVANCED_BUTTONS_PER_ROW);
+                buttonsPerGroup = 2 * buttonsPerRow;
+                setupButtonPanel();
+                break;
+            case GUIPreferences.GUI_SCALE:
+                adaptToGUIScale();
+                break;
+            case KeyBindParser.KEYBINDS_CHANGED:
+                setButtonsTooltips();
+                break;
         }
     }
 
@@ -300,7 +304,7 @@ public abstract class StatusBarPhaseDisplay extends AbstractPhaseDisplay
     }
 
     public String getRemainingPlayerWithTurns() {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         int r = GUIP.getAdvancedPlayersRemainingToShow();
         if (r > 0) {
             String m = "";
@@ -310,7 +314,7 @@ public abstract class StatusBarPhaseDisplay extends AbstractPhaseDisplay
             for (int i = gti + 1; i < gtv.size(); i++) {
                 GameTurn nt = gtv.get(i);
                 Player p = clientgui.getClient().getGame().getPlayer(nt.getPlayerNum());
-                s += p.getName() + ", ";
+                s.append(p.getName()).append(", ");
                 j++;
                 if (j >= r) {
                     if (gtv.size() > r) {
@@ -319,12 +323,12 @@ public abstract class StatusBarPhaseDisplay extends AbstractPhaseDisplay
                     break;
                 }
             }
-            if (!s.isEmpty()) {
+            if (s.length() > 0) {
                 String msg_turns = Messages.getString("StatusBarPhaseDisplay.nextPlayerTurns");
-                s = "  " + msg_turns + " [" + s.substring(0, s.length() - 2) + m + "]";
+                s = new StringBuilder("  " + msg_turns + " [" + s.substring(0, s.length() - 2) + m + "]");
             }
         }
-        return s;
+        return s.toString();
     }
 
     public void setStatusBarWithNotDonePlayers() {
@@ -333,11 +337,11 @@ public abstract class StatusBarPhaseDisplay extends AbstractPhaseDisplay
             int r = GUIP.getAdvancedPlayersRemainingToShow();
             if (r > 0) {
                 List<Player> playerList = clientgui.getClient().getGame().getPlayersList().stream().filter(p -> ((!p.isBot()) && (!p.isObserver()) && (!p.isDone()))).sorted(Comparator.comparingInt(Player::getId)).collect(Collectors.toList());
-                String s = "";
+                StringBuilder s = new StringBuilder();
                 String m = "";
                 int j = 0;
                 for (Player player : playerList) {
-                    s += player.getName() + ", ";
+                    s.append(player.getName()).append(", ");
                     j++;
                     if (j >= r) {
                         if (playerList.size() > r) {
@@ -346,11 +350,11 @@ public abstract class StatusBarPhaseDisplay extends AbstractPhaseDisplay
                         break;
                     }
                 }
-                if (!s.isEmpty()) {
+                if (s.length() > 0) {
                     String msg_notdone = Messages.getString("StatusBarPhaseDisplay.notDone");
-                    s = "  " + msg_notdone + " [" + s.substring(0, s.length() - 2) + m + "]";
+                    s = new StringBuilder("  " + msg_notdone + " [" + s.substring(0, s.length() - 2) + m + "]");
                 }
-                setStatusBarText(phase + s);
+                setStatusBarText(phase + s.toString());
             }
         }
     }

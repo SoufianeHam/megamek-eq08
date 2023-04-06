@@ -975,7 +975,7 @@ public class MechSearchFilter {
                     .collect(Collectors.toList());
 
                 // Now, stream that map, filtering on a match with the WeaponClass, then extract the quantities and sum them up.
-                Integer total = nameQtyPairs.stream()
+                int total = nameQtyPairs.stream()
                     .filter(p -> n.weaponClass.matches(p.getKey()))
                     .map(e -> e.getValue())
                     .reduce(0, (a, b) -> a + b);
@@ -1159,12 +1159,12 @@ public class MechSearchFilter {
                     if (count == children.size() - 1) {
                         result.append(child.toString());
                     } else {
-                        result.append(child.toString() + " AND ");
+                        result.append(child.toString()).append(" AND ");
                     }
                 } else if (count == children.size() - 1) {
                     result.append(child.toString());
                 } else {
-                    result.append(child.toString() + " OR ");
+                    result.append(child.toString()).append(" OR ");
                 }
                 count++;
             }

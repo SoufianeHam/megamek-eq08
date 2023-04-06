@@ -71,10 +71,10 @@ public class PlasmaCannonHandler extends AmmoWeaponHandler {
         r.indent(2);
         vPhaseReport.addElement(r);
 
-        int damageableCoverType = LosEffects.DAMAGABLE_COVER_NONE;
-        Building coverBuilding = null;
-        Entity coverDropShip = null;
-        Coords coverLoc = null;
+        int damageableCoverType;
+        Building coverBuilding;
+        Entity coverDropShip;
+        Coords coverLoc;
 
         // Determine if there is primary and secondary cover,
         // and then determine which one gets hit

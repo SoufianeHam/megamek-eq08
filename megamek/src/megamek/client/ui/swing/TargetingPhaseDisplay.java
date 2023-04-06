@@ -690,12 +690,12 @@ public class TargetingPhaseDisplay extends StatusBarPhaseDisplay implements
         // notify the player
         if (m.canInstantSwitch(nMode)) {
             clientgui.systemMessage(Messages.getString(
-                    "FiringDisplay.switched", new Object[] { m.getName(),
-                            m.curMode().getDisplayableName() }));
+                    "FiringDisplay.switched", m.getName(),
+                    m.curMode().getDisplayableName()));
         } else {
             clientgui.systemMessage(Messages.getString(
-                    "FiringDisplay.willSwitch", new Object[] { m.getName(),
-                            m.pendingMode().getDisplayableName() }));
+                    "FiringDisplay.willSwitch", m.getName(),
+                    m.pendingMode().getDisplayableName()));
         }
 
         updateTarget();
@@ -1269,7 +1269,7 @@ public class TargetingPhaseDisplay extends StatusBarPhaseDisplay implements
                             clientgui,
                             Messages.getString(
                                     "FiringDisplay.ChooseTargetDialog.message",
-                                    new Object[] { pos.getBoardNum() }),
+                                    pos.getBoardNum()),
                             Messages.getString("FiringDisplay.ChooseTargetDialog.title"),
                             JOptionPane.QUESTION_MESSAGE, null, SharedUtility
                                     .getDisplayArray(targets), null);

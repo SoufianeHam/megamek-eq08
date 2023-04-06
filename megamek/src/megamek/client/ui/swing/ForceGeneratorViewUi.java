@@ -410,18 +410,25 @@ public class ForceGeneratorViewUi implements ActionListener {
             command = st.nextToken();
         }
 
-        if (command.equals(FGV_VIEW)) {
-            // The entities list may be empty
-            Set<Entity> entities = LobbyUtility.getEntities(st.nextToken(), modelChosen);
-            LobbyUtility.mechReadoutAction(entities, true, true, clientGui.getFrame());
-        } else if (command.equals(FGV_BV)) {
-            // The entities list may be empty
-            Set<Entity> entities = LobbyUtility.getEntities(st.nextToken(), modelChosen);
-            LobbyUtility.mechBVAction(entities, true, true, clientGui.getFrame());
-        } else if (command.equals(FGV_COST)) {
-            // The entities list may be empty
-            Set<Entity> entities = LobbyUtility.getEntities(st.nextToken(), modelChosen);
-            LobbyUtility.mechCostAction(entities, true, true, clientGui.getFrame());
+        switch (command) {
+            case FGV_VIEW: {
+                // The entities list may be empty
+                Set<Entity> entities = LobbyUtility.getEntities(st.nextToken(), modelChosen);
+                LobbyUtility.mechReadoutAction(entities, true, true, clientGui.getFrame());
+                break;
+            }
+            case FGV_BV: {
+                // The entities list may be empty
+                Set<Entity> entities = LobbyUtility.getEntities(st.nextToken(), modelChosen);
+                LobbyUtility.mechBVAction(entities, true, true, clientGui.getFrame());
+                break;
+            }
+            case FGV_COST: {
+                // The entities list may be empty
+                Set<Entity> entities = LobbyUtility.getEntities(st.nextToken(), modelChosen);
+                LobbyUtility.mechCostAction(entities, true, true, clientGui.getFrame());
+                break;
+            }
         }
     }
 

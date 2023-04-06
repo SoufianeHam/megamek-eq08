@@ -371,7 +371,7 @@ class ServerLobbyHelper {
         for (Entity entity: game.getEntitiesVector()) {
             if (entity.hasNhC3()) {
                 String net = entity.getC3NetId();
-                int id = Entity.NONE;
+                int id;
                 try {
                     id = Integer.parseInt(net.substring(net.indexOf(".") + 1));
                     if (game.getEntity(id).getOwner().isEnemyOf(entity.getOwner())) {

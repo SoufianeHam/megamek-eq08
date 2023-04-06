@@ -227,14 +227,14 @@ public class EntityListFile {
                     currentArmor = entity.getArmorForReal(loc);
                 }
                 if (entity.getOArmor(loc) != currentArmor) {
-                    thisLoc.append(indentStr(indentLvl + 1) + "<armor points=\"");
+                    thisLoc.append(indentStr(indentLvl + 1)).append("<armor points=\"");
                     thisLoc.append(EntityListFile.formatArmor(entity
                             .getArmorForReal(loc)));
                     thisLoc.append("\"/>\n");
                 }
 
                 if (entity.getOInternal(loc) != entity.getInternalForReal(loc)) {
-                    thisLoc.append(indentStr(indentLvl + 1) + "<armor points=\"");
+                    thisLoc.append(indentStr(indentLvl + 1)).append("<armor points=\"");
                     thisLoc.append(EntityListFile.formatArmor(entity
                             .getInternalForReal(loc)));
                     thisLoc.append("\" type=\"Internal\"/>\n");
@@ -243,18 +243,18 @@ public class EntityListFile {
                 if (entity.hasRearArmor(loc)
                         && (entity.getOArmor(loc, true) != entity
                                 .getArmorForReal(loc, true))) {
-                    thisLoc.append(indentStr(indentLvl + 1) + "<armor points=\"");
+                    thisLoc.append(indentStr(indentLvl + 1)).append("<armor points=\"");
                     thisLoc.append(EntityListFile.formatArmor(entity
                             .getArmorForReal(loc, true)));
                     thisLoc.append("\" type=\"Rear\"/>\n");
                 }
 
                 if (entity.getLocationStatus(loc) == ILocationExposureStatus.BREACHED) {
-                    thisLoc.append(indentStr(indentLvl + 1) + "<breached/>\n");
+                    thisLoc.append(indentStr(indentLvl + 1)).append("<breached/>\n");
                 }
 
                 if (blownOff) {
-                    thisLoc.append(indentStr(indentLvl + 1) + "<blownOff/>\n");
+                    thisLoc.append(indentStr(indentLvl + 1)).append("<blownOff/>\n");
                 }
             }
 
@@ -275,7 +275,7 @@ public class EntityListFile {
                             && !entity.entityIsQuad()
                             && ((loc == Mech.LOC_RARM) || (loc == Mech.LOC_LARM))
                             && ((loop == 2) || (loop == 3))) {
-                        thisLoc.append(indentStr(indentLvl + 1) + "<slot index=\"");
+                        thisLoc.append(indentStr(indentLvl + 1)).append("<slot index=\"");
                         thisLoc.append(loop + 1);
                         thisLoc.append("\" type=\"Empty\"/>\n");
                         haveSlot = true;
@@ -352,7 +352,7 @@ public class EntityListFile {
                             }
                         }
                         
-                        thisLoc.append(indentStr(indentLvl + 1) + "<slot index=\"");
+                        thisLoc.append(indentStr(indentLvl + 1)).append("<slot index=\"");
                         thisLoc.append(loop + 1);
                         thisLoc.append("\" type=\"");
                         thisLoc.append(mount.getType().getInternalName());
@@ -397,7 +397,7 @@ public class EntityListFile {
             // Stabilizer hit
             if ((entity instanceof Tank)
                     && ((Tank) entity).isStabiliserHit(loc)) {
-                thisLoc.append(indentStr(indentLvl + 1) + "<stabilizer isHit=\"true\"/>\n");
+                thisLoc.append(indentStr(indentLvl + 1)).append("<stabilizer isHit=\"true\"/>\n");
             }
 
             // Protomechs only have system slots,
@@ -432,7 +432,7 @@ public class EntityListFile {
             if (thisLoc.length() > 0) {
 
                 // Add this location to the output string.
-                output.append(indentStr(indentLvl) + "<location index=\"");
+                output.append(indentStr(indentLvl)).append("<location index=\"");
                 output.append(loc);
                 if (isDestroyed) {
                     output.append("\" isDestroyed=\"true");
@@ -444,11 +444,10 @@ public class EntityListFile {
                 }
                 output.append("\n");
                 output.append(thisLoc);
-                output.append(indentStr(indentLvl) + "</location>\n");
+                output.append(indentStr(indentLvl)).append("</location>\n");
 
                 // Reset the location buffer.
                 thisLoc = new StringBuffer();
-                blownOff = false;
 
             } // End output-location
 
@@ -456,7 +455,7 @@ public class EntityListFile {
             else if (isDestroyed) {
 
                 // Add this location to the output string.
-                output.append(indentStr(indentLvl) + "<location index=\"");
+                output.append(indentStr(indentLvl)).append("<location index=\"");
                 output.append(loc);
                 output.append("\" isDestroyed=\"true\" /> ");
                 output.append(entity.getLocationName(loc));

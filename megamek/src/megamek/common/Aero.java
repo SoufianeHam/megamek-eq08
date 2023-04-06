@@ -1552,7 +1552,7 @@ public class Aero extends Entity implements IAero, IBomber {
         // should be no internals because only one SI
         // It doesn't seem to be screwing anything up yet.
         // Need to figure out how destruction of entity is determined
-        int nInternal = (int) Math.ceil(weight / 10.0);
+        int nInternal;
         nInternal = 0;
         // I need to look at safe thrust as well at some point
 
@@ -1787,7 +1787,7 @@ public class Aero extends Entity implements IAero, IBomber {
         if (!(isClan() && isFighter())) {
             return;
         }
-        boolean explosiveFound = false;
+        boolean explosiveFound;
         EquipmentType clCase = EquipmentType.get(EquipmentTypeLookup.CLAN_CASE);
         for (int i = 0; i < locations(); i++) {
             // Ignore wings location: it's not a valid loc to put equipment in
@@ -1851,7 +1851,7 @@ public class Aero extends Entity implements IAero, IBomber {
         // compute
         // the targetsidetable. If we come to a higher vector, then replace. If
         // we come to an equal vector then take it if it is better
-        int thrust = 0;
+        int thrust;
         int high = -1;
         int side = -1;
         for (int dir = 0; dir < 6; dir++) {
@@ -1870,7 +1870,6 @@ public class Aero extends Entity implements IAero, IBomber {
                 int newside = sideTableRam(src, dir);
                 // choose the better
                 if (newside > side) {
-                    newside = side;
                 }
                 // that should be the only case, because it can't shift you from
                 // front
@@ -3163,13 +3162,11 @@ public class Aero extends Entity implements IAero, IBomber {
                 //Large craft get thermal/optical sensors
                 if (!hasSpacecraftThermal) {
                     getSensors().add(new Sensor(Sensor.TYPE_SPACECRAFT_THERMAL));
-                    hasSpacecraftThermal = true;
                 }
                 //Only military craft get ESM, which detects active radar
                 if (getDesignType() == Aero.MILITARY) {
                     if (!hasESM) {
                         getSensors().add(new Sensor(Sensor.TYPE_SPACECRAFT_ESM));
-                        hasESM = true;
                     }
                 }
             } else if (hasETypeFlag(Entity.ETYPE_AERO)
@@ -3177,7 +3174,6 @@ public class Aero extends Entity implements IAero, IBomber {
                 //ASFs and small craft get thermal/optical sensors
                 if (!hasAeroThermal) {
                     getSensors().add(new Sensor(Sensor.TYPE_AERO_THERMAL));
-                    hasAeroThermal = true;
                 }
             }
         }

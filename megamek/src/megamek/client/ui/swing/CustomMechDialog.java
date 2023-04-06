@@ -52,7 +52,6 @@ public class CustomMechDialog extends AbstractButtonDialog implements ActionList
     public static final int PREV = 2;
 
     private CustomPilotView[] panCrewMember;
-    private JPanel panDeploy;
     private QuirksPanel panQuirks;
     private JPanel panPartReps;
 
@@ -139,7 +138,6 @@ public class CustomMechDialog extends AbstractButtonDialog implements ActionList
     private final boolean space;
 
     private PilotOptions options;
-    private Quirks quirks;
     private PartialRepairs partReps;
     private final HashMap<Integer, WeaponQuirks> h_wpnQuirks = new HashMap<>();
     private ArrayList<DialogOptionComponent> optionComps = new ArrayList<>();
@@ -147,7 +145,6 @@ public class CustomMechDialog extends AbstractButtonDialog implements ActionList
 
     private final boolean editable;
 
-    private OffBoardDirection direction = OffBoardDirection.NONE;
     private int distance = 17;
     private int fuel = 0;
 
@@ -1059,8 +1056,8 @@ public class CustomMechDialog extends AbstractButtonDialog implements ActionList
         for (int i = 0; i < panCrewMember.length; i++) {
             panCrewMember[i] = new CustomPilotView(this, entity, i, editable);
         }
-        panDeploy = new JPanel(new GridBagLayout());
-        quirks = entity.getQuirks();
+        JPanel panDeploy = new JPanel(new GridBagLayout());
+        Quirks quirks = entity.getQuirks();
         panQuirks = new QuirksPanel(entity, quirks, editable, this, h_wpnQuirks);
         panPartReps = new JPanel(new GridBagLayout());
         setupEquip();
@@ -1233,7 +1230,7 @@ public class CustomMechDialog extends AbstractButtonDialog implements ActionList
             choOffBoardDirection.addItem(Messages.getString("CustomMechDialog.South"));
             choOffBoardDirection.addItem(Messages.getString("CustomMechDialog.East"));
             choOffBoardDirection.addItem(Messages.getString("CustomMechDialog.West"));
-            direction = entity.getOffBoardDirection();
+            OffBoardDirection direction = entity.getOffBoardDirection();
             if (OffBoardDirection.NONE == direction) {
                 direction = OffBoardDirection.NORTH;
             }

@@ -26,6 +26,7 @@ import java.util.Vector;
  * @author Nate Rowden
  * @since April 2, 2002, 1:57 PM
  */
+@SuppressWarnings("ALL")
 public class BuildingBlock {
 
     private Vector<String> rawData;
@@ -179,7 +180,7 @@ public class BuildingBlock {
      */
     public String[] getDataAsString(String blockName) {
         String[] data;
-        int startIndex = 0, endIndex = 0;
+        int startIndex, endIndex;
 
         startIndex = findStartIndex(blockName);
 
@@ -542,7 +543,7 @@ public class BuildingBlock {
     public Vector<String> makeVector(String[] stringArray) {
 
         Vector<String> newVect = new Vector<>();
-        int c = 0;
+        int c;
 
         try {
 

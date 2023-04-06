@@ -22,7 +22,7 @@ public class AttackOption extends ToHitData {
     private static final long serialVersionUID = -8566472187475019360L;
 
     static class Sorter implements Comparator<AttackOption> {
-        CEntity primary = null;
+        CEntity primary;
 
         public Sorter(CEntity primary_target) {
             primary = primary_target;

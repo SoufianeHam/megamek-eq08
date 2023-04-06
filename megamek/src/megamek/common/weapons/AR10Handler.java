@@ -27,7 +27,6 @@ import megamek.common.actions.WeaponAttackAction;
 import megamek.common.enums.GamePhase;
 import megamek.common.options.OptionsConstants;
 import megamek.server.GameManager;
-import megamek.server.Server;
 
 /**
  * @author Jay Lawson
@@ -270,7 +269,7 @@ public class AR10Handler extends AmmoWeaponHandler {
      */
     @Override
     protected int calcAttackValue() {
-        int av = 0;
+        int av;
         AmmoType atype = (AmmoType) ammo.getType();
         if (atype.hasFlag(AmmoType.F_AR10_KILLER_WHALE)) {
             av = 4;

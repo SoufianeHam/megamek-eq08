@@ -233,7 +233,7 @@ public class NarcHandler extends MissileWeaponHandler {
             entityTarget.attachNarcPod(pod);
         } else if (atype.getAmmoType() == AmmoType.T_INARC) {
             // iNarced
-            INarcPod pod = null;
+            INarcPod pod;
             if (atype.getMunitionType() == AmmoType.M_ECM) {
                 pod = new INarcPod(ae.getOwner().getTeam(), INarcPod.ECM,
                         hit.getLocation());

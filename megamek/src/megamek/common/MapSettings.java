@@ -511,6 +511,7 @@ public class MapSettings implements Serializable {
         for (String path : boardsAvailable) {
             if (path.contains("\\")) {
                 containsWindowsPathSeparator = true;
+                break;
             }
             if (containsWindowsPathSeparator) {
                 break;

@@ -21,7 +21,6 @@ package megamek.client.ui.dialogs;
 import megamek.client.ui.Messages;
 import megamek.client.ui.swing.ClientGUI;
 import megamek.client.ui.swing.GUIPreferences;
-import megamek.client.ui.swing.unitDisplay.UnitDisplay;
 import megamek.client.ui.swing.util.UIUtil;
 
 import javax.swing.*;

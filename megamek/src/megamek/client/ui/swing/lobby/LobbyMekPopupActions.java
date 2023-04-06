@@ -229,7 +229,7 @@ public class LobbyMekPopupActions implements ActionListener {
                 break;
 
             case LMP_UNLOAD:
-                Set<Entity> updateCandidates = new HashSet<>();
+                Set<Entity> updateCandidates;
                 lobby.disembarkAll(entities);
                 break;
 

@@ -48,7 +48,7 @@ public abstract class CLIATMWeapon extends MissileWeapon {
         techAdvancement.setTechBase(TechAdvancement.TECH_BASE_CLAN);
         techAdvancement.setClanAdvancement(3049, 3070);
         techAdvancement.setTechRating(RATING_F);
-        techAdvancement.setAvailability(new int[]{ RATING_X, RATING_X, RATING_F, RATING_E });
+        techAdvancement.setAvailability(RATING_X, RATING_X, RATING_F, RATING_E);
         
     }
 

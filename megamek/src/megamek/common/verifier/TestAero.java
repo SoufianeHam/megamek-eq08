@@ -40,7 +40,7 @@ import java.util.function.Function;
  * @author Reinhard Vicinus
  */
 public class TestAero extends TestEntity {
-    private Aero aero = null;
+    private Aero aero;
     
     /**
      * An enumeration that keeps track of the legal armors for Aerospace and 
@@ -674,8 +674,7 @@ public class TestAero extends TestEntity {
             armorTotal += aero.getOArmor(loc);
         }
         if (armorTotal > maxArmorPoints) {
-            buff.append("Total armor," + armorTotal + 
-                    ", is greater than the maximum: " + maxArmorPoints + "\n");
+            buff.append("Total armor,").append(armorTotal).append(", is greater than the maximum: ").append(maxArmorPoints).append("\n");
             correct = false;
         }
 
@@ -843,9 +842,7 @@ public class TestAero extends TestEntity {
     public boolean correctHeatSinks(StringBuffer buff) {
         if ((aero.getHeatType() != Aero.HEAT_SINGLE) 
                 && (aero.getHeatType() != Aero.HEAT_DOUBLE)) {
-            buff.append("Invalid heatsink type!  Valid types are "
-                    + Aero.HEAT_SINGLE + " and " + Aero.HEAT_DOUBLE
-                    + ".  Found " + aero.getHeatType() + ".");
+            buff.append("Invalid heatsink type!  Valid types are " + Aero.HEAT_SINGLE + " and " + Aero.HEAT_DOUBLE + ".  Found ").append(aero.getHeatType()).append(".");
             return false;
         }
         return true;
@@ -887,11 +884,9 @@ public class TestAero extends TestEntity {
         if ((getCountHeatSinks() < engine.getWeightFreeEngineHeatSinks())
                 && !aero.hasETypeFlag(Entity.ETYPE_CONV_FIGHTER)) {
             buff.append("Heat Sinks:\n");
-            buff.append(" Engine    "
-                    + engine.integralHeatSinkCapacity(false) + "\n");
-            buff.append(" Total     " + getCountHeatSinks() + "\n");
-            buff.append(" Required  " + engine.getWeightFreeEngineHeatSinks()
-                    + "\n");
+            buff.append(" Engine    ").append(engine.integralHeatSinkCapacity(false)).append("\n");
+            buff.append(" Total     ").append(getCountHeatSinks()).append("\n");
+            buff.append(" Required  ").append(engine.getWeightFreeEngineHeatSinks()).append("\n");
             correct = false;
         }                
         
@@ -1173,7 +1168,7 @@ public class TestAero extends TestEntity {
         StringBuffer buff = new StringBuffer();
         for (int i = 0; i < getEntity().locations(); i++) {
             String locationName = getEntity().getLocationName(i);
-            buff.append(locationName + ":");
+            buff.append(locationName).append(":");
             buff.append("\n");
             for (int j = 0; j < getEntity().getNumberOfCriticals(i); j++) {
                 CriticalSlot slot = getEntity().getCritical(i, j);
@@ -1227,7 +1222,7 @@ public class TestAero extends TestEntity {
      */
     @Override
     public double getWeightStructure() {
-        double tonnage = 0;
+        double tonnage;
         if (aero.hasETypeFlag(Entity.ETYPE_SMALL_CRAFT)) {
             tonnage = aero.getSI() * aero.getWeight();
             if (!aero.isSpheroid()) {

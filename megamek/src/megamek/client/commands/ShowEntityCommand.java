@@ -29,12 +29,11 @@ public class ShowEntityCommand extends ClientCommand {
             return "Sorry, this command is disabled during double blind.";
         }
         if (args.length == 1) {
-            String list = "List of all entities.\n";
+            StringBuilder list = new StringBuilder("List of all entities.\n");
             for (Entity ent : getClient().getEntitiesVector()) {
-                list += ent.getId() + " " + ent.getOwner().getName() + "'s "
-                        + ent.getDisplayName() + "\n";
+                list.append(ent.getId()).append(" ").append(ent.getOwner().getName()).append("'s ").append(ent.getDisplayName()).append("\n");
             }
-            return list;
+            return list.toString();
         }
         try {
             int id = Integer.parseInt(args[1]);
@@ -42,11 +41,11 @@ public class ShowEntityCommand extends ClientCommand {
 
             if (ent != null) {
                 if (args.length > 2) {
-                    String str = "";
+                    StringBuilder str = new StringBuilder();
                     for (int i = 2; i < args.length; i++) {
-                        str += ent.statusToString(args[i]);
+                        str.append(ent.statusToString(args[i]));
                     }
-                    return str;
+                    return str.toString();
                 }
                 return ent.statusToString();
             } else {

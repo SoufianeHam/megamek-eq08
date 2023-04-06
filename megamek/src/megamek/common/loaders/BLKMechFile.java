@@ -51,13 +51,13 @@ public class BLKMechFile extends BLKFile implements IMechLoader {
     @SuppressWarnings("unchecked")
     public Entity getEntity() throws EntityLoadingException {
 
-        int chassisType = 0;
+        int chassisType;
         if (!dataFile.exists("chassis_type")) {
         } else {
             chassisType = dataFile.getDataAsInt("chassis_type")[0];
         }
 
-        Mech mech = null;
+        Mech mech;
 
         if (chassisType == 1) {
             mech = new QuadMech();

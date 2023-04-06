@@ -42,7 +42,7 @@ import megamek.server.GameManager;
  */
 public class CapitalMissileHandler extends AmmoWeaponHandler {
     private static final long serialVersionUID = -1618484541772117621L;
-    boolean advancedPD = false;
+    boolean advancedPD;
 
     /**
      * @param t

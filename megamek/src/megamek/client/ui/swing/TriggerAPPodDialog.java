@@ -46,8 +46,6 @@ import megamek.common.actions.TriggerAPPodAction;
  */
 public class TriggerAPPodDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -9009039614015364943L;
-    private final JButton butOkay = new JButton(Messages.getString("Okay"));
-    private final JTextArea labMessage;
 
     /**
      * The <code>FirePodTracker</code>s for the entity's active AP Pods.
@@ -57,7 +55,7 @@ public class TriggerAPPodDialog extends JDialog implements ActionListener {
     /**
      * The <code>int</code> ID of the entity that can fire AP Pods.
      */
-    private int entityId = Entity.NONE;
+    private int entityId;
 
     /**
      * A helper class to track when a AP Pod has been selected to be triggered.
@@ -67,7 +65,7 @@ public class TriggerAPPodDialog extends JDialog implements ActionListener {
         /**
          * The equipment number of the AP Pod that this is listening to.
          */
-        private int podNum = Entity.NONE;
+        private int podNum;
 
         /**
          * The <code>JCheckBox</code> being tracked.
@@ -112,7 +110,7 @@ public class TriggerAPPodDialog extends JDialog implements ActionListener {
         super(parent, Messages.getString("TriggerAPPodDialog.title"), true);
         entityId = entity.getId();
 
-        labMessage = new JTextArea(Messages.getString("TriggerAPPodDialog.selectPodsToTrigger",
+        JTextArea labMessage = new JTextArea(Messages.getString("TriggerAPPodDialog.selectPodsToTrigger",
                 entity.getDisplayName()));
         labMessage.setEditable(false);
         labMessage.setOpaque(false);
@@ -150,6 +148,7 @@ public class TriggerAPPodDialog extends JDialog implements ActionListener {
         } // Look at the next piece of equipment.
 
         // OK button.
+        JButton butOkay = new JButton(Messages.getString("Okay"));
         butOkay.addActionListener(this);
 
         // layout

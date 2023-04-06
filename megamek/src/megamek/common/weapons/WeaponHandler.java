@@ -219,8 +219,8 @@ public class WeaponHandler implements AttackHandler, Serializable {
             return 0;
         }
         int counterAV = 0;
-        int amsAV = 0;
-        double pdAV = 0;
+        int amsAV;
+        double pdAV;
         Entity entityTarget = (Entity) target;
         // any AMS bay attacks by the target?
         ArrayList<Mounted> lCounters = waa.getCounterEquipment();
@@ -519,7 +519,7 @@ public class WeaponHandler implements AttackHandler, Serializable {
             int reportSize = vPhaseReport.size();
             int hits = calcHits(vPhaseReport);
             int nCluster = calcnCluster();
-            int AMSHits = 0;
+            int AMSHits;
             if (ae.isCapitalFighter()) {
                 Vector<Report> throwAwayReport = new Vector<>();
                 // for capital scale fighters, each non-cluster weapon hits a
@@ -669,7 +669,7 @@ public class WeaponHandler implements AttackHandler, Serializable {
                             ((IAero) ae).getClusterMods());
                     if (pdBayEngaged || amsBayEngaged) {
                         //Point Defenses engage standard (cluster) missiles
-                        int counterAV = 0;
+                        int counterAV;
                         counterAV = getCounterAV();
                         nDamPerHit = originalAV * nweaponsHit - counterAV;
                         nCluster = 1;
@@ -1129,7 +1129,6 @@ public class WeaponHandler implements AttackHandler, Serializable {
                     handleBuildingDamage(vPhaseReport, bldg, nDamage,
                             target.getPosition());
                     bSalvo = savedSalvo;
-                    hits = 0;
                 }
             }
 
@@ -1322,10 +1321,10 @@ public class WeaponHandler implements AttackHandler, Serializable {
         r.indent(2);
         vPhaseReport.addElement(r);
 
-        int damageableCoverType = LosEffects.DAMAGABLE_COVER_NONE;
-        Building coverBuilding = null;
-        Entity coverDropShip = null;
-        Coords coverLoc = null;
+        int damageableCoverType;
+        Building coverBuilding;
+        Entity coverDropShip;
+        Coords coverLoc;
 
         // Determine if there is primary and secondary cover,
         // and then determine which one gets hit

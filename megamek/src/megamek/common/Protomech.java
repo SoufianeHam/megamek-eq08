@@ -49,7 +49,7 @@ public class Protomech extends Entity {
      * <code>Entity</code> is initialized, which is too late to allow main gun
      * armor, hence the convoluted reverse logic.
      */
-    private boolean m_bHasNoMainGun = false;
+    private boolean m_bHasNoMainGun;
 
     public static final int LOC_BODY = 0;
 
@@ -103,8 +103,6 @@ public class Protomech extends Entity {
     public static final int JUMP_NONE = 0;
     public static final int JUMP_STANDARD = 1;
     public static final int JUMP_IMPROVED = 2;
-    
-    private int jumpType = JUMP_UNKNOWN;
 
     private boolean isQuad = false;
     private boolean isGlider = false;
@@ -460,10 +458,7 @@ public class Protomech extends Entity {
         if (!gravity) {
             return jump;
         } else {
-            if (applyGravityEffectsOnMP(jump) > jump) {
-                return jump;
-            }
-            return applyGravityEffectsOnMP(jump);
+            return Math.min(applyGravityEffectsOnMP(jump), jump);
         }
     }
 
@@ -690,7 +685,7 @@ public class Protomech extends Entity {
     @Override
     public HitData rollHitLocation(int table, int side, int aimedLocation, AimingMode aimingMode,
                                    int cover) {
-        int roll = -1;
+        int roll;
 
         if ((aimedLocation != LOC_NONE) && aimingMode.isImmobile()) {
             roll = Compute.d6(2);
@@ -946,7 +941,7 @@ public class Protomech extends Entity {
             if (-1 != shots) {
                 mounted.setShotsLeft(shots);
                 mounted.setOriginalShots(shots);
-                mounted.setAmmoCapacity(shots * ((AmmoType) mounted.getType()).getKgPerShot() / 1000);
+                mounted.setSize(shots * ((AmmoType) mounted.getType()).getKgPerShot() / 1000);
                 super.addEquipment(mounted, loc, rearMounted);
                 return;
             }
@@ -1545,7 +1540,7 @@ public class Protomech extends Entity {
      */
     @Override
     public int getJumpType() {
-        jumpType = JUMP_NONE;
+        int jumpType = JUMP_NONE;
         for (Mounted m : miscList) {
             if (m.getType().hasFlag(MiscType.F_JUMP_JET)) {
                 if (m.getType().hasSubType(MiscType.S_IMPROVED)) {

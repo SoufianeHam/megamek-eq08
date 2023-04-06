@@ -155,6 +155,20 @@ class ForceGenerationOptionsPanel extends JPanel implements ActionListener, Focu
         c.weightx = 0.0;
         c.weighty = 0.0;
         add(cbFaction, c);
+        DefaultListCellRenderer factionCbRenderer = new DefaultListCellRenderer() {
+            private static final long serialVersionUID = -333065979253244440L;
+
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                                                          boolean isSelected, boolean cellHasFocus) {
+                if (value == null) {
+                    setText("General");
+                } else {
+                    setText(((FactionRecord) value).getName(ratGenYear));
+                }
+                return this;
+            }
+        };
         cbFaction.setRenderer(factionCbRenderer);
         cbFaction.addActionListener(this);
 
@@ -450,21 +464,6 @@ class ForceGenerationOptionsPanel extends JPanel implements ActionListener, Focu
         panUnitTypeOptions.updateGeneratedUnits(list);
     }
 
-    private final DefaultListCellRenderer factionCbRenderer = new DefaultListCellRenderer() {
-        private static final long serialVersionUID = -333065979253244440L;
-
-        @Override
-        public Component getListCellRendererComponent(JList<?> list, Object value, int index,
-                                                      boolean isSelected, boolean cellHasFocus) {
-            if (value == null) {
-                setText("General");
-            } else {
-                setText(((FactionRecord) value).getName(ratGenYear));
-            }
-            return this;
-        }
-    };
-    
     private final Comparator<FactionRecord> factionSorter = new Comparator<>() {
         @Override
         public int compare(FactionRecord o1, FactionRecord o2) {

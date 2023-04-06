@@ -120,7 +120,7 @@ public class TestMech extends TestEntity {
         return legalArmors;
     }
     
-    private Mech mech = null;
+    private Mech mech;
 
     public TestMech(Mech mech, TestEntityOption option, String fileString) {
         super(option, mech.getEngine(), getArmor(mech), getStructure(mech));
@@ -483,7 +483,7 @@ public class TestMech extends TestEntity {
             Vector<Serializable> allocation) {
         int location = mounted.getLocation();
         EquipmentType et = mounted.getType();
-        int criticals = 0;
+        int criticals;
         if (et instanceof MiscType) {
             criticals = calcMiscCrits((MiscType) et, mounted.getSize());
         } else {
@@ -506,7 +506,7 @@ public class TestMech extends TestEntity {
         }
 
         if ((et instanceof WeaponType) && mounted.isSplit()) {
-            int secCound = 0;
+            int secCound;
             for (int locations = 0; locations < entity.locations(); locations++) {
                 if (locations == location) {
                     continue;
@@ -748,12 +748,10 @@ public class TestMech extends TestEntity {
         }
         if (getCountHeatSinks() < engine.getWeightFreeEngineHeatSinks()) {
             buff.append("Heat Sinks:\n");
-            buff.append(" Engine    "
-                    + engine.integralHeatSinkCapacity(mech
-                            .hasCompactHeatSinks()) + "\n");
-            buff.append(" Total     " + getCountHeatSinks() + "\n");
-            buff.append(" Required  " + engine.getWeightFreeEngineHeatSinks()
-                    + "\n");
+            buff.append(" Engine    ").append(engine.integralHeatSinkCapacity(mech
+                    .hasCompactHeatSinks())).append("\n");
+            buff.append(" Total     ").append(getCountHeatSinks()).append("\n");
+            buff.append(" Required  ").append(engine.getWeightFreeEngineHeatSinks()).append("\n");
             correct = false;
         }
         if (showCorrectArmor() && !correctArmor(buff)) {
@@ -1287,12 +1285,12 @@ public class TestMech extends TestEntity {
                     : mech.getEngine().integralHeatSinkCapacity(compact));
             if (allocated < required) {
                 illegal = true;
-                buff.append("Only " + allocated + " of the required " + required + " heat sinks are allocated to critical slots.");
+                buff.append("Only ").append(allocated).append(" of the required ").append(required).append(" heat sinks are allocated to critical slots.");
             }
         }
         
         if (hasMASC && advancedMyomer != null) {
-            buff.append("MASC is incompatible with " + advancedMyomer.getName() + "\n");
+            buff.append("MASC is incompatible with ").append(advancedMyomer.getName()).append("\n");
             illegal = true;
         }
         

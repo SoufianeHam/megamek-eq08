@@ -309,9 +309,6 @@ public final class Minimap extends JPanel implements IPreferenceChangeListener {
 
             scan:
             while (true) {
-                red = 0;
-                green = 0;
-                blue = 0;
 
                 switch (st.nextToken()) {
                     case StreamTokenizer.TT_EOF:
@@ -320,63 +317,71 @@ public final class Minimap extends JPanel implements IPreferenceChangeListener {
                     case StreamTokenizer.TT_WORD:
                         // read in
                         String key = st.sval;
-                        if (key.equals("unitsize")) { 
-                            st.nextToken();
-                            unitSize = (int) st.nval;
-                        } else if (key.equals("background")) { 
-                            st.nextToken();
-                            red = (int) st.nval;
-                            st.nextToken();
-                            green = (int) st.nval;
-                            st.nextToken();
-                            blue = (int) st.nval;
+                        switch (key) {
+                            case "unitsize":
+                                st.nextToken();
+                                unitSize = (int) st.nval;
+                                break;
+                            case "background":
+                                st.nextToken();
+                                red = (int) st.nval;
+                                st.nextToken();
+                                green = (int) st.nval;
+                                st.nextToken();
+                                blue = (int) st.nval;
 
-                            BACKGROUND = new Color(red, green, blue);
-                        } else if (key.equals("heavywoods")) { 
-                            st.nextToken();
-                            red = (int) st.nval;
-                            st.nextToken();
-                            green = (int) st.nval;
-                            st.nextToken();
-                            blue = (int) st.nval;
+                                BACKGROUND = new Color(red, green, blue);
+                                break;
+                            case "heavywoods":
+                                st.nextToken();
+                                red = (int) st.nval;
+                                st.nextToken();
+                                green = (int) st.nval;
+                                st.nextToken();
+                                blue = (int) st.nval;
 
-                            HEAVY_WOODS = new Color(red, green, blue);
-                        } else if (key.equals("ultraheavywoods")) { 
-                            st.nextToken();
-                            red = (int) st.nval;
-                            st.nextToken();
-                            green = (int) st.nval;
-                            st.nextToken();
-                            blue = (int) st.nval;
+                                HEAVY_WOODS = new Color(red, green, blue);
+                                break;
+                            case "ultraheavywoods":
+                                st.nextToken();
+                                red = (int) st.nval;
+                                st.nextToken();
+                                green = (int) st.nval;
+                                st.nextToken();
+                                blue = (int) st.nval;
 
-                            ULTRA_HEAVY_WOODS = new Color(red, green, blue);
-                        } else if (key.equals("sinkhole")) { 
-                            st.nextToken();
-                            red = (int) st.nval;
-                            st.nextToken();
-                            green = (int) st.nval;
-                            st.nextToken();
-                            blue = (int) st.nval;
+                                ULTRA_HEAVY_WOODS = new Color(red, green, blue);
+                                break;
+                            case "sinkhole":
+                                st.nextToken();
+                                red = (int) st.nval;
+                                st.nextToken();
+                                green = (int) st.nval;
+                                st.nextToken();
+                                blue = (int) st.nval;
 
-                            SINKHOLE = new Color(red, green, blue);
-                        } else if (key.equals("smokeandfire")) { 
-                            st.nextToken();
-                            red = (int) st.nval;
-                            st.nextToken();
-                            green = (int) st.nval;
-                            st.nextToken();
-                            blue = (int) st.nval;
+                                SINKHOLE = new Color(red, green, blue);
+                                break;
+                            case "smokeandfire":
+                                st.nextToken();
+                                red = (int) st.nval;
+                                st.nextToken();
+                                green = (int) st.nval;
+                                st.nextToken();
+                                blue = (int) st.nval;
 
-                            SMOKE_AND_FIRE = new Color(red, green, blue);
-                        } else {
-                            st.nextToken();
-                            red = (int) st.nval;
-                            st.nextToken();
-                            green = (int) st.nval;
-                            st.nextToken();
-                            blue = (int) st.nval;
+                                SMOKE_AND_FIRE = new Color(red, green, blue);
+                                break;
+                            default:
+                                st.nextToken();
+                                red = (int) st.nval;
+                                st.nextToken();
+                                green = (int) st.nval;
+                                st.nextToken();
+                                blue = (int) st.nval;
 
-                            terrainColors[getType(key)] = new Color(red, green, blue);
+                                terrainColors[getType(key)] = new Color(red, green, blue);
+                                break;
                         }
                         break;
                 }
@@ -436,11 +441,11 @@ public final class Minimap extends JPanel implements IPreferenceChangeListener {
     private long lastDrawMapReq = 0;
     private long lastDrawStarted = 0;
     private final Runnable drawMapable = new Runnable() {
-        private final int redrawDelay = 0;
 
         @Override
         public void run() {
             try {
+                int redrawDelay = 0;
                 if ((System.currentTimeMillis() - lastDrawMapReq) > redrawDelay) {
                     drawMap();
                 } else {

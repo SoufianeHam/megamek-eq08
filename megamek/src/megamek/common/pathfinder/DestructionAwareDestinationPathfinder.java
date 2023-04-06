@@ -157,7 +157,7 @@ public class DestructionAwareDestinationPathfinder extends BoardEdgePathFinder {
 
         // there are six possible children of a move path, defined in AeroPathUtil.TURNS
         for (List<MoveStepType> turns : AeroPathUtil.TURNS) {
-            BulldozerMovePath childPath = (BulldozerMovePath) parentPath.clone();
+            BulldozerMovePath childPath = parentPath.clone();
             
             // apply the list of turn steps
             for (MoveStepType stepType : turns) {
@@ -187,7 +187,7 @@ public class DestructionAwareDestinationPathfinder extends BoardEdgePathFinder {
         // or it needs some "terrain adjustment" to become a legal move)
         // and we haven't already found a path to the destination that's cheaper than what we're considering
         // and we're not going off board 
-        MoveLegalityIndicator mli = isLegalMove((MovePath) child);
+        MoveLegalityIndicator mli = isLegalMove(child);
         
         // if this path goes through terrain that can be leveled
         // but has other problems with it (e.g. elevation change, or the "reduced" terrain still won't let you through)
@@ -305,7 +305,6 @@ public class DestructionAwareDestinationPathfinder extends BoardEdgePathFinder {
 
         /**
          * Constructor - initializes the destination edge.
-         * @param targetRegion Destination edge
          */
         public AStarComparator(Coords destination) {
             this.destination = destination;

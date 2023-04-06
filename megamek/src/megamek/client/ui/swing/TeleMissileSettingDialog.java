@@ -29,14 +29,11 @@ import java.awt.event.ActionListener;
  */
 public class TeleMissileSettingDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -7642946136536329067L;
-    private final GridBagLayout gridbag = new GridBagLayout();
-    private final GridBagConstraints c = new GridBagConstraints();
     private final JButton butOk = new JButton(Messages.getString("Okay"));
     private final JTextField fldSetting = new JTextField("50", 2);
     private int setting;
     private final JFrame frame;
-    private final int minimumVelocity = CapitalMissileBayWeapon.CAPITAL_MISSILE_MIN_VELOCITY;
-    private int maxVelocity = CapitalMissileBayWeapon.CAPITAL_MISSILE_DEFAULT_VELOCITY;
+    private int maxVelocity;
 
     public TeleMissileSettingDialog(JFrame p, Game game) {
         super(p, Messages.getString("SetTeleMissileVolcityDialog.title"), true);
@@ -45,7 +42,9 @@ public class TeleMissileSettingDialog extends JDialog implements ActionListener 
         frame = p;
         butOk.addActionListener(this);
         JLabel labMessage = new JLabel(Messages.getString("SetTeleMissileVelocityDialog.labSetVelocity"));
+        GridBagLayout gridbag = new GridBagLayout();
         getContentPane().setLayout(gridbag);
+        GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.VERTICAL;
         c.insets = new Insets(1, 1, 1, 1);
         c.weightx = 1.0;
@@ -90,6 +89,7 @@ public class TeleMissileSettingDialog extends JDialog implements ActionListener 
                         JOptionPane.WARNING_MESSAGE);
                 return;
             }
+            int minimumVelocity = CapitalMissileBayWeapon.CAPITAL_MISSILE_MIN_VELOCITY;
             if ((setting < minimumVelocity) || (setting > maxVelocity)) {
                 JOptionPane.showMessageDialog(frame,
                         Messages.getString("SetTeleMissileVelocityDialog.error.message", maxVelocity),

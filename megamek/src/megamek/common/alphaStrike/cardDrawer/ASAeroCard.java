@@ -21,7 +21,6 @@ package megamek.common.alphaStrike.cardDrawer;
 import megamek.client.ui.swing.util.StringDrawer;
 import megamek.common.alphaStrike.ASCardDisplayable;
 import megamek.common.alphaStrike.ASDamageVector;
-import megamek.common.alphaStrike.AlphaStrikeElement;
 import megamek.common.alphaStrike.AlphaStrikeHelper;
 
 import java.awt.*;

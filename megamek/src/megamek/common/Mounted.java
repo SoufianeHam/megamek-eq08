@@ -285,7 +285,7 @@ public class Mounted implements Serializable, RoundUpdated, PhaseUpdated {
      */
     public int switchMode(boolean forward) {
         if (type.hasModes()) {
-            int nMode = 0;
+            int nMode;
             if (pendingMode > -1) {
                 if (forward) {
                     nMode = (pendingMode + 1) % type.getModesCount();
@@ -919,7 +919,7 @@ public class Mounted implements Serializable, RoundUpdated, PhaseUpdated {
      */
     public boolean isHotLoaded() {
 
-        boolean isHotLoaded = false;
+        boolean isHotLoaded;
 
         if (getType() instanceof WeaponType) {
             Mounted link = getLinked();
@@ -969,12 +969,12 @@ public class Mounted implements Serializable, RoundUpdated, PhaseUpdated {
             if ((link == null) || !(link.getType() instanceof AmmoType)) {
                 return;
             }
-            if (((AmmoType) link.getType()).hasFlag(AmmoType.F_HOTLOAD)) {
+            if (link.getType().hasFlag(AmmoType.F_HOTLOAD)) {
                 link.hotloaded = hotload;
             }
         }
         if (getType() instanceof AmmoType) {
-            if (((AmmoType) getType()).hasFlag(AmmoType.F_HOTLOAD)) {
+            if (getType().hasFlag(AmmoType.F_HOTLOAD)) {
                 hotloaded = hotload;
             }
         }
@@ -985,7 +985,7 @@ public class Mounted implements Serializable, RoundUpdated, PhaseUpdated {
     private boolean isWorkingCapacitor(Mounted m) {
         return !m.isDestroyed()
         && m.getType() instanceof MiscType
-        && ((MiscType) m.getType()).hasFlag(MiscType.F_PPC_CAPACITOR);
+        && m.getType().hasFlag(MiscType.F_PPC_CAPACITOR);
     }
 
     /** 

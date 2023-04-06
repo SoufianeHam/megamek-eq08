@@ -82,12 +82,10 @@ public abstract class AbstractUnitSelectorDialog extends JDialog implements Runn
     protected final JComboBox<String> comboUnitType = new JComboBox<>();
     protected final JComboBox<String> comboWeight = new JComboBox<>();
     private JScrollPane techLevelScroll;
-    private JPanel panelFilterButtons;
     protected final JLabel labelImage = new JLabel(""); //inline to avoid potential null pointer issues
     protected JTable tableUnits;
     protected JTextField textFilter;
     protected EntityViewPane panePreview;
-    private JPanel selectionPanel;
     private JSplitPane splitPane;
 
     private StringBuffer searchBuffer = new StringBuffer();
@@ -109,7 +107,6 @@ public abstract class AbstractUnitSelectorDialog extends JDialog implements Runn
     private AdvancedSearchDialog2 advancedSearchDialog2;
 
     protected TableRowSorter<MechTableModel> sorter;
-    private JScrollPane scrollTableUnits;
 
     protected GameOptions gameOptions = null;
     protected boolean enableYearLimits = false;
@@ -186,7 +183,7 @@ public abstract class AbstractUnitSelectorDialog extends JDialog implements Runn
         //endregion Unit Preview Pane
 
         //region Selection Panel
-        selectionPanel = new JPanel(new GridBagLayout());
+        JPanel selectionPanel = new JPanel(new GridBagLayout());
 
         tableUnits = new JTable(unitModel);
         tableUnits.setColumnModel(unitColumnModel);
@@ -216,7 +213,7 @@ public abstract class AbstractUnitSelectorDialog extends JDialog implements Runn
         tableUnits.setFont(new Font(MMConstants.FONT_MONOSPACED, Font.PLAIN, 12));
         togglePV(false);
 
-        scrollTableUnits = new JScrollPane(tableUnits);
+        JScrollPane scrollTableUnits = new JScrollPane(tableUnits);
         scrollTableUnits.setName("scrollTableUnits");
 
         gridBagConstraints.insets = new Insets(5, 0, 0, 0);
@@ -228,7 +225,7 @@ public abstract class AbstractUnitSelectorDialog extends JDialog implements Runn
         gridBagConstraints.weighty = 1.0;
         selectionPanel.add(scrollTableUnits, gridBagConstraints);
 
-        panelFilterButtons = new JPanel(new GridBagLayout());
+        JPanel panelFilterButtons = new JPanel(new GridBagLayout());
 
         JLabel labelType = new JLabel(Messages.getString("MechSelectorDialog.m_labelType"));
         labelType.setToolTipText(Messages.getString("MechSelectorDialog.m_labelType.ToolTip"));

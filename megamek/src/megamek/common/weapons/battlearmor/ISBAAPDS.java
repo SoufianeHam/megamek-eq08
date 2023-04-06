@@ -32,7 +32,7 @@ public class ISBAAPDS extends Weapon {
         longRange = 3;
 		flags = flags.or(F_BA_WEAPON).or(F_AUTO_TARGET).or(F_AMS).or(F_BALLISTIC).andNot(F_MECH_WEAPON)
 				.andNot(F_TANK_WEAPON).andNot(F_AERO_WEAPON).andNot(F_PROTO_WEAPON);
-        setModes(new String[] { "On", "Off" });
+        setModes("On", "Off");
         setInstantModeSwitch(false);
         cost = 50000;
         rulesRefs = "91, IO";

@@ -118,29 +118,29 @@ public final class UIUtil {
         if (origList == null || origList.isEmpty()) {
             return result;
         }
-        String currLine = "";
+        StringBuilder currLine = new StringBuilder();
         for (String curr: origList) {
             // Skip empty strings to avoid double separators
             if (curr.isEmpty()) {
                 continue;
             }
             
-            if (currLine.isEmpty()) {
+            if (currLine.length() == 0) {
                 // No entry in this line yet
-                currLine = curr;
+                currLine = new StringBuilder(curr);
             } else if (currLine.length() + curr.length() + sep.length() <= maxLength) {
                 // This line can hold another string
-                currLine += sep + curr;
+                currLine.append(sep).append(curr);
             } else {
                 // This line cannot hold another string
-                currLine += sepAtEnd ? sep : "";
-                result.add(currLine);
-                currLine = curr;
+                currLine.append(sepAtEnd ? sep : "");
+                result.add(currLine.toString());
+                currLine = new StringBuilder(curr);
             }
         }
-        if (!currLine.isEmpty()) {
+        if (currLine.length() > 0) {
             // Add the last unfinished line
-            result.add(currLine);
+            result.add(currLine.toString());
         } else if (sepAtEnd) {
             // Remove the last unnecessary sep if there were no more Strings
             String lastLine = result.get(result.size() - 1);

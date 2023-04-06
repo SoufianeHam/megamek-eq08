@@ -27,7 +27,6 @@ import megamek.common.Report;
 import megamek.common.ToHitData;
 import megamek.common.actions.WeaponAttackAction;
 import megamek.server.GameManager;
-import megamek.server.Server;
 
 public class InsulatedLaserWeaponHandler extends EnergyWeaponHandler {
     private static final long serialVersionUID = -7951442134048385366L;

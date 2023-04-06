@@ -32,13 +32,7 @@ class ExtraPanel extends PicMap implements ActionListener, ItemListener, IPrefer
 
     private final JPanel panelMain;
     private final JScrollPane scrollPane;
-    private final JLabel lblLastTarget;
     private final JLabel curSensorsL;
-    private final JLabel narcLabel;
-    private final JLabel unusedL;
-    private final JLabel carrysL;
-    private final JLabel heatL;
-    private final JLabel sinksL;
     private final JTextArea unusedR;
     private final JTextArea carrysR;
     private final JTextArea heatR;
@@ -56,9 +50,6 @@ class ExtraPanel extends PicMap implements ActionListener, ItemListener, IPrefer
     private int sinks;
     private boolean dontChange;
 
-    private final int minTopMargin = 8;
-    private final int minLeftMargin = 8;
-
     final JButton activateHidden = new JButton(Messages.getString("MechDisplay.ActivateHidden.Label"));
 
     final MMComboBox<GamePhase> comboActivateHiddenPhase = new MMComboBox<>("comboActivateHiddenPhase");
@@ -67,13 +58,13 @@ class ExtraPanel extends PicMap implements ActionListener, ItemListener, IPrefer
         this.unitDisplay = unitDisplay;
         prompt = null;
 
-        narcLabel = new JLabel(Messages.getString("MechDisplay.AffectedBy"), SwingConstants.CENTER);
+        JLabel narcLabel = new JLabel(Messages.getString("MechDisplay.AffectedBy"), SwingConstants.CENTER);
         narcLabel.setOpaque(false);
         narcLabel.setForeground(Color.WHITE);
 
         narcList = new JList<>(new DefaultListModel<>());
 
-        unusedL = new JLabel(Messages.getString("MechDisplay.UnusedSpace"), SwingConstants.CENTER);
+        JLabel unusedL = new JLabel(Messages.getString("MechDisplay.UnusedSpace"), SwingConstants.CENTER);
         unusedL.setOpaque(false);
         unusedL.setForeground(Color.WHITE);
         unusedR = new JTextArea("", 2, 25);
@@ -81,7 +72,7 @@ class ExtraPanel extends PicMap implements ActionListener, ItemListener, IPrefer
         unusedR.setOpaque(false);
         unusedR.setForeground(Color.WHITE);
 
-        carrysL = new JLabel(Messages.getString("MechDisplay.Carryng"), SwingConstants.CENTER);
+        JLabel carrysL = new JLabel(Messages.getString("MechDisplay.Carryng"), SwingConstants.CENTER);
         carrysL.setOpaque(false);
         carrysL.setForeground(Color.WHITE);
         carrysR = new JTextArea("", 4, 25);
@@ -89,7 +80,7 @@ class ExtraPanel extends PicMap implements ActionListener, ItemListener, IPrefer
         carrysR.setOpaque(false);
         carrysR.setForeground(Color.WHITE);
 
-        sinksL = new JLabel(
+        JLabel sinksL = new JLabel(
                 Messages.getString("MechDisplay.activeSinksLabel"),
                 SwingConstants.CENTER);
         sinksL.setOpaque(false);
@@ -108,15 +99,15 @@ class ExtraPanel extends PicMap implements ActionListener, ItemListener, IPrefer
         dumpBombs.setActionCommand("dumpBombs");
         dumpBombs.addActionListener(this);
 
-        heatL = new JLabel(Messages.getString("MechDisplay.HeatEffects"), SwingConstants.CENTER);
+        JLabel heatL = new JLabel(Messages.getString("MechDisplay.HeatEffects"), SwingConstants.CENTER);
         heatL.setOpaque(false);
         heatL.setForeground(Color.WHITE);
         heatR = new JTextArea("", 4, 25);
         heatR.setEditable(false);
         heatR.setOpaque(false);
         heatR.setForeground(Color.WHITE);
-        
-        lblLastTarget = new JLabel(Messages.getString("MechDisplay.LastTarget"),
+
+        JLabel lblLastTarget = new JLabel(Messages.getString("MechDisplay.LastTarget"),
                 SwingConstants.CENTER);
         lblLastTarget.setForeground(Color.WHITE);
         lblLastTarget.setOpaque(false);
@@ -246,9 +237,11 @@ class ExtraPanel extends PicMap implements ActionListener, ItemListener, IPrefer
             return;
         }
         int dx = Math.round(((w - r.width) / 2));
+        int minLeftMargin = 8;
         if (dx < minLeftMargin) {
             dx = minLeftMargin;
         }
+        int minTopMargin = 8;
         int dy = minTopMargin;
         setContentMargins(dx, dy, dx, dy);
     }

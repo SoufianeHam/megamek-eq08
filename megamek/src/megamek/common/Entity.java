@@ -135,7 +135,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
     /**
      * ID settable by external sources (such as mm.net)
      */
-    protected String externalId = "-1";
+    protected String externalId;
 
     protected double weight;
     protected boolean omni = false;
@@ -238,7 +238,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
      * central hex plus all of the other hexes this entity occupies. The central
      * hex is important for drawing multi-hex sprites.
      */
-    protected Map<Integer, Coords> secondaryPositions = null;
+    protected Map<Integer, Coords> secondaryPositions;
 
     protected int facing = 0;
     protected int sec_facing = 0;
@@ -734,13 +734,13 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
      * Keeps track of the number of iATM improved magnetic pulse (IMP) his this
      * entity took this turn.
      */
-    private int impThisTurn = 0;
+    private int impThisTurn;
 
     /**
      * Keeps track of the number of iATM improved magnetic pulse (IMP) his this
      * entity took last turn.
      */
-    private int impLastTurn = 0;
+    private int impLastTurn;
 
     private int impThisTurnHeatHelp = 0;
 
@@ -3680,7 +3680,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
             mounted.setShotsLeft(nAmmo);
             mounted.setOriginalShots(nAmmo);
             double tonnage = Math.max(1, nAmmo / ((AmmoType) mounted.getType()).getShots()) * mounted.getTonnage();
-            mounted.setAmmoCapacity(tonnage);
+            mounted.setSize(tonnage);
         }
 
         addEquipment(mounted, loc, rearMounted);
@@ -4797,7 +4797,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
                 return 0;
             }
             if ((this instanceof Mech) && m.is(EquipmentTypeLookup.SCM)) {
-                return ((Mech) this).scmCritStateCount(slotState);
+                return this.scmCritStateCount(slotState);
             }
         }
 
@@ -7394,7 +7394,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
             EntityMovementType moveType) {
         PilotingRollData roll = getBasePilotingRoll(moveType);
         addPilotingModifierForTerrain(roll, step);
-        int maxSafeMP = 0;
+        int maxSafeMP;
         switch (moveType) {
             case MOVE_JUMP:
                 maxSafeMP = getJumpMP(false);
@@ -7560,7 +7560,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
             
             roll.append(new PilotingRollData(getId(), bgMod, "avoid bogging down"));
             
-            if ((this instanceof Mech) && ((Mech) this).isSuperHeavy()) {
+            if ((this instanceof Mech) && this.isSuperHeavy()) {
                 roll.addModifier(1, "superheavy mech avoiding bogging down");
             }
             
@@ -7726,7 +7726,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
 
         // check to see if its a wall
         if (rv > 1) {
-            Building bldgEntered = null;
+            Building bldgEntered;
             bldgEntered = game.getBoard().getBuildingAt(curPos);
             if (bldgEntered.getType() == Building.WALL) {
                 return 4;
@@ -7757,7 +7757,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
                                                    String why, EntityMovementType overallMoveType) {
         PilotingRollData roll = getBasePilotingRoll(overallMoveType);
 
-        if ((this instanceof Mech) && ((Mech) this).isSuperHeavy()) {
+        if ((this instanceof Mech) && this.isSuperHeavy()) {
             roll.addModifier(4, "superheavy mech moving in building");
         }
         
@@ -7922,7 +7922,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
      * hexes moved this phase. Used for skidding.
      */
     public int getMovementBeforeSkidPSRModifier(int distance) {
-        int mod = -1;
+        int mod;
 
         if (distance > 24) {
             mod = 6;
@@ -9055,7 +9055,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
      * modifier for the given range.
      */
     public TargetRoll getStealthModifier(int range, Entity ae) {
-        TargetRoll result = null;
+        TargetRoll result;
 
         // Stealth must be active.
         if (!isStealthActive()) {
@@ -9327,19 +9327,19 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
             return "No location given.";
         }
 
-        String str = getLocationName(loc) + " (" + getLocationAbbr(loc)
-               + "): Armor: " + getArmorString(loc) + "/" + getOArmor(loc)
-               + " Structure: " + getInternalString(loc) + "/"
-               + getOInternal(loc) + "\n ";
+        StringBuilder str = new StringBuilder(getLocationName(loc) + " (" + getLocationAbbr(loc)
+                + "): Armor: " + getArmorString(loc) + "/" + getOArmor(loc)
+                + " Structure: " + getInternalString(loc) + "/"
+                + getOInternal(loc) + "\n ");
         for (CriticalSlot cs : crits[loc]) {
             if (cs != null) {
                 Mounted mount = cs.getMount();
                 if (mount != null) {
-                    str += mount.getDesc() + "\n ";
+                    str.append(mount.getDesc()).append("\n ");
                 }
             }
         }
-        return str;
+        return str.toString();
     }
 
     /**
@@ -9347,7 +9347,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
      * @return the status of the given location.
      */
     public String statusToString(String str) {
-        int loc = LOC_NONE;
+        int loc;
         loc = getLocationFromAbbr(str);
 
         if (loc == LOC_NONE) {
@@ -11613,7 +11613,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
         // compute
         // the targetsidetable. If we come to a higher vector, then replace. If
         // we come to an equal vector then take it if it is better
-        int thrust = 0;
+        int thrust;
         int high = -1;
         int side = -1;
         for (int dir = 0; dir < 6; dir++) {
@@ -11633,7 +11633,6 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
                 // choose the best
                 if ((newside == ToHitData.SIDE_LEFT)
                     || (newside == ToHitData.SIDE_RIGHT)) {
-                    newside = side;
                 }
                 // that should be the only case, because it can't shift you from
                 // front
@@ -12094,7 +12093,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
             if ((mount.getLocation() == loc)
                 && !mount.isDestroyed()
                 && (mount.getType() instanceof MiscType)
-                && ((MiscType) mount.getType()).hasFlag(MiscType.F_MODULAR_ARMOR)
+                && mount.getType().hasFlag(MiscType.F_MODULAR_ARMOR)
                 // On 'Mech torsos only, modular armor covers either front
                 // or rear, as mounted.
                 && (!(this instanceof Mech)
@@ -12897,7 +12896,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
             bracket = Compute.getSensorBracket(7);
         }
         int range = getActiveSensor().getRangeByBracket();
-        int groundRange = 0;
+        int groundRange;
         if (getActiveSensor().isBAP()) {
             groundRange = 2;
         } else {
@@ -13444,7 +13443,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
     public boolean checkForMASCFailure(MovePath md, Vector<Report> vDesc,
                                        HashMap<Integer, List<CriticalSlot>> vCriticals) {
         if (md.hasActiveMASC()) {
-            boolean bFailure = false;
+            boolean bFailure;
 
             // If usedMASC is already set, then we've already checked MASC
             // this turn. If we succeded before, return false.
@@ -13471,7 +13470,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
     public boolean checkForSuperchargerFailure(MovePath md, Vector<Report> vDesc,
                                                HashMap<Integer, List<CriticalSlot>> vCriticals) {
         if (md.hasActiveSupercharger()) {
-            boolean bFailure = false;
+            boolean bFailure;
 
             // If usedSupercharger is already set, then we've already checked Supercharger
             // this turn. If we succeded before, return false.
@@ -15174,7 +15173,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
         }
         if (!getAllTowedUnits().isEmpty() || !getConnectedUnits().isEmpty()) {
             //If we're towing something, check for a front or rear hitch
-            Entity towed = null;
+            Entity towed;
             if (!getAllTowedUnits().isEmpty()) {
                 towed = game.getEntity(getAllTowedUnits().get(0));
             } else {

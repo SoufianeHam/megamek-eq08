@@ -145,7 +145,6 @@ public class AbstractPathFinder<N, C, E> {
     public static class StopConditionTimeout<E> implements StopCondition<E> {
         // this class should be redesigned to use an executor.
         private E lastEdge;
-        private long start;
         private long stop;
         final int timeout;
 
@@ -165,7 +164,7 @@ public class AbstractPathFinder<N, C, E> {
         }
 
         public void restart() {
-            start = System.currentTimeMillis();
+            long start = System.currentTimeMillis();
             stop = start + timeout;
             lastEdge = null;
             timeoutEngaged = false;

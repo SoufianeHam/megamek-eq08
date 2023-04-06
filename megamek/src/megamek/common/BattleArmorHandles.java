@@ -112,7 +112,7 @@ class BattleArmorHandles implements Transporter {
     @Override
     public boolean canLoad(Entity unit) {
         // Assume that we can carry the unit.
-        boolean result = true;
+        boolean result;
 
         // Only BattleArmor can be carried in BattleArmorHandles.
         if (!(unit instanceof BattleArmor)) {

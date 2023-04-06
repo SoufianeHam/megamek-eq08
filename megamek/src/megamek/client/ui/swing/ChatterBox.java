@@ -41,7 +41,6 @@ public class ChatterBox implements KeyListener, IPreferenceChangeListener {
     final JScrollPane scrPlayers;
     private final JTextField inputField;
     private JButton butDone;
-    private final JSplitPane playerChatSplit;
 
     public final LinkedList<String> history;
     public int historyBookmark = -1;
@@ -132,7 +131,7 @@ public class ChatterBox implements KeyListener, IPreferenceChangeListener {
         chatPanel = new JPanel(new BorderLayout());
         chatPanel.setLayout(new GridBagLayout());
 
-        playerChatSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
+        JSplitPane playerChatSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true,
                 scrPlayers, new JScrollPane(chatArea));
         playerChatSplit.setResizeWeight(0.01);
         

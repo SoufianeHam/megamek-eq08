@@ -56,7 +56,6 @@ public class SkinEditorMainGUI extends JPanel implements WindowListener, BoardVi
     private BoardView bv;
     private Component bvc;
     private JDialog skinSpecEditorD;
-    private SkinSpecEditor skinSpecEditor;
 
     private UnitDisplay unitDisplay;
     public JDialog mechW;
@@ -302,7 +301,7 @@ public class SkinEditorMainGUI extends JPanel implements WindowListener, BoardVi
             }
         });
 
-        skinSpecEditor = new SkinSpecEditor(this);
+        SkinSpecEditor skinSpecEditor = new SkinSpecEditor(this);
 
         skinSpecEditorD = new JDialog(frame,
                 Messages.getString("SkinEditor.SkinEditorDialog.Title"), false);

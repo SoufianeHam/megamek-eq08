@@ -235,7 +235,7 @@ public class PhysicalDisplay extends StatusBarPhaseDisplay {
         clientgui.getBoardView().centerOnHex(entity.getPosition());
 
         // does it have a club?
-        String clubLabel = null;
+        StringBuilder clubLabel = null;
         for (Mounted club : entity.getClubs()) {
             String thisLab;
             if (club.getName().endsWith("Club")) {
@@ -244,15 +244,15 @@ public class PhysicalDisplay extends StatusBarPhaseDisplay {
                 thisLab = club.getName();
             }
             if (clubLabel == null) {
-                clubLabel = thisLab;
+                clubLabel = new StringBuilder(thisLab);
             } else {
-                clubLabel = clubLabel + "/" + thisLab;
+                clubLabel.append("/").append(thisLab);
             }
         }
         if (clubLabel == null) {
-            clubLabel = Messages.getString("PhysicalDisplay.Club");
+            clubLabel = new StringBuilder(Messages.getString("PhysicalDisplay.Club"));
         }
-        buttons.get(PhysicalCommand.PHYSICAL_CLUB).setText(clubLabel);
+        buttons.get(PhysicalCommand.PHYSICAL_CLUB).setText(clubLabel.toString());
 
         if ((entity instanceof Mech)
             && !entity.isProne()
@@ -567,8 +567,8 @@ public class PhysicalDisplay extends StatusBarPhaseDisplay {
                 .getGame(), cen, target, KickAttackAction.LEFT);
         ToHitData rightLeg = KickAttackAction.toHit(clientgui.getClient()
                 .getGame(), cen, target, KickAttackAction.RIGHT);
-        ToHitData rightRearLeg = null;
-        ToHitData leftRearLeg = null;
+        ToHitData rightRearLeg;
+        ToHitData leftRearLeg;
 
         ToHitData attackLeg;
         int attackSide = KickAttackAction.LEFT;
@@ -591,7 +591,6 @@ public class PhysicalDisplay extends StatusBarPhaseDisplay {
                 attackLeg = rightRearLeg;
             }
             if (value > leftRearLeg.getValue()) {
-                value = leftRearLeg.getValue();
                 attackSide = KickAttackAction.LEFTMULE;
                 attackLeg = leftRearLeg;
             }
@@ -978,14 +977,14 @@ public class PhysicalDisplay extends StatusBarPhaseDisplay {
                 .getGame(), cen, target, BrushOffAttackAction.RIGHT);
         boolean canHitLeft = (TargetRoll.IMPOSSIBLE != toHitLeft.getValue());
         boolean canHitRight = (TargetRoll.IMPOSSIBLE != toHitRight.getValue());
-        int damageLeft = 0;
-        int damageRight = 0;
-        String title = null;
-        StringBuffer warn = null;
+        int damageLeft;
+        int damageRight;
+        String title;
+        StringBuffer warn;
         String left = null;
         String right = null;
         String both = null;
-        String[] choices = null;
+        String[] choices;
 
         // If the entity can't brush off, display an error message and abort.
         if (!canHitLeft && !canHitRight) {

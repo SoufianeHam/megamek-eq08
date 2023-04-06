@@ -46,7 +46,8 @@ public class ShowTileCommand extends ClientCommand {
     public String run(String[] args) {
         try {
             int i = 3;
-            String str, report = "";
+            StringBuilder str;
+            StringBuilder report = new StringBuilder();
             Coords coord;
             if ((args.length >= 1) && directions.contains(args[0].toUpperCase())) {
                 i = 1;
@@ -64,25 +65,24 @@ public class ShowTileCommand extends ClientCommand {
                 hex = getClient().getGame().getBoard().getHex(coord);
                 getClient().setCurrentHex(hex);
                 if (hex != null) {
-                    str = "Details for hex (" + (coord.getX() + 1) + ", "
-                          + (coord.getY() + 1) + ") : " + hex;
+                    str = new StringBuilder("Details for hex (" + (coord.getX() + 1) + ", "
+                            + (coord.getY() + 1) + ") : " + hex);
 
                     // if we are not playing in double-blind mode also list the
                     // units in this tile.
                     if (!getClient().getGame().getOptions().booleanOption(OptionsConstants.ADVANCED_DOUBLE_BLIND)) {
                         Iterator<Entity> entList = getClient().getGame().getEntities(coord);
                         if (entList.hasNext()) {
-                            str = str + "; Contains entities: " + entList.next().getId();
+                            str.append("; Contains entities: ").append(entList.next().getId());
                             while (entList.hasNext()) {
-                                str = str + ", " + entList.next().getId();
+                                str.append(", ").append(entList.next().getId());
                             }
                         }
                     }
 
-                    report = report + str + "\n";
+                    report.append(str).append("\n");
                 } else {
-                    report = report + "Hex (" + (coord.getX() + 1) + ", "
-                             + (coord.getY() + 1) + ") is not on the board.\n";
+                    report.append("Hex (").append(coord.getX() + 1).append(", ").append(coord.getY() + 1).append(") is not on the board.\n");
                 }
 
                 if (i < args.length) {
@@ -92,7 +92,7 @@ public class ShowTileCommand extends ClientCommand {
                 i++;
             } while (i <= args.length);
 
-            return report;
+            return report.toString();
         } catch (Exception ignored) {
 
         }

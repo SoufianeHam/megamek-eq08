@@ -1,3 +1,4 @@
+<#--noinspection Annotator-->
 <html>
 <head>
   <title>${fullName}</title>
@@ -26,10 +27,14 @@
 	<tr><td>Heat Sinks:</td><td align="center">${hsCount}</td><td align="center">${hsMass}</td></tr>
 	<tr><td>Fuel:</td><td align="center">${fuelRange}</td><td align="center">${fuelMass}</td></tr>
 <#if amplifierMass gt 0>
+	<#--noinspection SyntaxError-->
 	<tr><td>Power Amplifier:</td><td></td><td align="center">${amplifierMass}</td</tr>
 </#if>
 <#if hasTurret2>
+	<#--noinspection SyntaxError-->
 	<tr><td>Rear Turret:</td><td></td><td align="center">${turretMass}</td</tr>
+	<#--noinspection SyntaxError-->
+	<#--noinspection SyntaxError-->
 	<tr><td>Front Turret:</td><td></td><td align="center">${turretMass2}</td</tr>
 <#elseif hasTurret>
 	<tr><td>Turret:</td><td></td><td align="center">${turretMass}</td</tr>

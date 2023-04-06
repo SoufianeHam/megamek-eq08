@@ -205,7 +205,7 @@ public class BLKFixedWingSupportFile extends BLKFile implements IMechLoader {
             prefix = "IS ";
         }
 
-        boolean rearMount = false;
+        boolean rearMount;
 
         if (saEquip[0] != null) {
             for (String element : saEquip) {

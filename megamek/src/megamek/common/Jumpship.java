@@ -275,7 +275,6 @@ public class Jumpship extends Aero {
                 toReturn.append(", ");
             }
             toReturn.append(Messages.getString("Jumpship.lfBatteryDamageString"));
-            first = false;
         }
         return toReturn.toString();
     }
@@ -889,7 +888,7 @@ public class Jumpship extends Aero {
     public int getWeaponArc(int wn) {
         final Mounted mounted = getEquipment(wn);
 
-        int arc = Compute.ARC_NOSE;
+        int arc;
         switch (mounted.getLocation()) {
             case LOC_NOSE:
                 if (mounted.isInWaypointLaunchMode()) {
@@ -1128,6 +1127,7 @@ public class Jumpship extends Aero {
         for (Mounted weap : getWeaponList()) {
             if (weap.getLocation() == loc) {
                 hasWeapons = true;
+                break;
             }
         }
         return hasWeapons;

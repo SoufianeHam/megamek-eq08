@@ -20,7 +20,6 @@ package megamek.common;
 
 import org.junit.jupiter.api.Test;
 
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 public class UnitNameTrackerTest {

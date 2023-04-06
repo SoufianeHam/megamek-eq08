@@ -103,7 +103,6 @@ public class VehicleFlamerCoolHandler extends AmmoWeaponHandler {
             r.choose(false);
             vPhaseReport.add(r);
             entityTarget.coolFromExternal += nDamage;
-            hits = 0;
         }
     }
 }

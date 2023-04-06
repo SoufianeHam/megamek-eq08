@@ -71,8 +71,8 @@ public class FormationType {
         this.category = category;
     }
     
-    private String name = "Support";
-    private String category = null;
+    private String name;
+    private String category;
     private int allowedUnitTypes = FLAG_GROUND;
     // Some formation types allow units not normally generated for general combat roles (e.g. artillery, cargo)  
     private final EnumSet<MissionRole> missionRoles = EnumSet.noneOf(MissionRole.class);
@@ -597,7 +597,6 @@ public class FormationType {
                                         if (found.values().stream().mapToInt(List::size).sum()
                                                 < g.values().stream().mapToInt(Integer::intValue).sum()) {
                                             found.clear();
-                                            base = null;
                                             int mask = (1 << otherCriteria.size()) - 1;
                                             extraCriteria = 0;
                                             for (int k : g.keySet()) {

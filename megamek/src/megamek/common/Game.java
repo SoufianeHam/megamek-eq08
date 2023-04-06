@@ -2343,7 +2343,7 @@ public class Game extends AbstractGame implements Serializable {
     public void resetPSRs(Entity entity) {
         PilotingRollData roll;
         Vector<Integer> rollsToRemove = new Vector<>();
-        int i = 0;
+        int i;
 
         // first, find all the rolls belonging to the target entity
         for (i = 0; i < pilotRolls.size(); i++) {
@@ -2372,7 +2372,7 @@ public class Game extends AbstractGame implements Serializable {
     public void resetExtremeGravityPSRs(Entity entity) {
         PilotingRollData roll;
         Vector<Integer> rollsToRemove = new Vector<>();
-        int i = 0;
+        int i;
 
         // first, find all the rolls belonging to the target entity
         for (i = 0; i < extremeGravityRolls.size(); i++) {
@@ -3126,7 +3126,7 @@ public class Game extends AbstractGame implements Serializable {
     public void resetControlRolls(Entity entity) {
         PilotingRollData roll;
         Vector<Integer> rollsToRemove = new Vector<>();
-        int i = 0;
+        int i;
 
         // first, find all the rolls belonging to the target entity
         for (i = 0; i < controlRolls.size(); i++) {

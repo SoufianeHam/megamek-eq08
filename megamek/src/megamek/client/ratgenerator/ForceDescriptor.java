@@ -266,7 +266,7 @@ public class ForceDescriptor {
             if (eligibleSubs.get(true).isEmpty()) {
                 return false;
             } else {
-                List<ModelRecord> list = null;
+                List<ModelRecord> list;
                 if (augmented) {
                     list = generateNovaFormation(eligibleSubs.get(true), numGroups);
                 } else {
@@ -765,7 +765,7 @@ public class ForceDescriptor {
                 UnitTable table = UnitTable.findTable(fd.getFactionRec(), fd.getUnitType(),
                         fd.getYear(), ratGenRating, wcs, ModelRecord.NETWORK_NONE,
                         fd.getMovementModes(), fd.getRoles(), roleStrictness);
-                MechSummary ms = null;
+                MechSummary ms;
                 if (!fd.getModels().isEmpty()) {
                     ms = table.generateUnit(u -> fd.getModels().contains(u.getName()));
                 } else if (!fd.getChassis().isEmpty()) {

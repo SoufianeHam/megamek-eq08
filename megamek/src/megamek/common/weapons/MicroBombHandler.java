@@ -62,9 +62,7 @@ public class MicroBombHandler extends AmmoWeaponHandler {
             int moF = -toHit.getMoS();
             if (ae.hasAbility(OptionsConstants.GUNNERY_GOLDEN_GOOSE)) {
                 if ((-toHit.getMoS() - 2) < 1) {
-                    moF = 0;
                 } else {
-                    moF = -toHit.getMoS() - 2;
                 }
             }
 

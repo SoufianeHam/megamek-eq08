@@ -372,7 +372,7 @@ public class Compute {
                 || (entering instanceof SmallCraft);
         boolean isLargeSupport = (entering instanceof LargeSupportTank)
                 || (entering instanceof Dropship)
-                || ((entering instanceof Mech) && ((Mech) entering)
+                || ((entering instanceof Mech) && entering
                         .isSuperHeavy());
 
         boolean isTrain = !entering.getAllTowedUnits().isEmpty();
@@ -462,7 +462,7 @@ public class Compute {
                         return inHex;
                     }
                     if (((inHex instanceof LargeSupportTank)
-                            || (inHex instanceof Dropship) || ((inHex instanceof Mech) && ((Mech) inHex)
+                            || (inHex instanceof Dropship) || ((inHex instanceof Mech) && inHex
                             .isSuperHeavy())) && !isInfantry) {
                         return inHex;
                     }
@@ -1310,9 +1310,9 @@ public class Compute {
                   || isAttackerBA))
             && !(ae.isAirborne())
             && !(ae.isBomber() && ((IBomber) ae).isVTOLBombing())
-            && !((ae instanceof Dropship) && !((Dropship) ae).isSpheroid()
+            && !((ae instanceof Dropship) && !ae.isSpheroid()
                  && !ae.isAirborne() && !ae.isSpaceborne())
-            && !((ae instanceof Mech) && (((Mech) ae).getGrappled() == target
+            && !((ae instanceof Mech) && (ae.getGrappled() == target
                 .getId()))) {
             return new ToHitData(TargetRoll.AUTOMATIC_FAIL,
                                  "Only infantry weapons shoot at zero range");
@@ -2992,7 +2992,7 @@ public class Compute {
         WeaponType wt = (WeaponType) weapon.getType();
 
         float fDamage = 0.0f;
-        float fChance = 0.0f;
+        float fChance;
         if (assumeHit) {
             fChance = 1.0f;
         } else {
@@ -3050,8 +3050,8 @@ public class Compute {
         // weapons too
 
         if (attacker instanceof BattleArmor) {
-            if ((wt.getInternalName() != Infantry.SWARM_MEK)
-                && (wt.getInternalName() != Infantry.LEG_ATTACK)) {
+            if ((!wt.getInternalName().equals(Infantry.SWARM_MEK))
+                && (!wt.getInternalName().equals(Infantry.LEG_ATTACK))) {
                 use_table = true;
             }
         }
@@ -3069,7 +3069,7 @@ public class Compute {
                 fDamage = at.getDamagePerShot();
             }
 
-            float fHits = 0.0f;
+            float fHits;
             if ((wt.getRackSize() != 40) && (wt.getRackSize() != 30)) {
                 fHits = expectedHitsByRackSize[wt.getRackSize()];
             } else {
@@ -3314,7 +3314,7 @@ public class Compute {
             // Infantry follow some special rules, but do fixed amounts of damage
             // Anti-mek attacks are weapon-like in nature, so include them here as well
             if (attacker instanceof Infantry) {
-                if (wt.getInternalName() == Infantry.LEG_ATTACK) {
+                if (wt.getInternalName().equals(Infantry.LEG_ATTACK)) {
                     fDamage = 20.0f; // Actually 5, but the chance of crits
                     // deserves a boost
                 // leg attacks are mutually exclusive with swarm attacks,
@@ -3322,7 +3322,7 @@ public class Compute {
                     boolean targetIsSwarmable = (target instanceof Mech) || (target instanceof Tank);
 
                     if (attacker.isConventionalInfantry()) {
-                        if (wt.getInternalName() == Infantry.SWARM_MEK) {
+                        if (wt.getInternalName().equals(Infantry.SWARM_MEK)) {
                             // If the target is a Mek that is not swarmed, this is a
                             // good thing
                             if ((target.getSwarmAttackerId() == Entity.NONE) && targetIsSwarmable) {
@@ -3343,7 +3343,7 @@ public class Compute {
                         }
                     } else {
                         // Battle armor units conducting swarm attack
-                        if (wt.getInternalName() == Infantry.SWARM_MEK) {
+                        if (wt.getInternalName().equals(Infantry.SWARM_MEK)) {
                             // If the target is a Mek that is not swarmed, this is a
                             // good thing
                             if ((target.getSwarmAttackerId() == Entity.NONE) && targetIsSwarmable) {
@@ -3429,7 +3429,6 @@ public class Compute {
 
         // Get a list of ammo bins and the first valid bin
         fabin = null;
-        best_bin = null;
 
         for (Mounted abin : shooter.getAmmo()) {
             if (shooter.loadWeapon(shooter.getEquipment(atk.getWeaponId()),
@@ -3702,7 +3701,7 @@ public class Compute {
 
     public static int spinUpCannon(Game cgame, WeaponAttackAction atk, int spinupThreshold) {
 
-        int threshold = 12;
+        int threshold;
         int final_spin;
         Entity shooter;
         Mounted weapon;
@@ -3776,7 +3775,7 @@ public class Compute {
             Targetable t) {
         Entity ae = game.getEntity(attackerId);
         if ((ae instanceof Mech)
-            && (((Mech) ae).getGrappled() == t.getId())) {
+            && (ae.getGrappled() == t.getId())) {
             return true;
         }
         int facing = ae.isSecondaryArcWeapon(weaponId) ? ae
@@ -3828,9 +3827,9 @@ public class Compute {
         tPosV.add(tPos);
         // check for secondary positions
         if ((t instanceof Entity)
-            && (null != ((Entity) t).getSecondaryPositions())) {
-            for (int key : ((Entity) t).getSecondaryPositions().keySet()) {
-                tPosV.add(((Entity) t).getSecondaryPositions().get(key));
+            && (null != t.getSecondaryPositions())) {
+            for (int key : t.getSecondaryPositions().keySet()) {
+                tPosV.add(t.getSecondaryPositions().get(key));
             }
         }
         return Compute.isInArc(aPos, facing, tPosV, ae.getWeaponArc(weaponId));
@@ -3866,9 +3865,9 @@ public class Compute {
         tPosV.add(target.getPosition());
         // check for secondary positions
         if ((target instanceof Entity)
-            && (null != ((Entity) target).getSecondaryPositions())) {
-            for (int key : ((Entity) target).getSecondaryPositions().keySet()) {
-                tPosV.add(((Entity) target).getSecondaryPositions().get(key));
+            && (null != target.getSecondaryPositions())) {
+            for (int key : target.getSecondaryPositions().keySet()) {
+                tPosV.add(target.getSecondaryPositions().get(key));
             }
         }
 
@@ -4324,13 +4323,13 @@ public class Compute {
         }
         Entity te = (Entity) target;
         for (Entity en : Compute.getAdjacentEntitiesAlongAttack(ae.getPosition(), target.getPosition(), game)) {
-            if (!en.isEnemyOf(te) && en.isLargeCraft() && !en.equals((Entity) te) && ((en.getWeight() - te.getWeight()) >= -100000.0)) {
+            if (!en.isEnemyOf(te) && en.isLargeCraft() && !en.equals(te) && ((en.getWeight() - te.getWeight()) >= -100000.0)) {
                 mod ++;
                 break;
             }
         }
         for (Entity en : game.getEntitiesVector(target.getPosition())) {
-            if (!en.isEnemyOf(te) && en.isLargeCraft() && !en.equals((Entity) ae) && !en.equals((Entity) te)
+            if (!en.isEnemyOf(te) && en.isLargeCraft() && !en.equals(ae) && !en.equals(te)
                     && ((en.getWeight() - te.getWeight()) >= -100000.0)) {
                 mod ++;
                 break;
@@ -4737,7 +4736,7 @@ public class Compute {
             Entity te = (Entity) target;
             distance = te.getPosition().distance(
                     getClosestFlightPath(te.getId(),
-                            te.getPosition(), (Entity) ae));
+                            te.getPosition(), ae));
             return (distance > minSensorRange) && (distance <= maxSensorRange);
         }
         //This didn't work right for Aeros. Should account for the difference in altitude, not just add the target's altitude to distance
@@ -5376,6 +5375,7 @@ public class Compute {
             for (Entity target : game.getEntitiesVector(c)) {
                 if (target.getId() == defender.getId()) {
                     canTarget = true;
+                    break;
                 }
             }
             if (canTarget) {
@@ -6084,7 +6084,7 @@ public class Compute {
      */
     public static @Nullable Entity getSwarmMissileTarget(Game game, int aeId, Coords coords,
                                                          int weaponId) {
-        Entity tempEntity = null;
+        Entity tempEntity;
         // first, check the hex of the original target
         Iterator<Entity> entities = game.getEntities(coords);
         Vector<Entity> possibleTargets = new Vector<>();
@@ -6132,7 +6132,7 @@ public class Compute {
         }
 
         // step through each vector and move the direction indicated
-        int thrust = 0;
+        int thrust;
         Coords endpos = curpos;
         for (int dir = 0; dir < 6; dir++) {
             thrust = v[dir];
@@ -6544,9 +6544,7 @@ public class Compute {
                 continue;
             }
             // now lets add all the entities here
-            for (Entity en : game.getEntitiesVector(c)) {
-                entities.add(en);
-            }
+            entities.addAll(game.getEntitiesVector(c));
         }
         return entities;
     }
@@ -6874,7 +6872,7 @@ public class Compute {
     // Taken from MekHQ, assumptions are whatever Taharqa made for there - Dylan
     public static int getAeroCrewNeeds(Entity entity) {
         if (entity instanceof Dropship) {
-            if (((Dropship) entity).isMilitary()) {
+            if (entity.isMilitary()) {
                 return 4 + (int) Math.ceil(entity.getWeight() / 5000.0);
             } else {
                 return 3 + (int) Math.ceil(entity.getWeight() / 5000.0);

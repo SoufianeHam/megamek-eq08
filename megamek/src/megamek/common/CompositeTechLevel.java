@@ -37,7 +37,7 @@ public class CompositeTechLevel implements ITechnology, Serializable {
     private int earliest;
     
     // Provides a set tech level for non-era-based use.
-    private SimpleTechLevel staticTechLevel = SimpleTechLevel.INTRO;
+    private SimpleTechLevel staticTechLevel;
     
     /**
      * @param initialTA - the base tech advancement for the composite equipment
@@ -310,8 +310,8 @@ public class CompositeTechLevel implements ITechnology, Serializable {
     public static class DateRange implements Serializable, Comparable<DateRange> {
         private static final long serialVersionUID = 3144194494591950878L;
         
-        Integer start = null;
-        Integer end = null;
+        Integer start;
+        Integer end;
         final boolean startApproximate = false;
         final boolean endApproximate = false;
         

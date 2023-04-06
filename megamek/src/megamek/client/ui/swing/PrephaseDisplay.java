@@ -342,7 +342,7 @@ public class PrephaseDisplay extends StatusBarPhaseDisplay implements
         }
 
         // make best guess at next unit to select
-        int nextId = Entity.NONE;
+        int nextId;
         Entity next = clientgui.getClient().getGame()
                 .getNextEntity(clientgui.getClient().getGame().getTurnIndex());
 

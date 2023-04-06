@@ -112,6 +112,7 @@ public class VerifiableTextField extends JTextField implements FocusListener {
         for (DataVerifier v : verifiers) {
             if (v instanceof VerifyNotNullOrEmpty) {
                 required = true;
+                break;
             }
         }
         return required;

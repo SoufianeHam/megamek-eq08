@@ -41,8 +41,6 @@ public class ResizeMapDialog extends JDialog implements ActionListener, KeyListe
 
     private static final long serialVersionUID = 7758433698878123806L;
 
-    // External helpers.
-    private final JFrame PARENT;
     private final IMapSettingsObserver MAP_SETTINGS_OBSERVER;
     private final Client CLIENT;
 
@@ -93,7 +91,7 @@ public class ResizeMapDialog extends JDialog implements ActionListener, KeyListe
                            MapSettings mapSettings) {
         super(parent, Messages.getString("ExpandMapDialog.title"), true);
         this.mapSettings = mapSettings;
-        PARENT = parent;
+        // External helpers.
         MAP_SETTINGS_OBSERVER = mapSettingsObserver;
         CLIENT = client;
         basicPanel = new RandomMapPanelBasic(mapSettings);
@@ -126,7 +124,7 @@ public class ResizeMapDialog extends JDialog implements ActionListener, KeyListe
         pack();
         validate();
         setSize(new Dimension(600, 600));
-        setLocationRelativeTo(PARENT);
+        setLocationRelativeTo(parent);
     }
 
     private void initGUI() {
@@ -194,7 +192,6 @@ public class ResizeMapDialog extends JDialog implements ActionListener, KeyListe
         GridBagConstraints constraints = new GridBagConstraints();
         JPanel panel = new JPanel(layout);
 
-        constraints.gridwidth = 1;
         constraints.gridheight = 1;
         constraints.weightx = 0;
         constraints.weighty = 0;

@@ -32,7 +32,6 @@ import megamek.common.alphaStrike.BattleForceSUA;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -159,8 +158,6 @@ public class ASAdvancedSearchPanel extends JPanel {
     final JToggleButton unitRoleTransport = new JToggleButton(UnitRole.TRANSPORT.toString());
     final JToggleButton unitRoleNone = new JToggleButton(UnitRole.NONE.toString());
 
-    private final JButton btnClear = new JButton(Messages.getString("MechSelectorDialog.ClearTab"));
-
     public ASAdvancedSearchPanel() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         add(unitTypePanel());
@@ -191,6 +188,7 @@ public class ASAdvancedSearchPanel extends JPanel {
         add(simplePanel(useAbility1, ability1));
         add(simplePanel(useAbility2, ability2));
         add(new DottedSeparator());
+        JButton btnClear = new JButton(Messages.getString("MechSelectorDialog.ClearTab"));
         add(simplePanel(btnClear));
         initializeCombos();
         updateEnabled();

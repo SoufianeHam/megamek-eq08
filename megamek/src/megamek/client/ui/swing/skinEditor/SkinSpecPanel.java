@@ -84,7 +84,7 @@ public class SkinSpecPanel extends JPanel implements ListSelectionListener, Acti
 
         final JButton addButton = new JButton(Messages.getString("SkinEditor.Add"));
 
-        boolean displayTiled = false;
+        boolean displayTiled;
 
         final SkinSpecPanel skinPanel;
 
@@ -604,7 +604,6 @@ public class SkinSpecPanel extends JPanel implements ListSelectionListener, Acti
         rightEdge.setEnabled(enableBorders);
         borderPanel.add(rightEdge, gbc);
         gbc.gridy++;
-        gbc.gridx = 0;
 
         gbc.gridy = 0;
         add(borderPanel, gbc);

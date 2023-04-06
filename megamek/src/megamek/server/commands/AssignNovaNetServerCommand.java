@@ -121,9 +121,9 @@ public class AssignNovaNetServerCommand extends ServerCommand {
                         server.sendServerChat(connID, strUnlinkAll(connID));
                     }
                 } else {
-                    String failstr = args[0];
+                    StringBuilder failstr = new StringBuilder(args[0]);
                     for (int i = 1; i < args.length; i++) {
-                        failstr += " " + args[i];
+                        failstr.append(" ").append(args[i]);
                     }
                     server.sendServerChat(connID, "I do not understand "
                             + failstr + ". /nova for help.\n");
@@ -308,13 +308,13 @@ public class AssignNovaNetServerCommand extends ServerCommand {
     }
 
     private String strListNetworks(int connID, boolean planned) {
-        String rval = "";
+        StringBuilder rval = new StringBuilder();
 
         List<Integer> allreadyReported = new LinkedList<>();
         List<Entity> novaUnits = getMyNovaUnits(connID);
         List<Entity> network;
 
-        String noLink = "";
+        StringBuilder noLink = new StringBuilder();
 
         for (Entity ent : novaUnits) {
             if (!allreadyReported.contains(ent.getId())) {
@@ -322,56 +322,54 @@ public class AssignNovaNetServerCommand extends ServerCommand {
                 if (network.size() > 1) // we actually have more than one member
                                         // in this network
                 {
-                    rval += "Network ID '" + ent.getC3NetId() + "' contains:\n";
+                    rval.append("Network ID '").append(ent.getC3NetId()).append("' contains:\n");
                     for (Entity re : network) {
-                        rval += "+ " + re.getId() + " " + re.getDisplayName()
-                                + "\n";
+                        rval.append("+ ").append(re.getId()).append(" ").append(re.getDisplayName()).append("\n");
                         allreadyReported.add(re.getId());
                     }
-                    rval += "+-----\n";
+                    rval.append("+-----\n");
                 } else {
-                    noLink += "+ " + ent.getId() + " " + ent.getDisplayName()
-                            + "\n";
+                    noLink.append("+ ").append(ent.getId()).append(" ").append(ent.getDisplayName()).append("\n");
                     allreadyReported.add(ent.getId());
                 }
             }
 
         }
-        if (rval == "") {
+        if (rval.toString().equals("")) {
             // no networks found
-            rval = "No Networks found. Create some with the /nova command\n";
+            rval = new StringBuilder("No Networks found. Create some with the /nova command\n");
         }
-        if (noLink != "") {
+        if (!noLink.toString().equals("")) {
             // we have unlinked units.
-            noLink = "XXX Unlinked Units:\n" + noLink;
+            noLink.insert(0, "XXX Unlinked Units:\n");
         }
         if (planned) {
-            rval = "Status for next turn networks:\n" + rval + noLink;
+            rval = new StringBuilder("Status for next turn networks:\n" + rval + noLink);
         } else {
-            rval = "Status for current turn networks:\n" + rval + noLink;
+            rval = new StringBuilder("Status for current turn networks:\n" + rval + noLink);
         }
-        return rval;
+        return rval.toString();
     }
 
     private String strListNetwork(int connID, int id, boolean planned) {
-        String rval = "";
+        StringBuilder rval = new StringBuilder();
         Entity ent = gameManager.getGame().getEntity(id);
         if (ent != null) {
             if (ent.getOwnerId() != connID) {
                 return "This unit doesn't belong to you!\n";
             }
             for (Entity e : listNetwork(connID, ent, planned)) {
-                rval += "+ " + e.getId() + " " + e.getDisplayName() + "\n";
+                rval.append("+ ").append(e.getId()).append(" ").append(e.getDisplayName()).append("\n");
             }
         }
 
-        if (rval != "") {
-            rval = "Unit " + id + " is in the Network consisting of:\n";
+        if (!rval.toString().equals("")) {
+            rval = new StringBuilder("Unit " + id + " is in the Network consisting of:\n");
         } else {
-            rval = "Error. No ID match.\n";
+            rval = new StringBuilder("Error. No ID match.\n");
         }
 
-        return rval;
+        return rval.toString();
     }
 
     /**
@@ -390,12 +388,12 @@ public class AssignNovaNetServerCommand extends ServerCommand {
 
         for (Entity ent : novaUnits) {
             if (planned) {
-                if (ent.getNewRoundNovaNetworkString() == e
-                        .getNewRoundNovaNetworkString()) {
+                if (ent.getNewRoundNovaNetworkString().equals(e
+                        .getNewRoundNovaNetworkString())) {
                     novaNetworkMembers.add(ent);
                 }
             } else {
-                if (ent.getC3NetId() == e.getC3NetId()) {
+                if (ent.getC3NetId().equals(e.getC3NetId())) {
                     novaNetworkMembers.add(ent);
                 }
             }

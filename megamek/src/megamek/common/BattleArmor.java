@@ -129,7 +129,7 @@ public class BattleArmor extends Infantry {
      * Flag that is <code>true</code> when this object's constructor has
      * completed.
      */
-    private boolean isInitialized = false;
+    private boolean isInitialized;
 
     /**
      * Flag that is <code>true</code> when this unit is equipped with stealth.
@@ -2191,21 +2191,21 @@ public class BattleArmor extends Infantry {
 
     @Override
     public String getLocationDamage(int loc) {
-        String toReturn = "";
+        StringBuilder toReturn = new StringBuilder();
         if (getInternal(loc) < 0) {
-            return toReturn;
+            return toReturn.toString();
         }
         boolean first = true;
         for (Mounted m : getEquipment()) {
             if (m.isMissingForTrooper(loc)) {
                 if (!first) {
-                    toReturn += ", ";
+                    toReturn.append(", ");
                 }
-                toReturn += m.getName();
+                toReturn.append(m.getName());
                 first = false;
             }
         }
-        return toReturn;
+        return toReturn.toString();
     }
 
     /**

@@ -46,17 +46,11 @@ public class ExitsDialog extends JDialog implements ActionListener {
     final JToggleButton cheExit3;
     final JToggleButton cheExit4;
     final JToggleButton cheExit5;
-    private final JLabel labBlank = new JLabel("                            ");
-    private final JPanel panNorth = new JPanel(new GridBagLayout());
-    private final JPanel panSouth = new JPanel(new GridBagLayout());
-    private final JPanel panWest = new JPanel(new BorderLayout());
-    private final JPanel panEast = new JPanel(new BorderLayout());
-    private final JPanel panExits = new JPanel(new BorderLayout());
-    private final JButton butDone = new JButton(Messages.getString("BoardEditor.Done"));
 
     ExitsDialog(JFrame frame) {
         super(frame, Messages.getString("BoardEditor.SetExits"), true);
         setResizable(false);
+        JButton butDone = new JButton(Messages.getString("BoardEditor.Done"));
         butDone.addActionListener(this);
         cheExit0 = setupTButton("0");
         cheExit1 = setupTButton("1");
@@ -64,14 +58,20 @@ public class ExitsDialog extends JDialog implements ActionListener {
         cheExit3 = setupTButton("3");
         cheExit4 = setupTButton("4");
         cheExit5 = setupTButton("5");
+        JPanel panNorth = new JPanel(new GridBagLayout());
         panNorth.add(cheExit0);
+        JPanel panSouth = new JPanel(new GridBagLayout());
         panSouth.add(cheExit3);
+        JPanel panWest = new JPanel(new BorderLayout());
         panWest.add(cheExit5, BorderLayout.NORTH);
         panWest.add(cheExit4, BorderLayout.SOUTH);
+        JPanel panEast = new JPanel(new BorderLayout());
         panEast.add(cheExit1, BorderLayout.NORTH);
         panEast.add(cheExit2, BorderLayout.SOUTH);
+        JPanel panExits = new JPanel(new BorderLayout());
         panExits.add(panNorth, BorderLayout.NORTH);
         panExits.add(panWest, BorderLayout.WEST);
+        JLabel labBlank = new JLabel("                            ");
         panExits.add(labBlank, BorderLayout.CENTER);
         panExits.add(panEast, BorderLayout.EAST);
         panExits.add(panSouth, BorderLayout.SOUTH);

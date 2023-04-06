@@ -32,8 +32,6 @@ import java.util.Vector;
  * MechDisplay.ArmorPanel class.
  */
 public class BattleArmorMapSet implements DisplayMapSet {
-    // Picture with figure
-    private Image battleArmorImage;
     // Images that shows how much armor + 1 internal damage left.
     private final Image[] armorImage = new Image[BattleArmor.BA_MAX_MEN];
     // Reference to Component (required for Image handling)
@@ -48,8 +46,6 @@ public class BattleArmorMapSet implements DisplayMapSet {
     private final PMAreasGroup content = new PMAreasGroup();
     // Set of Background drawers which will be sent to PicMap component
     private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
-
-    private final int stepY = 53;
 
     private static final Font FONT_VALUE = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN,
             GUIPreferences.getInstance().getInt("AdvancedMechDisplayArmorLargeFontSize"));
@@ -66,10 +62,12 @@ public class BattleArmorMapSet implements DisplayMapSet {
     private void setAreas() {
         FontMetrics fm = comp.getFontMetrics(FONT_VALUE);
 
-        battleArmorImage = comp.getToolkit().getImage(
+        // Picture with figure
+        Image battleArmorImage = comp.getToolkit().getImage(
                 new MegaMekFile(Configuration.widgetsDir(), "battle_armor.gif").toString());
         PMUtil.setImage(battleArmorImage, comp);
         for (int i = 0; i < BattleArmor.BA_MAX_MEN; i++) {
+            int stepY = 53;
             int shiftY = i * stepY;
             unitAreas[i] = new PMPicArea(battleArmorImage);
             unitAreas[i].translate(0, shiftY);
@@ -99,8 +97,8 @@ public class BattleArmorMapSet implements DisplayMapSet {
     @Override
     public void setEntity(Entity e) {
         BattleArmor ba = (BattleArmor) e;
-        int armor = 0;
-        int internal = 0;
+        int armor;
+        int internal;
         // int men = 5;
         int men = ba.getTroopers();
 
@@ -190,7 +188,7 @@ public class BattleArmorMapSet implements DisplayMapSet {
 
     // Redraws armor images
     private void drawArmorImage(Image im, int a) {
-        int x = 0;
+        int x;
         int w = im.getWidth(null);
         int h = im.getHeight(null);
         Graphics g = im.getGraphics();

@@ -144,8 +144,8 @@ public class VTOLMapSet implements DisplayMapSet {
     @Override
     public void setEntity(Entity e) {
         VTOL vtol = (VTOL) e;
-        int armor = 1;
-        int originalArmor = 1;
+        int armor;
+        int originalArmor;
         int location = 0;
         
         // Cycle through the labels

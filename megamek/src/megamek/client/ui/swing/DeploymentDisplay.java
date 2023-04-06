@@ -312,7 +312,7 @@ public class DeploymentDisplay extends StatusBarPhaseDisplay {
         String reason = game.getPlanetaryConditions().whyDoomed(en, game);
         if ((reason != null) && GUIP.getNagForDoomed()) {
             String title = Messages.getString("DeploymentDisplay.ConfirmDoomed.title"); 
-            String body = Messages.getString("DeploymentDisplay.ConfirmDoomed.message", new Object[] {reason}); 
+            String body = Messages.getString("DeploymentDisplay.ConfirmDoomed.message", reason);
             ConfirmDialog response = clientgui.doYesNoBotherDialog(title, body);
             if (response.getShowAgain()) {
                 GUIP.setNagForDoomed(false);

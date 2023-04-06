@@ -249,7 +249,7 @@ public class AreaEffectHelper {
      */
     public static void checkInfantryDestruction(Entity entity, int distFromCenter, Entity attacker, Vector<Integer> alreadyHit,
                                                 Vector<Report> vPhaseReport, GameManager gameManager) {
-        int rollTarget = -1;
+        int rollTarget;
         if (entity instanceof BattleArmor) {
             rollTarget = 7;
         } else if (entity instanceof Infantry) {
@@ -491,7 +491,6 @@ public class AreaEffectHelper {
                                 // hack: check if damage is still at 4, so
                                 // we're in the center hex. otherwise, do no damage
                                 if (damage == 4) {
-                                    damage = 25;
                                 } else {
                                     return;
                                 }
@@ -500,7 +499,6 @@ public class AreaEffectHelper {
                                 // hack: check if damage is still at 2, so we're in
                                 // the center hex. otherwise, do no damage
                                 if (damage == 2) {
-                                    damage = 15;
                                 } else {
                                     return;
                                 }
@@ -508,7 +506,6 @@ public class AreaEffectHelper {
                             case AmmoType.T_THUMPER:
                                 // no need to check for damage, because
                                 // falloff = damage for the thumper
-                                damage = 10;
                                 break;
                         }
                     }

@@ -248,24 +248,24 @@ public class OffBoardTargetOverlay implements IDisplayable {
         switch (direction) {
             // north rectangle is wider than narrower, and at the top of the board view
             case NORTH:
-                xPosition = boundingRectangle.x + (int) (boundingRectangle.width / 2) - (int) (WIDE_EDGE_SIZE / 2);
+                xPosition = boundingRectangle.x + (boundingRectangle.width / 2) - (WIDE_EDGE_SIZE / 2);
                 yPosition = boundingRectangle.y + EDGE_OFFSET;
                 return new Rectangle(xPosition, yPosition, WIDE_EDGE_SIZE, NARROW_EDGE_SIZE);
             // west rectangle is narrower than wider, and at the left of the board view
             case WEST:
                 xPosition = boundingRectangle.x + EDGE_OFFSET;
-                yPosition = boundingRectangle.y + (int) (boundingRectangle.height / 2) - (int) (WIDE_EDGE_SIZE / 2);
+                yPosition = boundingRectangle.y + (boundingRectangle.height / 2) - (WIDE_EDGE_SIZE / 2);
                 return new Rectangle(xPosition, yPosition, WIDE_EDGE_SIZE, NARROW_EDGE_SIZE); // used to be NARROW_EDGE_SIZE, WIDE_EDGE_SIZE);
             // south rectangle is wider than narrower, and at the bottom of the board view
             case SOUTH:
-                xPosition = boundingRectangle.x + (int) (boundingRectangle.width / 2) - (int) (WIDE_EDGE_SIZE / 2);
+                xPosition = boundingRectangle.x + (boundingRectangle.width / 2) - (WIDE_EDGE_SIZE / 2);
                 yPosition = boundingRectangle.y + boundingRectangle.height - EDGE_OFFSET - NARROW_EDGE_SIZE;
                 return new Rectangle(xPosition, yPosition, WIDE_EDGE_SIZE, NARROW_EDGE_SIZE);
             // east rectangle is narrower than wider, and at the right of the board view, but to the left of the unit overview panel
             case EAST:
                 int extraXOffset = GUIPreferences.getInstance().getShowUnitOverview() ? UnitOverview.getUIWidth() : 0;
                 xPosition = boundingRectangle.x + boundingRectangle.width - WIDE_EDGE_SIZE - EDGE_OFFSET - extraXOffset;
-                yPosition = boundingRectangle.y + (int) (boundingRectangle.height / 2) - (int) (NARROW_EDGE_SIZE / 2);
+                yPosition = boundingRectangle.y + (boundingRectangle.height / 2) - (NARROW_EDGE_SIZE / 2);
                 return new Rectangle(xPosition, yPosition, WIDE_EDGE_SIZE, NARROW_EDGE_SIZE); // used to be NARROW_EDGE_SIZE, WIDE_EDGE_SIZE);
             default:
                 return null;

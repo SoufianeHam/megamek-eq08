@@ -425,7 +425,6 @@ public class AeroBVCalculator {
                 if ((mLinker.getType() instanceof MiscType)
                         && mLinker.getType().hasFlag(MiscType.F_RISC_LASER_PULSE_MODULE)) {
                     dBV *= 1.15;
-                    name = name.concat(" with RISC Laser Pulse Module");
                 }
             }
 

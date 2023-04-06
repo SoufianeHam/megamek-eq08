@@ -2855,33 +2855,45 @@ public class ClientGUI extends JPanel implements BoardViewListener,
 
     @Override
     public void preferenceChange(PreferenceChangeEvent e) {
-        if (e.getName().equals(GUIPreferences.MINI_MAP_ENABLED)) {
-            setMapVisible(GUIP.getMinimapEnabled());
-        } else if (e.getName().equals(GUIPreferences.PLAYER_LIST_ENABLED)) {
-            setPlayerListVisible(GUIP.getPlayerListEnabled());
-        } else if (e.getName().equals(GUIPreferences.UNIT_DISPLAY_ENABLED)) {
-            setUnitDisplayVisible(GUIP.getUnitDisplayEnabled());
-        } else if (e.getName().equals(GUIPreferences.UNIT_DISPLAY_LOCATION)) {
-            setUnitDisplayVisible(GUIP.getUnitDisplayEnabled());
-        } else if (e.getName().equals(GUIPreferences.MINI_REPORT_ENABLED)) {
-            setMiniReportVisible(GUIP.getMiniReportEnabled());
-        } else if (e.getName().equals(GUIPreferences.MINI_REPORT_LOCATION)) {
-            setMiniReportVisible(GUIP.getMiniReportEnabled());
-        } else if (e.getName().equals(GUIPreferences.ADVANCED_DOCK_ON_LEFT)) {
-            setUnitDisplayVisible(GUIP.getUnitDisplayEnabled());
-            setMiniReportVisible(GUIP.getMiniReportEnabled());
-        } else if (e.getName().equals(GUIPreferences.ADVANCED_DOCK_MULTIPLE_ON_Y_AXIS)) {
-            setUnitDisplayVisible(GUIP.getUnitDisplayEnabled());
-            setMiniReportVisible(GUIP.getMiniReportEnabled());
-        } else if (e.getName().equals(GUIPreferences.GUI_SCALE)) {
-            adaptToGUIScale();
-        } else if (e.getName().equals(GUIPreferences.DEFAULT_WEAPON_SORT_ORDER)) {
-            setWeaponOrderPrefs(true);
-            getUnitDisplay().displayEntity(getUnitDisplay().getCurrentEntity());
-        } else if ((e.getName().equals(GUIPreferences.SOUND_BING_FILENAME_CHAT))
-                || (e.getName().equals(GUIPreferences.SOUND_BING_FILENAME_MY_TURN))
-                || (e.getName().equals(GUIPreferences.SOUND_BING_FILENAME_OTHERS_TURN))) {
-            loadSoundFiles();
+        switch (e.getName()) {
+            case GUIPreferences.MINI_MAP_ENABLED:
+                setMapVisible(GUIP.getMinimapEnabled());
+                break;
+            case GUIPreferences.PLAYER_LIST_ENABLED:
+                setPlayerListVisible(GUIP.getPlayerListEnabled());
+                break;
+            case GUIPreferences.UNIT_DISPLAY_ENABLED:
+                setUnitDisplayVisible(GUIP.getUnitDisplayEnabled());
+                break;
+            case GUIPreferences.UNIT_DISPLAY_LOCATION:
+                setUnitDisplayVisible(GUIP.getUnitDisplayEnabled());
+                break;
+            case GUIPreferences.MINI_REPORT_ENABLED:
+                setMiniReportVisible(GUIP.getMiniReportEnabled());
+                break;
+            case GUIPreferences.MINI_REPORT_LOCATION:
+                setMiniReportVisible(GUIP.getMiniReportEnabled());
+                break;
+            case GUIPreferences.ADVANCED_DOCK_ON_LEFT:
+                setUnitDisplayVisible(GUIP.getUnitDisplayEnabled());
+                setMiniReportVisible(GUIP.getMiniReportEnabled());
+                break;
+            case GUIPreferences.ADVANCED_DOCK_MULTIPLE_ON_Y_AXIS:
+                setUnitDisplayVisible(GUIP.getUnitDisplayEnabled());
+                setMiniReportVisible(GUIP.getMiniReportEnabled());
+                break;
+            case GUIPreferences.GUI_SCALE:
+                adaptToGUIScale();
+                break;
+            case GUIPreferences.DEFAULT_WEAPON_SORT_ORDER:
+                setWeaponOrderPrefs(true);
+                getUnitDisplay().displayEntity(getUnitDisplay().getCurrentEntity());
+                break;
+            case GUIPreferences.SOUND_BING_FILENAME_CHAT:
+            case GUIPreferences.SOUND_BING_FILENAME_MY_TURN:
+            case GUIPreferences.SOUND_BING_FILENAME_OTHERS_TURN:
+                loadSoundFiles();
+                break;
         }
     }
 }

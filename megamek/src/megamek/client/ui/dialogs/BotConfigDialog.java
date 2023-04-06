@@ -83,8 +83,7 @@ public class BotConfigDialog extends AbstractButtonDialog implements ActionListe
     private final TipButton saveNewPreset = new TipButton(Messages.getString("BotConfigDialog.saveNew"));
     
     private final JButton princessHelpButton = new JButton(Messages.getString("BotConfigDialog.help"));
-            
-    private JPanel presetsPanel;
+
     private final JLabel chooseLabel = new JLabel(Messages.getString("BotConfigDialog.behaviorNameLabel"));
     /** A copy of the current presets. Modifications will only be saved when accepted. */
     private List<String> presets;
@@ -158,7 +157,7 @@ public class BotConfigDialog extends AbstractButtonDialog implements ActionListe
         var princessScroll = new JScrollPane(princessPanel());
         princessScroll.getVerticalScrollBar().setUnitIncrement(16);
         princessScroll.setBorder(null);
-        presetsPanel = presetsPanel();
+        JPanel presetsPanel = presetsPanel();
         
         var result = new JPanel(new BorderLayout(0, 0));
         result.setAlignmentX(LEFT_ALIGNMENT);

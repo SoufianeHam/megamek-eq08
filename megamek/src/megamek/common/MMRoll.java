@@ -223,7 +223,7 @@ public class MMRoll extends Roll {
         MMRandom rng;
 
         // Parse the input.
-        int count = 2;
+        int count;
         int sides = 6;
         int start = 1;
         int whichRNG = MMRandom.R_DEFAULT;

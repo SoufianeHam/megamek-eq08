@@ -28,7 +28,7 @@ public class Flare implements Serializable {
     public Coords position;
     public int turnsToBurn;
     public final int radius;
-    public int flags = 0;
+    public int flags;
 
     public static final int F_IGNITED = 1;
     public static final int F_DRIFTING = 2;

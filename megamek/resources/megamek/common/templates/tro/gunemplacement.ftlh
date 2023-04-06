@@ -19,13 +19,19 @@
 	<table>
 	<tr><th>Equipment</th><th/><th>Mass</th></tr>
 	<tr><td>Heat Sinks:</td><td align="center">${hsCount}</td><td align="center">${hsMass}</td></tr>
-	<tr><td>Control Equipment:</td><td></td><td align="center">${controlMass}</td</tr>
+	<#--noinspection SyntaxError-->
+	<tr><td>Control Equipment:</td><td></td><td align="center">${controlMa	<#--noinspection SyntaxError-->
+ss}</td</tr>
 <#if liftMass gt 0>
-	<tr><td>Lift Equipment:</td><td></td><td align="center">${liftMass}</td</tr>
+	<tr><td>Lift Equip	<#--noinspection SyntaxError-->
+ment:</td><td></td><td align="center">${liftMass}</td</tr>
 </#if>
-	<tr><td>Power Amplifier:</td><td></td><td align="center">${amplifierMass}</td</tr>
+	<	<#--noinspection SyntaxError-->
+tr><td>Power Amplifier:</td><td></td><td align="center">${amplifierMass}</td<	<#--noinspection SyntaxError-->
+/tr>
 <#if hasTurret2>
 	<tr><td>Rear Turret:</td><td></td><td align="center">${turretMass}</td</tr>
+	<#--noinspection SyntaxError-->
 	<tr><td>Front Turret:</td><td></td><td align="center">${turretMass2}</td</tr>
 <#elseif hasTurret>
 	<tr><td>Turret:</td><td></td><td align="center">${turretMass}</td</tr>

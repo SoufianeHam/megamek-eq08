@@ -169,7 +169,6 @@ public class JumpJetAttackAction extends PhysicalAttackAction {
             if (m.getType().hasFlag(MiscType.F_JUMP_JET)
                     && m.isReady()
                     && ((loc == kickLegs[0] && (leg == BOTH || leg == LEFT)) || (loc == kickLegs[1] && (leg == BOTH || leg == RIGHT)))) {
-                hasJJ = true;
                 break;
             }
             return new ToHitData(TargetRoll.IMPOSSIBLE,

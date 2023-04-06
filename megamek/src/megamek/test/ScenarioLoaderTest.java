@@ -17,8 +17,6 @@ import megamek.server.Server;
 
 public class ScenarioLoaderTest {
     private final List<String> errCache = new ArrayList<>();
-    private PrintStream cachedPs;
-    private PrintStream originalOut;
     private PrintStream originalErr;
     
     public static void main(String[] args) {
@@ -35,11 +33,11 @@ public class ScenarioLoaderTest {
                 // Output nothing
             }
         });
-        originalOut = System.out;
+        PrintStream originalOut = System.out;
         System.setOut(nullPs);
-        cachedPs = new PrintStream(new OutputStream() {
+        PrintStream cachedPs = new PrintStream(new OutputStream() {
             private final StringBuilder line = new StringBuilder();
-            
+
             @Override
             public void write(int b) throws IOException {
                 if (b == '\n') {

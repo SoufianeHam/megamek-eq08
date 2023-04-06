@@ -50,6 +50,6 @@ public class InfantryShotgunWakazashiWeapon extends InfantryWeapon {
         techAdvancement.setTechBase(TechAdvancement.TECH_BASE_ALL);
         techAdvancement.setAdvancement(DATE_NONE, DATE_NONE, 2100);
         techAdvancement.setTechRating(RATING_D);
-        techAdvancement.setAvailability( new int[] { RATING_C, RATING_C, RATING_C, RATING_C });
+        techAdvancement.setAvailability(RATING_C, RATING_C, RATING_C, RATING_C);
     }
 }

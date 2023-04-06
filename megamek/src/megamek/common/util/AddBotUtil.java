@@ -191,10 +191,10 @@ public class AddBotUtil {
         Optional<Player> possible = game.getPlayersVector().stream()
                 .filter(p -> p.getName().equals(playerName)).findFirst();
         if (possible.isEmpty()) {
-            message.append("No player with the name '" + playerName + "'.");
+            message.append("No player with the name '").append(playerName).append("'.");
             return null;
         } else if (!possible.get().isGhost()) {
-            message.append("Player '" + playerName + "' is not a ghost.");
+            message.append("Player '").append(playerName).append("' is not a ghost.");
             return null;
         }
         
@@ -211,7 +211,7 @@ public class AddBotUtil {
             message.append("Princess failed to connect.");
         }
         princess.setLocalPlayerNumber(target.getId());
-        message.append("Princess has replaced " + playerName + ".");
+        message.append("Princess has replaced ").append(playerName).append(".");
         return princess;
     }
 

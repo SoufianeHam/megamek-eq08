@@ -136,8 +136,8 @@ class ArmorPanel extends PicMap {
         }
         int w = Math.round(((getSize().width - r.width) / 2));
         int h = Math.round(((getSize().height - r.height) / 2));
-        int dx = w < minLeftMargin ? minLeftMargin : w;
-        int dy = h < minTopMargin ? minTopMargin : h;
+        int dx = Math.max(w, minLeftMargin);
+        int dy = Math.max(h, minTopMargin);
         setContentMargins(dx, dy, minRightMargin, minBottomMargin);
     }
 

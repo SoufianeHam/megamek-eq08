@@ -56,7 +56,6 @@ import java.util.List;
 public class PlanetaryConditionsOverlay implements IDisplayable, IPreferenceChangeListener {
     private static final Font FONT = new Font("SansSerif", Font.PLAIN, 13);
     private static final int DIST_TOP = 30;
-    private int distSide = 500;
     private int overlayWidth = 500;
     private static final int PADDING_X = 10;
     private static final int PADDING_Y = 5;
@@ -103,6 +102,21 @@ public class PlanetaryConditionsOverlay implements IDisplayable, IPreferenceChan
         visible = GUIP.getBoolean(GUIPreferences.SHOW_PLANETARYCONDITIONS_OVERLAY);
         currentGame = game;
         currentPhase = game.getPhase();
+        /** Detects phase and turn changes to display Planetary Conditions. */
+        // The active player has changed
+        GameListener gameListener = new GameListenerAdapter() {
+            @Override
+            public void gamePhaseChange(GamePhaseChangeEvent e) {
+                currentPhase = e.getNewPhase();
+                changed = true;
+            }
+
+            @Override
+            public void gameTurnChange(GameTurnChangeEvent e) {
+                // The active player has changed
+                changed = true;
+            }
+        };
         game.addGameListener(gameListener);
         clientGui = cg;
         KeyBindParser.addPreferenceChangeListener(this);
@@ -152,7 +166,7 @@ public class PlanetaryConditionsOverlay implements IDisplayable, IPreferenceChan
             }
         }
 
-        distSide = clipBounds.width - (overlayWidth + 100);
+        int distSide = clipBounds.width - (overlayWidth + 100);
 
         // draw the cached image to the boardview
         // uses Composite to draw the image with variable transparency
@@ -194,7 +208,7 @@ public class PlanetaryConditionsOverlay implements IDisplayable, IPreferenceChan
 
         String toggleKey = KeyCommandBind.getDesc(KeyCommandBind.PLANETARY_CONDITIONS);
 
-        String tmpStr = "";
+        String tmpStr;
         Boolean showHeading = GUIP.getAdvancedPlanetaryConditionsShowHeader();
         tmpStr = (showHeading ? String.format("#%02X%02X%02X", colorTitle.getRed(), colorTitle.getGreen(), colorTitle.getBlue()) + MessageFormat.format(MSG_HEADING, toggleKey) : "");
 
@@ -371,21 +385,6 @@ public class PlanetaryConditionsOverlay implements IDisplayable, IPreferenceChan
         }
         return false;
     }
-    
-    /** Detects phase and turn changes to display Planetary Conditions. */
-    private final GameListener gameListener = new GameListenerAdapter() {
-        @Override
-        public void gamePhaseChange(GamePhaseChangeEvent e) {
-            currentPhase = e.getNewPhase();
-            changed = true;
-        }
-        
-        @Override
-        public void gameTurnChange(GameTurnChangeEvent e) {
-            // The active player has changed
-            changed = true;
-        }
-    };
 
     @Override
     public void preferenceChange(PreferenceChangeEvent e) {

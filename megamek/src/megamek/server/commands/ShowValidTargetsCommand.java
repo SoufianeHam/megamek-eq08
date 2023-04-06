@@ -26,7 +26,7 @@ public class ShowValidTargetsCommand extends ServerCommand {
             Entity ent = gameManager.getGame().getEntity(id);
 
             if (ent != null) {
-                String str = "No valid targets.";
+                StringBuilder str = new StringBuilder("No valid targets.");
                 boolean canHit = false;
                 ToHitData thd;
 
@@ -41,20 +41,17 @@ public class ShowValidTargetsCommand extends ServerCommand {
                         thd.setSideTable(target.sideTable(ent.getPosition()));
 
                         if (!canHit) {
-                            str = "This entity(" + id
-                                    + ") can shoot the following entities: \n";
+                            str = new StringBuilder("This entity(" + id
+                                    + ") can shoot the following entities: \n");
                             canHit = true;
                         }
-                        str = str + entList.get(i).getId()
-                                + " at a to hit penalty of ";
-                        str = str
-                                + thd.getValue()
-                                + ", at range " + ent.getPosition().distance(entList.get(i).getPosition()) + thd.getTableDesc() + ";\n";
+                        str.append(entList.get(i).getId()).append(" at a to hit penalty of ");
+                        str.append(thd.getValue()).append(", at range ").append(ent.getPosition().distance(entList.get(i).getPosition())).append(thd.getTableDesc()).append(";\n");
                     }
 
                 }
 
-                server.sendServerChat(connId, str);
+                server.sendServerChat(connId, str.toString());
             } else {
                 server.sendServerChat(connId, "No such entity.");
             }

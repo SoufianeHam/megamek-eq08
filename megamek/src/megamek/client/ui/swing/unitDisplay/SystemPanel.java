@@ -40,10 +40,6 @@ class SystemPanel extends PicMap implements ItemListener, ActionListener, ListSe
 
     private final JPanel panelMain;
     private final JScrollPane tSlotScroll;
-    private final JLabel locLabel;
-    private final JLabel slotLabel;
-    private final JLabel modeLabel;
-    private final JLabel unitLabel;
     private final JList<String> slotList;
     private final JList<String> locList;
     private final JList<String> unitList;
@@ -54,19 +50,16 @@ class SystemPanel extends PicMap implements ItemListener, ActionListener, ListSe
     private Entity en;
     private final Vector<Entity> entities = new Vector<>();
 
-    private final int minTopMargin = 8;
-    private final int minLeftMargin = 8;
-
     SystemPanel(UnitDisplay unitDisplay) {
         this.unitDisplay = unitDisplay;
-        locLabel = new JLabel(Messages.getString("MechDisplay.Location"), SwingConstants.CENTER);
+        JLabel locLabel = new JLabel(Messages.getString("MechDisplay.Location"), SwingConstants.CENTER);
         locLabel.setOpaque(false);
         locLabel.setForeground(Color.WHITE);
-        slotLabel = new JLabel(Messages.getString("MechDisplay.Slot"), SwingConstants.CENTER);
+        JLabel slotLabel = new JLabel(Messages.getString("MechDisplay.Slot"), SwingConstants.CENTER);
         slotLabel.setOpaque(false);
         slotLabel.setForeground(Color.WHITE);
 
-        unitLabel = new JLabel(Messages.getString("MechDisplay.Unit"), SwingConstants.CENTER);
+        JLabel unitLabel = new JLabel(Messages.getString("MechDisplay.Unit"), SwingConstants.CENTER);
         unitLabel.setOpaque(false);
         unitLabel.setForeground(Color.WHITE);
 
@@ -89,7 +82,7 @@ class SystemPanel extends PicMap implements ItemListener, ActionListener, ListSe
         m_bDumpAmmo.setEnabled(false);
         m_bDumpAmmo.setActionCommand("dump");
 
-        modeLabel = new JLabel(Messages.getString("MechDisplay.modeLabel"), SwingConstants.RIGHT);
+        JLabel modeLabel = new JLabel(Messages.getString("MechDisplay.modeLabel"), SwingConstants.RIGHT);
         modeLabel.setOpaque(false);
         modeLabel.setForeground(Color.WHITE);
 
@@ -205,9 +198,11 @@ class SystemPanel extends PicMap implements ItemListener, ActionListener, ListSe
             return;
         }
         int dx = Math.round(((w - r.width) / 2));
+        int minLeftMargin = 8;
         if (dx < minLeftMargin) {
             dx = minLeftMargin;
         }
+        int minTopMargin = 8;
         int dy = minTopMargin;
         setContentMargins(dx, dy, dx, dy);
     }

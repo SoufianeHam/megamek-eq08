@@ -62,9 +62,9 @@ public class MechSetTest {
         st.quoteChar('"');
         st.wordChars('_', '_');
         while (st.nextToken() != StreamTokenizer.TT_EOF) {
-            String name = null;
-            String imageName = null;
-            String entryName = null;
+            String name;
+            String imageName;
+            String entryName;
             if ((st.ttype == StreamTokenizer.TT_WORD)
                     && st.sval.equalsIgnoreCase("include")) {
                 st.nextToken();

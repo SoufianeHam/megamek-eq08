@@ -173,7 +173,7 @@ public class RandomUnitGenerator implements Serializable {
             String key = "Huh";
             float totalWeight = 0.0f;
             RatEntry re = new RatEntry();
-            String line = null;
+            String line;
             while (null != (line = reader.readLine())) {
                 if (interrupted) {
                     return;

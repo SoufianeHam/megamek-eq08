@@ -52,7 +52,6 @@ public abstract class AmmoBayWeapon extends BayWeapon {
             Mounted ammo = weapon.getLinked();
             if (ammo == null || ammo.getUsableShotsLeft() < 1) {
                 ae.loadWeaponWithSameAmmo(weapon);
-                ammo = weapon.getLinked();
             }
         }
     }

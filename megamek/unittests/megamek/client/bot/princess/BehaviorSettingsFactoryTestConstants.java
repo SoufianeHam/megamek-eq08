@@ -111,7 +111,7 @@ public class BehaviorSettingsFactoryTestConstants {
 
     public static final String NM_DEFAULT = BehaviorSettingsFactory.DEFAULT_BEHAVIOR_DESCRIPTION;
     /**
-     * Home Edge: {@link megamek.client.bot.princess.HomeEdge#NORTH} <br>
+     * Home Edge:  <br>
      * Forced Withdrawal: True <br>
      * Go Home: False <br>
      * Auto Flee: False <br>

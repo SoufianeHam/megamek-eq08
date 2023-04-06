@@ -42,9 +42,7 @@ import megamek.common.Mounted;
  */
 public class MineLayingDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -1067865530113792340L;
-    private final JButton butOkay = new JButton(Messages.getString("Okay"));
     private final JButton butCancel = new JButton(Messages.getString("Cancel"));
-    private final JLabel labMessage;
     private boolean okay = true;
 
     /**
@@ -65,7 +63,7 @@ public class MineLayingDialog extends JDialog implements ActionListener {
         super(parent, Messages.getString("MineLayingDialog.title"), true);
         this.entity = entity;
 
-        labMessage = new JLabel(Messages.getString("MineLayingDialog.selectMineToLay",
+        JLabel labMessage = new JLabel(Messages.getString("MineLayingDialog.selectMineToLay",
                 entity.getDisplayName()));
 
         // Walk through the entity's misc equipment, looking for mines.
@@ -88,6 +86,7 @@ public class MineLayingDialog extends JDialog implements ActionListener {
         } // Look at the next piece of equipment.
 
         // buttons
+        JButton butOkay = new JButton(Messages.getString("Okay"));
         butOkay.addActionListener(this);
         butCancel.addActionListener(this);
 

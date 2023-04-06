@@ -33,10 +33,8 @@ public class ScenarioDialog extends JDialog implements ActionListener {
     public static final int T_BOT = 2;
     public static final int T_OBOT = 3;
     private final Player[] m_players;
-    private final JLabel[] m_labels;
     @SuppressWarnings("rawtypes")
     private final JComboBox[] m_typeChoices;
-    private final JButton[] m_camoButtons;
     private final JFrame m_frame;
 
     public boolean bSet;
@@ -48,9 +46,9 @@ public class ScenarioDialog extends JDialog implements ActionListener {
         super(frame, Messages.getString("MegaMek.ScenarioDialog.title"), true);
         m_frame = frame;
         m_players = pa;
-        m_labels = new JLabel[pa.length];
+        JLabel[] m_labels = new JLabel[pa.length];
         m_typeChoices = new JComboBox[pa.length];
-        m_camoButtons = new JButton[pa.length];
+        JButton[] m_camoButtons = new JButton[pa.length];
         playerTypes = new int[pa.length];
         final PlayerColour[] colours = PlayerColour.values();
         for (int x = 0; x < pa.length; x++) {

@@ -37,17 +37,13 @@ import megamek.common.SpecialHexDisplay;
  */
 public class NoteDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -3126840102187553386L;
-    
-    private final JLabel noteLbl;
-    private final JLabel visibilityLbl;
-    
+
     private final JComboBox<String> visibility = new JComboBox<>();
     
     private final JTextArea noteText = new JTextArea("");
   
     private final JButton butDone = new JButton(Messages.getString("NoteDialog.Done"));
-    private final JButton butCancel = new JButton(Messages.getString("NoteDialog.Cancel"));
-    
+
     boolean accepted = false;
     
     final SpecialHexDisplay note;
@@ -57,6 +53,7 @@ public class NoteDialog extends JDialog implements ActionListener {
         this.note = note;
         setResizable(false);
         butDone.addActionListener(this);
+        JButton butCancel = new JButton(Messages.getString("NoteDialog.Cancel"));
         butCancel.addActionListener(this);
         
         JPanel layout;
@@ -64,9 +61,9 @@ public class NoteDialog extends JDialog implements ActionListener {
         noteText.setLineWrap(true);
         noteText.setMinimumSize(new Dimension(getWidth(), 200));
         noteText.setPreferredSize(new Dimension(getWidth(), 200));
-        
-        noteLbl = new JLabel(Messages.getString("NoteDialog.note"));
-        visibilityLbl = new JLabel(Messages.getString("NoteDialog.visibility"));
+
+        JLabel noteLbl = new JLabel(Messages.getString("NoteDialog.note"));
+        JLabel visibilityLbl = new JLabel(Messages.getString("NoteDialog.visibility"));
         
         visibility.addItem(Messages.getString("NoteDialog.owner"));
         visibility.addItem(Messages.getString("NoteDialog.team"));

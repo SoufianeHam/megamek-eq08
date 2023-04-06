@@ -62,11 +62,7 @@ public class MMConfirmDialog {
         private static final long serialVersionUID = -2877691301521648979L;
 
         private boolean userResponse = false;
-        
-        private final JPanel panButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        private final JButton butYes = new DialogButton(Messages.getString("Yes"));
-        private final JButton butNo = new DialogButton(Messages.getString("No"));
-        
+
         public ConfirmDialog(JFrame owner, String title, String message) {
             super(owner, title, true, true);
             addWindowListener(new WindowAdapter() {
@@ -76,8 +72,11 @@ public class MMConfirmDialog {
                     super.windowClosed(e);
                 }
             });
+            JPanel panButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
             add(panButtons, BorderLayout.PAGE_END);
+            JButton butYes = new DialogButton(Messages.getString("Yes"));
             panButtons.add(butYes);
+            JButton butNo = new DialogButton(Messages.getString("No"));
             panButtons.add(butNo);
             butYes.addActionListener(e -> respondYes());
             butNo.addActionListener(e -> respondNo());

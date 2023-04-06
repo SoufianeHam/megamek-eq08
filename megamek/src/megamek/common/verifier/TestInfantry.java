@@ -131,7 +131,7 @@ public class TestInfantry extends TestEntity {
 
         int max = maxSecondaryWeapons(inf);
         if (inf.getSecondaryWeaponsPerSquad() > max) {
-            buff.append("Number of secondary weapons exceeds maximum of " + max).append("\n\n");
+            buff.append("Number of secondary weapons exceeds maximum of ").append(max).append("\n\n");
             correct = false;
         }
 
@@ -154,14 +154,14 @@ public class TestInfantry extends TestEntity {
 
         max = maxSquadSize(inf.getMovementMode(), inf.hasMicrolite() || (inf.getAllUMUCount() > 1));
         if (inf.getSquadSize() > max) {
-            buff.append("Maximum squad size is " + max + "\n\n");
+            buff.append("Maximum squad size is ").append(max).append("\n\n");
             correct = false;
         }
 
         max = maxUnitSize(inf.getMovementMode(), inf.hasMicrolite() || (inf.getAllUMUCount() > 1),
                 inf.hasSpecialization(Infantry.COMBAT_ENGINEERS | Infantry.MOUNTAIN_TROOPS));
         if (inf.getShootingStrength() > max) {
-            buff.append("Maximum platoon size is " + max + "\n\n");
+            buff.append("Maximum platoon size is ").append(max).append("\n\n");
             correct = false;
         }
 

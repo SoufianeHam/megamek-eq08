@@ -29,9 +29,9 @@ import java.util.Vector;
  */
 public class MissileWeaponHandler extends AmmoWeaponHandler {
     private static final long serialVersionUID = -4801130911083653548L;
-    boolean advancedAMS = false;
-    boolean advancedPD = false;
-    boolean multiAMS = false;
+    boolean advancedAMS;
+    boolean advancedPD;
+    boolean multiAMS;
 
     public MissileWeaponHandler(ToHitData t, WeaponAttackAction w, Game g, GameManager m) {
         super(t, w, g, m);
@@ -176,7 +176,7 @@ public class MissileWeaponHandler extends AmmoWeaponHandler {
             // and we are using narc ammo, and we're not firing indirectly.
             // narc capable missiles are only affected if the narc pod, which
             // sits on the target, is ECM affected
-            boolean bTargetECMAffected = false;
+            boolean bTargetECMAffected;
             bTargetECMAffected = ComputeECM.isAffectedByECM(ae, target.getPosition(), target.getPosition());
             if (((atype.getAmmoType() == AmmoType.T_LRM)
                     || (atype.getAmmoType() == AmmoType.T_LRM_IMP)
@@ -977,7 +977,6 @@ public class MissileWeaponHandler extends AmmoWeaponHandler {
                 handleBuildingDamage(vPhaseReport, bldg, nDamage,
                         target.getPosition());
                 bSalvo = savedSalvo;
-                hits = 0;
             }
         }
         Report.addNewline(vPhaseReport);

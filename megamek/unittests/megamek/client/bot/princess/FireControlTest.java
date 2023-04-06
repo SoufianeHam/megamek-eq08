@@ -35,7 +35,6 @@ import java.math.BigInteger;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -90,7 +89,6 @@ public class FireControlTest {
 
     // ATM
     private Mounted mockAtm5Weapon;
-    private WeaponType mockAtm5;
     @SuppressWarnings("FieldCanBeLocal")
     private AmmoType mockAmmoTypeAtm5He;
     private Mounted mockAmmoAtm5He;
@@ -326,7 +324,7 @@ public class FireControlTest {
 
         // ATM
         mockAtm5Weapon = mock(Mounted.class);
-        mockAtm5 = mock(ATMWeapon.class);
+        WeaponType mockAtm5 = mock(ATMWeapon.class);
         mockAmmoTypeAtm5He = mock(AmmoType.class);
         mockAmmoAtm5He = mock(Mounted.class);
         mockAmmoTypeAtm5St = mock(AmmoType.class);

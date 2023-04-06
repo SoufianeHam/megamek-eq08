@@ -160,14 +160,19 @@ public class SubforcesNode extends RulesetNode {
         for (int x = 0; x < nl.getLength(); x++) {
             Node wn = nl.item(x);
 
-            if (wn.getNodeName().equals("subforce")) {
-                subforces.add(ValueNode.createFromXml(wn));
-            } else if (wn.getNodeName().equals("subforceOption")) {
-                optionSubforces.add(OptionGroupNode.createFromXml(wn));
-            } else if (wn.getNodeName().equals("asFaction")) {
-                altFaction = wn.getTextContent().trim();
-            } else if (wn.getNodeName().equals("asParent")) {
-                parentFaction = true;
+            switch (wn.getNodeName()) {
+                case "subforce":
+                    subforces.add(ValueNode.createFromXml(wn));
+                    break;
+                case "subforceOption":
+                    optionSubforces.add(OptionGroupNode.createFromXml(wn));
+                    break;
+                case "asFaction":
+                    altFaction = wn.getTextContent().trim();
+                    break;
+                case "asParent":
+                    parentFaction = true;
+                    break;
             }
         }
     }

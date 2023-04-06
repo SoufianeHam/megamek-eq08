@@ -483,7 +483,7 @@ public class GunEmplacement extends Tank {
      */
     @Override
     public int getDamagedCriticals(int type, int index, int loc) {
-        Mounted m = null;
+        Mounted m;
         if (type == CriticalSlot.TYPE_EQUIPMENT) {
             m = getEquipment(index);
             

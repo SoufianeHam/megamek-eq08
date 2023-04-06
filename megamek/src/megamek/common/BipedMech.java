@@ -728,7 +728,7 @@ public class BipedMech extends Mech {
 
         for (Mounted mounted : getMisc()) {
             if ((mounted.getLocation() == Mech.LOC_LLEG) || (mounted.getLocation() == Mech.LOC_RLEG)) {
-                if (((MiscType) mounted.getType()).hasFlag(MiscType.F_ACTUATOR_ENHANCEMENT_SYSTEM) && !mounted
+                if (mounted.getType().hasFlag(MiscType.F_ACTUATOR_ENHANCEMENT_SYSTEM) && !mounted
                         .isDestroyed() && !mounted.isBreached() && !mounted.isMissing()) {
                     if (mounted.getLocation() == Mech.LOC_LLEG) {
                         leftLeg = true;
@@ -736,7 +736,7 @@ public class BipedMech extends Mech {
                         rightLeg = true;
                     }
                 }// AES is destroyed their for it cannot be used.
-                else if (((MiscType) mounted.getType()).hasFlag(MiscType.F_ACTUATOR_ENHANCEMENT_SYSTEM)) {
+                else if (mounted.getType().hasFlag(MiscType.F_ACTUATOR_ENHANCEMENT_SYSTEM)) {
                     return false;
                 }
             }

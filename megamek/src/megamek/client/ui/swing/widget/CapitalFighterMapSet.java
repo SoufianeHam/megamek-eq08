@@ -59,7 +59,6 @@ public class CapitalFighterMapSet implements DisplayMapSet {
     private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
     private final PMAreasGroup content = new PMAreasGroup();
 
-    private final int stepY = 14;
     private final int squareSize = 7;
     private final int armorRows = 8;
     private final int armorCols = 6;
@@ -211,6 +210,7 @@ public class CapitalFighterMapSet implements DisplayMapSet {
         armorArea.translate(0, squareSize);
         armorVLabel.translate((armorCols * (squareSize + 1)) / 2, squareSize + (armorRows * (squareSize + 1)) / 2);
 
+        int stepY = 14;
         avCritLabel.translate(5 + armorCols * (squareSize + 1), stepY);
         engineCritLabel.translate(5 + armorCols * (squareSize + 1), 2 * stepY);
         fcsCritLabel.translate(5 + armorCols * (squareSize + 1), 3 * stepY);

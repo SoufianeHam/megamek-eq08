@@ -76,8 +76,6 @@ public class ForceGeneratorOptionsView extends JPanel implements FocusListener, 
     private JCheckBox chkRoleAirRecon;
     private JCheckBox chkRoleGroundSupport;
     private JCheckBox chkRoleInterceptor;
-    private JCheckBox chkRoleEscort;
-    private JCheckBox chkRoleBomber;
     private JCheckBox chkRoleAssault;
     private JCheckBox chkRoleAirTransport;
 
@@ -404,12 +402,12 @@ public class ForceGeneratorOptionsView extends JPanel implements FocusListener, 
         gbc.gridy = 0;
         panAirRole.add(chkRoleInterceptor, gbc);
 
-        chkRoleEscort = createMissionRoleCheck(MissionRole.ESCORT);
+        JCheckBox chkRoleEscort = createMissionRoleCheck(MissionRole.ESCORT);
         gbc.gridx = 0;
         gbc.gridy = 1;
         panAirRole.add(chkRoleEscort, gbc);
 
-        chkRoleBomber = createMissionRoleCheck(MissionRole.BOMBER);
+        JCheckBox chkRoleBomber = createMissionRoleCheck(MissionRole.BOMBER);
         gbc.gridx = 1;
         gbc.gridy = 1;
         panAirRole.add(chkRoleBomber, gbc);
@@ -678,7 +676,7 @@ public class ForceGeneratorOptionsView extends JPanel implements FocusListener, 
                 formationDisplayNames.clear();
                 for (String formation : n.getContent().split(",")) {
                     Ruleset rs = ruleset;
-                    ForceNode fn = null;
+                    ForceNode fn;
                     do {
                         fn = rs.findForceNode(forceDesc,
                                 Integer.parseInt(formation.replaceAll("[^0-9]", "")),
@@ -803,7 +801,7 @@ public class ForceGeneratorOptionsView extends JPanel implements FocusListener, 
         if (null == rs) {
             return null;
         }
-        TOCNode toc = null;
+        TOCNode toc;
         do {
             toc = rs.getTOCNode();
             if (toc == null) {

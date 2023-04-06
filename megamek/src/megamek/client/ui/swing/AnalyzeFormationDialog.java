@@ -31,7 +31,6 @@ public class AnalyzeFormationDialog extends JDialog {
 
     private static final long serialVersionUID = 6487681030307585648L;
 
-    private final JTable tblUnits;
     private final TableRowSorter<UnitTableModel> tableSorter;
     
     private final FormationType formationType;
@@ -162,7 +161,7 @@ public class AnalyzeFormationDialog extends JDialog {
         panAvailable.add(new JLabel(""), gbc);
         
         UnitTableModel model = new UnitTableModel();
-        tblUnits = new JTable(model);
+        JTable tblUnits = new JTable(model);
         tableSorter = new TableRowSorter<>(model);
         tableSorter.setComparator(UnitTableModel.COL_MOVEMENT,
                 Comparator.comparing(m -> Integer.valueOf(m.toString().replaceAll("\\D.*", ""))));

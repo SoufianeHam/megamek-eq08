@@ -80,7 +80,7 @@ public abstract class AbstractGameConnectionDialog extends ClientDialog implemen
     private JComboBox<String> playerNameCombo = null;
     private JTextField portField;
 
-    private Vector<String> playerNames = null;
+    private Vector<String> playerNames;
 
     private final ClientPreferences clientPreferences = PreferenceManager.getClientPreferences();
 

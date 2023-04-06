@@ -47,7 +47,7 @@ public class UnitOverview implements IDisplayable {
 
     private int[] unitIds;
     private boolean isHit = false;
-    private boolean visible = true;
+    private boolean visible;
     private boolean scroll = false;
     private int unitsPerPage = UNKNOWN_UNITS_PER_PAGE;
     private int actUnitsPerPage = 0;
@@ -314,8 +314,8 @@ public class UnitOverview implements IDisplayable {
     private void drawBars(Graphics graph, Entity entity, int x, int y) {
         // Lets draw our armor and internal status bars
         int baseBarLength = 23;
-        int barLength = 0;
-        double percentRemaining = 0.00;
+        int barLength;
+        double percentRemaining;
 
         percentRemaining = entity.getArmorRemainingPercent();
         if (percentRemaining != IArmorState.ARMOR_NA) {
