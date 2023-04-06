@@ -141,7 +141,7 @@ public class BreakGrappleAttackAction extends PhysicalAttackAction {
             wmod = ae.getWeightClass() * -1;
         } else if ((ae instanceof Protomech) && !(te instanceof Protomech)) {
             wmod = te.getWeightClass();
-        } else if ((te instanceof Protomech) && (ae instanceof Protomech)) {
+        } else if (te instanceof Protomech) {
             wmod = 0;
         }
 

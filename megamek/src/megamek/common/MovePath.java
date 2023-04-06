@@ -726,7 +726,7 @@ public class MovePath implements Cloneable, Serializable {
             int nextHexLevel = nextHex.containsAnyTerrainOf(Terrains.BLDG_ELEV, Terrains.BRIDGE_ELEV) ?
                     nextHex.ceiling() : nextHex.floor();
 
-            return onBoard && nextHexOnBoard && (nextHexLevel == curHexLevel + 1);
+            return nextHexLevel == curHexLevel + 1;
         }
 
         return true;
@@ -1396,7 +1396,7 @@ public class MovePath implements Cloneable, Serializable {
 
 
             loopcount++;
-            if (((loopcount % 256) == 0) && keepLooping && !candidates.isEmpty()) {
+            if (loopcount % 256 == 0 && !candidates.isEmpty()) {
                 final MovePath front = candidates.peek();
                 if (front.getFinalCoords().distance(dest) < bestPath.getFinalCoords().distance(dest)) {
                     bestPath = front;

@@ -25,6 +25,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Objects;
 import java.util.StringTokenizer;
 
 import javax.swing.JButton;
@@ -190,10 +191,6 @@ public class BombPayloadDialog extends JDialog implements ActionListener, ItemLi
         if (size.height < GUIPreferences.getInstance().getMinimumSizeHeight()) {
             size.height = GUIPreferences.getInstance().getMinimumSizeHeight();
         }
-        if (updateSize) {
-            setSize(size);
-            size = getSize();
-        }
         setLocation((parent.getLocation().x + (parent.getSize().width / 2))
                 - (size.width / 2), (parent.getLocation().y
                 + (parent.getSize().height / 2)) - (size.height / 2));
@@ -326,6 +323,7 @@ public class BombPayloadDialog extends JDialog implements ActionListener, ItemLi
                 for (int i = 0; i < b_choices.length; i++) {
                     // Selected items look like # (#)
                     String bombString = (String) b_choices[i].getSelectedItem();
+                    assert bombString != null;
                     StringTokenizer toks = new StringTokenizer(bombString, "() ");
                     // Peel off the salvo size
                     int numSalvos = Integer.parseInt(toks.nextToken());
@@ -337,7 +335,7 @@ public class BombPayloadDialog extends JDialog implements ActionListener, ItemLi
                 }
             } else {
                 for (int i = 0; i < b_choices.length; i++) {
-                    choices[i] = Integer.parseInt((String) b_choices[i].getSelectedItem());
+                    choices[i] = Integer.parseInt((String) Objects.requireNonNull(b_choices[i].getSelectedItem()));
                 }
             }
         }

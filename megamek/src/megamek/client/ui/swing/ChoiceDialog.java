@@ -185,10 +185,6 @@ public class ChoiceDialog extends JDialog implements ActionListener {
         if (size.height < GUIPreferences.getInstance().getMinimumSizeHeight()) {
             size.height = GUIPreferences.getInstance().getMinimumSizeHeight();
         }
-        if (updateSize) {
-            setSize(size);
-            size = getSize();
-        }
         setLocation(parent.getLocation().x + parent.getSize().width / 2
                 - size.width / 2, parent.getLocation().y
                 + parent.getSize().height / 2 - size.height / 2);

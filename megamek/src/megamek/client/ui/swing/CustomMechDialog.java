@@ -921,6 +921,7 @@ public class CustomMechDialog extends AbstractButtonDialog implements ActionList
                     && entity.getEntityType() != Entity.ETYPE_FIGHTER_SQUADRON
                     && entity.getEntityType() != Entity.ETYPE_JUMPSHIP
                     && entity.getEntityType() != Entity.ETYPE_SPACE_STATION) {
+                assert entity instanceof Aero;
                 testEntity = new TestAero((Aero) entity, verifier.mechOption, null);
             } else if (entity instanceof BattleArmor) {
                 testEntity = new TestBattleArmor((BattleArmor) entity, verifier.baOption, null);

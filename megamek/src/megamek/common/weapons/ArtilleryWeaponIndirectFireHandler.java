@@ -23,6 +23,7 @@ import megamek.common.weapons.capitalweapons.CapitalMissileWeapon;
 import megamek.server.GameManager;
 import org.apache.logging.log4j.LogManager;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -284,7 +285,7 @@ public class ArtilleryWeaponIndirectFireHandler extends AmmoWeaponHandler {
 
         // if we have no ammo for this attack then don't bother doing anything else, but log the error
         if (atype == null) {
-            LogManager.getLogger().error("Artillery weapon fired with no ammo.\n\n" + Thread.currentThread().getStackTrace());
+            LogManager.getLogger().error("Artillery weapon fired with no ammo.\n\n" + Arrays.toString(Thread.currentThread().getStackTrace()));
             return false;
         }
         

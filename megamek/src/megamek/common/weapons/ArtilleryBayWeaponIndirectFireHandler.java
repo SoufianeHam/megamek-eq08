@@ -62,6 +62,7 @@ public class ArtilleryBayWeaponIndirectFireHandler extends AmmoBayWeaponHandler 
             int shots = bayW.getCurrentShots();
             //if this option is on, we may have odd amounts of ammo in multiple bins. Only fire rounds that we have.
             if (game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_AERO_ARTILLERY_MUNITIONS)) {
+                assert bayWAmmo != null;
                 if (bayWAmmo.getUsableShotsLeft() < 1) {
                     nweaponsHit--;                    
                 } else {

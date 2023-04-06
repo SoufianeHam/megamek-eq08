@@ -38,6 +38,7 @@ import java.awt.event.*;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Shows reports, with an Okay JButton
@@ -197,7 +198,6 @@ public class MiniReportDisplay extends JPanel implements ActionListener, Hyperli
         boolean found = false;
         int len = (name.length() < MRD_MAXNAMELENGHT ? name.length() : MRD_MAXNAMELENGHT);
         String displayNane = String.format("%-12s", name).substring(0, len);
-        found = false;
         for (int i = 0; i < comboBox.getItemCount(); i++) {
             if (comboBox.getItemAt(i).equals(displayNane)) {
                 found = true;
@@ -262,22 +262,22 @@ public class MiniReportDisplay extends JPanel implements ActionListener, Hyperli
         if (ae.getSource().equals(butSwitchLocation)) {
             GUIP.toggleMiniReportLocation();
         } else if (ae.getSource().equals(butPlayerSearchDown)) {
-            String searchPattern = comboPlayer.getSelectedItem().toString().trim();
+            String searchPattern = Objects.requireNonNull(comboPlayer.getSelectedItem()).toString().trim();
             searchTextPane(searchPattern, true);
         } else if (ae.getSource().equals(butPlayerSearchUp)) {
-            String searchPattern = comboPlayer.getSelectedItem().toString().trim();
+            String searchPattern = Objects.requireNonNull(comboPlayer.getSelectedItem()).toString().trim();
             searchTextPane(searchPattern, false);
         } else if (ae.getSource().equals(butEntitySearchDown)) {
-            String searchPattern = comboEntity.getSelectedItem().toString().trim();
+            String searchPattern = Objects.requireNonNull(comboEntity.getSelectedItem()).toString().trim();
             searchTextPane(searchPattern, true);
         } else if (ae.getSource().equals(butEntitySearchUp)) {
-            String searchPattern = comboEntity.getSelectedItem().toString().trim();
+            String searchPattern = Objects.requireNonNull(comboEntity.getSelectedItem()).toString().trim();
             searchTextPane(searchPattern,false);
         } else if (ae.getSource().equals(butQuickSearchDown)) {
-            String searchPattern = comboQuick.getSelectedItem().toString().trim();
+            String searchPattern = Objects.requireNonNull(comboQuick.getSelectedItem()).toString().trim();
             searchTextPane(searchPattern, true);
         } else if (ae.getSource().equals(butQuickSearchUp)) {
-            String searchPattern = comboQuick.getSelectedItem().toString().trim();
+            String searchPattern = Objects.requireNonNull(comboQuick.getSelectedItem()).toString().trim();
             searchTextPane(searchPattern,false);
         }
     }

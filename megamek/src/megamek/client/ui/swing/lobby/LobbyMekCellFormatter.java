@@ -258,7 +258,8 @@ class LobbyMekCellFormatter {
         if ((!entity.isOffBoard())
                 && (sp >= 0)
                 && (sp < IStartingPositions.START_LOCATION_NAMES.length)) {
-            firstEntry = dotSpacer(result, firstEntry);
+            dotSpacer(result, true);
+            firstEntry = false;
             if (spe != Board.START_NONE) {
                 result.append(guiScaledFontHTML(uiLightGreen()));
             }

@@ -107,7 +107,7 @@ public class ECMEffects {
         // If there is ECCM present, but no ECM, then shade as ECCM.
         // ECM shading subsumes ECCM shading, so if ECM is present,
         // ECCM shading isn't needed
-        if ((ecmColors.size() < 1) && !eccmColors.isEmpty()) {
+        if (ecmColors.size() < 1) {
             isECCM = true;
             c = getColorAverage(eccmColors);
         } else {

@@ -668,6 +668,7 @@ public class AeroBVCalculator {
         double bombBV = 0;
         for (int bombType = 0; bombType < BombType.B_NUM; bombType++) {
             BombType bomb = BombType.createBombByType(bombType);
+            assert bomb != null;
             bombBV += bomb.getBV(aero) * aero.getBombChoices()[bombType];
             if (aero.getBombChoices()[bombType] > 0) {
                 hasBombs = true;

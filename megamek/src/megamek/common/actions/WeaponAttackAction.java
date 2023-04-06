@@ -821,20 +821,18 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
         toHit = compileCrewToHitMods(game, ae, te, toHit, null);
         
         // Collect the modifiers for the attacker's condition/actions
-        if (ae != null) {
-            //Conventional fighter, Aerospace and fighter LAM attackers
-            if (ae.isAero()) {
-                toHit = compileAeroAttackerToHitMods(game, ae, target, ttype, toHit, Entity.LOC_NONE,
-                        AimingMode.NONE, eistatus, null, null, null, AmmoType.M_STANDARD,
-                        false, false, false, false, false);
-            //Everyone else
-            } else {
-                toHit = compileAttackerToHitMods(game, ae, target, los, toHit, toSubtract, Entity.LOC_NONE,
-                        AimingMode.NONE, null, null, weaponId, null, AmmoType.M_STANDARD,
-                        false, false, false, false, false);
-            }
+        //Conventional fighter, Aerospace and fighter LAM attackers
+        if (ae.isAero()) {
+            toHit = compileAeroAttackerToHitMods(game, ae, target, ttype, toHit, Entity.LOC_NONE,
+                    AimingMode.NONE, eistatus, null, null, null, AmmoType.M_STANDARD,
+                    false, false, false, false, false);
+        //Everyone else
+        } else {
+            toHit = compileAttackerToHitMods(game, ae, target, los, toHit, toSubtract, Entity.LOC_NONE,
+                    AimingMode.NONE, null, null, weaponId, null, AmmoType.M_STANDARD,
+                    false, false, false, false, false);
         }
-        
+
         // Collect the modifiers for the target's condition/actions 
         toHit = compileTargetToHitMods(game, ae, target, ttype, los, toHit, toSubtract, Entity.LOC_NONE,
                 AimingMode.NONE, distance, null, null, null, AmmoType.M_STANDARD,
@@ -2966,6 +2964,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
         if (wtype.getToHitModifier() != 0) {
             int modifier = wtype.getToHitModifier();
             if (wtype instanceof VariableSpeedPulseLaserWeapon) {
+                assert target != null;
                 int nRange = ae.getPosition().distance(target.getPosition());
                 int[] nRanges = wtype.getRanges(weapon);
 
@@ -3333,10 +3332,8 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
         toHit.append(Compute.getAttackerMovementModifier(game, ae.getId()));
         
         // attacker prone
-        if (weaponId > WeaponType.WEAPON_NA) {
-            toHit.append(Compute.getProneMods(game, ae, weaponId));
-        }
-        
+        toHit.append(Compute.getProneMods(game, ae, weaponId));
+
         // add penalty for called shots and change hit table, if necessary
         if (game.getOptions().booleanOption(OptionsConstants.ADVCOMBAT_TACOPS_CALLED_SHOTS)
                 && weapon != null) {
@@ -3394,8 +3391,11 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
         }
         
         // we are bracing
-        if (ae.isBracing() && (ae.braceLocation() == weapon.getLocation())) {
-            toHit.addModifier(-2, Messages.getString("WeaponAttackAction.Bracing"));
+        if (ae.isBracing()) {
+            assert weapon != null;
+            if (ae.braceLocation() == weapon.getLocation()) {
+                toHit.addModifier(-2, Messages.getString("WeaponAttackAction.Bracing"));
+            }
         }
         
         // Secondary targets modifier,
@@ -4164,6 +4164,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
                 // directions that grant Hull Down Mods
                 int moveInDirection;
 
+                assert te instanceof Tank;
                 if (!((Tank) te).isBackedIntoHullDown()) {
                     moveInDirection = ToHitData.SIDE_FRONT;
                 } else {

@@ -54,7 +54,6 @@ public class InfantrySupportDavidLightGaussRifleWeapon extends InfantryWeapon {
 		longRange = 9;
 		extremeRange = 12;
 		rulesRefs = "273, TM";
-		tonnage = .018;
 		techAdvancement.setTechBase(TECH_BASE_IS).setISAdvancement(3060, 3063, 3075, DATE_NONE, DATE_NONE)
 		        .setISApproximate(true, false, false, false, false)
 		        .setPrototypeFactions(F_FW)

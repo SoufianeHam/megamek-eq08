@@ -218,6 +218,7 @@ public class HexTileset implements BoardListener {
             }
         }
 
+        assert bestMatch != null;
         Image img = bestMatch.getImage(comp, hex.getCoords().hashCode());
         if (img == null) {
             img = ImageUtil.createAcceleratedImage(HEX_W, HEX_H);

@@ -557,7 +557,7 @@ public class ForceDescriptor {
 
         for (ForceDescriptor sub : subs) {
             boolean foundUnit = false;
-            if (baseModel == null || (ut != null && !ut.equals(sub.getUnitType()))) {
+            if (baseModel == null || !ut.equals(sub.getUnitType())) {
                 unit = sub.generate();
                 if (unit != null) {
                     sub.setUnit(unit);
@@ -872,9 +872,7 @@ public class ForceDescriptor {
 
         if (!subforces.isEmpty()) {
             int coPos = 0;
-            if (coNode != null) {
-                coPos = (coNode.getPosition() == null) ? 1 : Math.min(coNode.getPosition(), 1);
-            }
+            coPos = (coNode.getPosition() == null) ? 1 : Math.min(coNode.getPosition(), 1);
             int xoPos = 0;
             if (xoNode != null && (xoNode.getPosition() == null || xoNode.getPosition() > 0)) {
                 xoPos = (xoNode.getPosition() == null) ? coPos + 1 : Math.max(coPos, xoNode.getPosition());

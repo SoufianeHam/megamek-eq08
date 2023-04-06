@@ -505,12 +505,7 @@ public class WeaponFireInfo {
         boolean debugging = false;
         
         final StringBuilder msg =
-                debugging ?
-                        new StringBuilder("Initializing Damage for ").append(getShooter().getDisplayName())
-                                                             .append(" firing ").append(getWeapon().getDesc())
-                                                             .append(" at ").append(getTarget().getDisplayName())
-                                                             .append(":") :
-                        null;
+                null;
 
         // Set up the attack action and calculate the chance to hit.
         if ((null == bombPayload) || (0 == bombPayload.length)) {
@@ -528,9 +523,6 @@ public class WeaponFireInfo {
         }
         // If we can't hit, set everything zero and return...
         if (12 < getToHit().getValue()) {
-            if (debugging) {
-                LogManager.getLogger().debug(msg.append("\n\tImpossible toHit: ").append(getToHit().getValue()).toString());
-            }
             setProbabilityToHit(0);
             setMaxDamage(0);
             setHeat(0);
@@ -539,16 +531,12 @@ public class WeaponFireInfo {
             setExpectedDamageOnHit(0);
             return;
         }
-        
-        if (debugging && getShooterState().hasNaturalAptGun()) {
-            msg.append("\n\tAttacker has Natural Aptitude Gunnery");
-        }
-        
-        setProbabilityToHit(Compute.oddsAbove(getToHit().getValue(), getShooterState().hasNaturalAptGun()) / 100);
-        
+
         if (debugging) {
-            msg.append("\n\tHit Chance: ").append(LOG_PER.format(getProbabilityToHit()));
+            getShooterState().hasNaturalAptGun();
         }
+
+        setProbabilityToHit(Compute.oddsAbove(getToHit().getValue(), getShooterState().hasNaturalAptGun()) / 100);
 
         // now that we've calculated hit odds, if we're shooting
         // a weapon capable of rapid fire, it's time to decide whether we're going to spin it up
@@ -559,17 +547,9 @@ public class WeaponFireInfo {
         }
         
         setHeat(computeHeat(weapon));
-        
-        if (debugging) {
-            msg.append("\n\tHeat: ").append(getHeat());
-        }
 
         setExpectedDamageOnHit(computeExpectedDamage());
         setMaxDamage(getExpectedDamageOnHit());
-        
-        if (debugging) {
-            msg.append("\n\tMax Damage: ").append(LOG_DEC.format(maxDamage));
-        }
 
         final double expectedCriticalHitCount = ProbabilityCalculator.getExpectedCriticalHitCount();
 
@@ -633,9 +613,6 @@ public class WeaponFireInfo {
             }
         }
 
-        if (debugging) {
-            LogManager.getLogger().debug(msg.toString());
-        }
     }
     
     WeaponAttackAction getWeaponAttackAction() {

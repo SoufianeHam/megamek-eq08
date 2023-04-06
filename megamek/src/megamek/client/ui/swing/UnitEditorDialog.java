@@ -612,7 +612,6 @@ public class UnitEditorDialog extends JDialog {
         gridBagConstraints.insets = new Insets(2, 2, 2, 2);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 0.0;
         panSystem.add(new JLabel("<html><b>" + Messages.getString("UnitEditorDialog.turretLock")
                 + "</b><br></html>"), gridBagConstraints);
@@ -756,7 +755,6 @@ public class UnitEditorDialog extends JDialog {
         gridBagConstraints.insets = new Insets(2, 2, 2, 2);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 0.0;
         panSystem.add(new JLabel("<html><b>" + Messages.getString("UnitEditorDialog.flightStabilizer")
                 + "</b><br></html>"), gridBagConstraints);
@@ -826,7 +824,6 @@ public class UnitEditorDialog extends JDialog {
         gridBagConstraints.insets = new Insets(2, 2, 2, 2);
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 0.0;
         panSystem.add(new JLabel("<html><b>" + Messages.getString("UnitEditorDialog.avionics") + "</b><br></html>"),
                 gridBagConstraints);

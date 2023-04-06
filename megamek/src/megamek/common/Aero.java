@@ -2475,9 +2475,6 @@ public class Aero extends Entity implements IAero, IBomber {
         StringBuilder toReturn = new StringBuilder();
         boolean first = true;
         if (getSensorHits() > 0) {
-            if (!first) {
-                toReturn.append(", ");
-            }
             toReturn.append(String.format(Messages.getString("Aero.sensorDamageString"), getSensorHits()));
             first = false;
         }
@@ -3067,10 +3064,7 @@ public class Aero extends Entity implements IAero, IBomber {
     @Override
     public List<Mounted> getActiveAMS() {
         //Large craft use AMS and Point Defense bays
-        if ((this instanceof Dropship)
-                || (this instanceof Jumpship)
-                || (this instanceof Warship)
-                || (this instanceof SpaceStation)) {
+        if (this instanceof Dropship || this instanceof Jumpship || this instanceof SpaceStation) {
 
             ArrayList<Mounted> ams = new ArrayList<>();
             for (Mounted weapon : getWeaponBayList()) {

@@ -2003,7 +2003,7 @@ public class WeaponType extends EquipmentType {
             return armoredCost;
         }
 
-        return super.getCost(entity, isArmored, loc, size);
+        return super.getCost(entity, false, loc, size);
     }
 
     public boolean isSplitable() {

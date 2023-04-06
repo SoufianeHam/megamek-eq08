@@ -304,7 +304,7 @@ class LobbyMekPopup {
                 .filter(e -> canLoadAll(e, entities))
                 .forEach(e -> menu.add(menuItem(
                         "<HTML>" + e.getShortNameRaw() + idString(game, e.getId()) + " (Free Collars: " + ((Jumpship) e).getFreeDockingCollars() + ")", 
-                        LMP_LOAD + "|" + e.getId() + ":-1" + enToken(entities), enabled, listener)));
+                        LMP_LOAD + "|" + e.getId() + ":-1" + enToken(entities), true, listener)));
             } else if (entities.stream().noneMatch(e -> e.hasETypeFlag(Entity.ETYPE_PROTOMECH))) {
                 // Standard loading, not ProtoMeks, not DropShip -> JumpShip
                 game.getEntitiesVector().stream()
@@ -313,7 +313,7 @@ class LobbyMekPopup {
                 .filter(e -> canLoadAll(e, entities))
                 .forEach(e -> menu.add(menuItem(
                         "<HTML>" + e.getShortNameRaw() + idString(game, e.getId()), 
-                        LMP_LOAD + "|" + e.getId() + ":-1" + enToken(entities), enabled, listener)));
+                        LMP_LOAD + "|" + e.getId() + ":-1" + enToken(entities), true, listener)));
             }
         }
         menu.setEnabled(enabled && (menu.getItemCount() > 0));
@@ -347,13 +347,13 @@ class LobbyMekPopup {
                 if ((front != null) && front.canLoad(entity)
                         && ((entity.getWeightClass() < EntityWeightClass.WEIGHT_SUPER_HEAVY)
                                 || (rear == null) || rear.getLoadedUnits().isEmpty())) {
-                    loaderMenu.add(menuItem("Onto Front", LMP_LOAD + "|" + loader.getId() + ":0" + enToken(entities), enabled, listener));
+                    loaderMenu.add(menuItem("Onto Front", LMP_LOAD + "|" + loader.getId() + ":0" + enToken(entities), true, listener));
                 }
                 boolean frontUltra = (front != null)
                         && front.getLoadedUnits().stream()
                         .anyMatch(l -> l.getWeightClass() == EntityWeightClass.WEIGHT_SUPER_HEAVY);
                 if ((rear != null) && rear.canLoad(entity) && !frontUltra) {
-                    loaderMenu.add(menuItem("Onto Rear", LMP_LOAD + "|" + loader.getId() + ":1" + enToken(entities), enabled, listener));
+                    loaderMenu.add(menuItem("Onto Rear", LMP_LOAD + "|" + loader.getId() + ":1" + enToken(entities), true, listener));
                 }
                 if (loaderMenu.getItemCount() > 0) {
                     menu.add(loaderMenu);
@@ -373,7 +373,7 @@ class LobbyMekPopup {
         JMenu menu = new JMenu("Fighter Squadrons");
         boolean hasFighter = entities.stream().anyMatch(Entity::isFighter);
         if (enabled && hasFighter) {
-            menu.add(menuItem("Form Fighter Squadron", LMP_SQUADRON + NOINFO + enToken(entities), enabled, listener));
+            menu.add(menuItem("Form Fighter Squadron", LMP_SQUADRON + NOINFO + enToken(entities), true, listener));
 
             // Join [Squadron] menu items
             cg.getClient().getGame().getEntitiesVector().stream()
@@ -381,7 +381,7 @@ class LobbyMekPopup {
                 .filter(e -> !entities.contains(e))
                 .filter(e -> canLoadAll(e, entities))
                 .forEach(e -> menu.add(menuItem("Join " + e.getShortName(), 
-                        LMP_LOAD + "|" + e.getId() + ":-1" + enToken(entities), enabled, listener)));
+                        LMP_LOAD + "|" + e.getId() + ":-1" + enToken(entities), true, listener)));
         }
         menu.setEnabled(enabled && (menu.getItemCount() > 0));
         return menu;
@@ -396,7 +396,7 @@ class LobbyMekPopup {
         JMenu menu = new JMenu("Set Priority Target for");
         if (enabled && !cg.getBots().isEmpty()) {
             for (String bot : cg.getBots().keySet()) {
-                menu.add(menuItem(bot, LMP_PRIO_TARGET + "|" + bot + enToken(entities), enabled, listener));
+                menu.add(menuItem(bot, LMP_PRIO_TARGET + "|" + bot + enToken(entities), true, listener));
             }
         }
         menu.setEnabled(enabled && (menu.getItemCount() > 0));
@@ -425,22 +425,22 @@ class LobbyMekPopup {
                 menu.add(ScalingPopup.spacer());
             }
 
-            menu.add(menuItem("Standing", LMP_STAND + "|" + LMP_STAND + eIds, enabled, listener));
-            menu.add(menuItem("Prone", LMP_STAND + "|" + LMP_PRONE + eIds, enabled, listener));
+            menu.add(menuItem("Standing", LMP_STAND + "|" + LMP_STAND + eIds, true, listener));
+            menu.add(menuItem("Prone", LMP_STAND + "|" + LMP_PRONE + eIds, true, listener));
             if (clientGui.getClient().getGame().getOptions().booleanOption(OptionsConstants.ADVGRNDMOV_TACOPS_HULL_DOWN)) {
-                menu.add(menuItem("Hull-Down", LMP_STAND + "|" + LMP_HULLDOWN + eIds, enabled, listener));
+                menu.add(menuItem("Hull-Down", LMP_STAND + "|" + LMP_HULLDOWN + eIds, true, listener));
             }
             menu.add(ScalingPopup.spacer());
 
             // Heat
             JMenu heatMenu = new JMenu("Heat at start");
-            heatMenu.add(menuItem("No heat", LMP_HEAT + "|0" + eIds, enabled, listener));
+            heatMenu.add(menuItem("No heat", LMP_HEAT + "|0" + eIds, true, listener));
             for (int i = 1; i < 11; i++) {
-                heatMenu.add(menuItem("Heat " + i, LMP_HEAT + "|" + i + eIds, enabled, listener));
+                heatMenu.add(menuItem("Heat " + i, LMP_HEAT + "|" + i + eIds, true, listener));
             }
             JMenu subHeatMenu = new JMenu("More heat");
             for (int i = 11; i < 41; i++) {
-                subHeatMenu.add(menuItem("Heat " + i, LMP_HEAT + "|" + i + eIds, enabled, listener));
+                subHeatMenu.add(menuItem("Heat " + i, LMP_HEAT + "|" + i + eIds, true, listener));
             }
             heatMenu.add(subHeatMenu);
             menu.add(heatMenu);
@@ -448,13 +448,13 @@ class LobbyMekPopup {
 
             // Late deployment
             JMenu lateMenu = new JMenu("Deployment round");
-            lateMenu.add(menuItem("At game start", LMP_DEPLOY + "|0" + eIds, enabled, listener));
+            lateMenu.add(menuItem("At game start", LMP_DEPLOY + "|0" + eIds, true, listener));
             for (int i = 1; i < 11; i++) {
-                lateMenu.add(menuItem("Before round " + i, LMP_DEPLOY + "|" + i + eIds, enabled, listener));
+                lateMenu.add(menuItem("Before round " + i, LMP_DEPLOY + "|" + i + eIds, true, listener));
             }
             JMenu veryLateMenu = new JMenu("Later");
             for (int i = 11; i < 41; i++) {
-                veryLateMenu.add(menuItem("Before round " + i, LMP_DEPLOY + "|" + i + eIds, enabled, listener));
+                veryLateMenu.add(menuItem("Before round " + i, LMP_DEPLOY + "|" + i + eIds, true, listener));
             }
             
             lateMenu.add(veryLateMenu);
@@ -666,7 +666,7 @@ class LobbyMekPopup {
             for (Bay bay : entity.getTransportBays()) {
                 if (!bay.getLoadedUnits().isEmpty()) {
                     String label = "Bay #" + bay.getBayNumber() + " (" + bay.getLoadedUnits().size() + " units)";
-                    menu.add(menuItem(label, LMP_UNLOADALLFROMBAY + "|" + bay.getBayNumber() + enToken(entities), enabled, listener));
+                    menu.add(menuItem(label, LMP_UNLOADALLFROMBAY + "|" + bay.getBayNumber() + enToken(entities), true, listener));
                 }
             }
         }

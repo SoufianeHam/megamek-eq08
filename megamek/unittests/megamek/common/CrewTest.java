@@ -48,7 +48,6 @@ public class CrewTest {
         mockGame = mock(Game.class);
         GameOptions mockOptions = mock(GameOptions.class);
         when(mockGame.getOptions()).thenReturn(mockOptions);
-        expected = 1.0;
         actual = BvMultiplier.bvSkillMultiplier(gunnery, piloting);
         assertEquals(expected, actual, 0.001);
 
@@ -70,7 +69,6 @@ public class CrewTest {
 
         // Test a 2/6 pilot.
         gunnery = 2;
-        piloting = 6;
         when(mockOptions.booleanOption(eq("alternate_pilot_bv_mod"))).thenReturn(false);
         expected = 1.35;
         actual = BvMultiplier.bvSkillMultiplier(gunnery, piloting);

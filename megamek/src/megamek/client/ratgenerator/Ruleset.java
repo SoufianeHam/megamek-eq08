@@ -27,6 +27,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -384,7 +385,7 @@ public class Ruleset {
             }
         }
 
-        for (File f : dir.listFiles()) {
+        for (File f : Objects.requireNonNull(dir.listFiles())) {
             if (!f.getPath().endsWith(".xml")) {
                 continue;
             }

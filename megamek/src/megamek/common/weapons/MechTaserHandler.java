@@ -59,7 +59,7 @@ public class MechTaserHandler extends AmmoWeaponHandler {
     protected boolean specialResolution(Vector<Report> vPhaseReport, Entity entityTarget) {
         boolean done = false;
         if (bMissed) {
-            return done;
+            return false;
         }
         Report r = new Report(3700);
         int taserRoll = Compute.d6(2);
@@ -67,7 +67,7 @@ public class MechTaserHandler extends AmmoWeaponHandler {
         r.newlines = 0;
         vPhaseReport.add(r);
         if (entityTarget.getWeight() > 100) {
-            return done;
+            return false;
         }
         if (entityTarget instanceof BattleArmor) {
             r = new Report(3706);

@@ -1488,12 +1488,12 @@ public abstract class Mech extends Entity {
      */
     public void addEngineSinks(int totalSinks, BigInteger heatSinkFlag,
             boolean clan) {
-        if (heatSinkFlag == MiscType.F_DOUBLE_HEAT_SINK) {
+        if (Objects.equals(heatSinkFlag, MiscType.F_DOUBLE_HEAT_SINK)) {
             addEngineSinks(totalSinks, clan ? EquipmentTypeLookup.CLAN_DOUBLE_HS
                     : EquipmentTypeLookup.IS_DOUBLE_HS);
-        } else if (heatSinkFlag == MiscType.F_COMPACT_HEAT_SINK) {
+        } else if (Objects.equals(heatSinkFlag, MiscType.F_COMPACT_HEAT_SINK)) {
             addEngineSinks(totalSinks, EquipmentTypeLookup.COMPACT_HS_1);
-        } else if (heatSinkFlag == MiscType.F_LASER_HEAT_SINK) {
+        } else if (Objects.equals(heatSinkFlag, MiscType.F_LASER_HEAT_SINK)) {
             addEngineSinks(totalSinks, EquipmentTypeLookup.LASER_HS);
         } else {
             addEngineSinks(totalSinks, EquipmentTypeLookup.SINGLE_HS);
@@ -1520,6 +1520,7 @@ public abstract class Mech extends Entity {
             LogManager.getLogger().info("Mech: can't find heat sink to add to engine");
         }
 
+        assert sinkType != null;
         int toAllocate = Math.min(
                 totalSinks,
                 getEngine().integralHeatSinkCapacity(
@@ -1546,6 +1547,7 @@ public abstract class Mech extends Entity {
 
         for (int i = 0; i < toAllocate; i++) {
             try {
+                assert sinkType != null;
                 addEquipment(new Mounted(this, sinkType), Entity.LOC_NONE, false);
             } catch (LocationFullException ignored) {
                 // um, that's impossible.

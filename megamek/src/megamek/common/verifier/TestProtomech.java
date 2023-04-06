@@ -329,7 +329,7 @@ public class TestProtomech extends TestEntity {
     public boolean correctEntity(StringBuffer buff, int ammoTechLvl) {
         boolean correct = true;
         if (skip()) {
-            return correct;
+            return true;
         }
         if (!correctWeight(buff)) {
             buff.insert(0, printTechLevel() + printShortMovement());

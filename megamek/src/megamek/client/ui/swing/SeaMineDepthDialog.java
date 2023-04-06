@@ -19,6 +19,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 /**
  * Ask for the setting for a vibrabomb.
@@ -77,7 +78,7 @@ public class SeaMineDepthDialog extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource() == butOk) {
-            depth = Integer.parseInt((String) choDepth.getSelectedItem());
+            depth = Integer.parseInt((String) Objects.requireNonNull(choDepth.getSelectedItem()));
         }
         this.setVisible(false);
     }

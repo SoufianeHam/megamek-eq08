@@ -263,6 +263,7 @@ public class EntityImage {
         } else {
             src = ImageUtil.createAcceleratedImage(img);
         }
+        assert src != null;
         BufferedImage dst = ImageUtil.createAcceleratedImage(
                 src.getWidth(), src.getHeight());
         xform.filter(src, dst);
@@ -441,6 +442,7 @@ public class EntityImage {
         
         // Overlay the smoke image
         Image result = ImageUtil.createAcceleratedImage(image);
+        assert result != null;
         Graphics g = result.getGraphics();
         if (isSingleHex) {
             g.drawImage(smoke, 0, 0, null);

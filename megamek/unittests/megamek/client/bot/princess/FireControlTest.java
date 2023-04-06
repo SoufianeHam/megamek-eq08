@@ -2428,6 +2428,7 @@ public class FireControlTest {
                 failure.append("\nActual[").append(i).append("]:   ").append(actualArray[i].getDebugDescription(true));
                 continue;
             }
+            assert expected[i] != null;
             if (!expected[i].equals(actualArray[i])) {
                 failure.append("\nExpected[").append(i).append("]: ").append(expected[i].getDebugDescription(true));
                 if (null == actualArray[i]) {

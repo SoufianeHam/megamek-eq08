@@ -27,6 +27,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * @author Deric "Netzilla" Page (deric dot page at usa dot net)
@@ -313,6 +314,7 @@ public class RandomMapPanelAdvanced extends JPanel {
         craterSizeMaxField.setText(String.valueOf(mapSettings.getMaxRadius()));
         elevationPeaksField.setText(String.valueOf(mapSettings.getMountainPeaks()));
         MountainStyle style = MountainStyle.getMountainStyle(mapSettings.getMountainStyle());
+        assert style != null;
         mountainStyleCombo.setSelectedItem(style.getDescription());
         mountainHeightMinField.setText(String.valueOf(mapSettings.getMountainHeightMin()));
         mountainHeightMaxField.setText(String.valueOf(mapSettings.getMountainHeightMax()));
@@ -1309,7 +1311,7 @@ public class RandomMapPanelAdvanced extends JPanel {
                                          mountainWidthMaxField.getAsInt(),
                                          mountainHeightMinField.getAsInt(),
                                          mountainHeightMaxField.getAsInt(),
-                                         MountainStyle.getMountainStyle((String) mountainStyleCombo.getSelectedItem())
+                                         Objects.requireNonNull(MountainStyle.getMountainStyle((String) mountainStyleCombo.getSelectedItem()))
                                                       .getCode());
         newMapSettings.setCraterParam(craterChanceField.getAsInt(),
                                       craterAmountMinField.getAsInt(),

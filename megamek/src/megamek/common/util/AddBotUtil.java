@@ -144,9 +144,13 @@ public class AddBotUtil {
                     ((Princess) botClient).setBehaviorSettings(behavior);
                 } else {
                     results.add("Unrecognized Behavior Setting: '" + configName + "'.  Using DEFAULT.");
+                    assert BehaviorSettingsFactory.getInstance().DEFAULT_BEHAVIOR != null;
+                    assert BehaviorSettingsFactory.getInstance().DEFAULT_BEHAVIOR != null;
                     ((Princess) botClient).setBehaviorSettings(BehaviorSettingsFactory.getInstance().DEFAULT_BEHAVIOR);
                 }
             } else {
+                assert BehaviorSettingsFactory.getInstance().DEFAULT_BEHAVIOR != null;
+                assert BehaviorSettingsFactory.getInstance().DEFAULT_BEHAVIOR != null;
                 ((Princess) botClient).setBehaviorSettings(BehaviorSettingsFactory.getInstance().DEFAULT_BEHAVIOR);
             }
         } else if ("TestBot".equalsIgnoreCase(botName.toString())) {

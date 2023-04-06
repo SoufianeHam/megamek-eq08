@@ -971,7 +971,6 @@ public class Board implements Serializable {
                     nw = Integer.parseInt(args[0]);
                     nh = Integer.parseInt(args[1]);
                     nd = new Hex[nw * nh];
-                    di = 0;
                 } else if ((st.ttype == StreamTokenizer.TT_WORD) && st.sval.equalsIgnoreCase("option")) {
                     // read rest of line
                     String[] args = { "", "" };

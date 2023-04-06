@@ -833,7 +833,6 @@ public class CEntity {
             switch (cur_bracket) {
                 case RANGE_SHORT:
                     bracket_start = (entity instanceof Infantry ? 0 : 1);
-                    bracket_end = rd_bracket;
                     break;
                 case RANGE_MEDIUM:
                     bracket_start = rd_bracket + 1;
@@ -1892,10 +1891,10 @@ public class CEntity {
         if ((fa >= 300) || (fa <= 60)) {
             return ToHitData.SIDE_FRONT;
         }
-        if ((fa >= 60) && (fa <= 120)) {
+        if (fa <= 120) {
             return ToHitData.SIDE_RIGHT;
         }
-        if ((fa >= 240) && (fa <= 300)) {
+        if (fa >= 240) {
             return ToHitData.SIDE_LEFT;
         }
         return ToHitData.SIDE_REAR;

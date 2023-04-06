@@ -1838,6 +1838,7 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
                     String currTechClass = TechConstants.getTechName(wp.getTechLevel(gameYear));
 
                     boolean techLvlMatch = matchTechLvl(techLevel, wp.getTechLevel(gameYear));
+                    assert techClass != null;
                     boolean techClassMatch = matchTechClass(techClass, currTechClass);
                     boolean unitTypeMatch = matchUnitType(unitType, wp);
                     return techLvlMatch && techClassMatch && unitTypeMatch;
@@ -1856,6 +1857,7 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
                     EquipmentType eq = eqModel.getEquipmentTypeAt(entry.getIdentifier());
                     String currTechClass = TechConstants.getTechName(eq.getTechLevel(gameYear));
                     boolean techLvlMatch = matchTechLvl(techLevel, eq.getTechLevel(gameYear));
+                    assert techClass != null;
                     boolean techClassMatch = matchTechClass(techClass, currTechClass);
                     boolean unitTypeMatch = matchUnitType(unitType, eq);
                     return techLvlMatch && techClassMatch && unitTypeMatch;

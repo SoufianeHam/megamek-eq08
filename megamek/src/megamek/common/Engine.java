@@ -709,7 +709,6 @@ public class Engine implements Serializable, ITechnology {
                 cost = 7500;
                 break;
             case NONE:
-                cost = 0;
                 break;
             }
         if (hasFlag(LARGE_ENGINE)) {

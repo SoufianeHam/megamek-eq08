@@ -575,9 +575,7 @@ public class Mounted implements Serializable, RoundUpdated, PhaseUpdated {
     }
 
     public boolean isReady(boolean isStrafing) {
-        return (!usedThisRound || isStrafing) && !destroyed && !missing
-                && !jammed && !useless && !fired
-                && (!isDWPMounted || (isDWPMounted && (getLinkedBy() != null)));
+        return (!usedThisRound || isStrafing) && !destroyed && !missing && !jammed && !useless && !fired && (!isDWPMounted || getLinkedBy() != null);
     }
 
     public boolean isUsedThisRound() {

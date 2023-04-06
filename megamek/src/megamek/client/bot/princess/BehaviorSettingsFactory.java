@@ -69,13 +69,13 @@ public class BehaviorSettingsFactory {
         if (!behaviorMap.keySet().contains(DEFAULT_BEHAVIOR_DESCRIPTION)) {
             addBehavior(DEFAULT_BEHAVIOR);
         }
-        if (!behaviorMap.keySet().contains(BERSERK_BEHAVIOR.getDescription())) {
+        if (!behaviorMap.keySet().contains(Objects.requireNonNull(BERSERK_BEHAVIOR).getDescription())) {
             addBehavior(BERSERK_BEHAVIOR);
         }
-        if (!behaviorMap.keySet().contains(COWARDLY_BEHAVIOR.getDescription())) {
+        if (!behaviorMap.keySet().contains(Objects.requireNonNull(COWARDLY_BEHAVIOR).getDescription())) {
             addBehavior(COWARDLY_BEHAVIOR);
         }
-        if (!behaviorMap.keySet().contains(ESCAPE_BEHAVIOR.getDescription())) {
+        if (!behaviorMap.keySet().contains(Objects.requireNonNull(ESCAPE_BEHAVIOR).getDescription())) {
             addBehavior(ESCAPE_BEHAVIOR);
         }
     }

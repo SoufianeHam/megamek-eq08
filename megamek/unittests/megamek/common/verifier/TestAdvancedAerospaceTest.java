@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 
 import java.io.File;
+import java.util.Objects;
 import java.util.Vector;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -21,7 +22,7 @@ public class TestAdvancedAerospaceTest {
 
     @BeforeAll
     public static void beforeAll() {
-        File file = new File(TestAdvancedAerospaceTest.class.getResource("empty-verifier-options.xml").getFile());
+        File file = new File(Objects.requireNonNull(TestAdvancedAerospaceTest.class.getResource("empty-verifier-options.xml")).getFile());
         verifier = EntityVerifier.getInstance(file);
     }
     

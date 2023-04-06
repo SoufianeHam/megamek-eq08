@@ -60,7 +60,7 @@ public class BATaserHandler extends AmmoWeaponHandler {
     protected boolean specialResolution(Vector<Report> vPhaseReport, Entity entityTarget) {
         boolean done = false;
         if (bMissed) {
-            return done;
+            return false;
         }
         Report r = new Report(3700);
         int taserRoll = Compute.d6(2);

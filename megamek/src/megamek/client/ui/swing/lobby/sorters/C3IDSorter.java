@@ -76,7 +76,7 @@ public class C3IDSorter implements MekTableSorter {
             return -1;
         } else if (a_alone && !b_alone) {
             return 1;
-        } else if (a_alone && b_alone) {
+        } else if (a_alone) {
             return a_id - b_id;
         } else {
             // The units are both on a network

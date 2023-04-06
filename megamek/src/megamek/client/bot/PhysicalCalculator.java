@@ -428,7 +428,6 @@ public final class PhysicalCalculator {
                 location_table = ToHitData.HIT_NORMAL;
             }
         } else {
-            location_table = ToHitData.HIT_NORMAL;
         }
 
         dmg = getExpectedKickDamage(from, to, game, location_table, target_arc,
@@ -813,6 +812,7 @@ public final class PhysicalCalculator {
         if (target.isConventionalInfantry()) {
             // Create a single element vector with total number of troopers
             max_index = 0;
+            assert target instanceof Infantry;
             armor_values[0] = ((Infantry) target).getShootingStrength();
         }
 

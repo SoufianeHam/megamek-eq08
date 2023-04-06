@@ -1561,7 +1561,7 @@ public class ClientGUI extends JPanel implements BoardViewListener,
             showPlayerList();
         } else {
             if (getPlayerListDialog() != null) {
-                getPlayerListDialog().setVisible(visible);
+                getPlayerListDialog().setVisible(false);
             }
         }
     }

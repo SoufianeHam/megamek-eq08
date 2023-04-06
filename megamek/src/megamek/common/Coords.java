@@ -83,7 +83,6 @@ public class Coords implements Serializable {
             intDir = Integer.parseInt(dir);
         } catch (NumberFormatException nfe) {
             if (dir.equalsIgnoreCase("N")) {
-                intDir = 0;
             } else if (dir.equalsIgnoreCase("NE")) {
                 intDir = 1;
             } else if (dir.equalsIgnoreCase("SE")) {
@@ -209,7 +208,7 @@ public class Coords implements Serializable {
             return direction;
         } else if (pointJudgement < 0) {
             directionIncrement = 5;
-        } else if (pointJudgement > 0) {
+        } else {
             directionIncrement = 1;
         }
         
@@ -422,7 +421,6 @@ public class Coords implements Serializable {
         if (current.getX() == destination.getX()) {
             if (current.getY() > destination.getY()) {
                 directions = new int[1];
-                directions[0] = 0;
             } else {
                 directions = new int[1];
                 directions[0] = 3;
@@ -432,7 +430,6 @@ public class Coords implements Serializable {
                 directions = new int[3];
                 directions[0] = 4;
                 directions[1] = 5;
-                directions[2] = 0;
             } else {
                 directions = new int[3];
                 directions[0] = 3;
@@ -442,7 +439,6 @@ public class Coords implements Serializable {
         } else {
             if (current.getY() > destination.getY()) {
                 directions = new int[3];
-                directions[0] = 0;
                 directions[1] = 1;
                 directions[2] = 2;
             } else {

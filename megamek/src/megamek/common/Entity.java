@@ -7513,16 +7513,9 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
 
         // TODO: add check for elevation of pavement, road,
         // or bridge matches entity elevation.
-        if ((prevHex != null) && prevHex.containsTerrain(Terrains.ICE)
-                && (((movementMode != EntityMovementMode.HOVER)
-                        && (movementMode != EntityMovementMode.WIGE))
-                        || (((movementMode == EntityMovementMode.HOVER)
-                                || (movementMode == EntityMovementMode.WIGE))
-                                && ((game.getPlanetaryConditions()
-                                        .getWeather() == PlanetaryConditions.WE_HEAVY_SNOW)
-                                        || (game.getPlanetaryConditions()
-                                                .getWindStrength() >= PlanetaryConditions.WI_STORM))))
-                && (prevFacing != curFacing) && !lastPos.equals(curPos)) {
+        if (prevHex != null && prevHex.containsTerrain(Terrains.ICE) && (movementMode != EntityMovementMode.HOVER && movementMode != EntityMovementMode.WIGE || game.getPlanetaryConditions()
+                .getWeather() == PlanetaryConditions.WE_HEAVY_SNOW || game.getPlanetaryConditions()
+                .getWindStrength() >= PlanetaryConditions.WI_STORM) && prevFacing != curFacing && !lastPos.equals(curPos)) {
             roll.append(new PilotingRollData(getId(),
                     getMovementBeforeSkidPSRModifier(distance),
                     "turning on ice"));
@@ -7784,7 +7777,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
         }
 
         if ((this instanceof Infantry) || (this instanceof Protomech)) {
-            if ((rv != 2) && (rv != 8) && (rv != 10)) {
+            if (rv != 2 && rv != 8) {
                 rv = 0;
             }
         }
@@ -7979,7 +7972,6 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
             mod = 0;
         } else {
             // 0-2 hexes
-            mod = -1;
         }
 
         if (hasAbility(OptionsConstants.PILOT_MANEUVERING_ACE)) {
@@ -9396,7 +9388,6 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
             try {
                 loc = Integer.parseInt(str);
             } catch (NumberFormatException nfe) {
-                loc = LOC_NONE;
             }
         }
 
@@ -10017,7 +10008,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
                 continue;
             }
 
-            canHit |= Compute.canPhysicalTarget(game, getId(), target);
+            canHit = Compute.canPhysicalTarget(game, getId(), target);
             // check if we can dodge and target can attack us,
             // then we are eligible.
             canHit |= ((this instanceof Mech) && !isProne()
@@ -10043,7 +10034,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
                 // Can the entity target *this* hex of the building?
                 final BuildingTarget target = new BuildingTarget(coords,
                                                                  game.getBoard(), false);
-                canHit |= Compute.canPhysicalTarget(game, getId(), target);
+                canHit = Compute.canPhysicalTarget(game, getId(), target);
 
             } // Check the next hex of the building
 
@@ -12203,25 +12194,23 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
                     return 0;
                 }
 
-                if (damageAbsorption < damage) {
-                    Report.addNewline(vDesc);
-                    Report r = new Report(3535);
-                    r.subject = getId();
-                    r.add(damageAbsorption);
-                    r.indent(1);
-                    r.newlines = 0;
-                    vDesc.addElement(r);
-                    r = new Report(3536);
-                    r.subject = getId();
-                    r.indent(1);
-                    vDesc.addElement(r);
+                Report.addNewline(vDesc);
+                Report r = new Report(3535);
+                r.subject = getId();
+                r.add(damageAbsorption);
+                r.indent(1);
+                r.newlines = 0;
+                vDesc.addElement(r);
+                r = new Report(3536);
+                r.subject = getId();
+                r.indent(1);
+                vDesc.addElement(r);
 
-                    damage -= mount.baseDamageAbsorptionRate
-                              - mount.damageTaken;
-                    mount.damageTaken = mount.baseDamageAbsorptionRate;
-                    mount.setDestroyed(true);
-                    mount.setHit(true);
-                }
+                damage -= mount.baseDamageAbsorptionRate
+                          - mount.damageTaken;
+                mount.damageTaken = mount.baseDamageAbsorptionRate;
+                mount.setDestroyed(true);
+                mount.setHit(true);
             }
 
         }
@@ -13617,13 +13606,13 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
                         r.subject = getId();
                         r.newlines = 0;
                         vDesc.addElement(r);
-                    } else if ((roll >= 8) && (roll <= 9)) {
+                    } else if (roll <= 9) {
                         hits = 1;
                         r = new Report(6315);
                         r.subject = getId();
                         r.newlines = 0;
                         vDesc.addElement(r);
-                    } else if ((roll >= 10) && (roll <= 11)) {
+                    } else if (roll <= 11) {
                         hits = 2;
                         r = new Report(6320);
                         r.subject = getId();
@@ -15121,7 +15110,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
         //Now, find and empty the transporter on the actual towing entity (trailer or tractor)
         Entity towingEnt = game.getEntity(towed.getTowedBy());
         towingEnt.connectedUnits.clear();
-        if (towingEnt != null) {
+        {
             Transporter hitch = towingEnt.getHitchCarrying(id);
             if (hitch != null) {
                 hitch.unload(towed);
@@ -15259,21 +15248,9 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
             }
             TankTrailerHitch hitch = getHitchCarrying(towed.getId());
             if (hitch != null) {
-                if ((hitch.getRearMounted()) && loc == Tank.LOC_REAR
-                        || isRear
-                        || loc == SuperHeavyTank.LOC_REAR ||
-                        ((loc == Tank.LOC_TURRET
-                                || loc == Tank.LOC_TURRET_2
-                                || loc == SuperHeavyTank.LOC_TURRET
-                                || loc == SuperHeavyTank.LOC_TURRET_2)
-                                && (secondaryFacing == ((getFacing() + 3) % 6)))) {
+                if (hitch.getRearMounted() && loc == Tank.LOC_REAR || isRear || loc == SuperHeavyTank.LOC_REAR || (loc == Tank.LOC_TURRET || loc == SuperHeavyTank.LOC_TURRET || loc == SuperHeavyTank.LOC_TURRET_2) && secondaryFacing == (getFacing() + 3) % 6) {
                     return true;
-                } else if (!hitch.getRearMounted() && (loc == Tank.LOC_FRONT ||
-                        ((loc == Tank.LOC_TURRET
-                        || loc == Tank.LOC_TURRET_2
-                        || loc == SuperHeavyTank.LOC_TURRET
-                        || loc == SuperHeavyTank.LOC_TURRET_2)
-                        && (secondaryFacing == getFacing())))) {
+                } else if (!hitch.getRearMounted() && (loc == Tank.LOC_FRONT || (loc == Tank.LOC_TURRET || loc == SuperHeavyTank.LOC_TURRET || loc == SuperHeavyTank.LOC_TURRET_2) && secondaryFacing == getFacing())) {
                     return true;
                 }
             }

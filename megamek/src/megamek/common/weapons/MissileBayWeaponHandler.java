@@ -13,6 +13,7 @@
  */
 package megamek.common.weapons;
 
+import java.util.Objects;
 import java.util.Vector;
 
 import megamek.common.AmmoType;
@@ -272,7 +273,7 @@ public class MissileBayWeaponHandler extends AmmoBayWeaponHandler {
                 : null;
 
         if ((((null == entityTarget) || entityTarget.isAirborne()) 
-                && (target.getTargetType() != Targetable.TYPE_HEX_CLEAR 
+                && (Objects.requireNonNull(target).getTargetType() != Targetable.TYPE_HEX_CLEAR
                 &&  target.getTargetType() != Targetable.TYPE_HEX_IGNITE
                 &&  target.getTargetType() != Targetable.TYPE_BUILDING)) 
                 || game.getBoard().inSpace()) {
@@ -479,14 +480,14 @@ public class MissileBayWeaponHandler extends AmmoBayWeaponHandler {
                     int dmgClass = wtype.getInfantryDamageClass();
                     int nDamage;
                     if (dmgClass < WeaponType.WEAPON_BURST_1D6) {
-                        nDamage = nDamPerHit * Math.min(nCluster, hits);
+                        nDamage = nDamPerHit * nCluster;
                     } else {
                         // Need to indicate to handleEntityDamage that the
                         // absorbed damage shouldn't reduce incoming damage,
                         // since the incoming damage was reduced in
                         // Compute.directBlowInfantryDamage
                         nDamage = -wtype.getDamage(nRange)
-                                * Math.min(nCluster, hits);
+                                * nCluster;
                     }
                     bldgAbsorbs = (int) Math.round(nDamage
                             * bldg.getInfDmgFromInside());

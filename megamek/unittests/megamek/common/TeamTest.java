@@ -62,7 +62,7 @@ public class TeamTest {
         boolean useInitCompBonus = false;
 
         // Sanity test
-        int initBonus = testTeam.getTotalInitBonus(useInitCompBonus);
+        int initBonus = testTeam.getTotalInitBonus(false);
         assertEquals(initBonus, 0);
 
         assertEquals(3, testTeam.size());
@@ -72,28 +72,28 @@ public class TeamTest {
         when(mockPlayer1.getConstantInitBonus()).thenReturn(-1);
         when(mockPlayer2.getConstantInitBonus()).thenReturn(-2);
         when(mockPlayer3.getConstantInitBonus()).thenReturn(-3);
-        initBonus = testTeam.getTotalInitBonus(useInitCompBonus);
+        initBonus = testTeam.getTotalInitBonus(false);
         assertEquals(-1, initBonus);
 
         when(mockPlayer1.getConstantInitBonus()).thenReturn(0);
-        initBonus = testTeam.getTotalInitBonus(useInitCompBonus);
+        initBonus = testTeam.getTotalInitBonus(false);
         assertEquals(0, initBonus);
 
         when(mockPlayer1.getConstantInitBonus()).thenReturn(1);
-        initBonus = testTeam.getTotalInitBonus(useInitCompBonus);
+        initBonus = testTeam.getTotalInitBonus(false);
         assertEquals(1, initBonus);
 
         when(mockPlayer1.getConstantInitBonus()).thenReturn(-1);
         when(mockPlayer2.getCommandBonus()).thenReturn(2);
-        initBonus = testTeam.getTotalInitBonus(useInitCompBonus);
+        initBonus = testTeam.getTotalInitBonus(false);
         assertEquals(1, initBonus);
 
         when(mockPlayer1.getCommandBonus()).thenReturn(1);
-        initBonus = testTeam.getTotalInitBonus(useInitCompBonus);
+        initBonus = testTeam.getTotalInitBonus(false);
         assertEquals(1, initBonus);
 
         when(mockPlayer3.getCommandBonus()).thenReturn(4);
-        initBonus = testTeam.getTotalInitBonus(useInitCompBonus);
+        initBonus = testTeam.getTotalInitBonus(false);
         assertEquals(3, initBonus);
 
         when(mockPlayer1.getConstantInitBonus()).thenReturn(1);
@@ -102,42 +102,42 @@ public class TeamTest {
         when(mockPlayer1.getCommandBonus()).thenReturn(0);
         when(mockPlayer2.getCommandBonus()).thenReturn(0);
         when(mockPlayer3.getCommandBonus()).thenReturn(0);
-        initBonus = testTeam.getTotalInitBonus(useInitCompBonus);
+        initBonus = testTeam.getTotalInitBonus(false);
         assertEquals(3, initBonus);
 
         when(mockPlayer1.getCommandBonus()).thenReturn(1);
         when(mockPlayer2.getCommandBonus()).thenReturn(2);
         when(mockPlayer3.getCommandBonus()).thenReturn(3);
-        initBonus = testTeam.getTotalInitBonus(useInitCompBonus);
+        initBonus = testTeam.getTotalInitBonus(false);
         assertEquals(6, initBonus);
 
         when(mockPlayer1.getTurnInitBonus()).thenReturn(1);
         when(mockPlayer2.getTurnInitBonus()).thenReturn(2);
         when(mockPlayer3.getTurnInitBonus()).thenReturn(3);
-        initBonus = testTeam.getTotalInitBonus(useInitCompBonus);
+        initBonus = testTeam.getTotalInitBonus(false);
         assertEquals(6, initBonus);
 
         when(mockPlayer1.getTurnInitBonus()).thenReturn(-1);
         when(mockPlayer2.getTurnInitBonus()).thenReturn(-2);
         when(mockPlayer3.getTurnInitBonus()).thenReturn(-3);
-        initBonus = testTeam.getTotalInitBonus(useInitCompBonus);
+        initBonus = testTeam.getTotalInitBonus(false);
         assertEquals(6, initBonus);
 
         useInitCompBonus = true;
  
-        initBonus = testTeam.getTotalInitBonus(useInitCompBonus);
+        initBonus = testTeam.getTotalInitBonus(true);
         assertEquals(6, initBonus);
 
         when(mockPlayer1.getInitCompensationBonus()).thenReturn(-1);
         when(mockPlayer2.getInitCompensationBonus()).thenReturn(-2);
         when(mockPlayer3.getInitCompensationBonus()).thenReturn(-3);
-        initBonus = testTeam.getTotalInitBonus(useInitCompBonus);
+        initBonus = testTeam.getTotalInitBonus(true);
         assertEquals(6, initBonus);
 
         when(mockPlayer1.getInitCompensationBonus()).thenReturn(1);
         when(mockPlayer2.getInitCompensationBonus()).thenReturn(2);
         when(mockPlayer3.getInitCompensationBonus()).thenReturn(3);
-        initBonus = testTeam.getTotalInitBonus(useInitCompBonus);
+        initBonus = testTeam.getTotalInitBonus(true);
         assertEquals(9, initBonus);
 
         // Setup Player 4

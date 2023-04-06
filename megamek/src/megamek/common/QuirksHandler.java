@@ -242,7 +242,7 @@ public class QuirksHandler {
                     // Create the quirk entry and add it to the list.
                     Element quirkElement = (Element) quirkNodes.item(quirkCount);
                     String qeText = quirkElement.getTextContent().trim();
-                    if ((quirkElement.getTextContent() == null) || qeText.isEmpty()) {
+                    if (qeText.isEmpty()) {
                         log.append("\n\t\t").append(unitId).append(": no text content!");
                         continue;
                     }

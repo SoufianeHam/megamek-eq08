@@ -1897,7 +1897,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         // create stripe effect for FOV darkening but not for colored weapon
         // ranges
         int fogStripes = GUIP.getFovStripes();
-        if (outOfFOV && (fogStripes > 0) && (g instanceof Graphics2D)) {
+        if (outOfFOV && fogStripes > 0) {
             float lineSpacing = fogStripes;
             // totally transparent here hurts the eyes
             Color c2 = new Color(col.getRed() / 2, col.getGreen() / 2,
@@ -2450,7 +2450,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                 g.drawImage(scaledImage, 0, origImgHeight - p1SRC.y, p2DST.x,
                         p2DST.y, p1SRC.x, 0, p2SRC.x, p2SRC.y - origImgHeight,
                         null); // paint addtl slice on the top
-            } else if (p2SRC.x > origImgWidth && p2SRC.y > origImgHeight) {
+            } else if (p2SRC.x > origImgWidth) {
                 g.drawImage(scaledImage, origImgWidth - p1SRC.x, 0, p2DST.x,
                         p2DST.y, 0, p1SRC.y, p2SRC.x - origImgWidth, p2SRC.y,
                         null); // paint addtl slice on the top
@@ -2820,7 +2820,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                 if (GUIP.getBoolean(GUIPreferences.ADVANCED_DARKEN_MAP_AT_NIGHT)
                         && IlluminationLevel.determineIlluminationLevel(game, c).isNone()
                         && (game.getPlanetaryConditions().getLight() > PlanetaryConditions.L_DAY)) {
-                    for (int x = 0; x < scaledImage.getWidth(null); ++x) {
+                    for (int x = 0; x < Objects.requireNonNull(scaledImage).getWidth(null); ++x) {
                         for (int y = 0; y < scaledImage.getHeight(); ++y) {
                             scaledImage.setRGB(x, y, getNightDarkenedColor(scaledImage.getRGB(x, y)));
                         }
@@ -2942,7 +2942,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             g.fillPolygon(p);
 
             g.setColor(Color.BLACK);
-            if ((dir == 1) || (dir == 2) || (dir == 5) || (dir == 4)) {
+            if (dir == 2 || dir == 5 || dir == 4) {
                 g.drawLine(p1.x, p1.y, p3.x, p3.y);
             }
         }
@@ -5001,6 +5001,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                 b.addBoardListener(BoardView.this);
             }
             boardBackgrounds.clear();
+            assert b != null;
             if (b.hasBoardBackground()) {
                 ListIterator<Boolean> flipItHoriz = b.getFlipBGHoriz().listIterator();
                 ListIterator<Boolean> flipItVert = b.getFlipBGVert().listIterator();
@@ -5298,7 +5299,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             if (ecm != null) {
              continue;
             }
-            processAffectedCoords(c, ecm, eccm, newECMHexes, newECCMHexes);
+            processAffectedCoords(c, null, eccm, newECMHexes, newECCMHexes);
         }
 
         Set<Coords> updatedHexes = new HashSet<>();
@@ -5342,7 +5343,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             } else {
                 newECMHexes.put(c, hexColorECM);
             }
-        } else if ((hexColorECM == null) && (hexColorECCM != null)) {
+        } else if (hexColorECM == null) {
             if (eccm.isECCM()) {
                 newECCMHexes.put(c, hexColorECCM);
             } else {
@@ -6623,7 +6624,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             g.drawImage(bgImg, 0, bgImgHeight - p1SRC.y, p2DST.x,
                     p2DST.y, p1SRC.x, 0, p2SRC.x, p2SRC.y - bgImgHeight,
                     null); // paint addtl slice on the top
-        } else if (p2SRC.x > bgImgWidth && p2SRC.y > bgImgHeight) {
+        } else if (p2SRC.x > bgImgWidth) {
             g.drawImage(bgImg, bgImgWidth - p1SRC.x, 0, p2DST.x,
                     p2DST.y, 0, p1SRC.y, p2SRC.x - bgImgWidth, p2SRC.y,
                     null); // paint addtl slice on the top

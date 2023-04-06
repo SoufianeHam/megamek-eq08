@@ -502,7 +502,6 @@ public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
             int bestDistance = Integer.MAX_VALUE;
             int bestTonnage = 0;
             Aero currTarget = targets.firstElement();
-            newTarget = null;
             // Target the closest large craft
             for (Aero a : targets) {
                 // Ignore small craft for now
@@ -543,12 +542,6 @@ public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
             if (newTarget == null) {
                 for (Aero a : targets) {
                     int distance = tc.distance(a.getPosition());
-                    if (distance > bestDistance) {
-                        bestDistance = distance;
-                        currTarget = a;
-                        newTarget = currTarget;
-                        continue;
-                    }
                     // same distance
                     int tonnage = (int) a.getWeight();
                     if (distance == bestDistance) {
@@ -573,6 +566,7 @@ public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
             }
             // Now, assign our chosen target to the missile
             target = newTarget;
+            assert target != null;
             aaa.setTargetId(target.getId());
             aaa.setTargetType(target.getTargetType());
             setToHit(target);
@@ -606,6 +600,7 @@ public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
         }
     
         // is the target at zero velocity
+        assert targetship != null;
         if ((targetship.getCurrentVelocity() == 0) && !(targetship.isSpheroid() && !game.getBoard().inSpace())) {
             toHit.addModifier(-2, "target is not moving");
         }
@@ -617,7 +612,8 @@ public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
                 || (bayAType.getAmmoType() == AmmoType.T_BARRACUDA)) {
             toHit.addModifier(-2, "Barracuda Missile");
         }
-   
+
+        assert target != null;
         if (target.isAirborne() && target.isAero()) {
             if (!(((IAero) target).isSpheroid() && !game.getBoard().inSpace())) {
                 // get mods for direction of attack
@@ -721,16 +717,8 @@ public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
                 } else {
                 weaponarmor = bayWType.getMissileArmor();
                 }
-                if (range == WeaponType.RANGE_SHORT) {
-                    current_av = bayWType.getShortAV();
-                } else if (range == WeaponType.RANGE_MED) {
-                    current_av = bayWType.getMedAV();
-                } else if (range == WeaponType.RANGE_LONG) {
-                    current_av = bayWType.getLongAV();
-                } else if (range == WeaponType.RANGE_EXT) {
-                    current_av = bayWType.getExtAV();
-                }
-                
+                current_av = bayWType.getExtAV();
+
                 if (atype.hasFlag(AmmoType.F_NUCLEAR)) {
                     nukeS2S = true;
                 }

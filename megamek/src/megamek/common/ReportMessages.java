@@ -17,6 +17,7 @@ import megamek.MegaMek;
 
 import java.text.MessageFormat;
 import java.util.MissingResourceException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ReportMessages {
@@ -44,7 +45,7 @@ public class ReportMessages {
     public static String getString(String key, Object... args) {
         String s = getString(key);
         if (s != null) {
-            return MessageFormat.format(getString(key), args);
+            return MessageFormat.format(Objects.requireNonNull(getString(key)), args);
         }
         return null;
     }

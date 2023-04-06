@@ -1298,8 +1298,8 @@ public class BLKFile {
             // if a bay number was not specified, assign one
             // if a bay number was specified but is a duplicate, assign a different one
             int newBay = 1;
-            if (bayNumber == -1 || usedBayNumbers.contains(bayNumber)) {
-                while (usedBayNumbers.contains(newBay)) {
+            if (bayNumber == -1 || Objects.requireNonNull(usedBayNumbers).contains(bayNumber)) {
+                while (Objects.requireNonNull(usedBayNumbers).contains(newBay)) {
                     newBay++;
                 }
                 

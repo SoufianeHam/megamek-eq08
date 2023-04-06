@@ -103,7 +103,7 @@
 	<b>Fixed Equipment</b><br/>
 		<#if fixedTonnage gt 0>
 			<table>
-			<tr><td><i>Location</i></td><td align="center"><i>Fixed</i></td><td align="center"><i>Tonnage</i></td><td><i>Heat</i></i></td><th>SRV</i></td><td><i>MRV</i></td><td><i>LRV</th><td><i>ERV</i></td></td></tr>
+			<tr><td><i>Location</i></td><td align="center"><i>Fixed</i></td><td align="center"><i>Tonnage</i></td><td><i>Heat</i></td><th>SRV</th></td><td><i>MRV</i></td><td><i>LRV</th><td><i>ERV</i></td></td></tr>
 			<#list fixedEquipment as row>
 				<#if row.equipment != "None">
 	        		<tr><td>${row.location}</td><td align="center">${row.equipment}</td><td align="center">${row.tonnage}</td><td>${row.heat}</td><td>${row.srv}</td><td>${row.mrv}</td><td>${row.lrv}</td><td>${row.erv}</td></tr>

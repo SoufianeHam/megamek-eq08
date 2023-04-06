@@ -150,6 +150,7 @@ public class ArtilleryCannonWeaponHandler extends AmmoWeaponHandler {
         // According to TacOps eratta, artillery cannons can only fire standard
         // rounds.
         // But, they're still in as unofficial tech, because they're fun. :)
+        assert ammoType != null;
         if (ammoType.getMunitionType() == AmmoType.M_FLARE) {
             int radius;
             if (ammoType.getAmmoType() == AmmoType.T_LONG_TOM) {

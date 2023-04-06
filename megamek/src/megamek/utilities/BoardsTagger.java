@@ -132,6 +132,7 @@ public class BoardsTagger {
     private static void scanForBoards(File file) throws IOException {
         if (file.isDirectory()) {
             String[] fileList = file.list();
+            assert fileList != null;
             for (String filename : fileList) {
                 File filepath = new File(file, filename);
                 if (filepath.isDirectory()) {

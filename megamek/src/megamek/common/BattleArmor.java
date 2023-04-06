@@ -1843,7 +1843,6 @@ public class BattleArmor extends Infantry {
             } else if (getWeightClass() == EntityWeightClass.WEIGHT_HEAVY) {
                 max = 3;
             } else {
-                max = 2;
             }
         }
         else if (getMovementMode() == EntityMovementMode.VTOL) {

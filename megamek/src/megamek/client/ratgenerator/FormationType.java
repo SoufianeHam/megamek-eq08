@@ -436,13 +436,11 @@ public class FormationType {
             }
         } else if ((networkMask & ModelRecord.NETWORK_C3I) != 0) {
             numNetworked = 6;
-            numMasters = 0;
             slaveType = ModelRecord.NETWORK_C3I;
             /* This mask is also used for naval C3 */
             validNetworkUnits |= FLAG_SMALL_CRAFT | FLAG_DROPSHIP;
         } else if ((networkMask & ModelRecord.NETWORK_NOVA) != 0) {
             numNetworked = 3;
-            numMasters = 0;
             slaveType = ModelRecord.NETWORK_NOVA;
         }
         int networkEligible = 0;

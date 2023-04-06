@@ -1281,7 +1281,7 @@ public class TargetingPhaseDisplay extends StatusBarPhaseDisplay implements
             Targetable t = choices.next();
             boolean isSensorReturn = false;
             boolean isVisible = true;
-            if (t instanceof Entity) {
+            if (t != null) {
                 isSensorReturn = ((Entity) t).isSensorReturn(localPlayer);
                 isVisible = ((Entity) t).hasSeenEntity(localPlayer);
             }
@@ -1307,7 +1307,7 @@ public class TargetingPhaseDisplay extends StatusBarPhaseDisplay implements
         }
 
         // If we have multiple choices, display a selection dialog.
-        else if (targets.size() > 1) {
+        else {
             String input = (String) JOptionPane
                     .showInputDialog(
                             clientgui,

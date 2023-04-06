@@ -2818,7 +2818,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
         // Refresh the force tree and restore selection/expand status
         HashSet<Object> selections = new HashSet<>();
         if (!mekForceTree.isSelectionEmpty()) {
-            for (TreePath path: mekForceTree.getSelectionPaths()) {
+            for (TreePath path: Objects.requireNonNull(mekForceTree.getSelectionPaths())) {
                 Object sel = path.getLastPathComponent();
                 if (sel instanceof Force || sel instanceof Entity) {
                     selections.add(path.getLastPathComponent());

@@ -1428,13 +1428,11 @@ public class LandAirMech extends BipedMech implements IAero, IBomber {
         int arc = Compute.ARC_NOSE;
         switch (mounted.getLocation()) {
             case LOC_HEAD:
-                arc = Compute.ARC_NOSE;
                 break;
             case LOC_CT:
                 if (mounted.isRearMounted()) {
                     arc = Compute.ARC_AFT;
                 } else {
-                    arc = Compute.ARC_NOSE;
                 }
                 break;
             case LOC_RT:
@@ -1848,10 +1846,7 @@ public class LandAirMech extends BipedMech implements IAero, IBomber {
         Map<String, Integer> groups = new HashMap<>();
         for (Mounted mounted : getTotalWeaponList()) {
             int loc = LOC_CAPITAL_WINGS;
-            if ((loc == Mech.LOC_CT) || (loc == Mech.LOC_HEAD)) {
-                loc = LOC_CAPITAL_NOSE;
-            }
-            if (mounted.isRearMounted() || (loc == Mech.LOC_LLEG) || (loc == Mech.LOC_RLEG)) {
+            if (mounted.isRearMounted() || loc == Mech.LOC_RLEG) {
                 loc = LOC_CAPITAL_AFT;
             }
             String key = mounted.getType().getInternalName() + ":" + loc;
@@ -2047,7 +2042,7 @@ public class LandAirMech extends BipedMech implements IAero, IBomber {
                 aTracker.addWeapon(mounted);
             }
             if (mounted.getType().hasFlag(WeaponType.F_ONESHOT) && (AmmoType.getOneshotAmmo(mounted) != null)) {
-                Mounted m = new Mounted(this, AmmoType.getOneshotAmmo(mounted));
+                Mounted m = new Mounted(this, Objects.requireNonNull(AmmoType.getOneshotAmmo(mounted)));
                 m.setShotsLeft(1);
                 mounted.setLinked(m);
                 // Oneshot ammo will be identified by having a location

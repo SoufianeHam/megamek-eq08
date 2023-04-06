@@ -68,41 +68,31 @@ public class ButtonOrderPreferences extends PreferenceStoreProxy {
         for (MovementDisplay.MoveCommand cmd : 
                 MovementDisplay.MoveCommand.values()) {
             Integer priority = store.getInt(cmd.getCmd());
-            if (priority != null) {
-                cmd.setPriority(priority);
-            }
+            cmd.setPriority(priority);
         }
         
         for (FiringDisplay.FiringCommand cmd : 
                 FiringDisplay.FiringCommand.values()) {
             Integer priority = store.getInt(cmd.getCmd());
-            if (priority != null) {
-                cmd.setPriority(priority);
-            }
+            cmd.setPriority(priority);
         }
         
         for (PhysicalDisplay.PhysicalCommand cmd : 
                 PhysicalDisplay.PhysicalCommand.values()) {
             Integer priority = store.getInt(cmd.getCmd());
-            if (priority != null) {
-                cmd.setPriority(priority);
-            }
+            cmd.setPriority(priority);
         }
         
         for (TargetingPhaseDisplay.TargetingCommand cmd : 
                 TargetingPhaseDisplay.TargetingCommand.values()) {
             Integer priority = store.getInt(cmd.getCmd());
-            if (priority != null) {
-                cmd.setPriority(priority);
-            }
+            cmd.setPriority(priority);
         }
         
         for (DeploymentDisplay.DeployCommand cmd : 
                 DeploymentDisplay.DeployCommand.values()) {
             Integer priority = store.getInt(cmd.getCmd());
-            if (priority != null) {
-                cmd.setPriority(priority);
-            }
+            cmd.setPriority(priority);
         }
     }
 

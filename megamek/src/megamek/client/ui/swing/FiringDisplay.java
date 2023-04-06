@@ -1153,7 +1153,7 @@ public class FiringDisplay extends StatusBarPhaseDisplay implements ItemListener
                         clientgui.getClient().getGame(), ce().getId(), result,
                         clientgui.getUnitDisplay().wPan.getSelectedWeaponNum(),
                         isStrafing);
-                done &= toHit.getValue() != TargetRoll.AUTOMATIC_FAIL
+                done = toHit.getValue() != TargetRoll.AUTOMATIC_FAIL
                         && toHit.getValue() != TargetRoll.IMPOSSIBLE
                         && toHit.getValue() <= 12;
             }

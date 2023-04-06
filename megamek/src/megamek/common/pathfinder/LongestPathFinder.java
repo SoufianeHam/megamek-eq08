@@ -191,7 +191,7 @@ public class LongestPathFinder extends MovePathFinder<Deque<MovePath>> {
                     if (topMpUsed == mpCMpUsed) {
                         // mpCandidate is not strictly better than topMp so we won't use it.
                         return null;
-                    } else if (topMpUsed < mpCMpUsed) {
+                    } else {
                         // topMP travels less but also uses less movement points so we should keep it
                         // and add mpCandidate to the list of optimal longest paths.
                         break;

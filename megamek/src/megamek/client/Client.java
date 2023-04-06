@@ -1180,6 +1180,7 @@ public class Client implements IClientCommandHandler {
                 if (charge == 0) {
                     game.addAction(ea);
                 } else if (charge == 1) {
+                    assert ea instanceof AttackAction;
                     game.addCharge((AttackAction) ea);
                 }
             }
@@ -1215,7 +1216,7 @@ public class Client implements IClientCommandHandler {
         // loop through the hashset of unique ids and replace the ids with img tags
         for (int i : set) {
             if (getCachedImgTag(i) != null) {
-                updatedReport = updatedReport.replace("<span id='" + i + "'></span>", getCachedImgTag(i));
+                updatedReport = updatedReport.replace("<span id='" + i + "'></span>", Objects.requireNonNull(getCachedImgTag(i)));
             }
         }
         return updatedReport;

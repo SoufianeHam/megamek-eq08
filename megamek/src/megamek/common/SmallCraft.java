@@ -571,7 +571,6 @@ public class SmallCraft extends Aero {
                         arc = Compute.ARC_NOSE_WPL;
                         break;
                     }
-                    arc = Compute.ARC_NOSE;
                     break;
                 case LOC_RWING:
                     if (mounted.isRearMounted()) {
@@ -621,7 +620,6 @@ public class SmallCraft extends Aero {
                             arc = Compute.ARC_NOSE_WPL;
                             break;
                         }
-                        arc = Compute.ARC_NOSE;
                         break;
                     case LOC_RWING:
                         if (mounted.isRearMounted()) {
@@ -802,7 +800,7 @@ public class SmallCraft extends Aero {
         AmmoType atype = (AmmoType) mountedAmmo.getType();
 
         if (mounted.getLocation() != mountedAmmo.getLocation()) {
-            return success;
+            return false;
         }
 
         if (mountedAmmo.isAmmoUsable() && !wtype.hasFlag(WeaponType.F_ONESHOT) && (atype.getAmmoType() == wtype.getAmmoType()) && (atype.getRackSize() == wtype.getRackSize())) {

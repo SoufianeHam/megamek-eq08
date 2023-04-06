@@ -718,6 +718,7 @@ public class BoardUtilities {
                 break;
         } // switch
         /* place the river */
+        assert p != null;
         field = board.getHex(p.x, p.y);
 
         do {

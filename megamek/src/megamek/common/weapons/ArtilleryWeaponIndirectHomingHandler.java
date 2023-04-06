@@ -220,17 +220,13 @@ public class ArtilleryWeaponIndirectHomingHandler extends ArtilleryWeaponIndirec
         if ((bldg != null) && (bldgAbsorbs > 0)) {
             // building absorbs some damage
             r = new Report(6010);
-            if (entityTarget != null) {
-                r.subject = entityTarget.getId();
-            }
+            r.subject = entityTarget.getId();
             r.add(bldgAbsorbs);
             vPhaseReport.addElement(r);
             Vector<Report> buildingReport = gameManager.damageBuilding(bldg,
                     nDamPerHit, target.getPosition());
-            if (entityTarget != null) {
-                for (Report report : buildingReport) {
-                    report.subject = entityTarget.getId();
-                }
+            for (Report report : buildingReport) {
+                report.subject = entityTarget.getId();
             }
             vPhaseReport.addAll(buildingReport);
         }

@@ -14,6 +14,8 @@
  */
 package megamek.client.bot.ga;
 
+import java.util.Arrays;
+
 public class Chromosome implements Comparable<Chromosome> {
     public double fitness; // absolute fitness value
     public int[] genes;
@@ -24,7 +26,7 @@ public class Chromosome implements Comparable<Chromosome> {
 
     @Override
     public String toString() {
-        return genes.toString();
+        return Arrays.toString(genes);
     }
 
     public void copyChromGenes(Chromosome chromosome) {

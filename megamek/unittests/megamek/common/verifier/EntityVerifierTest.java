@@ -24,6 +24,7 @@ import megamek.common.verifier.TestEntity.Ceil;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -37,7 +38,7 @@ public class EntityVerifierTest {
 
     @Test
     public void testEmpty() {
-        File file = new File(getClass().getResource("empty-verifier-options.xml").getFile());
+        File file = new File(Objects.requireNonNull(getClass().getResource("empty-verifier-options.xml")).getFile());
 
         EntityVerifier result = EntityVerifier.getInstance(file);
 

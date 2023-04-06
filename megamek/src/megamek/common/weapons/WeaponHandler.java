@@ -579,7 +579,6 @@ public class WeaponHandler implements AttackHandler, Serializable {
                             while (vPhaseReport.size() > reportSize) {
                                 vPhaseReport.remove(vPhaseReport.size() - 1);
                             }
-                            AMSHits = 0;
                             Report r = new Report(3236);
                             r.subject = subjectId;
                             r.add(nweaponsHit);
@@ -615,7 +614,6 @@ public class WeaponHandler implements AttackHandler, Serializable {
                             //If you're shooting at a target using single AMS
                             //Too many variables here as far as AMS numbers
                             //Just allow 1 missile to be shot down
-                            AMSHits = 0;
                             Report r = new Report(3236);
                             r.subject = subjectId;
                             r.add(nweaponsHit);
@@ -680,7 +678,6 @@ public class WeaponHandler implements AttackHandler, Serializable {
                         int counterAV = 0;
                         counterAV = getCounterAV();
                         nDamPerHit = originalAV * nweaponsHit - counterAV;
-                        hits = 1;
                         nCluster = 1;
                     } else {
                         //If multiple large missile or non-missile weapons hit
@@ -692,7 +689,6 @@ public class WeaponHandler implements AttackHandler, Serializable {
                         r.newlines = 1;
                         vPhaseReport.add(r);
                         nDamPerHit = attackValue * nweaponsHit;
-                        hits = 1;
                         nCluster = 1;
                     }
                 } 
@@ -734,8 +730,7 @@ public class WeaponHandler implements AttackHandler, Serializable {
                 } else {
                 bSalvo = false;
                 nDamPerHit = attackValue;
-                hits = 1;
-                nCluster = 1;
+                    nCluster = 1;
                 }
             }
             int[] results = new int[2];
@@ -2028,7 +2023,6 @@ public class WeaponHandler implements AttackHandler, Serializable {
             if (nRange <= 1) {
                 nMissilesModifier += 1;
             } else if (nRange <= ranges[RangeType.RANGE_MEDIUM]) {
-                nMissilesModifier += 0;
             } else {
                 nMissilesModifier -= 1;
             }

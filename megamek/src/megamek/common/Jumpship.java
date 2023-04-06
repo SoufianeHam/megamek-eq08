@@ -896,7 +896,6 @@ public class Jumpship extends Aero {
                     arc = Compute.ARC_NOSE_WPL;
                     break;
                 }
-                arc = Compute.ARC_NOSE;
                 break;
             case LOC_FRS:
                 if (mounted.isInWaypointLaunchMode()) {
@@ -1222,13 +1221,13 @@ public class Jumpship extends Aero {
         AmmoType atype = (AmmoType) mountedAmmo.getType();
 
         if (mounted.getLocation() != mountedAmmo.getLocation()) {
-            return success;
+            return false;
         }
 
         // for large craft, ammo must be in the same ba
         Mounted bay = whichBay(getEquipmentNum(mounted));
         if ((bay != null) && !bay.ammoInBay(getEquipmentNum(mountedAmmo))) {
-            return success;
+            return false;
         }
 
         if (mountedAmmo.isAmmoUsable() && !wtype.hasFlag(WeaponType.F_ONESHOT)

@@ -80,7 +80,7 @@ class MapListPopup {
         menu.setEnabled(enabled);
         if (enabled) {
             for (int i = 0; i < numB; i++) {
-                menu.add(menuItem("Board " + (i + 1), MLP_BOARD + ":" + i + ":" + boards.get(0) + ":" + rotated, enabled, listener));
+                menu.add(menuItem("Board " + (i + 1), MLP_BOARD + ":" + i + ":" + boards.get(0) + ":" + rotated, true, listener));
             }
         }
         menu.setEnabled(enabled && (menu.getItemCount() > 0));
@@ -99,7 +99,7 @@ class MapListPopup {
             // Since it's not visible to the player, the random board can already be chosen here
             int rnd = (int) (Math.random() * boards.size());
             for (int i = 0; i < numB; i++) {
-                menu.add(menuItem("Board " + (i + 1), MLP_BOARD + ":" + i + ":" + boards.get(rnd), enabled, listener));
+                menu.add(menuItem("Board " + (i + 1), MLP_BOARD + ":" + i + ":" + boards.get(rnd), true, listener));
             }
         }
         menu.setEnabled(enabled && (menu.getItemCount() > 0));
@@ -117,7 +117,7 @@ class MapListPopup {
         if (enabled) {
             for (int i = 0; i < numB; i++) {
                 menu.add(menuItem("Board " + (i + 1), MLP_SURPRISE + ":" + i + ":" 
-                        + String.join("\n", boards), enabled, listener));
+                        + String.join("\n", boards), true, listener));
             }
         }
         menu.setEnabled(enabled && (menu.getItemCount() > 0));

@@ -22,17 +22,14 @@ public class BoardUtilitiesTest {
 
         // One hex from center;
         distanceFromCenter = 1;
-        expected = -4;
         assertEquals(expected, BoardUtilities.craterProfile(distanceFromCenter, craterRadius, maxDepth));
 
         // Three hexes from center;
         distanceFromCenter = 3;
-        expected = -4;
         assertEquals(expected, BoardUtilities.craterProfile(distanceFromCenter, craterRadius, maxDepth));
 
         // Four hexes from center;
         distanceFromCenter = 4;
-        expected = -4;
         assertEquals(expected, BoardUtilities.craterProfile(distanceFromCenter, craterRadius, maxDepth));
 
         // Five hexes from center;
@@ -42,7 +39,6 @@ public class BoardUtilitiesTest {
 
         // Six hexes from center;
         distanceFromCenter = 6;
-        expected = -3;
         assertEquals(expected, BoardUtilities.craterProfile(distanceFromCenter, craterRadius, maxDepth));
 
         // Seven hexes from center;

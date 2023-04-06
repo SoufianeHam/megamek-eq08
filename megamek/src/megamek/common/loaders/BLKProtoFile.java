@@ -81,7 +81,6 @@ public class BLKProtoFile extends BLKFile implements IMechLoader {
 
         int engineCode = BLKFile.FUSION;
         int engineFlags = Engine.NORMAL_ENGINE;
-        engineFlags |= Engine.CLAN_ENGINE;
         int engineRating = TestProtomech.calcEngineRating(t);
         t.setEngine(new Engine(engineRating, BLKFile.translateEngineCode(engineCode), engineFlags));
 
@@ -104,7 +103,6 @@ public class BLKProtoFile extends BLKFile implements IMechLoader {
         if (Protomech.NUM_PMECH_LOCATIONS == armorLocs) {
             hasMainGun = true;
         } else if ((Protomech.NUM_PMECH_LOCATIONS - 1) == armorLocs) {
-            hasMainGun = false;
         } else {
             throw new EntityLoadingException("Incorrect armor array length");
         }

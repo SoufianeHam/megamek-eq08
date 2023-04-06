@@ -163,7 +163,6 @@ public class CLIATMHandler extends ATMHandler {
             if (nRange <= 1) {
                 nMissilesModifier += 1;
             } else if (nRange <= ranges[RangeType.RANGE_MEDIUM]) {
-                nMissilesModifier += 0;
             } else {
                 nMissilesModifier -= 1;
             }

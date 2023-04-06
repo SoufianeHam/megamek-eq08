@@ -18,6 +18,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -87,7 +88,7 @@ public class MineDensityDialog extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource() == butOk) {
-            density = Integer.parseInt((String) choDensity.getSelectedItem());
+            density = Integer.parseInt((String) Objects.requireNonNull(choDensity.getSelectedItem()));
         }
         this.setVisible(false);
     }

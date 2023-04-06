@@ -508,7 +508,7 @@ public class LosEffects {
             ai.minimumWaterDepth = 0;
         } else if (ai.attInWater || ai.targetInWater) {
             ai.minimumWaterDepth = 1;
-        } else if (ai.attUnderWater || ai.targetUnderWater) {
+        } else {
             ai.minimumWaterDepth = Math.min(attackerHex.terrainLevel(Terrains.WATER),
                     targetHex.terrainLevel(Terrains.WATER));
         }

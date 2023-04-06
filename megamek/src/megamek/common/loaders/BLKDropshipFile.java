@@ -358,6 +358,7 @@ public class BLKDropshipFile extends BLKFile implements IMechLoader {
                         }
                     } else if (newmount.getType() instanceof AmmoType) {
                         // ammo should also get loaded into the bay
+                        assert bayMount != null;
                         bayMount.addAmmoToBay(a.getEquipmentNum(newmount));
                     }
                     if (etype.isVariableSize()) {

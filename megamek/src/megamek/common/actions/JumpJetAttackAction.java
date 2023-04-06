@@ -172,10 +172,8 @@ public class JumpJetAttackAction extends PhysicalAttackAction {
                 hasJJ = true;
                 break;
             }
-            if (!hasJJ) {
-                return new ToHitData(TargetRoll.IMPOSSIBLE,
-                        "Jump jets missing or destroyed");
-            }
+            return new ToHitData(TargetRoll.IMPOSSIBLE,
+                    "Jump jets missing or destroyed");
         }
 
         // check if attacker has fired leg-mounted weapons

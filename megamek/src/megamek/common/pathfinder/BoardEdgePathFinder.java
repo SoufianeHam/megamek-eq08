@@ -168,9 +168,7 @@ public class BoardEdgePathFinder {
             }
 
             //
-            if (currentPath != null) {
-                currentPath = joinPaths(entity, currentPath, connectedPath);
-            }
+            currentPath = joinPaths(entity, currentPath, connectedPath);
         }
 
         return currentPath;

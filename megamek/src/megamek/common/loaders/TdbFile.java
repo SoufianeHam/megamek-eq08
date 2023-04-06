@@ -270,6 +270,7 @@ public class TdbFile implements IMechLoader {
                 continue;
             }
 
+            assert location != null;
             CriticalSlot crit = location.criticalSlots.get(i);
             
             // parse out and add the critical

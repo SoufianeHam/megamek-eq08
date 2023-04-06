@@ -1548,7 +1548,7 @@ public class MoveStep implements Serializable {
 
         // If this step didn't already know it's status as the ending
         // position of a path, then there are more updates to do.
-        boolean moreUpdates = (isEndPos != isEnd);
+        boolean moreUpdates = !isEnd;
         isEndPos = isEnd;
 
         // If this step isn't the end step anymore, we might not be in danger
@@ -1594,7 +1594,7 @@ public class MoveStep implements Serializable {
             MoveStep step = steps.get(i);
             boolean stepMatch = this.equals(step);
             if (lastStep) {
-                lastStep &= step.getMovementType(true) == EntityMovementType.MOVE_ILLEGAL;
+                lastStep = step.getMovementType(true) == EntityMovementType.MOVE_ILLEGAL;
             }
             // If there is a legal step after us, we're not the end
             if ((step.getMovementType(lastStep) != EntityMovementType.MOVE_ILLEGAL)
@@ -3034,15 +3034,7 @@ public class MoveStep implements Serializable {
 
             // non-hovers, non-navals and non-VTOLs check for water depth and
             // are affected by swamp
-            if ((moveMode != EntityMovementMode.HOVER)
-                    && (moveMode != EntityMovementMode.NAVAL)
-                    && (moveMode != EntityMovementMode.HYDROFOIL)
-                    && (moveMode != EntityMovementMode.SUBMARINE)
-                    && (moveMode != EntityMovementMode.INF_UMU)
-                    && (moveMode != EntityMovementMode.VTOL)
-                    && (moveMode != EntityMovementMode.BIPED_SWIM)
-                    && (moveMode != EntityMovementMode.QUAD_SWIM)
-                    && (moveMode != EntityMovementMode.WIGE)) {
+            if (moveMode != EntityMovementMode.HOVER && moveMode != EntityMovementMode.NAVAL && moveMode != EntityMovementMode.HYDROFOIL && moveMode != EntityMovementMode.SUBMARINE && moveMode != EntityMovementMode.INF_UMU && moveMode != EntityMovementMode.BIPED_SWIM && moveMode != EntityMovementMode.QUAD_SWIM && moveMode != EntityMovementMode.WIGE) {
                 // no additional cost when moving on surface of ice.
                 if (!destHex.containsTerrain(Terrains.ICE)
                         || (nDestEl < destHex.getLevel())) {
@@ -3122,10 +3114,10 @@ public class MoveStep implements Serializable {
                     && (bldg.getBldgClass() == Building.HANGAR)
                     && (destHex.terrainLevel(Terrains.BLDG_ELEV) > getEntity()
                             .height())) {
-                mp += 0;
             } else if (!isInfantry && !isSuperHeavyMech) {
                 if (!isProto) {
                     // non-protos pay extra according to the building type
+                    assert bldg != null;
                     mp += bldg.getType();
                     if (bldg.getBldgClass() == Building.HANGAR) {
                         mp--;
@@ -3794,11 +3786,11 @@ public class MoveStep implements Serializable {
         // based on velocity
         if (velocity < 3) {
             return 1 + thrustCost;
-        } else if ((velocity > 2) && (velocity < 6)) {
+        } else if (velocity < 6) {
             return 2 + thrustCost;
-        } else if ((velocity > 5) && (velocity < 8)) {
+        } else if (velocity < 8) {
             return 3 + thrustCost;
-        } else if ((velocity > 7) && (velocity < 10)) {
+        } else if (velocity < 10) {
             return 4 + thrustCost;
         } else if (velocity == 10) {
             return 5 + thrustCost;

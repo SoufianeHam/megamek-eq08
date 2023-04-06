@@ -556,12 +556,15 @@ public class SharedUtility {
                 if (!(entity instanceof Infantry)) {
                     nagReport.append(Messages.getString("MovementDisplay.IceLanding"));
                 }
-            } else if (!(prevStep.climbMode() && hex.containsTerrain(Terrains.BRIDGE))) {
-                if (!entity.getMovementMode().isHover()) {
-                    rollTarget = entity.checkWaterMove(waterLevel, overallMoveType);
-                    checkNag(rollTarget, nagReport, psrList);
-                }
+            } else {
+                assert prevStep != null;
+                if (!(prevStep.climbMode() && hex.containsTerrain(Terrains.BRIDGE))) {
+                    if (!entity.getMovementMode().isHover()) {
+                        rollTarget = entity.checkWaterMove(waterLevel, overallMoveType);
+                        checkNag(rollTarget, nagReport, psrList);
+                    }
 
+                }
             }
 
             // check for magma
@@ -699,7 +702,7 @@ public class SharedUtility {
         if (game.useVectorMove()) {
             // if the unit is ramming then this is already done
             if (!isRamming) {
-                md = addSteps(md, client);
+                addSteps(md, client);
             }
         } else if (a.isOutControlTotal()) {
             // OOC units need a new movement path

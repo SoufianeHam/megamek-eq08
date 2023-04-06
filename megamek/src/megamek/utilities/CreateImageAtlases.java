@@ -27,6 +27,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Program that will scan the data/images directory for images and take all of
@@ -86,7 +87,7 @@ public class CreateImageAtlases {
                 return;
             }
             processDirectory(file);
-            for (File subFile : file.listFiles()) {
+            for (File subFile : Objects.requireNonNull(file.listFiles())) {
                 if (subFile.isDirectory()) {
                     scanDirectory(subFile);
                 }
@@ -110,6 +111,7 @@ public class CreateImageAtlases {
                     && !name.endsWith("_atlas.png");
         });
 
+        assert imageFiles != null;
         int numRows = (int) Math.ceil(imageFiles.length / (imagesPerRow + 0.0));
         // No images, nothing to do
         if (numRows <= 0) {

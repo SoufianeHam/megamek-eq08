@@ -382,7 +382,6 @@ public class PathEnumerator {
                     needsAdjust = true;
                     break;
                 } else {
-                    needsAdjust = false;
                     break;
                 }
             }

@@ -264,8 +264,7 @@ public class BoardClusterTracker {
                 
                 // hex is either inaccessible
                 // or it is inaccessible AND we can't level it, then we move on
-                if ((entity.isLocationProhibited(c) || buildingPlowThroughRequired(entity, movementType, c)) &&
-                        (!destructionAware || (destructionAware && !canLevel(entity, c)))) {
+                if ((entity.isLocationProhibited(c) || buildingPlowThroughRequired(entity, movementType, c)) && (!destructionAware || !canLevel(entity, c))) {
                     continue;
                 }
                 

@@ -182,9 +182,6 @@ public class KickAttackAction extends PhysicalAttackAction {
         }
 
         // non-mechs can't kick
-        if (!(ae instanceof Mech)) {
-            return new ToHitData(TargetRoll.IMPOSSIBLE, "Non-mechs can't kick");
-        }
 
         // check if all legs are present & working
         if (ae.isLocationBad(Mech.LOC_LLEG) || ae.isLocationBad(Mech.LOC_RLEG)

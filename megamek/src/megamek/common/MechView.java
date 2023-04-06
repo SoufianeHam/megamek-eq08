@@ -164,6 +164,7 @@ public class MechView {
         sLoadout.add(new SingleLine());
 
         if (isInf) {
+            assert entity instanceof Infantry;
             Infantry inf = (Infantry) entity;
             if (inf.getSpecializations() > 0) {
                 ItemList specList = new ItemList("Infantry Specializations");
@@ -302,8 +303,11 @@ public class MechView {
                 moveString.append(" (").append(Messages
                             .getString("MovementType." + entity.getMovementModeAsString()))
                             .append(")");
+                assert entity instanceof Tank;
                 if ((((Tank) entity).getMotiveDamage() > 0)
                         || (((Tank) entity).getMotivePenalty() > 0)) {
+                    assert entity instanceof Tank;
+                    assert entity instanceof Tank;
                     moveString.append(" ").append(warningStart())
                         .append("(motive damage: -")
                         .append(((Tank) entity).getMotiveDamage())
@@ -323,15 +327,21 @@ public class MechView {
                 sBasic.add(new LabeledElement(Messages.getString("MechView.Movement"), moveString.toString()));
             }
         }
-        if (isBA && ((BattleArmor) entity).isBurdened()) {
-            sBasic.add(new SingleLine(italicsStart()
-                    + Messages.getString("MechView.Burdened")
-                    + italicsEnd()));
+        if (isBA) {
+            assert entity instanceof BattleArmor;
+            if (((BattleArmor) entity).isBurdened()) {
+                sBasic.add(new SingleLine(italicsStart()
+                        + Messages.getString("MechView.Burdened")
+                        + italicsEnd()));
+            }
         }
-        if (isBA && ((BattleArmor) entity).hasDWP()) {
-            sBasic.add(new SingleLine(italicsStart()
-                    + Messages.getString("MechView.DWPBurdened")
-                    + italicsEnd()));
+        if (isBA) {
+            assert entity instanceof BattleArmor;
+            if (((BattleArmor) entity).hasDWP()) {
+                sBasic.add(new SingleLine(italicsStart()
+                        + Messages.getString("MechView.DWPBurdened")
+                        + italicsEnd()));
+            }
         }
         if (entity instanceof QuadVee) {
             entity.setConversionMode(QuadVee.CONV_MODE_VEHICLE);
@@ -372,6 +382,7 @@ public class MechView {
         }
 
         if (isAero && !isConvFighter) {
+            assert entity instanceof Aero;
             Aero a = (Aero) entity;
             StringBuilder hsString = new StringBuilder(String.valueOf(a.getHeatSinks()));
             if (a.getPodHeatSinks() > 0) {
@@ -395,6 +406,7 @@ public class MechView {
         }
 
         if (isMech) {
+            assert entity instanceof Mech;
             Mech aMech = (Mech) entity;
             StringBuilder hsString = new StringBuilder();
             hsString.append(aMech.heatSinks());
@@ -426,6 +438,7 @@ public class MechView {
         }
 
         if (isAero) {
+            assert entity instanceof Aero;
             Aero a = (Aero) entity;
             if (!a.getCritDamageString().isEmpty()) {
                 sBasic.add(new LabeledElement(Messages.getString("MechView.SystemDamage"),

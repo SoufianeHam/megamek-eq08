@@ -2421,8 +2421,7 @@ public class GameManager implements IGameManager {
         while (!next.equals(current)) {
             // if the chosen player is a valid player, we change the turn order and
             // inform the clients.
-            if ((next != null) && (game.getEntitiesOwnedBy(next) != 0)
-                    && (game.getTurnForPlayer(next.getId()) != null)) {
+            if (game.getEntitiesOwnedBy(next) != 0 && game.getTurnForPlayer(next.getId()) != null) {
 
                 int currentTurnIndex = game.getTurnIndex();
                 // now look for the next occurrence of player next in the turn order
@@ -2515,6 +2514,7 @@ public class GameManager implements IGameManager {
             return;
         }
 
+        assert nextTurn != null;
         Player player = game.getPlayer(nextTurn.getPlayerNum());
 
         if ((player != null) && (game.getEntitiesOwnedBy(player) == 0)) {
@@ -4476,7 +4476,6 @@ public class GameManager implements IGameManager {
                     int table = 0;
                     switch (hitSide) { // quite hackish... I think it ought to work, though.
                         case 0: // can this happen?
-                            table = ToHitData.SIDE_FRONT;
                             break;
                         case 1:
                         case 2:
@@ -4569,7 +4568,6 @@ public class GameManager implements IGameManager {
                     int table = 0;
                     switch (hitSide) { // quite hackish... I think it ought to work, though.
                         case 0: // can this happen?
-                            table = ToHitData.SIDE_FRONT;
                             break;
                         case 1:
                         case 2:
@@ -9320,23 +9318,18 @@ public class GameManager implements IGameManager {
                 }
                 // Get the packet, if there's something to get
                 Server.ReceivedPacket rp;
-                if (!cfrPacketQueue.isEmpty()) {
-                    rp = cfrPacketQueue.poll();
-                    final PacketCommand cfrType = (PacketCommand) rp.getPacket().getObject(0);
-                    // Make sure we got the right type of response
-                    if (!cfrType.isCFRHiddenPBS()) {
-                        LogManager.getLogger().error("Expected a CFR_HIDDEN_PBS CFR packet, received: " + cfrType);
-                        continue;
-                    }
-                    // Check packet came from right ID
-                    if (rp.getConnectionId() != hidden.getOwnerId()) {
-                        LogManager.getLogger().error(String.format(
-                                "Expected a CFR_HIDDEN_PBS CFR packet from player %d, but instead it came from player %d",
-                                hidden.getOwnerId(), rp.getConnectionId()));
-                        continue;
-                    }
-                } else {
-                    // If no packets, wait again
+                rp = cfrPacketQueue.poll();
+                final PacketCommand cfrType = (PacketCommand) rp.getPacket().getObject(0);
+                // Make sure we got the right type of response
+                if (!cfrType.isCFRHiddenPBS()) {
+                    LogManager.getLogger().error("Expected a CFR_HIDDEN_PBS CFR packet, received: " + cfrType);
+                    continue;
+                }
+                // Check packet came from right ID
+                if (rp.getConnectionId() != hidden.getOwnerId()) {
+                    LogManager.getLogger().error(String.format(
+                            "Expected a CFR_HIDDEN_PBS CFR packet from player %d, but instead it came from player %d",
+                            hidden.getOwnerId(), rp.getConnectionId()));
                     continue;
                 }
                 // First packet indicates whether the PBS is taken or declined
@@ -10183,6 +10176,7 @@ public class GameManager implements IGameManager {
                     boolean heatReduced = false;
                     String reductionCause = "";
                     for (int i = 0; i < m; i++) {
+                        assert ae != null;
                         int side = Compute.targetSideTable(ae, t, called);
                         HitData hit = te.rollHitLocation(ToHitData.HIT_NORMAL, side);
                         if (te.removePartialCoverHits(hit.getLocation(), cover, side)) {
@@ -10298,12 +10292,14 @@ public class GameManager implements IGameManager {
                     te.heatFromExternal += 2 * missiles;
                     Report.addNewline(vPhaseReport);
                 } else if (te instanceof GunEmplacement) {
+                    assert ae != null;
                     int direction = Compute.targetSideTable(ae, te, called);
                     while (missiles-- > 0) {
                         HitData hit = te.rollHitLocation(ToHitData.HIT_NORMAL, direction);
                         vPhaseReport.addAll(damageEntity(te, hit, 2));
                     }
                 } else if ((te instanceof Tank) || te.isSupportVehicle()) {
+                    assert ae != null;
                     int direction = Compute.targetSideTable(ae, te, called);
                     while (missiles-- > 0) {
                         HitData hit = te.rollHitLocation(ToHitData.HIT_NORMAL, direction);
@@ -12510,6 +12506,7 @@ public class GameManager implements IGameManager {
             }
             LogManager.getLogger().error(msg);
             send(connId, createTurnVectorPacket());
+            assert turn != null;
             send(connId, createTurnIndexPacket(turn.getPlayerNum()));
             return;
         }
@@ -13220,6 +13217,7 @@ public class GameManager implements IGameManager {
 
             // For Bearings-only Capital Missiles, don't assign during the offboard phase
             if (wh instanceof CapitalMissileBearingsOnlyHandler) {
+                assert waa instanceof ArtilleryAttackAction;
                 ArtilleryAttackAction aaa = (ArtilleryAttackAction) waa;
                 if ((aaa.getTurnsTilHit() > 0) || !getGame().getPhase().isFiring()) {
                     continue;
@@ -14854,6 +14852,7 @@ public class GameManager implements IGameManager {
             return;
         }
 
+        assert te != null;
         HitData hit = te.rollHitLocation(toHit.getHitTable(), toHit.getSideTable());
         hit.setGeneralDamageType(HitData.DAMAGE_PHYSICAL);
         r = new Report(4045);
@@ -15114,6 +15113,7 @@ public class GameManager implements IGameManager {
             return;
         }
 
+        assert te != null;
         HitData hit = te.rollHitLocation(toHit.getHitTable(), toHit.getSideTable());
         hit.setGeneralDamageType(HitData.DAMAGE_PHYSICAL);
         r = new Report(4045);
@@ -15359,6 +15359,7 @@ public class GameManager implements IGameManager {
                     break;
                 }
             }
+            assert te != null;
             HitData hit = te.rollHitLocation(toHit.getHitTable(), toHit.getSideTable());
             hit.setGeneralDamageType(HitData.DAMAGE_ENERGY);
 
@@ -15535,6 +15536,7 @@ public class GameManager implements IGameManager {
             return;
         }
 
+        assert te != null;
         HitData hit = te.rollHitLocation(toHit.getHitTable(), toHit.getSideTable());
         hit.setGeneralDamageType(HitData.DAMAGE_PHYSICAL);
 
@@ -15747,6 +15749,7 @@ public class GameManager implements IGameManager {
         switch (target.getTargetType()) {
             case Targetable.TYPE_ENTITY:
                 // Handle Entity targets.
+                assert te != null;
                 HitData hit = te.rollHitLocation(toHit.getHitTable(), toHit.getSideTable());
                 hit.setGeneralDamageType(HitData.DAMAGE_PHYSICAL);
                 r = new Report(4045);
@@ -16291,6 +16294,7 @@ public class GameManager implements IGameManager {
             return;
         }
 
+        assert te != null;
         HitData hit = te.rollHitLocation(toHit.getHitTable(), toHit.getSideTable());
         hit.setGeneralDamageType(HitData.DAMAGE_PHYSICAL);
         r = new Report(4045);
@@ -17075,7 +17079,7 @@ public class GameManager implements IGameManager {
 
         // should we even bother?
         if ((target == null) || ((target.getTargetType() == Targetable.TYPE_ENTITY)
-                && (te.isDestroyed() || te.isDoomed() || te.getCrew().isDead()))) {
+                && (Objects.requireNonNull(te).isDestroyed() || te.isDoomed() || te.getCrew().isDead()))) {
             r = new Report(4190);
             r.subject = ae.getId();
             r.indent();
@@ -17265,7 +17269,7 @@ public class GameManager implements IGameManager {
 
         // should we even bother?
         if ((target == null) || ((target.getTargetType() == Targetable.TYPE_ENTITY)
-                && (te.isDestroyed() || te.isDoomed() || te.getCrew().isDead()))) {
+                && (Objects.requireNonNull(te).isDestroyed() || te.isDoomed() || te.getCrew().isDead()))) {
             r = new Report(4192);
             r.subject = ae.getId();
             r.indent();
@@ -17409,7 +17413,7 @@ public class GameManager implements IGameManager {
 
         // should we even bother?
         if ((target == null)
-                || ((target.getTargetType() == Targetable.TYPE_ENTITY) && (te.isDestroyed()
+                || ((target.getTargetType() == Targetable.TYPE_ENTITY) && (Objects.requireNonNull(te).isDestroyed()
                         || te.isDoomed() || te.getCrew().isDead()))) {
             r = new Report(4191);
             r.subject = ae.getId();
@@ -17430,6 +17434,7 @@ public class GameManager implements IGameManager {
             // Report the attack
             r = new Report(3362);
             r.newlines = 1;
+            assert te != null;
             r.subject = te.getId();
             vPhaseReport.add(r);
 
@@ -17510,6 +17515,7 @@ public class GameManager implements IGameManager {
             addReport(r);
         } else {
             // Resolve the damage.
+            assert te != null;
             HitData hit = te.rollHitLocation(ToHitData.HIT_NORMAL,
                     te.sideTable(ae.getPosition(), true));
             hit.setCapital(true);
@@ -17558,7 +17564,7 @@ public class GameManager implements IGameManager {
 
         // should we even bother?
         if ((target == null)
-                || ((target.getTargetType() == Targetable.TYPE_ENTITY) && (te.isDestroyed()
+                || ((target.getTargetType() == Targetable.TYPE_ENTITY) && (Objects.requireNonNull(te).isDestroyed()
                         || te.isDoomed() || te.getCrew().isDead()))) {
             r = new Report(4190);
             r.subject = ae.getId();
@@ -17740,7 +17746,6 @@ public class GameManager implements IGameManager {
         if (game.getOptions().booleanOption(OptionsConstants.ADVCOMBAT_TACOPS_DIRECT_BLOW)
                 && ((toHit.getMoS() / 3) >= 1)) {
             damage += toHit.getMoS() / 3;
-            bDirect = false;
         }
 
         // Is the target inside a building?
@@ -17866,9 +17871,6 @@ public class GameManager implements IGameManager {
             } else {
                 HitData hit = te.rollHitLocation(toHit.getHitTable(), toHit.getSideTable());
                 hit.setGeneralDamageType(HitData.DAMAGE_PHYSICAL);
-                if (bDirect) {
-                    hit.makeDirectBlow(directBlowCritMod);
-                }
                 cluster = checkForSpikes(te, hit.getLocation(), cluster, ae, Mech.LOC_CT);
                 addReport(damageEntity(te, hit, cluster, false,
                         DamageType.NONE, false, false, throughFront));
@@ -18136,7 +18138,7 @@ public class GameManager implements IGameManager {
 
         // should we even bother?
         if ((target == null) || ((target.getTargetType() == Targetable.TYPE_ENTITY)
-                && (te.isDestroyed() || te.isDoomed() || te.getCrew().isDead()))) {
+                && (Objects.requireNonNull(te).isDestroyed() || te.isDoomed() || te.getCrew().isDead()))) {
             r = new Report(4245);
             r.subject = ae.getId();
             r.indent();
@@ -18223,6 +18225,7 @@ public class GameManager implements IGameManager {
 
         // do we hit?
         if (roll < toHit.getValue()) {
+            assert te != null;
             Coords dest = te.getPosition();
             Coords targetDest = Compute.getPreferredDisplacement(game, te.getId(), dest, direction);
             // miss
@@ -18310,6 +18313,7 @@ public class GameManager implements IGameManager {
 
             while (damage > 0) {
                 int cluster = Math.min(5, damage);
+                assert te != null;
                 HitData hit = te.rollHitLocation(toHit.getHitTable(), toHit.getSideTable());
                 hit.setGeneralDamageType(HitData.DAMAGE_PHYSICAL);
                 if (directBlow) {
@@ -18329,6 +18333,7 @@ public class GameManager implements IGameManager {
                         false, 0, false));
             }
             // Target entities are pushed away or destroyed.
+            assert te != null;
             Coords targetDest = Compute.getValidDisplacement(game, te.getId(), dest, direction);
             if (targetDest != null) {
                 addReport(doEntityDisplacement(te, dest, targetDest,
@@ -18424,7 +18429,6 @@ public class GameManager implements IGameManager {
                     mod = 1;
                     break;
                 case EntityWeightClass.WEIGHT_MEDIUM:
-                    mod = 0;
                     break;
                 case EntityWeightClass.WEIGHT_HEAVY:
                     mod = -1;
@@ -19308,6 +19312,7 @@ public class GameManager implements IGameManager {
                         }
 
                         if (harJelII) {
+                            assert harJel != null;
                             if (harJel.curMode().equals(MiscType.S_HARJEL_II_1F1R)) {
                                 desiredFrontRepair = 1;
                             } else if (harJel.curMode().equals(MiscType.S_HARJEL_II_2F0R)) {
@@ -19316,6 +19321,7 @@ public class GameManager implements IGameManager {
                                 desiredFrontRepair = 0;
                             }
                         } else { // HarJel III
+                            assert harJel != null;
                             if (harJel.curMode().equals(MiscType.S_HARJEL_III_2F2R)) {
                                 desiredFrontRepair = 2;
                             } else if (harJel.curMode().equals(MiscType.S_HARJEL_III_4F0R)) {
@@ -19675,7 +19681,6 @@ public class GameManager implements IGameManager {
                                     weightMod = 1;
                                     break;
                                 case EntityWeightClass.WEIGHT_MEDIUM:
-                                    weightMod = 0;
                                     break;
                                 case EntityWeightClass.WEIGHT_HEAVY:
                                     weightMod = -1;
@@ -20681,7 +20686,7 @@ public class GameManager implements IGameManager {
                     } else if (!crew.isDoomed()) {
                         crew.setDoomed(true);
                         // Safety. We might use this logic for large naval vessels later on
-                        if (en instanceof Aero && ((Aero) en).isEjecting()) {
+                        if (((Aero) en).isEjecting()) {
                             vDesc.addAll(destroyEntity(en, "ejection", true));
                             ((Aero) en).setEjecting(false);
                         } else {
@@ -23142,7 +23147,6 @@ public class GameManager implements IGameManager {
                 case 0:
                     return false;
                 case 1:
-                    explosionBTH = 10;
                     break;
                 case 2:
                     explosionBTH = 7;
@@ -23587,6 +23591,7 @@ public class GameManager implements IGameManager {
             LogManager.getLogger().error("Illegal nuke not listed in HS:3070");
         }
 
+        assert nukeStats != null;
         doNuclearExplosion(position, nukeStats.baseDamage, nukeStats.degradation, nukeStats.secondaryRadius,
                 nukeStats.craterDepth, vDesc);
     }
@@ -24419,7 +24424,7 @@ public class GameManager implements IGameManager {
                                 newSlot = new CriticalSlot(CriticalSlot.TYPE_SYSTEM,
                                         Protomech.SYSTEM_TORSO_WEAPON_A);
                                 reports.addAll(applyCriticalHit(pm, Entity.NONE, newSlot,
-                                        secondaryEffects, damageCaused, isCapital));
+                                        true, damageCaused, isCapital));
                                 break;
                             }
                             break;
@@ -24428,20 +24433,20 @@ public class GameManager implements IGameManager {
                                 newSlot = new CriticalSlot(CriticalSlot.TYPE_SYSTEM,
                                         Protomech.SYSTEM_TORSO_WEAPON_B);
                                 reports.addAll(applyCriticalHit(pm, Entity.NONE, newSlot,
-                                        secondaryEffects, damageCaused, isCapital));
+                                        true, damageCaused, isCapital));
                                 break;
                             }
                             newSlot = new CriticalSlot(CriticalSlot.TYPE_SYSTEM,
                                     Protomech.SYSTEM_TORSO_WEAPON_A);
                             reports.addAll(applyCriticalHit(pm, Entity.NONE, newSlot,
-                                    secondaryEffects, damageCaused, isCapital));
+                                    true, damageCaused, isCapital));
                             break;
                         case 3:
                             if (pm.isQuad()) {
                                 newSlot = new CriticalSlot(CriticalSlot.TYPE_SYSTEM,
                                         Protomech.SYSTEM_TORSO_WEAPON_C);
                                 reports.addAll(applyCriticalHit(pm, Entity.NONE, newSlot,
-                                        secondaryEffects, damageCaused, isCapital));
+                                        true, damageCaused, isCapital));
                                 break;
                             }
                             break;
@@ -24450,13 +24455,13 @@ public class GameManager implements IGameManager {
                                 newSlot = new CriticalSlot(CriticalSlot.TYPE_SYSTEM,
                                         Protomech.SYSTEM_TORSO_WEAPON_D);
                                 reports.addAll(applyCriticalHit(pm, Entity.NONE, newSlot,
-                                        secondaryEffects, damageCaused, isCapital));
+                                        true, damageCaused, isCapital));
                                 break;
                             }
                             newSlot = new CriticalSlot(CriticalSlot.TYPE_SYSTEM,
                                     Protomech.SYSTEM_TORSO_WEAPON_B);
                             reports.addAll(applyCriticalHit(pm, Entity.NONE, newSlot,
-                                    secondaryEffects, damageCaused, isCapital));
+                                    true, damageCaused, isCapital));
                             break;
                         case 5:
                             if (pm.getWeight() > 9) {
@@ -24464,14 +24469,14 @@ public class GameManager implements IGameManager {
                                     newSlot = new CriticalSlot(CriticalSlot.TYPE_SYSTEM,
                                             Protomech.SYSTEM_TORSO_WEAPON_E);
                                     reports.addAll(applyCriticalHit(pm, Entity.NONE, newSlot,
-                                            secondaryEffects, damageCaused, isCapital));
+                                            true, damageCaused, isCapital));
                                     break;
                                 }
                                 newSlot = new CriticalSlot(
                                         CriticalSlot.TYPE_SYSTEM,
                                         Protomech.SYSTEM_TORSO_WEAPON_C);
                                 reports.addAll(applyCriticalHit(pm, Entity.NONE, newSlot,
-                                        secondaryEffects, damageCaused, isCapital));
+                                        true, damageCaused, isCapital));
                                 break;
                             }
                             break;
@@ -24481,13 +24486,13 @@ public class GameManager implements IGameManager {
                                     newSlot = new CriticalSlot(CriticalSlot.TYPE_SYSTEM,
                                             Protomech.SYSTEM_TORSO_WEAPON_F);
                                     reports.addAll(applyCriticalHit(pm, Entity.NONE, newSlot,
-                                            secondaryEffects, damageCaused, isCapital));
+                                            true, damageCaused, isCapital));
                                     break;
                                 }
                                 newSlot = new CriticalSlot(CriticalSlot.TYPE_SYSTEM,
                                         Protomech.SYSTEM_TORSO_WEAPON_C);
                                 reports.addAll(applyCriticalHit(pm, Entity.NONE, newSlot,
-                                        secondaryEffects, damageCaused, isCapital));
+                                        true, damageCaused, isCapital));
                                 break;
                             }
                     }
@@ -26492,24 +26497,22 @@ public class GameManager implements IGameManager {
                 r.subject = en.getId();
                 vDesc.addElement(r);
                 return vDesc;
-            } else if ((!advancedCrit && (roll >= 8) && (roll <= 9))
-                    || (advancedCrit && (roll >= 9) && (roll <= 10))) {
+            } else if (!advancedCrit && roll <= 9 || advancedCrit && roll >= 9 && roll <= 10) {
                 hits = 1;
                 r = new Report(6315);
                 r.subject = en.getId();
                 vDesc.addElement(r);
-            } else if ((!advancedCrit && (roll >= 10) && (roll <= 11))
-                    || (advancedCrit && (roll >= 11) && (roll <= 12))) {
+            } else if (!advancedCrit && roll <= 11 || advancedCrit && roll >= 11 && roll <= 12) {
                 hits = 2;
                 r = new Report(6320);
                 r.subject = en.getId();
                 vDesc.addElement(r);
-            } else if (advancedCrit && (roll >= 13) && (roll <= 14)) {
+            } else if (advancedCrit && roll <= 14) {
                 hits = 3;
                 r = new Report(6325);
                 r.subject = en.getId();
                 vDesc.addElement(r);
-            } else if ((!advancedCrit && (roll >= 12)) || (advancedCrit && (roll >= 15))) {
+            } else {
                 if (en instanceof Protomech) {
                     hits = 3;
                     r = new Report(6325);
@@ -27742,7 +27745,6 @@ public class GameManager implements IGameManager {
             checkCollapse = true;
         } else if (fallHex.containsTerrain(Terrains.ICE) && (entity.getElevation() == 0)) {
             waterDepth = 0;
-            newElevation = 0;
             // If we are in a basement, we are at a negative elevation, and so
             // setting newElevation = 0 will cause us to "fall up"
         } else if ((entity.getMovementMode() != EntityMovementMode.VTOL)
@@ -27785,7 +27787,6 @@ public class GameManager implements IGameManager {
                             damageTable = ToHitData.HIT_PUNCH;
                             break;
                         default:
-                            damageTable = ToHitData.HIT_NORMAL;
                             break;
                     }
                 }
@@ -28140,7 +28141,6 @@ public class GameManager implements IGameManager {
         if (currHex.containsTerrain(Terrains.ICE)
                 && (entity.getElevation() != -currHex.depth())) {
             fallToSurface = true;
-            toSubtract = 0;
         }
         // on a bridge
         if (currHex.containsTerrain(Terrains.BRIDGE_ELEV)
@@ -29003,7 +29003,7 @@ public class GameManager implements IGameManager {
         if ((r.type != Report.PLAYER) && !omitCheck
                 && ((entity == null) || (owner == null))) {
             LogManager.getLogger().error("Attempting to filter a report object that is not public but has a subject ("
-                    + entity + ") with owner (" + owner + ").\n\tmessageId: " + r.messageId);
+                    + entity + ") with owner (" + null + ").\n\tmessageId: " + r.messageId);
             return r;
         }
 
@@ -31035,15 +31035,13 @@ public class GameManager implements IGameManager {
                     collapseBasement(bldg, basementMap, coords, vPhaseReport);
                     if (currentCF == 0) {
                         collapse = true;
-                        recheckLoop = false;
                     } else {
                         recheckLoop = true; // basement collapse might cause a further collapse
                     }
                 } else {
-                    recheckLoop = false; // don't check again, we didn't change the CF
+                    // don't check again, we didn't change the CF
                 }
                 if (collapse) {
-                    recheckLoop = false;
                     // recheck if the basement collapsed since the basement falls
                     // might trigger a greater collapse.
                 }
@@ -31528,7 +31526,7 @@ public class GameManager implements IGameManager {
             vPhaseReport.add(r);
             int curArmor = bldg.getArmor(coords);
             if (curArmor >= damage) {
-                curArmor -= Math.min(curArmor, damage);
+                curArmor -= damage;
                 bldg.setArmor(curArmor, coords);
                 r = new Report(3436, Report.PUBLIC);
                 r.indent(0);
@@ -32054,7 +32052,6 @@ public class GameManager implements IGameManager {
                     damage = ChargeAttackAction.getDamageFor(ae);
                 }
             } else {
-                damage = 0;
             }
         } else if (aaa instanceof AirmechRamAttackAction) {
             AirmechRamAttackAction raa = (AirmechRamAttackAction) aaa;
@@ -32088,7 +32085,6 @@ public class GameManager implements IGameManager {
             if (target != null) {
                 damage = DfaAttackAction.getDamageFor(ae, daa.getTarget(game).isConventionalInfantry());
             } else {
-                damage = 0;
             }
         } else if (aaa instanceof KickAttackAction) {
             KickAttackAction kaa = (KickAttackAction) aaa;

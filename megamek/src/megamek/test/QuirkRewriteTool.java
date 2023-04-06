@@ -21,6 +21,7 @@ import megamek.common.QuirksHandler;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -78,7 +79,7 @@ public class QuirkRewriteTool implements MechSummaryCache.Listener {
                 if (mungedId.equals(unitId) || mungedId.equals(unitIdNoModel)) {
                     String newId = QuirksHandler.getUnitId(
                             summary.getChassis(),
-                            QuirksHandler.getModel(quirkId),
+                            Objects.requireNonNull(QuirksHandler.getModel(quirkId)),
                             MechSummary.determineETypeName(summary));
                     QuirksHandler.mungeQuirks(quirkId, newId);
                     matched = true;

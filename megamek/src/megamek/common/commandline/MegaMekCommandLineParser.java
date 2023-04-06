@@ -225,6 +225,7 @@ public class MegaMekCommandLineParser extends AbstractCommandLineParser {
                                 && (entity.getEntityType() != Entity.ETYPE_FIGHTER_SQUADRON)
                                 && (entity.getEntityType() != Entity.ETYPE_JUMPSHIP)
                                 && (entity.getEntityType() != Entity.ETYPE_SPACE_STATION)) {
+                            assert entity instanceof Aero;
                             testEntity = new TestAero((Aero) entity,
                                     entityVerifier.aeroOption, null);
                         } else if (entity instanceof BattleArmor) {

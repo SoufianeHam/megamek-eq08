@@ -54,7 +54,7 @@ public class BehaviorSettingsTest {
         // Test a null description.
         description = null;
         try {
-            behaviorSettings.setDescription(description);
+            behaviorSettings.setDescription(null);
             fail("Should have thrown an error!");
         } catch (PrincessException e) {
             assertTrue(true);

@@ -293,6 +293,7 @@ public class ChatProcessorTest {
         when(mockChatEvent.getPlayer()).thenReturn(mockHumanPlayerDave);
         mockPrincess = spy(new Princess(mockBotPlayerVGer.getName(), "test", 1));
         doReturn(MOCK_GAME).when(mockPrincess).getGame();
+        assert BehaviorSettingsFactory.getInstance().DEFAULT_BEHAVIOR != null;
         mockPrincess.setBehaviorSettings(BehaviorSettingsFactory.getInstance().DEFAULT_BEHAVIOR);
         doReturn(mockBotPlayerVGer).when(mockPrincess).getLocalPlayer();
         doNothing().when(mockPrincess).sendChat(ArgumentMatchers.anyString());

@@ -49,7 +49,6 @@ public class InfantrySupportRecoillessRifleHeavyWeapon extends InfantryWeapon {
 		ammoCost = 40;
 		shots = 1;
 		rulesRefs = " 273, TM";
-		tonnage = .060;
 		techAdvancement.setTechBase(TECH_BASE_ALL).setISAdvancement(1950, 1950, 1950, DATE_NONE, DATE_NONE)
 		        .setISApproximate(false, false, false, false, false)
 		        .setClanAdvancement(1950, 1950, 1950, DATE_NONE, DATE_NONE)

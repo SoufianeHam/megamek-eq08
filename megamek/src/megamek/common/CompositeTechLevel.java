@@ -344,11 +344,7 @@ public class CompositeTechLevel implements ITechnology, Serializable {
                 return "-";
             }
             StringBuilder sb = new StringBuilder();
-            if (start != null) {
-                sb.append(formatYear(start, startApproximate));
-            } else {
-                sb.append("?");
-            }
+            sb.append(formatYear(start, startApproximate));
 
             if (end == null) {
                 sb.append("+");

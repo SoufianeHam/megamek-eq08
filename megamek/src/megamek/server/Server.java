@@ -1237,6 +1237,7 @@ public class Server implements Runnable {
                         sendServerChat(connId, chat);
                     }
                 } else {
+                    assert player != null;
                     sendChat(player.getName(), chat);
                 }
                 // Easter eggs. Happy April Fool's Day!!

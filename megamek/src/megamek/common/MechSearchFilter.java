@@ -268,6 +268,7 @@ public class MechSearchFilter {
             if (currNode == null) {
                 newNode.operation = ft.op;
                 ExpNode nextNode = createFTFromTokensRecursively(toks, null);
+                assert nextNode != null;
                 if ((nextNode.operation == newNode.operation) || (nextNode.operation == BoolOp.NOP)) {
                     newNode.children.addAll(nextNode.children);
                 } else {
@@ -288,6 +289,7 @@ public class MechSearchFilter {
                     newNode.operation = BoolOp.AND;
                     newNode.children.add(leaf);
                     ExpNode sibling = createFTFromTokensRecursively(toks, newNode);
+                    assert sibling != null;
                     if (sibling.operation == currNode.operation) {
                         currNode.children.addAll(sibling.children);
                     } else {
@@ -1008,11 +1010,6 @@ public class MechSearchFilter {
 
                     if (null == currEq) {
                         LogManager.getLogger().debug("List<String> currEq is null");
-                        return false;
-                    }
-
-                    if (null == n) {
-                        LogManager.getLogger().debug("ExpNode n is null");
                         return false;
                     }
 

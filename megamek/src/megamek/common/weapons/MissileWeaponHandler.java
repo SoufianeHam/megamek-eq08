@@ -567,7 +567,6 @@ public class MissileWeaponHandler extends AmmoWeaponHandler {
                                 minApdsMod = -3;
                                 break;
                             default: // 4+
-                                minApdsMod = -4;
                                 break;
                         }
                     }

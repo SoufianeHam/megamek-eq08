@@ -44,7 +44,6 @@ public class InfantrySupportGrenadeLauncherHeavyAutoWeapon extends InfantryWeapo
 		infantryDamage = 1.93;
 		infantryRange = 1;
 		crew = 1;
-		tonnage = .020;
 		ammoWeight = 0.012;
 		ammoCost = 400;
 		shots = 20;

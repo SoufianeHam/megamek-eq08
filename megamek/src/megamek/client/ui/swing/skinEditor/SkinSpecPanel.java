@@ -606,7 +606,7 @@ public class SkinSpecPanel extends JPanel implements ListSelectionListener, Acti
         gbc.gridy++;
         gbc.gridx = 0;
 
-        gbc.gridx = gbc.gridy = 0;
+        gbc.gridy = 0;
         add(borderPanel, gbc);
 
         background = new BackgroundElement(this, skinSpec.backgrounds,

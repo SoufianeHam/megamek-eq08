@@ -175,7 +175,7 @@ public class Terrain implements Serializable {
             } else if (horiz) {
                 // Becomes North-West.
                 newExits |= 0x20;
-            } else if (vert) {
+            } else {
                 // Becomes South-East.
                 newExits |= 0x04;
             }
@@ -188,7 +188,7 @@ public class Terrain implements Serializable {
             } else if (horiz) {
                 // Becomes South-West.
                 newExits |= 0x10;
-            } else if (vert) {
+            } else {
                 // Becomes North-East.
                 newExits |= 0x02;
             }
@@ -208,7 +208,7 @@ public class Terrain implements Serializable {
             } else if (horiz) {
                 // Becomes South-East.
                 newExits |= 0x04;
-            } else if (vert) {
+            } else {
                 // Becomes North-West.
                 newExits |= 0x20;
             }
@@ -221,7 +221,7 @@ public class Terrain implements Serializable {
             } else if (horiz) {
                 // Becomes North-East.
                 newExits |= 0x02;
-            } else if (vert) {
+            } else {
                 // Becomes South-West.
                 newExits |= 0x10;
             }
@@ -496,7 +496,7 @@ public class Terrain implements Serializable {
                 if ((moveMode == EntityMovementMode.BIPED) || (moveMode == EntityMovementMode.QUAD)) {
                     mp -= 1;
                 }
-                return Math.max(0, mp);
+                return mp;
             case Terrains.ICE:
                 if ((moveMode == EntityMovementMode.HOVER) || (moveMode == EntityMovementMode.WIGE)) {
                     return 0;
@@ -517,7 +517,7 @@ public class Terrain implements Serializable {
                 if ((e instanceof Mech) && e.isSuperHeavy()) {
                     mp -= 1;
                 }
-                return Math.max(0, mp);
+                return mp;
             case Terrains.ROUGH:
                 boolean allowRoughHoverTracked = ((moveMode == EntityMovementMode.HOVER) || (moveMode == EntityMovementMode.TRACKED)) && (level == 2);
 

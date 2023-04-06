@@ -126,7 +126,7 @@ public class TestBot extends BotClient {
 
             List<Thread> threads = new ArrayList<>();
             List<CalculateEntityMove> tasks = new ArrayList<>();
-            while (i.hasNext() && !short_circuit) {
+            while (i.hasNext()) {
                 Entity entity = i.next();
 
                 // ignore loaded units
@@ -1801,7 +1801,7 @@ public class TestBot extends BotClient {
         // should ignore mechs that are not engaged
         // and only do the below when there are 2 or mechs left to move
         if (!short_circuit) {
-            if ((getEntitiesOwned().size() > 1) && (possible.size() > 0)) {
+            if (getEntitiesOwned().size() > 1) {
                 GALance lance = new GALance(this, possible, 50, 80);
                 lance.evolve();
                 min = lance.getResult();
@@ -2063,7 +2063,6 @@ public class TestBot extends BotClient {
                     if (attack_direction == ToHitData.SIDE_REAR) {
                         rear_shot = true;
                     } else {
-                        rear_shot = false;
                     }
                     break;
                 }

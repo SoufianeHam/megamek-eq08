@@ -537,7 +537,7 @@ public class ScenarioLoader {
                         e.setExternalIdAsString(p.getString(key));
                         break;
                     case PARAM_ADVANTAGES:
-                        parseAdvantages(e, p.getString(key, SEPARATOR_SPACE));
+                        parseAdvantages(e, Objects.requireNonNull(p.getString(key, SEPARATOR_SPACE)));
                         break;
                     case PARAM_AUTO_EJECT:
                         parseAutoEject(e, p.getString(key));
@@ -825,7 +825,7 @@ public class ScenarioLoader {
         for (String dir: allDirs) {
             File curDir = new File(Configuration.boardsDir(), dir);
             if (curDir.exists()) {
-                for (String file : curDir.list()) {
+                for (String file : Objects.requireNonNull(curDir.list())) {
                     if (file.toLowerCase(Locale.ROOT).endsWith(FILE_SUFFIX_BOARD)) {
                         boards.add(dir+"/"+file.substring(0, file.length() - FILE_SUFFIX_BOARD.length()));
                     }

@@ -102,8 +102,9 @@ public class DestructionAwareDestinationPathfinder extends BoardEdgePathFinder {
         while (!candidates.isEmpty()) {
             BulldozerMovePath currentPath = candidates.pollFirst();
             
-            candidates.addAll(generateChildNodes(currentPath, shortestPathsToCoords, clusterTracker, closest));      
-            
+            candidates.addAll(generateChildNodes(currentPath, shortestPathsToCoords, clusterTracker, closest));
+
+            assert currentPath != null;
             if (destinationCoords.contains(currentPath.getFinalCoords()) &&
                     ((bestPath == null) || (movePathComparator.compare(bestPath, currentPath) > 0))) {
                 bestPath = currentPath;

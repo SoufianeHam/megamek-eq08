@@ -233,10 +233,6 @@ public class TriggerBPodDialog extends JDialog implements ActionListener {
         if (size.height < GUIPreferences.getInstance().getMinimumSizeHeight()) {
             size.height = GUIPreferences.getInstance().getMinimumSizeHeight();
         }
-        if (updateSize) {
-            setSize(size);
-            size = getSize();
-        }
         setResizable(false);
         setLocation(clientgui.frame.getLocation().x
                 + clientgui.frame.getSize().width / 2 - size.width / 2,
@@ -291,31 +287,13 @@ public class TriggerBPodDialog extends JDialog implements ActionListener {
         // Convert the choices into a List of targets.
         List<Targetable> targets = new ArrayList<>();
         for (Entity ent : game.getEntitiesVector(pos)) {
-            if (!game.getEntity(entityId).equals(choice)
-                    && (choice instanceof Infantry)) {
-                targets.add(ent);
-            }
+            game.getEntity(entityId);
         }
 
         // Do we have a single choice?
-        if (targets.size() == 1) {
-
-            // Return that choice.
-            choice = (Infantry) targets.get(0);
-
-        }
-
-        // If we have multiple choices, display a selection dialog.
-        else if (targets.size() > 1) {
-            String input = (String) JOptionPane.showInputDialog(clientgui,
-                    Messages.getString("TriggerBPodDialog.ChooseTargetDialog.message", pos.getBoardNum()),
-                    Messages.getString("TriggerBPodDialog.ChooseTargetDialog.title"),
-                    JOptionPane.QUESTION_MESSAGE, null, SharedUtility.getDisplayArray(targets), null);
-            choice = (Infantry) SharedUtility.getTargetPicked(targets, input);
-        } // End have-choices
 
         // Return the chosen unit.
-        return choice;
+        return null;
 
     } // End private Entity chooseTarget( Coords )
 

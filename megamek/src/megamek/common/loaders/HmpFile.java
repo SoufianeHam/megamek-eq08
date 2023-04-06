@@ -717,6 +717,7 @@ public class HmpFile implements IMechLoader {
                             }
                         }
                     } catch (Exception ex) {
+                        assert equipment != null;
                         LogManager.getLogger().error(String.format(
                                 "Location was full when adding %s to slot #%s of location %s. Aborting entity loading.",
                                 equipment.getInternalName(), i, location), ex);

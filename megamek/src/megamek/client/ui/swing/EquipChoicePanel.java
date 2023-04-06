@@ -949,6 +949,7 @@ public class EquipChoicePanel extends JPanel {
                     
                 // Add the newly mounted manipulator
                 try {
+                    assert m_Manipmounted != null;
                     m_Manipmounted = entity.addEquipment(manipType, m_Manipmounted.getLocation());
                     m_Manipmounted.setBaMountLoc(baMountLoc);
                 } catch (LocationFullException ex) {
@@ -1465,13 +1466,13 @@ public class EquipChoicePanel extends JPanel {
             if (enabled) {
                 armorStateChanged();
             } else {
-                fldDivisor.setEnabled(enabled);
-                chEncumber.setEnabled(enabled);
-                chSpaceSuit.setEnabled(enabled);
-                chDEST.setEnabled(enabled);
-                chSneakCamo.setEnabled(enabled);
-                chSneakIR.setEnabled(enabled);
-                chSneakECM.setEnabled(enabled);
+                fldDivisor.setEnabled(false);
+                chEncumber.setEnabled(false);
+                chSpaceSuit.setEnabled(false);
+                chDEST.setEnabled(false);
+                chSneakCamo.setEnabled(false);
+                chSneakIR.setEnabled(false);
+                chSneakECM.setEnabled(false);
             }
             for (JCheckBox spec : chSpecs) {
                 spec.setEnabled(enabled);

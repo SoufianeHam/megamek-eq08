@@ -681,10 +681,8 @@ public class Compute {
             if ((moveStep.getType() == MoveStepType.LATERAL_LEFT
                     || moveStep.getType() == MoveStepType.LATERAL_RIGHT
                     || moveStep.getType() == MoveStepType.LATERAL_LEFT_BACKWARDS
-                    || moveStep.getType() == MoveStepType.LATERAL_RIGHT_BACKWARDS)
-                    && (!entity.isUsingManAce()
-                            || movementType != EntityMovementType.MOVE_WALK
-                            || movementType != EntityMovementType.MOVE_VTOL_WALK)) {
+                    || moveStep.getType() == MoveStepType.LATERAL_RIGHT_BACKWARDS)) {
+                entity.isUsingManAce();
                 return true;
             }
         }
@@ -1508,7 +1506,6 @@ public class Compute {
                     return new ToHitData(TargetRoll.AUTOMATIC_FAIL,
                                          "Target out of range");
                 } else if (distance == 0) {
-                    mod = 0;
                 }
                 break;
             case 1:
@@ -3154,13 +3151,17 @@ public class Compute {
                         // Don't use artemis if this is indirect fire
                         // -> Hook for Artemis V Level 3 Clan tech here; use
                         // 1.30f multiplier when implemented
-                        if (((weapon.curMode() == null) || !weapon.curMode().equals("Indirect"))
-                                && (at.getMunitionType() == AmmoType.M_ARTEMIS_CAPABLE)) {
-                            fHits *= 1.2f;
+                        if (((weapon.curMode() == null) || !weapon.curMode().equals("Indirect"))) {
+                            assert at != null;
+                            if (at.getMunitionType() == AmmoType.M_ARTEMIS_CAPABLE) {
+                                fHits *= 1.2f;
+                            }
                         }
-                        if (((weapon.curMode() == null) || !weapon.curMode().equals("Indirect"))
-                                && (at.getMunitionType() == AmmoType.M_ARTEMIS_V_CAPABLE)) {
-                            fHits *= 1.3f;
+                        if (((weapon.curMode() == null) || !weapon.curMode().equals("Indirect"))) {
+                            assert at != null;
+                            if (at.getMunitionType() == AmmoType.M_ARTEMIS_V_CAPABLE) {
+                                fHits *= 1.3f;
+                            }
                         }
                     }
                 }
@@ -3174,6 +3175,7 @@ public class Compute {
                 // friendly unit
                 if (target.isNarcedBy(attacker.getOwner().getTeam())
                         || target.isINarcedBy(attacker.getOwner().getTeam())) {
+                    assert at != null;
                     if (((at.getAmmoType() == AmmoType.T_LRM)
                             || (at.getAmmoType() == AmmoType.T_LRM_IMP)
                             || (at.getAmmoType() == AmmoType.T_MML)
@@ -3485,209 +3487,207 @@ public class Compute {
         if (!multi_bin) {
             return Compute.getExpectedDamage(cgame, atk, false);
         }
-        if (multi_bin) {
 
-            // Set default max damage as 0, and the best bin as the first
-            // bin
-            max_damage = 0.0;
-            best_bin = fabin;
+        // Set default max damage as 0, and the best bin as the first
+        // bin
+        max_damage = 0.0;
+        best_bin = fabin;
 
-            // For each valid ammo bin
-            for (Mounted abin : shooter.getAmmo()) {
-                if (shooter.loadWeapon(shooter.getEquipment(atk.getWeaponId()), abin)) {
-                    if (abin.getUsableShotsLeft() > 0) {
-                        abin_type = (AmmoType) abin.getType();
-                        if (!AmmoType.canDeliverMinefield(abin_type)) {
+        // For each valid ammo bin
+        for (Mounted abin : shooter.getAmmo()) {
+            if (shooter.loadWeapon(shooter.getEquipment(atk.getWeaponId()), abin)) {
+                if (abin.getUsableShotsLeft() > 0) {
+                    abin_type = (AmmoType) abin.getType();
+                    if (!AmmoType.canDeliverMinefield(abin_type)) {
 
-                            // Load weapon with specified bin
-                            shooter.loadWeapon(shooter.getEquipment(atk.getWeaponId()), abin);
-                            atk.setAmmoId(shooter.getEquipmentNum(abin));
-                            atk.setAmmoMunitionType(abin_type.getMunitionType());
+                        // Load weapon with specified bin
+                        shooter.loadWeapon(shooter.getEquipment(atk.getWeaponId()), abin);
+                        atk.setAmmoId(shooter.getEquipmentNum(abin));
+                        atk.setAmmoMunitionType(abin_type.getMunitionType());
 
-                            // Get expected damage
-                            ex_damage = Compute.getExpectedDamage(cgame, atk, false);
+                        // Get expected damage
+                        ex_damage = Compute.getExpectedDamage(cgame, atk, false);
 
-                            // Calculate any modifiers due to ammo type
-                            ammo_multiple = 1.0;
+                        // Calculate any modifiers due to ammo type
+                        ammo_multiple = 1.0;
 
-                            // Frag missiles, flechette AC rounds do double
-                            // damage against conventional infantry
-                            // and 0 damage against everything else
-                            // Any further anti-personnel specialized rounds
-                            // should be tested for here
-                            if (((((abin_type.getAmmoType() == AmmoType.T_LRM)
-                                    || (abin_type.getAmmoType() == AmmoType.T_LRM_IMP)
-                                    || (abin_type.getAmmoType() == AmmoType.T_MML)
-                                    || (abin_type.getAmmoType() == AmmoType.T_SRM)
-                                    || (abin_type.getAmmoType() == AmmoType.T_SRM_IMP)))
-                                    && (abin_type.getMunitionType() == AmmoType.M_FRAGMENTATION))
-                                    || (((abin_type.getAmmoType() == AmmoType.T_AC)
-                                            || (abin_type.getAmmoType() == AmmoType.T_LAC)
-                                            || (abin_type.getAmmoType() == AmmoType.T_AC_IMP)
-                                            || (abin_type.getAmmoType() == AmmoType.T_PAC))
-                                            && (abin_type.getMunitionType() == AmmoType.M_FLECHETTE))) {
-                                ammo_multiple = target.isConventionalInfantry() ? 2.0 : 0.0;
+                        // Frag missiles, flechette AC rounds do double
+                        // damage against conventional infantry
+                        // and 0 damage against everything else
+                        // Any further anti-personnel specialized rounds
+                        // should be tested for here
+                        if (((((abin_type.getAmmoType() == AmmoType.T_LRM)
+                                || (abin_type.getAmmoType() == AmmoType.T_LRM_IMP)
+                                || (abin_type.getAmmoType() == AmmoType.T_MML)
+                                || (abin_type.getAmmoType() == AmmoType.T_SRM)
+                                || (abin_type.getAmmoType() == AmmoType.T_SRM_IMP)))
+                                && (abin_type.getMunitionType() == AmmoType.M_FRAGMENTATION))
+                                || (((abin_type.getAmmoType() == AmmoType.T_AC)
+                                        || (abin_type.getAmmoType() == AmmoType.T_LAC)
+                                        || (abin_type.getAmmoType() == AmmoType.T_AC_IMP)
+                                        || (abin_type.getAmmoType() == AmmoType.T_PAC))
+                                        && (abin_type.getMunitionType() == AmmoType.M_FLECHETTE))) {
+                            ammo_multiple = target.isConventionalInfantry() ? 2.0 : 0.0;
+                        }
+
+                        // LBX cluster rounds work better against units
+                        // with little armor, vehicles, and Meks in
+                        // partial cover
+                        // Other ammo that deliver lots of small
+                        // submunitions should be tested for here too
+                        if (((abin_type.getAmmoType() == AmmoType.T_AC_LBX)
+                                || (abin_type.getAmmoType() == AmmoType.T_AC_LBX_THB)
+                                || (abin_type.getAmmoType() == AmmoType.T_SBGAUSS))
+                                && (abin_type.getMunitionType() == AmmoType.M_CLUSTER)) {
+                            if (target.getArmorRemainingPercent() <= 0.25) {
+                                ammo_multiple = 1.0 + (wtype.getRackSize() / 10.0);
+                            }
+                            if (target instanceof Tank) {
+                                ammo_multiple += 1.0;
+                            }
+                        }
+
+                        // AP autocannon rounds work much better against
+                        // Meks and vehicles than infantry,
+                        // give a damage boost in proportion to calibre
+                        // to reflect scaled crit chance
+                        // Other armor-penetrating ammo types should be
+                        // tested here, such as Tandem-charge SRMs
+                        if (((abin_type.getAmmoType() == AmmoType.T_AC)
+                                || (abin_type.getAmmoType() == AmmoType.T_LAC)
+                                || (abin_type.getAmmoType() == AmmoType.T_AC_IMP)
+                                || (abin_type.getAmmoType() == AmmoType.T_PAC))
+                            && (abin_type.getMunitionType() == AmmoType.M_ARMOR_PIERCING)) {
+                            if ((target instanceof Mech)
+                                || (target instanceof Tank)) {
+                                ammo_multiple = 1.0 + (wtype.getRackSize() / 10);
+                            }
+                            if (target instanceof Infantry) {
+                                ammo_multiple = 0.6;
+                            }
+                        }
+
+                        // Inferno SRMs work better against overheating
+                        // Meks that are not/almost not on fire,
+                        // and against vehicles and protos if allowed by
+                        // game option
+                        if (((abin_type.getAmmoType() == AmmoType.T_SRM)
+                                || (abin_type.getAmmoType() == AmmoType.T_SRM_IMP)
+                                || (abin_type.getAmmoType() == AmmoType.T_MML))
+                            && (abin_type.getMunitionType() == AmmoType.M_INFERNO)) {
+                            ammo_multiple = 0.5;
+                            if (target instanceof Mech) {
+                                if ((target.infernos.getTurnsLeftToBurn() < 4)
+                                    && (target.heat >= 5)) {
+                                    ammo_multiple = 1.1;
+                                }
+                            }
+                            if ((target instanceof Tank)
+                                && !(cgame.getOptions()
+                                          .booleanOption(OptionsConstants.ADVCOMBAT_VEHICLES_SAFE_FROM_INFERNOS))) {
+                                ammo_multiple = 1.1;
+                            }
+                            if ((target instanceof Protomech)
+                                && !(cgame.getOptions()
+                                          .booleanOption(OptionsConstants.ADVCOMBAT_PROTOS_SAFE_FROM_INFERNOS))) {
+                                ammo_multiple = 1.1;
+                            }
+                        }
+
+                        // Narc beacon doesn't really do damage but if
+                        // the target is not infantry and doesn't have
+                        // one, give 'em one by making it an attractive
+                        // option
+                        if ((wtype.getAmmoType() == AmmoType.T_NARC)
+                                && (abin_type.getMunitionType() == AmmoType.M_STANDARD)) {
+                            if (!(target.isNarcedBy(shooter.getOwner().getTeam()))
+                                    && !(target instanceof Infantry)) {
+                                ex_damage = 5.0;
+                            } else {
+                                ex_damage = 0.5;
+                            }
+                        }
+
+                        // iNarc beacon doesn't really do damage, but if
+                        // the target is not infantry and doesn't have
+                        // one, give 'em one by making it an attractive
+                        // option
+                        if (wtype.getAmmoType() == AmmoType.T_INARC) {
+                            if ((abin_type.getMunitionType() == AmmoType.M_STANDARD)
+                                    && !(target instanceof Infantry)) {
+                                if (!(target.isINarcedBy(shooter.getOwner().getTeam()))) {
+                                    ex_damage = 7.0;
+                                } else {
+                                    ex_damage = 1.0;
+                                }
                             }
 
-                            // LBX cluster rounds work better against units
-                            // with little armor, vehicles, and Meks in
-                            // partial cover
-                            // Other ammo that deliver lots of small
-                            // submunitions should be tested for here too
-                            if (((abin_type.getAmmoType() == AmmoType.T_AC_LBX)
-                                    || (abin_type.getAmmoType() == AmmoType.T_AC_LBX_THB)
-                                    || (abin_type.getAmmoType() == AmmoType.T_SBGAUSS))
-                                    && (abin_type.getMunitionType() == AmmoType.M_CLUSTER)) {
-                                if (target.getArmorRemainingPercent() <= 0.25) {
-                                    ammo_multiple = 1.0 + (wtype.getRackSize() / 10.0);
-                                }
-                                if (target instanceof Tank) {
-                                    ammo_multiple += 1.0;
-                                }
-                            }
-
-                            // AP autocannon rounds work much better against
-                            // Meks and vehicles than infantry,
-                            // give a damage boost in proportion to calibre
-                            // to reflect scaled crit chance
-                            // Other armor-penetrating ammo types should be
-                            // tested here, such as Tandem-charge SRMs
-                            if (((abin_type.getAmmoType() == AmmoType.T_AC)
-                                    || (abin_type.getAmmoType() == AmmoType.T_LAC)
-                                    || (abin_type.getAmmoType() == AmmoType.T_AC_IMP)
-                                    || (abin_type.getAmmoType() == AmmoType.T_PAC))
-                                && (abin_type.getMunitionType() == AmmoType.M_ARMOR_PIERCING)) {
-                                if ((target instanceof Mech)
-                                    || (target instanceof Tank)) {
-                                    ammo_multiple = 1.0 + (wtype.getRackSize() / 10);
-                                }
-                                if (target instanceof Infantry) {
-                                    ammo_multiple = 0.6;
-                                }
-                            }
-
-                            // Inferno SRMs work better against overheating
-                            // Meks that are not/almost not on fire,
-                            // and against vehicles and protos if allowed by
-                            // game option
-                            if (((abin_type.getAmmoType() == AmmoType.T_SRM)
-                                    || (abin_type.getAmmoType() == AmmoType.T_SRM_IMP)
-                                    || (abin_type.getAmmoType() == AmmoType.T_MML))
-                                && (abin_type.getMunitionType() == AmmoType.M_INFERNO)) {
-                                ammo_multiple = 0.5;
-                                if (target instanceof Mech) {
-                                    if ((target.infernos.getTurnsLeftToBurn() < 4)
-                                        && (target.heat >= 5)) {
-                                        ammo_multiple = 1.1;
+                            // iNarc ECM doesn't really do damage, but
+                            // if the target has a C3 link or missile
+                            // launchers
+                            // make it a priority
+                            // Checking for actual ammo types carried
+                            // would be nice, but can't be sure of exact
+                            // loads
+                            // when "true" double blind is implemented
+                            if ((abin_type.getAmmoType() == AmmoType.T_INARC)
+                                    && (abin_type.getMunitionType() == AmmoType.M_ECM)
+                                    && !(target instanceof Infantry)) {
+                                if (!target.isINarcedWith(AmmoType.M_ECM)) {
+                                    if (!(target.getC3MasterId() == Entity.NONE)
+                                            || target.hasC3M()
+                                            || target.hasC3MM()
+                                            || target.hasC3i()) {
+                                        ex_damage = 8.0;
+                                    } else {
+                                        ex_damage = 0.5;
+                                    }
+                                    for (Mounted weapon : shooter.getWeaponList()) {
+                                        target_weapon = (WeaponType) weapon.getType();
+                                        if ((target_weapon.getAmmoType() == AmmoType.T_LRM)
+                                                || (target_weapon.getAmmoType() == AmmoType.T_LRM_IMP)
+                                                || (target_weapon.getAmmoType() == AmmoType.T_MML)
+                                                || (target_weapon.getAmmoType() == AmmoType.T_SRM)
+                                                || (target_weapon.getAmmoType() == AmmoType.T_SRM_IMP)) {
+                                            ex_damage = ex_damage + (target_weapon.getRackSize() / 2);
+                                        }
                                     }
                                 }
-                                if ((target instanceof Tank)
-                                    && !(cgame.getOptions()
-                                              .booleanOption(OptionsConstants.ADVCOMBAT_VEHICLES_SAFE_FROM_INFERNOS))) {
-                                    ammo_multiple = 1.1;
-                                }
-                                if ((target instanceof Protomech)
-                                    && !(cgame.getOptions()
-                                              .booleanOption(OptionsConstants.ADVCOMBAT_PROTOS_SAFE_FROM_INFERNOS))) {
-                                    ammo_multiple = 1.1;
-                                }
                             }
 
-                            // Narc beacon doesn't really do damage but if
-                            // the target is not infantry and doesn't have
-                            // one, give 'em one by making it an attractive
-                            // option
-                            if ((wtype.getAmmoType() == AmmoType.T_NARC)
-                                    && (abin_type.getMunitionType() == AmmoType.M_STANDARD)) {
-                                if (!(target.isNarcedBy(shooter.getOwner().getTeam()))
-                                        && !(target instanceof Infantry)) {
-                                    ex_damage = 5.0;
+                            // iNarc Nemesis doesn't really do damage,
+                            // but if the target is not infantry and
+                            // doesn't have
+                            // one give it a try; make fast units a
+                            // priority because they are usually out
+                            // front
+                            if ((abin_type.getAmmoType() == AmmoType.T_INARC)
+                                    && (abin_type.getMunitionType() == AmmoType.M_NEMESIS)
+                                    && !(target instanceof Infantry)) {
+                                if (!target.isINarcedWith(AmmoType.M_NEMESIS)) {
+                                    ex_damage = (double) (target.getWalkMP() + target.getJumpMP()) / 2;
                                 } else {
                                     ex_damage = 0.5;
                                 }
                             }
+                        }
 
-                            // iNarc beacon doesn't really do damage, but if
-                            // the target is not infantry and doesn't have
-                            // one, give 'em one by making it an attractive
-                            // option
-                            if (wtype.getAmmoType() == AmmoType.T_INARC) {
-                                if ((abin_type.getMunitionType() == AmmoType.M_STANDARD)
-                                        && !(target instanceof Infantry)) {
-                                    if (!(target.isINarcedBy(shooter.getOwner().getTeam()))) {
-                                        ex_damage = 7.0;
-                                    } else {
-                                        ex_damage = 1.0;
-                                    }
-                                }
-
-                                // iNarc ECM doesn't really do damage, but
-                                // if the target has a C3 link or missile
-                                // launchers
-                                // make it a priority
-                                // Checking for actual ammo types carried
-                                // would be nice, but can't be sure of exact
-                                // loads
-                                // when "true" double blind is implemented
-                                if ((abin_type.getAmmoType() == AmmoType.T_INARC)
-                                        && (abin_type.getMunitionType() == AmmoType.M_ECM)
-                                        && !(target instanceof Infantry)) {
-                                    if (!target.isINarcedWith(AmmoType.M_ECM)) {
-                                        if (!(target.getC3MasterId() == Entity.NONE)
-                                                || target.hasC3M()
-                                                || target.hasC3MM()
-                                                || target.hasC3i()) {
-                                            ex_damage = 8.0;
-                                        } else {
-                                            ex_damage = 0.5;
-                                        }
-                                        for (Mounted weapon : shooter.getWeaponList()) {
-                                            target_weapon = (WeaponType) weapon.getType();
-                                            if ((target_weapon.getAmmoType() == AmmoType.T_LRM)
-                                                    || (target_weapon.getAmmoType() == AmmoType.T_LRM_IMP)
-                                                    || (target_weapon.getAmmoType() == AmmoType.T_MML)
-                                                    || (target_weapon.getAmmoType() == AmmoType.T_SRM)
-                                                    || (target_weapon.getAmmoType() == AmmoType.T_SRM_IMP)) {
-                                                ex_damage = ex_damage + (target_weapon.getRackSize() / 2);
-                                            }
-                                        }
-                                    }
-                                }
-
-                                // iNarc Nemesis doesn't really do damage,
-                                // but if the target is not infantry and
-                                // doesn't have
-                                // one give it a try; make fast units a
-                                // priority because they are usually out
-                                // front
-                                if ((abin_type.getAmmoType() == AmmoType.T_INARC)
-                                        && (abin_type.getMunitionType() == AmmoType.M_NEMESIS)
-                                        && !(target instanceof Infantry)) {
-                                    if (!target.isINarcedWith(AmmoType.M_NEMESIS)) {
-                                        ex_damage = (double) (target.getWalkMP() + target.getJumpMP()) / 2;
-                                    } else {
-                                        ex_damage = 0.5;
-                                    }
-                                }
-                            }
-
-                            // If the adjusted damage is highest, store the
-                            // damage and bin
-                            if ((ex_damage * ammo_multiple) > max_damage) {
-                                max_damage = ex_damage * ammo_multiple;
-                                best_bin = abin;
-                            }
+                        // If the adjusted damage is highest, store the
+                        // damage and bin
+                        if ((ex_damage * ammo_multiple) > max_damage) {
+                            max_damage = ex_damage * ammo_multiple;
+                            best_bin = abin;
                         }
                     }
                 }
             }
-
-            // Now that the best bin has been found, reload the weapon with
-            // it
-            shooter.loadWeapon(shooter.getEquipment(atk.getWeaponId()), best_bin);
-            atk.setAmmoId(shooter.getEquipmentNum(best_bin));
-            atk.setAmmoMunitionType(abin_type.getMunitionType());
         }
+
+        // Now that the best bin has been found, reload the weapon with
+        // it
+        shooter.loadWeapon(shooter.getEquipment(atk.getWeaponId()), best_bin);
+        atk.setAmmoId(shooter.getEquipmentNum(best_bin));
+        atk.setAmmoMunitionType(abin_type.getMunitionType());
         return max_damage;
     }
 
@@ -4971,6 +4971,7 @@ public class Compute {
         if (isAirToAir(attacker, target)
             && attackPos.equals(target.getPosition())
             && attacker.isAero() && target.isAero()) {
+            assert target instanceof Entity;
             int moveSort = shouldMoveBackHex(attacker, (Entity) target);
             if (moveSort < 0) {
                 attackPos = attacker.getPriorPosition();
@@ -5090,7 +5091,7 @@ public class Compute {
             } else if ((roll2 <= roll1) && (roll2 <= roll3)) {
                 lowRoll1 = roll2;
                 lowRoll2 = Math.min(roll1, roll3);
-            } else if ((roll3 <= roll1) && (roll3 <= roll2)) {
+            } else {
                 lowRoll1 = roll3;
                 lowRoll2 = Math.min(roll2, roll1);
             }
@@ -5627,6 +5628,7 @@ public class Compute {
         }
 
         if (defender instanceof Mech && ((Mech) defender).hasTracks()) {
+            assert toReturn != null;
             toReturn.addModifier(-2, "has tracks");
         }
 
@@ -5638,7 +5640,7 @@ public class Compute {
         if (toReturn.getValue() == TargetRoll.IMPOSSIBLE) {
             return toReturn;
         }
-        toReturn = Compute.getAntiMechMods(toReturn, (Infantry) attacker,
+        Compute.getAntiMechMods(toReturn, (Infantry) attacker,
                 defender);
         return toReturn;
     }
@@ -5725,8 +5727,8 @@ public class Compute {
         if (toReturn.getValue() == TargetRoll.IMPOSSIBLE) {
             return toReturn;
         }
-        toReturn = Compute.getAntiMechMods(toReturn, (Infantry) attacker,
-                                           defender);
+        Compute.getAntiMechMods(toReturn, (Infantry) attacker,
+                defender);
 
         // If the attacker has assault claws, give a -1 modifier.
         // We can stop looking when we find our first match.

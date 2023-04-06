@@ -317,10 +317,6 @@ public class CapitalMissileHandler extends AmmoWeaponHandler {
                     firstHit = false;
                 }
             } // Handle the next cluster.
-        } else if (!bMissed) { // Hex is targeted, need to report a hit
-            r = new Report(3390);
-            r.subject = subjectId;
-            vPhaseReport.addElement(r);
         }
         }
         Report.addNewline(vPhaseReport);

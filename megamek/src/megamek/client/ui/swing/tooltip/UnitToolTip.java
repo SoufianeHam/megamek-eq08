@@ -1166,6 +1166,8 @@ public final class UnitToolTip {
                         paritalWingDistroyed += entity.getBadCriticals(CriticalSlot.TYPE_EQUIPMENT, eNum, Mech.LOC_RT);
                         paritalWingDistroyed += entity.getBadCriticals(CriticalSlot.TYPE_EQUIPMENT, eNum, Mech.LOC_LT);
 
+                        assert entity instanceof Mech;
+                        assert entity instanceof Mech;
                         partialWingWeaterMod = ((Mech) entity).getPartialWingJumpAtmoBonus() - ((Mech) entity).getPartialWingJumpWeightClassBonus();
                     }
                 }

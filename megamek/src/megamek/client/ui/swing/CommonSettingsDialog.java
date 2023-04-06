@@ -661,7 +661,7 @@ public class CommonSettingsDialog extends AbstractButtonDialog implements ItemLi
             teamColoring.setSelected(GUIP.getTeamColoring());
 
             File dir = Configuration.hexesDir();
-            tileSets = new ArrayList<>(Arrays.asList(dir.list((direc, name) -> name.endsWith(".tileset"))));
+            tileSets = new ArrayList<>(Arrays.asList(Objects.requireNonNull(dir.list((direc, name) -> name.endsWith(".tileset")))));
             tileSets.addAll(userDataFiles(Configuration.hexesDir(), ".tileset"));
             tileSetChoice.removeAllItems();
             for (int i = 0; i < tileSets.size(); i++) {
@@ -677,7 +677,7 @@ public class CommonSettingsDialog extends AbstractButtonDialog implements ItemLi
 
             skinFiles.removeAllItems();
             List<String> xmlFiles = new ArrayList<>(Arrays
-                    .asList(Configuration.skinsDir().list((directory, fileName) -> fileName.endsWith(".xml"))));
+                    .asList(Objects.requireNonNull(Configuration.skinsDir().list((directory, fileName) -> fileName.endsWith(".xml")))));
             xmlFiles.addAll(userDataFiles(Configuration.skinsDir(), ".xml"));
             Collections.sort(xmlFiles);
             for (String file : xmlFiles) {
@@ -842,7 +842,7 @@ public class CommonSettingsDialog extends AbstractButtonDialog implements ItemLi
             LogManager.getLogger().error("", ex);
         }
         GUIP.setValue(GUIPreferences.GUI_SCALE, (float) (guiScale.getValue()) / 10);
-        CP.setUnitStartChar(((String) unitStartChar.getSelectedItem()).charAt(0));
+        CP.setUnitStartChar(((String) Objects.requireNonNull(unitStartChar.getSelectedItem())).charAt(0));
 
         GUIP.setMouseWheelZoom(mouseWheelZoom.isSelected());
         GUIP.setMouseWheelZoomFlip(mouseWheelZoomFlip.isSelected());
@@ -889,7 +889,7 @@ public class CommonSettingsDialog extends AbstractButtonDialog implements ItemLi
 
         UITheme newUITheme = (UITheme) uiThemes.getSelectedItem();
         String oldUITheme = GUIP.getUITheme();
-        if (!oldUITheme.equals(newUITheme.getClassName())) {
+        if (!oldUITheme.equals(Objects.requireNonNull(newUITheme).getClassName())) {
             GUIP.setUITheme(newUITheme.getClassName());
         }
 

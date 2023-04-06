@@ -103,6 +103,7 @@ public class Princess extends BotClient {
      */
     public Princess(final String name, final String host, final int port) {
         super(name, host, port);
+        assert BehaviorSettingsFactory.getInstance().DEFAULT_BEHAVIOR != null;
         setBehaviorSettings(BehaviorSettingsFactory.getInstance().DEFAULT_BEHAVIOR);
         
         fireControlState = new FireControlState();

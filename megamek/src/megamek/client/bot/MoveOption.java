@@ -495,20 +495,10 @@ public class MoveOption extends MovePath {
         max = enemy.centity.getModifiedDamage((apc == 1) ? CEntity.TT
                                                          : enemy_firing_arcs[0], distance, modifier, aptGunnery);
 
-        if (enemy_firing_arcs[1] == ToHitData.SIDE_FRONT) {
-            max = Math.max(max, enemy.centity.getModifiedDamage(CEntity.TT,
-                                                                distance, modifier, aptGunnery));
-        } else {
-            max = Math.max(max, enemy.centity.getModifiedDamage(
-                    enemy_firing_arcs[1], distance, modifier, aptGunnery));
-        }
-        if (enemy_firing_arcs[2] == ToHitData.SIDE_FRONT) {
-            max = Math.max(max, enemy.centity.getModifiedDamage(CEntity.TT,
-                                                                distance, modifier, aptGunnery));
-        } else {
-            max = Math.max(max, enemy.centity.getModifiedDamage(
-                    enemy_firing_arcs[2], distance, modifier, aptGunnery));
-        }
+        max = Math.max(max, enemy.centity.getModifiedDamage(CEntity.TT,
+                                                            distance, modifier, aptGunnery));
+        max = Math.max(max, enemy.centity.getModifiedDamage(CEntity.TT,
+                                                            distance, modifier, aptGunnery));
         // TODO this is not quite right, but good enough for now...
         // ideally the pa charaterization should be in centity
         max *= mod;

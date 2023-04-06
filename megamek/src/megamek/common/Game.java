@@ -1730,10 +1730,6 @@ public class Game extends AbstractGame implements Serializable {
         }
         boolean hasLooped = false;
         int i = (sortedEntities.indexOf(getEntity(start)) + 1) % sortedEntities.size();
-        if (i == -1) {
-            //This means we were given an invalid entity ID, punt
-            return Entity.NONE;
-        }
         int startingIndex = i;
         while (!((hasLooped == true) && (i == startingIndex))) {
             final Entity entity = sortedEntities.get(i);

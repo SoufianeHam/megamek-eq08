@@ -404,13 +404,13 @@ public class Dropship extends SmallCraft {
         AmmoType atype = (AmmoType) mountedAmmo.getType();
 
         if (mounted.getLocation() != mountedAmmo.getLocation()) {
-            return success;
+            return false;
         }
 
         // for large craft, ammo must be in the same bay
         Mounted bay = whichBay(getEquipmentNum(mounted));
         if ((bay != null) && !bay.ammoInBay(getEquipmentNum(mountedAmmo))) {
-            return success;
+            return false;
         }
 
         if (mountedAmmo.isAmmoUsable() && !wtype.hasFlag(WeaponType.F_ONESHOT)

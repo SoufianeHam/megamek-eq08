@@ -117,11 +117,14 @@ public class EntityVerifier implements MechSummaryCache.Listener {
                 !(entity instanceof GunEmplacement)) {
             testEntity = new TestTank((Tank) entity, tankOption, null);
         } else if (entity.hasETypeFlag(Entity.ETYPE_SMALL_CRAFT)) {
+            assert entity instanceof SmallCraft;
             testEntity = new TestSmallCraft((SmallCraft) entity, aeroOption, fileString);
         } else if (entity.hasETypeFlag(Entity.ETYPE_JUMPSHIP)) {
+            assert entity instanceof Jumpship;
             testEntity = new TestAdvancedAerospace((Jumpship) entity, aeroOption, fileString);
         } else if (entity.hasETypeFlag(Entity.ETYPE_AERO)
                 && !entity.hasETypeFlag(Entity.ETYPE_FIGHTER_SQUADRON)) {
+            assert entity instanceof Aero;
             testEntity = new TestAero((Aero) entity, aeroOption, fileString);
         } else if (entity instanceof BattleArmor) {
             testEntity = new TestBattleArmor((BattleArmor) entity, baOption,

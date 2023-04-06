@@ -115,7 +115,6 @@ public class Warship extends Jumpship {
                     arc = Compute.ARC_NOSE_WPL;
                     break;
                 }
-                arc = Compute.ARC_NOSE;
                 break;
             case LOC_FRS:
                 if (mounted.isInWaypointLaunchMode()) {

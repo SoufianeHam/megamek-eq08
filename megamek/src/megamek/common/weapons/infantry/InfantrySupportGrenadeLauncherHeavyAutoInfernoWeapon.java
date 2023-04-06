@@ -48,7 +48,6 @@ public class InfantrySupportGrenadeLauncherHeavyAutoInfernoWeapon extends Infant
 		ammoCost = 400;
 		shots = 20;
 		bursts = 3;
-		tonnage = .020;
 		rulesRefs = "273, TM";
 		techAdvancement.setTechBase(TECH_BASE_CLAN).setClanAdvancement(2896, 2900, DATE_NONE, DATE_NONE, DATE_NONE)
 				.setClanApproximate(true, false, false, false, false).setPrototypeFactions(F_CSF, F_CHH)

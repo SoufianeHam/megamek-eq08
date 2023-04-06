@@ -154,6 +154,7 @@ public class MapPreviewButton extends JButton {
             scaledImage = baseImage.getScaledInstance(w, h, Image.SCALE_SMOOTH);
             // Add the labels (index, name, example)
             BufferedImage drawableImage = ImageUtil.createAcceleratedImage(scaledImage);
+            assert drawableImage != null;
             Graphics g = drawableImage.getGraphics();
             UIUtil.setHighQualityRendering(g);
             if (lobby.isMultipleBoards()) {

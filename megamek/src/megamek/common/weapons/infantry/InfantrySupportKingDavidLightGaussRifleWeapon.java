@@ -45,7 +45,6 @@ public class InfantrySupportKingDavidLightGaussRifleWeapon extends InfantryWeapo
 		infantryDamage = 0.68;
 		infantryRange = 3;
 		crew = 2;
-		tonnage = .030;
 		ammoWeight = 0.016;
 		ammoCost = 200;
 		shots = 80;

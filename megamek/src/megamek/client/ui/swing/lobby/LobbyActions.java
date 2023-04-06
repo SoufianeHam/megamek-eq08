@@ -293,7 +293,7 @@ public class LobbyActions {
         if (editable) {
             client = client().bots.get(ownerName);
         } else {
-            editable |= ownerId == localPlayer().getId();
+            editable = ownerId == localPlayer().getId();
             client = client();
         }
 
@@ -352,7 +352,7 @@ public class LobbyActions {
         if (editable) {
             c = client().bots.get(entity.getOwner().getName());
         } else {
-            editable |= entity.getOwnerId() == localPlayer().getId();
+            editable = entity.getOwnerId() == localPlayer().getId();
             c = client();
         }
         // When we customize a single entity's C3 network setting,
@@ -693,7 +693,7 @@ public class LobbyActions {
             // Gather the entities for this sending client; 
             // Serialization doesn't like the toList() result, therefore the new ArrayList
             List<Integer> ids = new ArrayList<>(finalEnDelete.stream()
-                    .filter(e -> correctSender(e).equals(sender)).map(Entity::getId).collect(toList()));
+                    .filter(e -> Objects.requireNonNull(correctSender(e)).equals(sender)).map(Entity::getId).collect(toList()));
             sender.sendDeleteEntities(ids);
         }
         
@@ -701,7 +701,7 @@ public class LobbyActions {
         senders = finalFoDelete.stream().map(this::correctSender).collect(toSet());
         for (Client sender: senders) {
             List<Force> foList = new ArrayList<>(finalFoDelete.stream()
-                    .filter(f -> correctSender(f).equals(sender))
+                    .filter(f -> Objects.requireNonNull(correctSender(f)).equals(sender))
                     .collect(toList()));
             sender.sendDeleteForces(foList);
         }
@@ -1017,7 +1017,7 @@ public class LobbyActions {
         FighterSquadron fs = new FighterSquadron(name);
         fs.setOwner(createSquadronOwner(entities));
         List<Integer> fighterIds = new ArrayList<>(entities.stream().map(Entity::getId).collect(toList()));
-        correctSender(fs).sendAddSquadron(fs, fighterIds);
+        Objects.requireNonNull(correctSender(fs)).sendAddSquadron(fs, fighterIds);
     }
     
     /** 
@@ -1090,7 +1090,7 @@ public class LobbyActions {
             if (sender == null) {
                 continue;
             }
-            sender.sendUpdateEntity(new ArrayList<>(entities.stream().filter(e -> correctSender(e).equals(sender)).collect(toList())));
+            sender.sendUpdateEntity(new ArrayList<>(entities.stream().filter(e -> Objects.requireNonNull(correctSender(e)).equals(sender)).collect(toList())));
         }
     }
     
@@ -1114,8 +1114,8 @@ public class LobbyActions {
             if (sender == null) {
                 continue;
             }
-            List<Entity> enList = changedEntities.stream().filter(e -> correctSender(e).equals(sender)).collect(toList());
-            List<Force> foList = changedForces.stream().filter(f -> correctSender(f).equals(sender)).collect(toList());
+            List<Entity> enList = changedEntities.stream().filter(e -> Objects.requireNonNull(correctSender(e)).equals(sender)).collect(toList());
+            List<Force> foList = changedForces.stream().filter(f -> Objects.requireNonNull(correctSender(f)).equals(sender)).collect(toList());
             
             if (foList.isEmpty()) {
                 sender.sendUpdateEntity(enList);   

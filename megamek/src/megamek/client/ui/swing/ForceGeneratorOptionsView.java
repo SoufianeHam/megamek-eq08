@@ -576,7 +576,7 @@ public class ForceGeneratorOptionsView extends JPanel implements FocusListener, 
                 .forEach(fr -> cbFaction.addItem(fr));
         cbFaction.setSelectedItem(oldFaction);
         if (cbFaction.getSelectedItem() == null ||
-                !cbFaction.getSelectedItem().toString().equals(oldFaction.toString())) {
+                !cbFaction.getSelectedItem().toString().equals(Objects.requireNonNull(oldFaction).toString())) {
             cbFaction.setSelectedItem(RATGenerator.getInstance().getFaction("IS"));
         }
         forceDesc.setFaction(cbFaction.getSelectedItem().toString());
@@ -588,7 +588,7 @@ public class ForceGeneratorOptionsView extends JPanel implements FocusListener, 
         FactionRecord oldFaction = (FactionRecord) cbSubfaction.getSelectedItem();
         cbSubfaction.removeActionListener(this);
         cbSubfaction.removeAllItems();
-        String currentFaction = ((FactionRecord) cbFaction.getSelectedItem()).getKey();
+        String currentFaction = ((FactionRecord) Objects.requireNonNull(cbFaction.getSelectedItem())).getKey();
         if (currentFaction != null) {
             List<FactionRecord> sorted = RATGenerator.getInstance().getFactionList().stream()
                     .filter(fr -> fr.getKey().startsWith(currentFaction + ".")
@@ -754,18 +754,14 @@ public class ForceGeneratorOptionsView extends JPanel implements FocusListener, 
             }
         }
 
-        if (hasCurrent) {
-            cbRating.setSelectedItem(currentRating);
-        } else {
-            Ruleset rs = Ruleset.findRuleset(forceDesc.getFaction());
-            String rating = rs.getDefaultRating(forceDesc);
-            if (rating == null && cbRating.getItemCount() > 0) {
-                rating = cbRating.getItemAt(0);
-            }
-            if (rating != null) {
-                cbRating.setSelectedItem(rating);
-                forceDesc.setRating(rating);
-            }
+        Ruleset rs = Ruleset.findRuleset(forceDesc.getFaction());
+        String rating = rs.getDefaultRating(forceDesc);
+        if (rating == null && cbRating.getItemCount() > 0) {
+            rating = cbRating.getItemAt(0);
+        }
+        if (rating != null) {
+            cbRating.setSelectedItem(rating);
+            forceDesc.setRating(rating);
         }
         refreshFlags();
         cbRating.addActionListener(this);
@@ -794,11 +790,7 @@ public class ForceGeneratorOptionsView extends JPanel implements FocusListener, 
             }
         }
 
-        if (hasCurrent) {
-            cbFlags.setSelectedItem(currentFlag);
-        } else {
-            cbFlags.setSelectedIndex(0);
-        }
+        cbFlags.setSelectedIndex(0);
         forceDesc.getFlags().clear();
         if (cbFlags.getSelectedItem() != null) {
             forceDesc.getFlags().add((String) cbFlags.getSelectedItem());
@@ -836,7 +828,7 @@ public class ForceGeneratorOptionsView extends JPanel implements FocusListener, 
             if (cbSubfaction.getSelectedItem() != null) {
                 forceDesc.setFaction(((FactionRecord) cbSubfaction.getSelectedItem()).getKey());
             } else {
-                forceDesc.setFaction(((FactionRecord) cbFaction.getSelectedItem()).getKey());
+                forceDesc.setFaction(((FactionRecord) Objects.requireNonNull(cbFaction.getSelectedItem())).getKey());
             }
             refreshUnitTypes();
         } else if (ev.getSource() == cbUnitType) {

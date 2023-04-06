@@ -770,6 +770,7 @@ public class MechFileParser {
 
         }
 
+        assert canonUnitNames != null;
         int index = Collections.binarySearch(canonUnitNames, ent.getShortNameRaw());
         if (index >= 0) {
             ent.setCanon(true);

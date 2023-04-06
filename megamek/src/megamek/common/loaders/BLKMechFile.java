@@ -53,7 +53,6 @@ public class BLKMechFile extends BLKFile implements IMechLoader {
 
         int chassisType = 0;
         if (!dataFile.exists("chassis_type")) {
-            chassisType = 0;
         } else {
             chassisType = dataFile.getDataAsInt("chassis_type")[0];
         }

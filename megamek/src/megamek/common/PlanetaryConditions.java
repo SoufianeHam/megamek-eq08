@@ -1139,7 +1139,7 @@ public class PlanetaryConditions implements Serializable {
 
     private void doSandStormCheck() {
         if (blowingSand && windStrength < WI_MOD_GALE) {
-            sandStorm = blowingSand;
+            sandStorm = true;
             blowingSand = false;
         }
         if (sandStorm && windStrength > WI_LIGHT_GALE) {

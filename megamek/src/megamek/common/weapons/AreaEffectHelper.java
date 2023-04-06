@@ -538,7 +538,7 @@ public class AreaEffectHelper {
                 HitData hit = entity.rollHitLocation(toHit.getHitTable(), toHit.getSideTable());
                 // per a rules question, for patchwork armor being attacked by flechette ammo, we multiply the damage done
                 // by 5 - the BAR rating of the hit location
-                if (specialCaseFlechette && !(entity instanceof Infantry)) {
+                if (specialCaseFlechette) {
                     damageToDeal *= (5 - entity.getBARRating(hit.getLocation()));
                 // fuel-air bombs do 1.5x damage to locations hit that have a BAR rating of less than 10.
                 } else if (isFuelAirBomb && !(entity instanceof Infantry) && (entity.getBARRating(hit.getLocation()) < 10)) {

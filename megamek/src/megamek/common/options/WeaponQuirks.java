@@ -93,6 +93,7 @@ public class WeaponQuirks extends AbstractOptions {
         }
 
         // Anything else is a WeaponType
+        assert etype instanceof WeaponType;
         WeaponType wtype = (WeaponType) etype;
 
         if (!(wtype instanceof AmmoWeapon)) {

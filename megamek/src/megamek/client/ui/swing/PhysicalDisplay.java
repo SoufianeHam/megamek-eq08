@@ -493,7 +493,7 @@ public class PhysicalDisplay extends StatusBarPhaseDisplay {
                     attacks.addElement(new PunchAttackAction(cen, target
                             .getTargetType(), target.getId(),
                             PunchAttackAction.BOTH, leftBladeExtend,
-                            rightBladeExtend, zweihandering));
+                            rightBladeExtend, false));
                 }
             } else if (leftArm.getValue() < rightArm.getValue()) {
                 attacks.addElement(new PunchAttackAction(cen, target
@@ -505,7 +505,7 @@ public class PhysicalDisplay extends StatusBarPhaseDisplay {
                     attacks.addElement(new PunchAttackAction(cen, target
                             .getTargetType(), target.getId(),
                             PunchAttackAction.LEFT, leftBladeExtend,
-                            rightBladeExtend, zweihandering));
+                            rightBladeExtend, false));
                 }
             } else {
                 attacks.addElement(new PunchAttackAction(cen, target
@@ -517,7 +517,7 @@ public class PhysicalDisplay extends StatusBarPhaseDisplay {
                     attacks.addElement(new PunchAttackAction(cen, target
                             .getTargetType(), target.getId(),
                             PunchAttackAction.RIGHT, leftBladeExtend,
-                            rightBladeExtend, zweihandering));
+                            rightBladeExtend, false));
                 }
             }
             ready();
@@ -923,7 +923,7 @@ public class PhysicalDisplay extends StatusBarPhaseDisplay {
                 // hit 'em again!
                 attacks.addElement(new ClubAttackAction(cen, target
                         .getTargetType(), target.getId(), club, ash
-                        .getAimTable(), zweihandering));
+                        .getAimTable(), false));
             }
             ready();
         }
@@ -1086,7 +1086,7 @@ public class PhysicalDisplay extends StatusBarPhaseDisplay {
                 ready();
 
             }
-        } else if (canHitRight) {
+        } else {
             // If only the right arm is available, confirm that choice.
             choices = new String[1];
             choices[0] = right;

@@ -828,7 +828,7 @@ public class RATGenerator {
         } else {
             loadFactions(dir);
 
-            for (File f : dir.listFiles()) {
+            for (File f : Objects.requireNonNull(dir.listFiles())) {
                 if (f.getName().matches("\\d+\\.xml")) {
                     eraSet.add(Integer.parseInt(f.getName().replace(".xml", "")));
                 }

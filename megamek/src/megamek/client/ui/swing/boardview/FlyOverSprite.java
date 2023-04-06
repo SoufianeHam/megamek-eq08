@@ -197,9 +197,7 @@ class FlyOverSprite extends Sprite {
 
     @Override
     public Rectangle getBounds() {
-        if (true) {
-            makePoly();
-        }
+        makePoly();
         // set bounds
         bounds = new Rectangle(flyOverPoly.getBounds());
         bounds.setSize(bounds.getSize().width + 1, bounds.getSize().height + 1);

@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import megamek.common.Game;
 import megamek.common.MechSummaryCache;
@@ -102,7 +103,7 @@ public class ScenarioLoaderTest {
                 errCache.clear();
             }
         } else if (file.isDirectory()) {
-            for (File subFile : file.listFiles()) {
+            for (File subFile : Objects.requireNonNull(file.listFiles())) {
                 checkScenarioFile(subFile, errorAccumulator);
             }
         }

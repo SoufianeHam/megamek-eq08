@@ -431,7 +431,6 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
 
         JPanel pAmmo = new JPanel(new GridBagLayout());
         pAmmo.setOpaque(false);
-        pgridy = 0;
 
         pAmmo.add(wBayWeapon, GBC.std().insets(15, 1, 1, 1).gridy(pgridy).gridx(0));
 
@@ -520,7 +519,6 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
 
         JPanel pCurrentWeapon = new JPanel(new GridBagLayout());
         pCurrentWeapon.setOpaque(false);
-        pgridy = 0;
         pCurrentWeapon.add(wNameL,
             GBC.std().fill(GridBagConstraints.NONE)
                .anchor(GridBagConstraints.WEST)
@@ -1012,6 +1010,7 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
         }
         Coords position = entity.getPosition();
         if (!en.isOffBoard() && (position != null)) {
+            assert game != null;
             Hex hex = game.getBoard().getHex(position);
             if (hex.containsTerrain(Terrains.FIRE)
                 && (hex.getFireTurn() > 0)) {
@@ -1084,36 +1083,38 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
             }
             
             ((WeaponListModel) weaponList.getModel()).addWeapon(mounted);
-            if (mounted.isUsedThisRound()
-                    && (game.getPhase() == mounted.usedInPhase())
-                    && game.getPhase().isFiring()) {
-                hasFiredWeapons = true;
-                // add heat from weapons fire to heat tracker
-                if (entity.usesWeaponBays()) {
-                    // if using bay heat option then don't add total arc
-                    if (game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_HEAT_BY_BAY)) {
-                        for (int wId : mounted.getBayWeapons()) {
-                            currentHeatBuildup += entity.getEquipment(wId).getCurrentHeat();
-                        }
-                    } else {
-                        // check whether arc has fired
-                        int loc = mounted.getLocation();
-                        boolean rearMount = mounted.isRearMounted();
-                        if (!rearMount) {
-                            if (!usedFrontArc[loc]) {
-                                currentHeatBuildup += entity.getHeatInArc(loc, rearMount);
-                                usedFrontArc[loc] = true;
+            if (mounted.isUsedThisRound()) {
+                assert game != null;
+                if ((game.getPhase() == mounted.usedInPhase())
+                        && game.getPhase().isFiring()) {
+                    hasFiredWeapons = true;
+                    // add heat from weapons fire to heat tracker
+                    if (entity.usesWeaponBays()) {
+                        // if using bay heat option then don't add total arc
+                        if (game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_HEAT_BY_BAY)) {
+                            for (int wId : mounted.getBayWeapons()) {
+                                currentHeatBuildup += entity.getEquipment(wId).getCurrentHeat();
                             }
                         } else {
-                            if (!usedRearArc[loc]) {
-                                currentHeatBuildup += entity.getHeatInArc(loc, rearMount);
-                                usedRearArc[loc] = true;
+                            // check whether arc has fired
+                            int loc = mounted.getLocation();
+                            boolean rearMount = mounted.isRearMounted();
+                            if (!rearMount) {
+                                if (!usedFrontArc[loc]) {
+                                    currentHeatBuildup += entity.getHeatInArc(loc, rearMount);
+                                    usedFrontArc[loc] = true;
+                                }
+                            } else {
+                                if (!usedRearArc[loc]) {
+                                    currentHeatBuildup += entity.getHeatInArc(loc, rearMount);
+                                    usedRearArc[loc] = true;
+                                }
                             }
                         }
-                    }
-                } else {
-                    if (!mounted.isBombMounted()) {
-                        currentHeatBuildup += mounted.getCurrentHeat();
+                    } else {
+                        if (!mounted.isBombMounted()) {
+                            currentHeatBuildup += mounted.getCurrentHeat();
+                        }
                     }
                 }
             }

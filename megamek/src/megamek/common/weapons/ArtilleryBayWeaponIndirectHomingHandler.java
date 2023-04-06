@@ -205,7 +205,7 @@ public class ArtilleryBayWeaponIndirectHomingHandler extends ArtilleryBayWeaponI
         nDamPerHit = atype.getRackSize();
         
         // copperhead gets 10 damage less than standard
-        if (atype != null && atype.getAmmoType() != AmmoType.T_ARROW_IV) {
+        if (atype.getAmmoType() != AmmoType.T_ARROW_IV) {
             nDamPerHit -= 10;
         }
         
@@ -218,8 +218,7 @@ public class ArtilleryBayWeaponIndirectHomingHandler extends ArtilleryBayWeaponI
         
         //this has to be called here or it triggers before the TAG shot and we have no entityTarget
         //mounting AMS
-        if (atype != null 
-                && atype.getAmmoType() == AmmoType.T_ARROW_IV) {
+        if (atype.getAmmoType() == AmmoType.T_ARROW_IV) {
             gameManager.assignAMS();
         }
         while (nweaponsHit > 0) {
@@ -254,17 +253,13 @@ public class ArtilleryBayWeaponIndirectHomingHandler extends ArtilleryBayWeaponI
             if ((bldg != null) && (bldgAbsorbs > 0)) {
                 // building absorbs some damage
                 r = new Report(6010);
-                if (entityTarget != null) {
-                    r.subject = entityTarget.getId();
-                }
+                r.subject = entityTarget.getId();
                 r.add(bldgAbsorbs);
                 vPhaseReport.addElement(r);
                 Vector<Report> buildingReport = gameManager.damageBuilding(bldg,
                         nDamPerHit, target.getPosition());
-                if (entityTarget != null) {
-                    for (Report report : buildingReport) {
-                        report.subject = entityTarget.getId();
-                    }
+                for (Report report : buildingReport) {
+                    report.subject = entityTarget.getId();
                 }
                 vPhaseReport.addAll(buildingReport);
             }
@@ -529,7 +524,6 @@ public class ArtilleryBayWeaponIndirectHomingHandler extends ArtilleryBayWeaponI
                     r.add(destroyRoll);
                     r.subject = subjectId;
                     vPhaseReport.add(r);
-                    hits = 1;
                 }
             }
         }

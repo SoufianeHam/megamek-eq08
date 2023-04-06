@@ -764,7 +764,7 @@ public class MULParser {
         // quirks
         String quirks = entityTag.getAttribute(QUIRKS);
         if (!quirks.isBlank()) {
-            StringTokenizer st = new StringTokenizer(quirks, "::");
+            StringTokenizer st = new StringTokenizer(quirks, ":");
             while (st.hasMoreTokens()) {
                 String quirk = st.nextToken();
                 String quirkName = Crew.parseAdvantageName(quirk);
@@ -1033,7 +1033,7 @@ public class MULParser {
 
         if ((options != null) && options.booleanOption(OptionsConstants.RPG_PILOT_ADVANTAGES)
                 && attributes.containsKey(ADVS) && !attributes.get(ADVS).isBlank()) {
-            StringTokenizer st = new StringTokenizer(attributes.get(ADVS), "::");
+            StringTokenizer st = new StringTokenizer(attributes.get(ADVS), ":");
             while (st.hasMoreTokens()) {
                 String adv = st.nextToken();
                 String advName = Crew.parseAdvantageName(adv);
@@ -1050,7 +1050,7 @@ public class MULParser {
 
         if ((options != null) && options.booleanOption(OptionsConstants.EDGE)
                 && attributes.containsKey(EDGE) && !attributes.get(EDGE).isBlank()) {
-            StringTokenizer st = new StringTokenizer(attributes.get(EDGE), "::");
+            StringTokenizer st = new StringTokenizer(attributes.get(EDGE), ":");
             while (st.hasMoreTokens()) {
                 String edg = st.nextToken();
                 String edgeName = Crew.parseAdvantageName(edg);
@@ -1066,7 +1066,7 @@ public class MULParser {
 
         if ((options != null) && options.booleanOption(OptionsConstants.RPG_MANEI_DOMINI)
                 && attributes.containsKey(IMPLANTS) && !attributes.get(IMPLANTS).isBlank()) {
-            StringTokenizer st = new StringTokenizer(attributes.get(IMPLANTS), "::");
+            StringTokenizer st = new StringTokenizer(attributes.get(IMPLANTS), ":");
             while (st.hasMoreTokens()) {
                 String implant = st.nextToken();
                 String implantName = Crew.parseAdvantageName(implant);
@@ -1334,7 +1334,7 @@ public class MULParser {
         // we keep track of the number of ammo slots processed for a loc
         int locAmmoCount = 0;
         // Did we find required attributes?
-        if ((index == null) || index.isBlank()) {
+        if (index.isBlank()) {
             warning.append("Could not find index for location.\n");
             return;
         } else {
@@ -1679,7 +1679,7 @@ public class MULParser {
 
                 // quirks
                 if (!quirks.isBlank()) {
-                    StringTokenizer st = new StringTokenizer(quirks, "::");
+                    StringTokenizer st = new StringTokenizer(quirks, ":");
                     while (st.hasMoreTokens()) {
                         String quirk = st.nextToken();
                         String quirkName = Crew.parseAdvantageName(quirk);
@@ -1695,7 +1695,7 @@ public class MULParser {
 
                 // trooper missing equipment
                 if (!trooperMiss.isBlank()) {
-                    StringTokenizer st = new StringTokenizer(trooperMiss, "::");
+                    StringTokenizer st = new StringTokenizer(trooperMiss, ":");
                     int i = BattleArmor.LOC_TROOPER_1;
                     while (st.hasMoreTokens() && i <= BattleArmor.LOC_TROOPER_6) {
                         String tmiss = st.nextToken();
@@ -2474,6 +2474,7 @@ public class MULParser {
 
         // Add the newly mounted manipulator
         try {
+            assert mountedManip != null;
             int baMountLoc = mountedManip.getBaMountLoc();
             mountedManip = entity.addEquipment(manipType, mountedManip.getLocation());
             mountedManip.setBaMountLoc(baMountLoc);

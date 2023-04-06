@@ -21,6 +21,7 @@ import megamek.common.weapons.infantry.InfantryWeapon;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Vector;
 
 /**
@@ -1074,8 +1075,8 @@ public class TestBattleArmor extends TestEntity {
             correct = false;
         }
 
-        if ((laManipType.pairMounted || raManipType.pairMounted)
-                && (laManipType.type != raManipType.type)) {
+        if ((Objects.requireNonNull(laManipType).pairMounted || Objects.requireNonNull(raManipType).pairMounted)
+                && (laManipType.type != Objects.requireNonNull(raManipType).type)) {
             if (laManipType.pairMounted) {
                 buff.append("Left Arm manipulator must be mounted as a "
                         + "pair, but the right arm manipulator doesn't match! ");

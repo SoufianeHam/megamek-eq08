@@ -306,7 +306,6 @@ public class BLKWarshipFile extends BLKFile implements IMechLoader {
         
         if (saEquip[0] != null) {
             for (String element : saEquip) {
-                rearMount = false;
                 nAmmo = 1;
                 newBay = false;
                 String equipName = element.trim();
@@ -348,9 +347,9 @@ public class BLKWarshipFile extends BLKFile implements IMechLoader {
                     Mounted newmount;
                     try {
                         if (nAmmo == 1) {
-                            newmount = a.addEquipment(etype, nLoc, rearMount);
+                            newmount = a.addEquipment(etype, nLoc, false);
                         } else {
-                            newmount = a.addEquipment(etype, nLoc, rearMount, nAmmo);
+                            newmount = a.addEquipment(etype, nLoc, false, nAmmo);
                         }
                     } catch (LocationFullException ex) {
                         throw new EntityLoadingException(ex.getMessage());
@@ -366,7 +365,7 @@ public class BLKWarshipFile extends BLKFile implements IMechLoader {
                         WeaponType weap = (WeaponType) newmount.getType();
                         if (bayMount == null) {
                             try {
-                                bayMount = a.addEquipment(weap.getBayType(), nLoc, rearMount);
+                                bayMount = a.addEquipment(weap.getBayType(), nLoc, false);
                                 newBay = false;
                             } catch (LocationFullException ex) {
                                 throw new EntityLoadingException(ex.getMessage());
@@ -376,13 +375,13 @@ public class BLKWarshipFile extends BLKFile implements IMechLoader {
                         if (weap.isCapital()) {
                             damage *= 10;
                         }
-                        if (!newBay && (((bayDamage + damage) <= 700) || weap.hasFlag(WeaponType.F_MASS_DRIVER)) && (bayMount.isRearMounted() == rearMount) && (weap.getAtClass() == ((WeaponType) bayMount.getType()).getAtClass()) && !(((WeaponType) bayMount.getType()).isSubCapital() && !weap.isSubCapital())) {
+                        if (!newBay && (bayDamage + damage <= 700 || weap.hasFlag(WeaponType.F_MASS_DRIVER)) && !bayMount.isRearMounted() && weap.getAtClass() == ((WeaponType) bayMount.getType()).getAtClass() && !(((WeaponType) bayMount.getType()).isSubCapital() && !weap.isSubCapital())) {
                             // then we should add this weapon to the current bay
                             bayMount.addWeaponToBay(a.getEquipmentNum(newmount));
                             bayDamage += damage;
                         } else {
                             try {
-                                bayMount = a.addEquipment(weap.getBayType(), nLoc, rearMount);
+                                bayMount = a.addEquipment(weap.getBayType(), nLoc, false);
                             } catch (LocationFullException ex) {
                                 throw new EntityLoadingException(ex.getMessage());
                             }
