@@ -35,7 +35,7 @@ public class BoardClusterTracker {
      * Movement types that are relevant for "destruction-aware pathfinding"
      * Have a close relationship but are not exactly one to one with entity movement modes.
      */
-    public static enum MovementType {
+    public enum MovementType {
         Walker,
         Wheeled,
         WheeledAmphi,
@@ -94,10 +94,10 @@ public class BoardClusterTracker {
         }
     }
     
-    private Map<MovementType, Map<Coords, BoardCluster>> movableAreas = new HashMap<>();
-    private Map<MovementType, Map<Coords, BoardCluster>> movableAreasWithTerrainReduction = new HashMap<>();
-    private Map<MovementType, Map<Coords, BoardCluster>> movableAreasBridges = new HashMap<>();
-    private Map<MovementType, Map<Coords, BoardCluster>> movableAreasBridgesWithTerrainReduction = new HashMap<>();
+    private final Map<MovementType, Map<Coords, BoardCluster>> movableAreas = new HashMap<>();
+    private final Map<MovementType, Map<Coords, BoardCluster>> movableAreasWithTerrainReduction = new HashMap<>();
+    private final Map<MovementType, Map<Coords, BoardCluster>> movableAreasBridges = new HashMap<>();
+    private final Map<MovementType, Map<Coords, BoardCluster>> movableAreasBridgesWithTerrainReduction = new HashMap<>();
     
     /**
      * Returns the size of the biggest terrain-reduced or non-terrain-reduced

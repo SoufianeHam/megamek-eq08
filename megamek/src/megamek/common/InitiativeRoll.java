@@ -25,10 +25,10 @@ import java.util.Vector;
  */
 public class InitiativeRoll implements Comparable<InitiativeRoll>, Serializable {
     private static final long serialVersionUID = -1850190415242027657L;
-    private Vector<Integer> rolls = new Vector<>();
-    private Vector<Integer> originalRolls = new Vector<>();
-    private Vector<Boolean> wasRollReplaced = new Vector<>();
-    private Vector<Integer> bonuses = new Vector<>();
+    private final Vector<Integer> rolls = new Vector<>();
+    private final Vector<Integer> originalRolls = new Vector<>();
+    private final Vector<Boolean> wasRollReplaced = new Vector<>();
+    private final Vector<Integer> bonuses = new Vector<>();
     
     public InitiativeRoll() {
 

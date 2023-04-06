@@ -40,84 +40,84 @@ public class ArmlessMechMapSet implements DisplayMapSet {
     private static final int REAR_AREA_OFFSET = 7;
     private static final int INT_STRUCTURE_OFFSET = 11;
     
-    private UnitDisplay unitDisplay;
+    private final UnitDisplay unitDisplay;
 
     // Array of polygonal areas - parts of mech body.
-    private PMSimplePolygonArea[] areas = new PMSimplePolygonArea[19];
+    private final PMSimplePolygonArea[] areas = new PMSimplePolygonArea[19];
     // Array of fixed labels - short names of body parts
-    private PMSimpleLabel[] labels = new PMSimpleLabel[19];
+    private final PMSimpleLabel[] labels = new PMSimpleLabel[19];
     // Array of value labels to show armor and IS values
-    private PMValueLabel[] vLabels = new PMValueLabel[20];
+    private final PMValueLabel[] vLabels = new PMValueLabel[20];
     // Heat control area
     private PMPicPolygonalArea heatHotArea;
     // Set of Background Drawers
-    private Vector<BackGroundDrawer> bgDrawers = new Vector<>();
+    private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
     // Main areas group that keeps everything in itself and is passed to PicMap
     // component
-    private PMAreasGroup content = new PMAreasGroup();
+    private final PMAreasGroup content = new PMAreasGroup();
     // Reference to Component class (need to manage images and fonts)
-    private JComponent comp;
+    private final JComponent comp;
 
     // Points for build hot areas (maybe too heavy, think of to load from external file)
     // Mek armor - Front
     // Head
-    private Polygon head = new Polygon(new int[] { 53, 71, 81, 83, 83, 62, 41,
+    private final Polygon head = new Polygon(new int[] { 53, 71, 81, 83, 83, 62, 41,
             41, 43 }, new int[] { 32, 32, 22, 22, 8, 0, 8, 22, 22 }, 9);
     // Central Torso
-    private Polygon centralTorso = new Polygon(new int[] { 48, 54, 70, 76, 76,
+    private final Polygon centralTorso = new Polygon(new int[] { 48, 54, 70, 76, 76,
             48 }, new int[] { 45, 85, 85, 45, 36, 36 }, 6);
     // left Torso
-    private Polygon leftTorso = new Polygon(new int[] { 54, 48, 48, 62, 62, 53,
+    private final Polygon leftTorso = new Polygon(new int[] { 54, 48, 48, 62, 62, 53,
             43, 41, 41, 31, 29, 27, 25, 26, 47 }, new int[] { 82, 45, 36, 36,
             32, 32, 22, 22, 20, 25, 27, 33, 37, 47, 82 }, 15);
     // right Torso
-    private Polygon rightTorso = new Polygon(new int[] { 70, 76, 76, 62, 62,
+    private final Polygon rightTorso = new Polygon(new int[] { 70, 76, 76, 62, 62,
             71, 81, 83, 83, 93, 95, 97, 99, 98, 77 }, new int[] { 82, 45, 36,
             36, 32, 32, 22, 22, 20, 25, 27, 33, 37, 47, 82 }, 15);
     // Left Leg
 
-    private Polygon leftLeg = new Polygon(new int[] { 0, 7, 37, 47, 54, 54, 61,
+    private final Polygon leftLeg = new Polygon(new int[] { 0, 7, 37, 47, 54, 54, 61,
             34, 40, 40, 34, 33, 7, 6, 0 }, new int[] { 104, 104, 65, 82, 82,
             85, 85, 102, 104, 121, 123, 129, 129, 122, 122 }, 15);
     // right Leg
-    private Polygon rightLeg = new Polygon(new int[] { 125, 118, 88, 77, 70,
+    private final Polygon rightLeg = new Polygon(new int[] { 125, 118, 88, 77, 70,
             70, 64, 91, 85, 85, 91, 92, 118, 119, 125 }, new int[] { 104, 104,
             63, 82, 82, 85, 85, 102, 104, 121, 123, 129, 129, 122, 122 }, 15);
 
     // Mek Armor - Rear
     // Left Torso
-    private Polygon rearLeftTorso = new Polygon(new int[] { 142, 142, 148, 139,
+    private final Polygon rearLeftTorso = new Polygon(new int[] { 142, 142, 148, 139,
             123, 123, 142 }, new int[] { 14, 43, 76, 76, 44, 17, 14 }, 7);
     // Central Torso
-    private Polygon rearCentralTorso = new Polygon(new int[] { 142, 148, 162,
+    private final Polygon rearCentralTorso = new Polygon(new int[] { 142, 148, 162,
             168, 168, 142 }, new int[] { 44, 76, 76, 44, 14, 14 }, 6);
     // Right Torso
-    private Polygon rearRightTorso = new Polygon(new int[] { 168, 168, 162,
+    private final Polygon rearRightTorso = new Polygon(new int[] { 168, 168, 162,
             171, 187, 187, 168 }, new int[] { 14, 43, 76, 76, 44, 17, 14 }, 7);
 
     // Internal Structure
     // Head
-    private Polygon intStHead = new Polygon(new int[] { 78, 48, 48, 78 },
+    private final Polygon intStHead = new Polygon(new int[] { 78, 48, 48, 78 },
             new int[] { 149, 149, 127, 127 }, 4);
     // Central Torso
-    private Polygon inStCentralTorso = new Polygon(
+    private final Polygon inStCentralTorso = new Polygon(
             new int[] { 75, 75, 51, 51 }, new int[] { 203, 149, 149, 203 }, 4);
     // Left Torso
-    private Polygon inStLeftTorso = new Polygon(new int[] { 32, 32, 51, 51 },
+    private final Polygon inStLeftTorso = new Polygon(new int[] { 32, 32, 51, 51 },
             new int[] { 188, 160, 160, 193 }, 4);
     // Right Torso
-    private Polygon inStRightTorso = new Polygon(new int[] { 94, 94, 75, 75 },
+    private final Polygon inStRightTorso = new Polygon(new int[] { 94, 94, 75, 75 },
             new int[] { 188, 160, 160, 193 }, 4);
     // Left Leg
-    private Polygon inStLeftLeg = new Polygon(new int[] { 51, 51, 44, 44, 47,
+    private final Polygon inStLeftLeg = new Polygon(new int[] { 51, 51, 44, 44, 47,
             47, 20, 20, 41, 41, 44, 44 }, new int[] { 195, 199, 199, 206, 206,
             230, 230, 206, 206, 192, 192, 195 }, 12);
     // right Leg
-    private Polygon inStRightLeg = new Polygon(new int[] { 75, 75, 82, 82, 79,
+    private final Polygon inStRightLeg = new Polygon(new int[] { 75, 75, 82, 82, 79,
             79, 106, 106, 85, 85, 82, 82 }, new int[] { 195, 199, 199, 206,
             206, 230, 230, 206, 206, 192, 192, 195 }, 12);
     // Heat control
-    private Polygon heatControl = new Polygon(new int[] { 149, 159, 159, 149 },
+    private final Polygon heatControl = new Polygon(new int[] { 149, 159, 159, 149 },
             new int[] { 100, 100, 220, 220 }, 4);
 
     private Image heatImage;

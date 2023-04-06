@@ -126,7 +126,7 @@ public class AbstractPathFinder<N, C, E> {
 
     // way of checking multiple conditions and returning their alternation.
     private static class StopConditionsAlternation<E> implements StopCondition<E> {
-        private List<StopCondition<? super E>> conditions = new ArrayList<>();
+        private final List<StopCondition<? super E>> conditions = new ArrayList<>();
 
         @Override
         public boolean shouldStop(E e) {
@@ -190,11 +190,11 @@ public class AbstractPathFinder<N, C, E> {
     private DestinationMap<N, E> destinationMap;
     private EdgeRelaxer<C, E> edgeRelaxer;
 
-    private List<Filter<E>> filters = new ArrayList<>();
+    private final List<Filter<E>> filters = new ArrayList<>();
 
-    private Map<N, C> pathsCosts = new HashMap<>();
+    private final Map<N, C> pathsCosts = new HashMap<>();
 
-    private StopConditionsAlternation<E> stopCondition = new StopConditionsAlternation<>();
+    private final StopConditionsAlternation<E> stopCondition = new StopConditionsAlternation<>();
 
     /**
      * @param edgeDestinationMap functional interface for retrieving destination

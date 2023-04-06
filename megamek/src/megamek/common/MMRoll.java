@@ -35,7 +35,7 @@ public class MMRoll extends Roll {
     /**
      * a vector of the result for each roll of the dice
      */
-    private Vector<Integer> all = new Vector<>();
+    private final Vector<Integer> all = new Vector<>();
 
     /**
      * In some cases, we may only keep the highest subset of the total dice

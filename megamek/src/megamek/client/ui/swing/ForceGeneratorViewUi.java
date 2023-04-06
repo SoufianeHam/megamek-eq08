@@ -322,7 +322,7 @@ public class ForceGeneratorViewUi implements ActionListener {
         }
     }
 
-    private MouseListener treeMouseListener = new MouseAdapter() {
+    private final MouseListener treeMouseListener = new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent evt) {
             showPopup(evt);
@@ -358,7 +358,7 @@ public class ForceGeneratorViewUi implements ActionListener {
         }
     };
 
-    private MouseListener tableMouseListener = new MouseAdapter() {
+    private final MouseListener tableMouseListener = new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent evt) {
             showPopup(evt);
@@ -425,7 +425,7 @@ public class ForceGeneratorViewUi implements ActionListener {
         }
     }
 
-    private KeyListener tableKeyListener = new KeyListener() {
+    private final KeyListener tableKeyListener = new KeyListener() {
         @Override
         public void keyTyped(KeyEvent evt) {
 
@@ -445,8 +445,8 @@ public class ForceGeneratorViewUi implements ActionListener {
     };
 
     static class ForceTreeModel implements TreeModel {
-        private ForceDescriptor root;
-        private ArrayList<TreeModelListener> listeners;
+        private final ForceDescriptor root;
+        private final ArrayList<TreeModelListener> listeners;
 
         public ForceTreeModel(ForceDescriptor root) {
             this.root = root;
@@ -578,7 +578,7 @@ public class ForceGeneratorViewUi implements ActionListener {
         public static final int NUM_COLS   = 5;
 
         private List<Entity> entities = new ArrayList<>();
-        private Set<String> entityIds = new HashSet<>();
+        private final Set<String> entityIds = new HashSet<>();
 
         public boolean hasEntity(final @Nullable Entity en) {
             return (en != null) && entityIds.contains(en.getExternalIdAsString());

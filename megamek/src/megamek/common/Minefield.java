@@ -49,7 +49,7 @@ public class Minefield implements Serializable, Cloneable {
 
     public static final String FILENAME_IMAGE = "minefieldsign.gif";
 
-    private static String[] names = { "Conventional", "Command-detonated",
+    private static final String[] names = { "Conventional", "Command-detonated",
             "Vibrabomb", "Active", "EMP", "Inferno"};
             //"Thunder", "Thunder-Inferno", "Thunder-Active",
             //"Thunder-Vibrabomb" };

@@ -30,34 +30,34 @@ import java.util.Enumeration;
 class ExtraPanel extends PicMap implements ActionListener, ItemListener, IPreferenceChangeListener {
     private final UnitDisplay unitDisplay;
 
-    private JPanel panelMain;
-    private JScrollPane scrollPane;
-    private JLabel lblLastTarget;
-    private JLabel curSensorsL;
-    private JLabel narcLabel;
-    private JLabel unusedL;
-    private JLabel carrysL;
-    private JLabel heatL;
-    private JLabel sinksL;
-    private JTextArea unusedR;
-    private JTextArea carrysR;
-    private JTextArea heatR;
-    private JTextArea lastTargetR;
-    private JTextArea sinksR;
-    private JButton sinks2B;
-    private JButton dumpBombs;
-    private JList<String> narcList;
+    private final JPanel panelMain;
+    private final JScrollPane scrollPane;
+    private final JLabel lblLastTarget;
+    private final JLabel curSensorsL;
+    private final JLabel narcLabel;
+    private final JLabel unusedL;
+    private final JLabel carrysL;
+    private final JLabel heatL;
+    private final JLabel sinksL;
+    private final JTextArea unusedR;
+    private final JTextArea carrysR;
+    private final JTextArea heatR;
+    private final JTextArea lastTargetR;
+    private final JTextArea sinksR;
+    private final JButton sinks2B;
+    private final JButton dumpBombs;
+    private final JList<String> narcList;
     private int myMechId;
 
-    private JComboBox<String> chSensors;
+    private final JComboBox<String> chSensors;
 
     private Slider prompt;
 
     private int sinks;
     private boolean dontChange;
 
-    private int minTopMargin = 8;
-    private int minLeftMargin = 8;
+    private final int minTopMargin = 8;
+    private final int minLeftMargin = 8;
 
     JButton activateHidden = new JButton(Messages.getString("MechDisplay.ActivateHidden.Label"));
 

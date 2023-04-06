@@ -23,7 +23,7 @@ import java.util.Comparator;
  * @author arlith
  */
 public class WeaponComparatorArc implements Comparator<Mounted> {
-    private Entity entity;
+    private final Entity entity;
 
     public WeaponComparatorArc(Entity e) {
         entity = e;

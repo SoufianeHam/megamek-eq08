@@ -33,7 +33,7 @@ public class CompositeTechLevel implements ITechnology, Serializable {
     private Integer standard;
     private List<DateRange> extinct;
     private int techRating;
-    private int[] availability;
+    private final int[] availability;
     private int earliest;
     
     // Provides a set tech level for non-era-based use.

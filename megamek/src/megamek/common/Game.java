@@ -89,7 +89,7 @@ public class Game extends AbstractGame implements Serializable {
     /**
      * The current turn list
      */
-    private Vector<GameTurn> turnVector = new Vector<>();
+    private final Vector<GameTurn> turnVector = new Vector<>();
     private int turnIndex = 0;
 
     /**
@@ -104,16 +104,16 @@ public class Game extends AbstractGame implements Serializable {
 
     // phase state
     private Vector<EntityAction> actions = new Vector<>();
-    private Vector<AttackAction> pendingCharges = new Vector<>();
-    private Vector<AttackAction> pendingRams = new Vector<>();
-    private Vector<AttackAction> pendingTeleMissileAttacks = new Vector<>();
-    private Vector<PilotingRollData> pilotRolls = new Vector<>();
-    private Vector<PilotingRollData> extremeGravityRolls = new Vector<>();
-    private Vector<PilotingRollData> controlRolls = new Vector<>();
-    private Vector<Team> initiativeRerollRequests = new Vector<>();
+    private final Vector<AttackAction> pendingCharges = new Vector<>();
+    private final Vector<AttackAction> pendingRams = new Vector<>();
+    private final Vector<AttackAction> pendingTeleMissileAttacks = new Vector<>();
+    private final Vector<PilotingRollData> pilotRolls = new Vector<>();
+    private final Vector<PilotingRollData> extremeGravityRolls = new Vector<>();
+    private final Vector<PilotingRollData> controlRolls = new Vector<>();
+    private final Vector<Team> initiativeRerollRequests = new Vector<>();
 
     // reports
-    private GameReports gameReports = new GameReports();
+    private final GameReports gameReports = new GameReports();
 
     private boolean forceVictory = false;
     private int victoryPlayerId = Player.PLAYER_NONE;
@@ -122,14 +122,14 @@ public class Game extends AbstractGame implements Serializable {
     private Hashtable<Integer, Vector<Entity>> deploymentTable = new Hashtable<>();
     private int lastDeploymentRound = 0;
 
-    private Hashtable<Coords, Vector<Minefield>> minefields = new Hashtable<>();
-    private Vector<Minefield> vibrabombs = new Vector<>();
+    private final Hashtable<Coords, Vector<Minefield>> minefields = new Hashtable<>();
+    private final Vector<Minefield> vibrabombs = new Vector<>();
     private Vector<AttackHandler> attacks = new Vector<>();
     private Vector<ArtilleryAttackAction> offboardArtilleryAttacks = new Vector<>();
 
     private int lastEntityId;
 
-    private Vector<TagInfo> tagInfoForTurn = new Vector<>();
+    private final Vector<TagInfo> tagInfoForTurn = new Vector<>();
     private Vector<Flare> flares = new Vector<>();
     private HashSet<Coords> illuminatedPositions = new HashSet<>();
 
@@ -142,7 +142,7 @@ public class Game extends AbstractGame implements Serializable {
     private Victory victory = null;
 
     // smoke clouds
-    private List<SmokeCloud> smokeCloudList = new CopyOnWriteArrayList<>();
+    private final List<SmokeCloud> smokeCloudList = new CopyOnWriteArrayList<>();
 
     private transient Vector<GameListener> gameListeners = new Vector<>();
     
@@ -2624,9 +2624,9 @@ public class Game extends AbstractGame implements Serializable {
         else {
             final EntitySelector entry = selector;
             retVal = new Iterator<>() {
-                private EntitySelector entitySelector = entry;
+                private final EntitySelector entitySelector = entry;
                 private Entity current = null;
-                private Iterator<Entity> iter = getEntities();
+                private final Iterator<Entity> iter = getEntities();
 
                 // Do any more entities meet the selection criteria?
                 @Override
@@ -2732,9 +2732,9 @@ public class Game extends AbstractGame implements Serializable {
         else {
             final EntitySelector entry = selector;
             retVal = new Enumeration<>() {
-                private EntitySelector entitySelector = entry;
+                private final EntitySelector entitySelector = entry;
                 private Entity current = null;
-                private Enumeration<Entity> iter = vOutOfGame.elements();
+                private final Enumeration<Entity> iter = vOutOfGame.elements();
 
                 // Do any more entities meet the selection criteria?
                 @Override

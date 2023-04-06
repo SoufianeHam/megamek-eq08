@@ -20,7 +20,7 @@ public class SpotAction extends AbstractEntityAction {
      * 
      */
     private static final long serialVersionUID = 3629300334304478911L;
-    private int targetId;
+    private final int targetId;
 
     public SpotAction(int entityId, int targetId) {
         super(entityId);

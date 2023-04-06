@@ -41,7 +41,7 @@ public class Protomech extends Entity {
 
     // Crew damage caused so far by crits to this location.
     // Needed for location destruction pilot damage.
-    private int[] pilotDamageTaken = { 0, 0, 0, 0, 0, 0, 0 };
+    private final int[] pilotDamageTaken = { 0, 0, 0, 0, 0, 0, 0 };
 
     /**
      * Not every ProtoMek has a main gun. N.B. Regardless of the value set

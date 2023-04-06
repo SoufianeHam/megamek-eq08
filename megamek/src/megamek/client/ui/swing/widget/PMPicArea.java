@@ -30,10 +30,10 @@ import java.awt.event.MouseEvent;
 public class PMPicArea implements PMHotArea {
     private int x = 0;
     private int y = 0;
-    private Rectangle areaShape;
+    private final Rectangle areaShape;
     private ActionListener actionListener = null;
     private Image idleImage;
-    private Image activeImage;
+    private final Image activeImage;
     private boolean highlight = true;
     private boolean selected = false;
     private boolean visible = true;

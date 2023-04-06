@@ -39,8 +39,8 @@ public class EjectedCrew extends Infantry {
     protected int nextVelocity = currentVelocity;
     
     // Maps "transported" crew, passengers to a host ship, so we can match them up again post-game
-    private Map<String,Integer> nOtherCrew = new HashMap<>();
-    private Map<String,Integer> passengers = new HashMap<>();
+    private final Map<String,Integer> nOtherCrew = new HashMap<>();
+    private final Map<String,Integer> passengers = new HashMap<>();
     
     private static final long serialVersionUID = 8136710237585797372L;
     

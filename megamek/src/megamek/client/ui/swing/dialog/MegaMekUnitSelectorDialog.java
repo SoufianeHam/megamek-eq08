@@ -42,8 +42,8 @@ public class MegaMekUnitSelectorDialog extends AbstractUnitSelectorDialog {
 
     private static final long serialVersionUID = -5717009055093904636L;
     //region Variable Declarations
-    private ClientGUI clientGUI;
-    private JComboBox<String> comboPlayer = new JComboBox<>();
+    private final ClientGUI clientGUI;
+    private final JComboBox<String> comboPlayer = new JComboBox<>();
     //endregion Variable Declarations
 
     public MegaMekUnitSelectorDialog(ClientGUI clientGUI, UnitLoadingDialog unitLoadingDialog) {

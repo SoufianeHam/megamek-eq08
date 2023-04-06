@@ -33,16 +33,16 @@ public class EntityState {
     private int facing;
     private int secondaryFacing; // to account for torso twists
     private int heat;
-    private int hexesMoved;
-    private boolean prone;
-    private boolean immobile;
-    private boolean jumping;
-    private EntityMovementType movementType;
+    private final int hexesMoved;
+    private final boolean prone;
+    private final boolean immobile;
+    private final boolean jumping;
+    private final EntityMovementType movementType;
     private boolean building;
     private boolean aero;
     private boolean airborne;
-    private boolean naturalAptGun;
-    private boolean naturalAptPilot;
+    private final boolean naturalAptGun;
+    private final boolean naturalAptPilot;
 
     /**
      * Initialize an entity state from the state an entity is actually in

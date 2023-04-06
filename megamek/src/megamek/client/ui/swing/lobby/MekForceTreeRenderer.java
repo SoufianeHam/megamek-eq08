@@ -44,12 +44,12 @@ public class MekForceTreeRenderer extends DefaultTreeCellRenderer {
     private final String UNKNOWN_UNIT = new MegaMekFile(Configuration.miscImagesDir(),
             "unknown_unit.gif").toString();
 
-    private ChatLounge lobby;
+    private final ChatLounge lobby;
     private boolean isSelected;
     private Color selectionColor = Color.BLUE;
     private Entity entity;
     private Player localPlayer;
-    private JTree tree;
+    private final JTree tree;
     private int row;
 
     @Override

@@ -24,10 +24,10 @@ import java.awt.image.ColorModel;
  * @author Ben Smith
  */
 public class ImprovedAveragingScaleFilter extends AreaAveragingScaleFilter {
-    private int savedWidth;
-    private int savedHeight;
-    private int[] savedPixels;
-    private static ColorModel defaultCM = ColorModel.getRGBdefault();
+    private final int savedWidth;
+    private final int savedHeight;
+    private final int[] savedPixels;
+    private static final ColorModel defaultCM = ColorModel.getRGBdefault();
 
     public ImprovedAveragingScaleFilter(int savedWidth, int savedHeight,
             int destWidth, int destHeight) {

@@ -131,9 +131,9 @@ public class ArtilleryWeaponIndirectFireHandler extends AmmoWeaponHandler {
             // fetch possible spotters now
             Iterator<Entity> spottersAfter = game
                     .getSelectedEntities(new EntitySelector() {
-                        public int player = playerId;
+                        public final int player = playerId;
 
-                        public Targetable targ = target;
+                        public final Targetable targ = target;
 
                         @Override
                         public boolean accept(Entity entity) {

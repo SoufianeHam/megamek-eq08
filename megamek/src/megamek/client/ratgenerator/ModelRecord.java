@@ -45,10 +45,10 @@ public class ModelRecord extends AbstractUnitRecord {
     private boolean starLeague;
     private int weightClass;
     private EntityMovementMode movementMode;
-    private EnumSet<MissionRole> roles;
-    private ArrayList<String> deployedWith;
-    private ArrayList<String> requiredUnits;
-    private ArrayList<String> excludedFactions;
+    private final EnumSet<MissionRole> roles;
+    private final ArrayList<String> deployedWith;
+    private final ArrayList<String> requiredUnits;
+    private final ArrayList<String> excludedFactions;
     private int networkMask;
     private double flak; //proportion of weapon BV that can fire flak ammo
     private double longRange; //proportion of weapon BV with range >= 20 hexes

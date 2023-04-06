@@ -62,7 +62,7 @@ public class EntityImage {
     private static final String PATH_CRIPPLED = "Crippled/";
 
     /** A transparent image used as a no-damage decal. */
-    private static Image dmgEmpty;
+    private static final Image dmgEmpty;
 
     private static final int[] X_POS = {0, 0, 63, 63, 0, -63, -63};
     private static final int[] Y_POS = {0, -72, -36, 36, 72, 36, -36};
@@ -102,15 +102,15 @@ public class EntityImage {
     /** The wreck base image used for this icon. */
     private Image wreck;
     /** The damage decal image used for this icon. */
-    private Image decal;
+    private final Image decal;
     /** The smoke image used for this icon. */
-    private Image smoke;
+    private final Image smoke;
     /** A smaller icon used for the unit overview. */
     private Image icon;
     private Camouflage camouflage;
-    private Image[] facings = new Image[6];
-    private Image[] wreckFacings = new Image[6];
-    private Component parent;
+    private final Image[] facings = new Image[6];
+    private final Image[] wreckFacings = new Image[6];
+    private final Component parent;
     /** The damage level, from none to crippled. */
     private final int dmgLevel;
     /** The tonnage of the unit. */

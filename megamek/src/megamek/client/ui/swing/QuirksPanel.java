@@ -41,13 +41,13 @@ import megamek.common.options.WeaponQuirks;
  */
 public class QuirksPanel extends JPanel {
     private static final long serialVersionUID = -8360885055638738148L;
-    private Entity entity;
+    private final Entity entity;
     private List<DialogOptionComponent> quirkComps;
-    private HashMap<Integer, ArrayList<DialogOptionComponent>> h_wpnQuirkComps = new HashMap<>();
-    private HashMap<Integer, WeaponQuirks> h_wpnQuirks;
-    private Quirks quirks;
-    private boolean editable;
-    private DialogOptionListener parent;
+    private final HashMap<Integer, ArrayList<DialogOptionComponent>> h_wpnQuirkComps = new HashMap<>();
+    private final HashMap<Integer, WeaponQuirks> h_wpnQuirks;
+    private final Quirks quirks;
+    private final boolean editable;
+    private final DialogOptionListener parent;
 
     public QuirksPanel(Entity entity, Quirks quirks, boolean editable, DialogOptionListener parent, HashMap<Integer,
             WeaponQuirks> h_wpnQuirks) {

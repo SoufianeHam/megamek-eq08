@@ -30,12 +30,12 @@ import java.util.stream.Collectors;
  * @author Reinhard Vicinus
  */
 public abstract class TestEntity implements TestEntityOption {
-    public static enum Ceil {
+    public enum Ceil {
         TON(1.0), HALFTON(2.0), QUARTERTON(4.0), TENTHTON(10.0), KILO(1000.0);
         
         public final double mult;
         
-        private Ceil(double mult) {
+        Ceil(double mult) {
             this.mult = mult;
         }
     }
@@ -1659,9 +1659,9 @@ public abstract class TestEntity implements TestEntityOption {
 class Armor {
     public static final int CLAN_ARMOR = 0x01;
 
-    private int armorType;
+    private final int armorType;
 
-    private int armorFlags;
+    private final int armorFlags;
 
     public Armor(int armorType, int armorFlags) {
         this.armorType = armorType;

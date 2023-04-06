@@ -71,34 +71,34 @@ public class SkinEditorMainGUI extends JPanel implements WindowListener, BoardVi
     /**
      * Map each phase to the name of the card for the main display area.
      */
-    private HashMap<String, String> mainNames = new HashMap<>();
+    private final HashMap<String, String> mainNames = new HashMap<>();
 
     /**
      * The <code>JPanel</code> containing the main display area.
      */
-    private JPanel panMain = new JPanel();
+    private final JPanel panMain = new JPanel();
 
     /**
      * The <code>CardLayout</code> of the main display area.
      */
-    private CardLayout cardsMain = new CardLayout();
+    private final CardLayout cardsMain = new CardLayout();
 
     /**
      * Map each phase to the name of the card for the secondary area.
      */
-    private HashMap<String, String> secondaryNames = new HashMap<>();
+    private final HashMap<String, String> secondaryNames = new HashMap<>();
 
     /**
      * The <code>JPanel</code> containing the secondary display area.
      */
-    private JPanel panSecondary = new JPanel();
+    private final JPanel panSecondary = new JPanel();
 
     private StatusBarPhaseDisplay currPhaseDisplay;
 
     /**
      * The <code>CardLayout</code> of the secondary display area.
      */
-    private CardLayout cardsSecondary = new CardLayout();
+    private final CardLayout cardsSecondary = new CardLayout();
 
     /**
      * Map phase component names to phase component objects.

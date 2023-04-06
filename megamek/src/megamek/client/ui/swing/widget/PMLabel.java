@@ -22,13 +22,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 public interface PMLabel extends PMElement {
-    public Dimension getSize();
+    Dimension getSize();
 
-    public int getDescent();
+    int getDescent();
 
-    public void moveTo(int x, int y);
+    void moveTo(int x, int y);
 
-    public void setColor(Color c);
+    void setColor(Color c);
 
-    public void setString(String s);
+    void setString(String s);
 }

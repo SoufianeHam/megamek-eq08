@@ -32,7 +32,7 @@ public class HitData {
     public static final int DAMAGE_IGNORES_DMG_REDUCTION = -8;
 
     private int location;
-    private boolean rear;
+    private final boolean rear;
     private int effect;
     private boolean hitAimedLocation = false;
     private int specCritMod = 0;

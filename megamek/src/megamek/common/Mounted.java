@@ -68,7 +68,7 @@ public class Mounted implements Serializable, RoundUpdated, PhaseUpdated {
     private Mounted crossLinkedBy = null; // Weapons with crossLinked capacitors
     private int linkedBayId = -1;
 
-    private Entity entity; // what I'm mounted on
+    private final Entity entity; // what I'm mounted on
 
     private WeaponQuirks quirks = new WeaponQuirks();
 
@@ -88,8 +88,8 @@ public class Mounted implements Serializable, RoundUpdated, PhaseUpdated {
     // this bay (if the mounted is of the BayWeapon type)
     // I can also use this for weapons of the same type on a capital fighter
     // and now Machine Gun Arrays too!
-    private Vector<Integer> bayWeapons = new Vector<>();
-    private Vector<Integer> bayAmmo = new Vector<>();
+    private final Vector<Integer> bayWeapons = new Vector<>();
+    private final Vector<Integer> bayAmmo = new Vector<>();
     
     // on capital fighters and squadrons some weapon mounts actually represent
     // multiple weapons of the same type
@@ -117,7 +117,7 @@ public class Mounted implements Serializable, RoundUpdated, PhaseUpdated {
     // These arrays are used to track individual missing modular components on BA for MHQ
     // in MM they probably shouldn't need to be touched. They are used to keep track of
     // whether a modular mount is in use or not for a particular trooper.
-    private boolean[] missingForTrooper = {false, false, false, false, false, false};
+    private final boolean[] missingForTrooper = {false, false, false, false, false, false};
 
     /**
      * Armor value, used for applicable equipment types like minesweepers.
@@ -165,7 +165,7 @@ public class Mounted implements Serializable, RoundUpdated, PhaseUpdated {
     private boolean armoredComponent = false;
 
     // called shots status, sort of like another mode
-    private CalledShot called = new CalledShot();
+    private final CalledShot called = new CalledShot();
 
     /**
      * Flag that keeps track of whether this <code>Mounted</code> is mounted as

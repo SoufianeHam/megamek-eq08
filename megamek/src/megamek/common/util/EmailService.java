@@ -104,13 +104,13 @@ public class EmailService {
 
     }
 
-    private InternetAddress from;
-    private Map<Player, Integer> messageSequences = new HashMap<>();
-    private Properties mailProperties;
-    private Session mailSession;
+    private final InternetAddress from;
+    private final Map<Player, Integer> messageSequences = new HashMap<>();
+    private final Properties mailProperties;
+    private final Session mailSession;
 
-    private BlockingQueue<Message> mailQueue = new LinkedBlockingQueue<>();
-    private Thread mailWorker;
+    private final BlockingQueue<Message> mailQueue = new LinkedBlockingQueue<>();
+    private final Thread mailWorker;
     private boolean running = true;
 
 

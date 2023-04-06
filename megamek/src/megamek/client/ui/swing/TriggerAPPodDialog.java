@@ -46,13 +46,13 @@ import megamek.common.actions.TriggerAPPodAction;
  */
 public class TriggerAPPodDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -9009039614015364943L;
-    private JButton butOkay = new JButton(Messages.getString("Okay"));
-    private JTextArea labMessage;
+    private final JButton butOkay = new JButton(Messages.getString("Okay"));
+    private final JTextArea labMessage;
 
     /**
      * The <code>FirePodTracker</code>s for the entity's active AP Pods.
      */
-    private ArrayList<TriggerPodTracker> trackers = new ArrayList<>();
+    private final ArrayList<TriggerPodTracker> trackers = new ArrayList<>();
 
     /**
      * The <code>int</code> ID of the entity that can fire AP Pods.
@@ -72,7 +72,7 @@ public class TriggerAPPodDialog extends JDialog implements ActionListener {
         /**
          * The <code>JCheckBox</code> being tracked.
          */
-        private JCheckBox checkbox;
+        private final JCheckBox checkbox;
 
         /**
          * Create a tracker.

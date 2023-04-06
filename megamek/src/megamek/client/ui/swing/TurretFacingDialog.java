@@ -28,8 +28,8 @@ import java.util.ArrayList;
  */
 public class TurretFacingDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -4509638026655222982L;
-    private JButton butOkay = new JButton(Messages.getString("Okay"));
-    private JButton butCancel = new JButton(Messages.getString("Cancel"));
+    private final JButton butOkay = new JButton(Messages.getString("Okay"));
+    private final JButton butCancel = new JButton(Messages.getString("Cancel"));
     Mech mech;
     Tank tank;
     Mounted turret;

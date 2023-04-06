@@ -86,7 +86,7 @@ public class BoardsTagger {
         TAG_FLAT("Flat"),
         TAG_SNOWTERRAIN("SnowTerrain");
 
-        private String tagName;
+        private final String tagName;
         private static final Map<String, Tags> internalTagMap;
 
         static {

@@ -15,10 +15,10 @@ import java.util.Enumeration;
 class MovementPanel extends PicMap {
     private static final long serialVersionUID = 8284603003897415518L;
 
-    private GeneralInfoMapSet gi;
+    private final GeneralInfoMapSet gi;
 
-    private int minTopMargin = 8;
-    private int minLeftMargin = 8;
+    private final int minTopMargin = 8;
+    private final int minLeftMargin = 8;
 
     MovementPanel() {
         gi = new GeneralInfoMapSet(this);

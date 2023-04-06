@@ -57,7 +57,7 @@ public class PointblankShotDisplay extends FiringDisplay implements ItemListener
      *
      * @author arlith
      */
-    public static enum FiringCommand implements PhaseCommand {
+    public enum FiringCommand implements PhaseCommand {
         FIRE_TWIST("fireTwist"),
         FIRE_FIRE("fireFire"),
         FIRE_SKIP("fireSkip"),
@@ -75,7 +75,7 @@ public class PointblankShotDisplay extends FiringDisplay implements ItemListener
          */
         public int priority;
 
-        private FiringCommand(String c) {
+        FiringCommand(String c) {
             cmd = c;
         }
 

@@ -20,8 +20,8 @@ import megamek.common.net.enums.PacketCommand;
  * Application layer data packet used to exchange information between client and server.
  */
 public class Packet {
-    private PacketCommand command;
-    private Object[] data;
+    private final PacketCommand command;
+    private final Object[] data;
 
     /**
      * Creates a <code>Packet</code> with a command and an array of objects

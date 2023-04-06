@@ -31,7 +31,7 @@ import java.awt.event.KeyEvent;
  */
 public class LobbyKeyDispatcher implements KeyEventDispatcher {
 
-    private ChatLounge lobby;
+    private final ChatLounge lobby;
 
     public LobbyKeyDispatcher(ChatLounge cl) {
         lobby = cl;

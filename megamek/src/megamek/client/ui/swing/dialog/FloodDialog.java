@@ -30,8 +30,8 @@ import static megamek.client.ui.Messages.*;
 
 public final class FloodDialog extends AbstractButtonDialog {
 
-    private BoardEditor.EditorTextField txtLevelChange = new BoardEditor.EditorTextField("0", 5, -5, 15);
-    private MMToggleButton butRemove = new MMToggleButton(scaleStringForGUI(getString("FloodDialog.removeButton")));
+    private final BoardEditor.EditorTextField txtLevelChange = new BoardEditor.EditorTextField("0", 5, -5, 15);
+    private final MMToggleButton butRemove = new MMToggleButton(scaleStringForGUI(getString("FloodDialog.removeButton")));
 
     /** Constructs a modal LevelChangeDialog with frame as parent. */
     public FloodDialog(JFrame frame) {

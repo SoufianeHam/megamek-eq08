@@ -55,29 +55,29 @@ public class MechView {
         String toHTML();
     }
 
-    private Entity entity;
-    private boolean isMech;
-    private boolean isInf;
-    private boolean isBA;
-    private boolean isVehicle;
-    private boolean isProto;
-    private boolean isGunEmplacement;
-    private boolean isAero;
-    private boolean isConvFighter;
+    private final Entity entity;
+    private final boolean isMech;
+    private final boolean isInf;
+    private final boolean isBA;
+    private final boolean isVehicle;
+    private final boolean isProto;
+    private final boolean isGunEmplacement;
+    private final boolean isAero;
+    private final boolean isConvFighter;
     @SuppressWarnings("unused")
-    private boolean isFixedWingSupport;
-    private boolean isSquadron;
-    private boolean isSmallCraft;
-    private boolean isJumpship;
+    private final boolean isFixedWingSupport;
+    private final boolean isSquadron;
+    private final boolean isSmallCraft;
+    private final boolean isJumpship;
     @SuppressWarnings("unused")
-    private boolean isSpaceStation;
+    private final boolean isSpaceStation;
 
-    private List<ViewElement> sHead = new ArrayList<>();
-    private List<ViewElement> sBasic = new ArrayList<>();
-    private List<ViewElement> sLoadout = new ArrayList<>();
-    private List<ViewElement> sFluff = new ArrayList<>();
+    private final List<ViewElement> sHead = new ArrayList<>();
+    private final List<ViewElement> sBasic = new ArrayList<>();
+    private final List<ViewElement> sLoadout = new ArrayList<>();
+    private final List<ViewElement> sFluff = new ArrayList<>();
     
-    private boolean html;
+    private final boolean html;
 
     /**
      * Compiles information about an {@link Entity} useful for showing a summary of its abilities.

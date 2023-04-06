@@ -37,7 +37,7 @@ import javax.swing.table.*;
  */
 public class TableColumnManager implements MouseListener, ActionListener, TableColumnModelListener,
         PropertyChangeListener {
-    private JTable table;
+    private final JTable table;
     private TableColumnModel tcm;
     private boolean menuPopup;
 

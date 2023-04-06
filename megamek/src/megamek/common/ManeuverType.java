@@ -32,7 +32,7 @@ public class ManeuverType {
     public static final int MAN_SIDE_SLIP_RIGHT = 8;
     public static final int MAN_VIFF = 9;
 
-    private static String[] names = { "None", "Loop", "Immelman", "Split S",
+    private static final String[] names = { "None", "Loop", "Immelman", "Split S",
                                       "Hammerhead", "Half Roll", "Barrel Roll", "Side Slip (Left)",
                                       "Side Slip (Right)", "VIFF"};
 

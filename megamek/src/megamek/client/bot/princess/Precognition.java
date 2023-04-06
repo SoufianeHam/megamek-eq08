@@ -48,7 +48,7 @@ public class Precognition implements Runnable {
      * Princess share the same game reference, then this will cause concurrency
      * issues.
      */
-    private Game game;
+    private final Game game;
     private final ReentrantLock GAME_LOCK = new ReentrantLock();
 
     /**

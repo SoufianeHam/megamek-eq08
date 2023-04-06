@@ -114,9 +114,9 @@ public class PhysicalDisplay extends StatusBarPhaseDisplay {
     Targetable target; // target
 
     // stuff we want to do
-    private Vector<EntityAction> attacks;
+    private final Vector<EntityAction> attacks;
 
-    private AimedShotHandler ash = new AimedShotHandler();
+    private final AimedShotHandler ash = new AimedShotHandler();
 
     /**
      * Creates and lays out a new movement phase display for the specified

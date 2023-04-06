@@ -332,8 +332,7 @@ public abstract class StatusBarPhaseDisplay extends AbstractPhaseDisplay
         if (phase.isReport()) {
             int r = GUIP.getAdvancedPlayersRemainingToShow();
             if (r > 0) {
-                List<Player> playerList = clientgui.getClient().getGame().getPlayersList().stream().filter(p -> ((!p.isBot()) && (!p.isObserver()) && (!p.isDone()))).collect(Collectors.toList());
-                playerList.sort(Comparator.comparingInt(Player::getId));
+                List<Player> playerList = clientgui.getClient().getGame().getPlayersList().stream().filter(p -> ((!p.isBot()) && (!p.isObserver()) && (!p.isDone()))).sorted(Comparator.comparingInt(Player::getId)).collect(Collectors.toList());
                 String s = "";
                 String m = "";
                 int j = 0;
@@ -351,7 +350,7 @@ public abstract class StatusBarPhaseDisplay extends AbstractPhaseDisplay
                     String msg_notdone = Messages.getString("StatusBarPhaseDisplay.notDone");
                     s = "  " + msg_notdone + " [" + s.substring(0, s.length() - 2) + m + "]";
                 }
-                setStatusBarText(phase.toString() + s);
+                setStatusBarText(phase + s);
             }
         }
     }

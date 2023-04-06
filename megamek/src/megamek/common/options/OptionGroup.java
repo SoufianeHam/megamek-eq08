@@ -25,9 +25,9 @@ public class OptionGroup implements IBasicOptionGroup, Serializable {
      */
     private static final long serialVersionUID = 6445683666789832313L;
 
-    private Vector<String> optionNames = new Vector<>();
+    private final Vector<String> optionNames = new Vector<>();
 
-    private String name;
+    private final String name;
     private String key;
 
     /**

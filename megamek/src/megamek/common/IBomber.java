@@ -17,9 +17,9 @@ import megamek.common.options.OptionsConstants;
  */
 public interface IBomber {
     
-    public static final String SPACE_BOMB_ATTACK = "SpaceBombAttack";
-    public static final String DIVE_BOMB_ATTACK = "DiveBombAttack";
-    public static final String ALT_BOMB_ATTACK = "AltBombAttack";
+    String SPACE_BOMB_ATTACK = "SpaceBombAttack";
+    String DIVE_BOMB_ATTACK = "DiveBombAttack";
+    String ALT_BOMB_ATTACK = "AltBombAttack";
 
     /**
      * @return The total number of bomb points that the bomber can carry.

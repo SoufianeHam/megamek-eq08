@@ -46,17 +46,17 @@ import java.util.Vector;
 public abstract class PicMap extends JComponent {
     private static final long serialVersionUID = -1718106533001806675L;
     // Vector of Background Drawers
-    private Vector<BackGroundDrawer> bgDrawers = new Vector<>();
+    private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
     // Group of other areas which does not implement PMHotArea or PMLAbel
-    private PMAreasGroup otherAreas = new PMAreasGroup();
+    private final PMAreasGroup otherAreas = new PMAreasGroup();
     // Hot areas
-    private PMAreasGroup hotAreas = new PMAreasGroup();
+    private final PMAreasGroup hotAreas = new PMAreasGroup();
     // Labels
-    private PMAreasGroup labels = new PMAreasGroup();
+    private final PMAreasGroup labels = new PMAreasGroup();
     // Number of Hot areas on stage
     private int areasCount = 0;
     // Root group of hot areas (required for general operations)
-    private PMAreasGroup rootGroup = new PMAreasGroup();
+    private final PMAreasGroup rootGroup = new PMAreasGroup();
     // Offscreen image
     private Image offScr;
     // Margins

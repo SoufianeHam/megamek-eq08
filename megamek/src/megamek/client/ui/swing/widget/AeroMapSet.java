@@ -31,32 +31,32 @@ import java.util.Vector;
  */
 public class AeroMapSet implements DisplayMapSet {
 
-    private JComponent comp;
-    private PMSimplePolygonArea[] areas = new PMSimplePolygonArea[5];
-    private PMSimpleLabel[] labels = new PMSimpleLabel[13];
-    private PMValueLabel[] vLabels = new PMValueLabel[13];
-    private Vector<BackGroundDrawer> bgDrawers = new Vector<>();
-    private PMAreasGroup content = new PMAreasGroup();
+    private final JComponent comp;
+    private final PMSimplePolygonArea[] areas = new PMSimplePolygonArea[5];
+    private final PMSimpleLabel[] labels = new PMSimpleLabel[13];
+    private final PMValueLabel[] vLabels = new PMValueLabel[13];
+    private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
+    private final PMAreasGroup content = new PMAreasGroup();
     
-    private UnitDisplay unitDisplay;
+    private final UnitDisplay unitDisplay;
 
     // private static final int INT_STR_OFFSET = 4;
     // Polygons for all areas
-    private Polygon noseArmor = new Polygon(
+    private final Polygon noseArmor = new Polygon(
             new int[] { 45, 50, 60, 65, 75, 80 }, new int[] { 80, 20, 0, 0, 20, 80 }, 6);
     // front internal structure
-    private Polygon Structure = new Polygon(new int[] { 50, 50, 75, 75 },
+    private final Polygon Structure = new Polygon(new int[] { 50, 50, 75, 75 },
             new int[] { 80, 160, 160, 80 }, 4);
     // Left armor
-    private Polygon leftWingArmor = new Polygon(new int[] { 50, 45, 0, 0, 45,
+    private final Polygon leftWingArmor = new Polygon(new int[] { 50, 45, 0, 0, 45,
             50 }, new int[] { 80, 80, 140, 180, 160, 160 }, 6);
 
     // Right armor
-    private Polygon rightWingArmor = new Polygon(new int[] { 75, 80, 125, 125,
+    private final Polygon rightWingArmor = new Polygon(new int[] { 75, 80, 125, 125,
             80, 75 }, new int[] { 80, 80, 140, 180, 160, 160 }, 6);
 
     // Rear armor
-    private Polygon aftArmor = new Polygon(new int[] { 45, 45, 30, 30, 95, 95,
+    private final Polygon aftArmor = new Polygon(new int[] { 45, 45, 30, 30, 95, 95,
             80, 80 }, new int[] { 160, 180, 190, 200, 200, 190, 180, 160 }, 8);
 
     private static final Font FONT_LABEL = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN,

@@ -22,7 +22,7 @@ public enum SimpleTechLevel {
     EXPERIMENTAL ("Experimental"),
     UNOFFICIAL ("Unofficial");
 
-    private String strVal;
+    private final String strVal;
 
     SimpleTechLevel(String strVal) {
         this.strVal = strVal;

@@ -32,12 +32,12 @@ public class ScenarioDialog extends JDialog implements ActionListener {
     private static final int T_ME = 0;
     public static final int T_BOT = 2;
     public static final int T_OBOT = 3;
-    private Player[] m_players;
-    private JLabel[] m_labels;
+    private final Player[] m_players;
+    private final JLabel[] m_labels;
     @SuppressWarnings("rawtypes")
-    private JComboBox[] m_typeChoices;
-    private JButton[] m_camoButtons;
-    private JFrame m_frame;
+    private final JComboBox[] m_typeChoices;
+    private final JButton[] m_camoButtons;
+    private final JFrame m_frame;
 
     public boolean bSet;
     public int[] playerTypes;

@@ -36,12 +36,12 @@ public class PMSimplePolygonArea implements PMHotArea {
     /**
      * References to the UnitDisplay for call-back purposes
      */
-    private UnitDisplay unitDisplay;
+    private final UnitDisplay unitDisplay;
     
     /**
      * The location of systems corresponding to this polygon area
      */
-    private int loc;
+    private final int loc;
     
     private ActionListener actionListener = null;
 
@@ -49,7 +49,7 @@ public class PMSimplePolygonArea implements PMHotArea {
     public Color normalBorderColor = Color.black;
     public Color highlightBorderColor = Color.red;
     private boolean highlight = true;
-    private Polygon areaShape;
+    private final Polygon areaShape;
     private boolean selected = false;
     private boolean visible = true;
 

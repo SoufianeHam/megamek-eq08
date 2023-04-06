@@ -192,7 +192,7 @@ public class PilotOptions extends AbstractOptions {
 
     private static class PilotOptionsInfo extends AbstractOptionsInfo {
         private static boolean initliazed = false;
-        private static AbstractOptionsInfo instance = new PilotOptionsInfo();
+        private static final AbstractOptionsInfo instance = new PilotOptionsInfo();
 
         public static AbstractOptionsInfo getInstance() {
             if (!initliazed) {

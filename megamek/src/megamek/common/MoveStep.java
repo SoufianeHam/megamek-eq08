@@ -38,7 +38,7 @@ import java.util.Vector;
  */
 public class MoveStep implements Serializable {
     private static final long serialVersionUID = -6075640793056182285L;
-    private MoveStepType type;
+    private final MoveStepType type;
     private int targetId = Entity.NONE;
     private int targetType = Targetable.TYPE_ENTITY;
     private Coords targetPos;

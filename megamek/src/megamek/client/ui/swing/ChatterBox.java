@@ -35,13 +35,13 @@ public class ChatterBox implements KeyListener, IPreferenceChangeListener {
     public static final int MAX_HISTORY = 10;
     Client client;
 
-    private JPanel chatPanel;
+    private final JPanel chatPanel;
     JTextArea chatArea;
     JList<String> playerList;
     JScrollPane scrPlayers;
-    private JTextField inputField;
+    private final JTextField inputField;
     private JButton butDone;
-    private JSplitPane playerChatSplit;
+    private final JSplitPane playerChatSplit;
 
     public LinkedList<String> history;
     public int historyBookmark = -1;

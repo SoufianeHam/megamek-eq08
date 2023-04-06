@@ -23,7 +23,7 @@ import megamek.common.options.OptionsConstants;
  * @author Jay Lawson (Taharqa)
  */
 public class TestInfantry extends TestEntity {
-    private Infantry infantry;
+    private final Infantry infantry;
     
     public TestInfantry(Infantry infantry, TestEntityOption option, String fileString) {
         super(option, null, null, null);

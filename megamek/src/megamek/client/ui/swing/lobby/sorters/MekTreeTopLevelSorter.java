@@ -27,7 +27,7 @@ import megamek.common.force.*;
 /** A Comparator for the top level entries of the Mek Tree (forces and force-less entities). */
 public class MekTreeTopLevelSorter implements Comparator<Object> {
 
-    private Client client;
+    private final Client client;
 
     public MekTreeTopLevelSorter(Client cl) {
         client = cl;

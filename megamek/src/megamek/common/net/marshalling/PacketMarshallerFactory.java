@@ -16,7 +16,7 @@ package megamek.common.net.marshalling;
 import megamek.common.annotations.Nullable;
 
 public class PacketMarshallerFactory {
-    private static PacketMarshallerFactory instance = new PacketMarshallerFactory();
+    private static final PacketMarshallerFactory instance = new PacketMarshallerFactory();
     private NativeSerializationMarshaller nativeSerializationMarshaller;
 
     private PacketMarshallerFactory() {

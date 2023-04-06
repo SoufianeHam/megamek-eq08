@@ -30,9 +30,9 @@ public final class InfantryBay extends Bay {
         MOTORIZED (7, 28, 25),
         MECHANIZED (8, 7, 5);
         
-        private int weight;
-        private int isPersonnel;
-        private int clanPersonnel;
+        private final int weight;
+        private final int isPersonnel;
+        private final int clanPersonnel;
         
         PlatoonType(int weight, int isPersonnel, int clanPersonnel) {
             this.weight = weight;

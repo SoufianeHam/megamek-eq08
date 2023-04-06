@@ -32,12 +32,12 @@ import java.awt.event.ActionListener;
  */
 public class TurnTimer {
     private Timer timer;
-    private JProgressBar progressBar;
-    private ActionListener listener;
-    private JLabel remaining;
-    private JPanel display;
-    private int timeLimit;
-    private AbstractPhaseDisplay phaseDisplay;
+    private final JProgressBar progressBar;
+    private final ActionListener listener;
+    private final JLabel remaining;
+    private final JPanel display;
+    private final int timeLimit;
+    private final AbstractPhaseDisplay phaseDisplay;
 
     public TurnTimer(int limit, AbstractPhaseDisplay pD) {
         phaseDisplay = pD;

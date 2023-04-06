@@ -46,12 +46,12 @@ public class HexTileset implements BoardListener {
 
     public static final String TRANSPARENT_THEME = "transparent";
     
-    private Game game;
+    private final Game game;
 
-    private ArrayList<HexEntry> bases = new ArrayList<>();
-    private ArrayList<HexEntry> supers = new ArrayList<>();
-    private ArrayList<HexEntry> orthos = new ArrayList<>();
-    private Set<String> themes = new TreeSet<>();
+    private final ArrayList<HexEntry> bases = new ArrayList<>();
+    private final ArrayList<HexEntry> supers = new ArrayList<>();
+    private final ArrayList<HexEntry> orthos = new ArrayList<>();
+    private final Set<String> themes = new TreeSet<>();
     private ImageCache<Hex, Image> basesCache = new ImageCache<>();
     private ImageCache<Hex, List<Image>> supersCache = new ImageCache<>();
     private ImageCache<Hex, List<Image>> orthosCache = new ImageCache<>();
@@ -536,10 +536,10 @@ public class HexTileset implements BoardListener {
     }
 
     private class HexEntry {
-        private Hex hex;
+        private final Hex hex;
         private Image image;
         private Vector<Image> images;
-        private Vector<String> filenames;
+        private final Vector<String> filenames;
 
         public HexEntry(Hex hex, String imageFile) {
             this.hex = hex;
@@ -594,7 +594,7 @@ public class HexTileset implements BoardListener {
     // hexes from the cache. 
     // It must listen to Game events to catch when a board is entirely replaced
     // to be able to register itself to the new board.
-    private GameListener gameListener = new GameListenerAdapter() {
+    private final GameListener gameListener = new GameListenerAdapter() {
 
         @Override
         public void gameBoardNew(GameBoardNewEvent e) {

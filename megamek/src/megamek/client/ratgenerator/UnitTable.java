@@ -43,7 +43,7 @@ public class UnitTable {
 
     private static final int CACHE_SIZE = 32;
 
-    private static LinkedHashMap<Parameters,UnitTable> cache = new LinkedHashMap<>(CACHE_SIZE, 0.75f, true) {
+    private static final LinkedHashMap<Parameters,UnitTable> cache = new LinkedHashMap<>(CACHE_SIZE, 0.75f, true) {
 
         private static final long serialVersionUID = -8016095510116134800L;
 
@@ -115,9 +115,9 @@ public class UnitTable {
         return retVal;
     }
 
-    private Parameters key;
-    private List<TableEntry> salvageTable = new ArrayList<>();
-    private List<TableEntry> unitTable = new ArrayList<>();
+    private final Parameters key;
+    private final List<TableEntry> salvageTable = new ArrayList<>();
+    private final List<TableEntry> unitTable = new ArrayList<>();
 
     int salvageTotal;
     int unitTotal;

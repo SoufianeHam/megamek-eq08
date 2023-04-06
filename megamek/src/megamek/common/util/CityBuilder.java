@@ -36,8 +36,8 @@ public class CityBuilder {
     static final int W = 6;
     static final int E = 7;
 
-    private MapSettings mapSettings;
-    private Board board;
+    private final MapSettings mapSettings;
+    private final Board board;
     private HashSet<Coords> cityPlan;
 
     public CityBuilder(MapSettings mapSettings, Board board) {

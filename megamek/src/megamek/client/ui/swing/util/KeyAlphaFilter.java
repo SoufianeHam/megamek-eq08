@@ -21,7 +21,7 @@ import java.awt.image.RGBImageFilter;
  * "key" color transparent.
  */
 public class KeyAlphaFilter extends RGBImageFilter {
-    private int keyColor;
+    private final int keyColor;
 
     public KeyAlphaFilter(int keyColor) {
         this.keyColor = keyColor;

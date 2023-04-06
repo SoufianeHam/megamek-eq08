@@ -10,13 +10,13 @@ import java.awt.image.ImageObserver;
 
 class MovingEntitySprite extends Sprite {
 
-    private int facing;
+    private final int facing;
 
-    private Entity entity;
+    private final Entity entity;
 
-    private Rectangle modelRect;
+    private final Rectangle modelRect;
 
-    private int elevation;
+    private final int elevation;
 
     public MovingEntitySprite(BoardView boardView1, final Entity entity, final Coords position,
                               final int facing, final int elevation) {

@@ -26,8 +26,8 @@ import megamek.common.Player;
 /** A Lobby Mek Table sorter that sorts by 1) player 2) tonnage. */
 public class PlayerTonnageSorter implements MekTableSorter {
 
-    private ClientGUI clientGui;
-    private Sorting direction;
+    private final ClientGUI clientGui;
+    private final Sorting direction;
 
     /** A Lobby Mek Table sorter that sorts by 1) player 2) tonnage. */
     public PlayerTonnageSorter(ClientGUI cg, Sorting dir) {

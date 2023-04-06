@@ -22,7 +22,7 @@ import megamek.common.options.OptionsConstants;
  */
 public class SupportTank extends Tank {
     private static final long serialVersionUID = -9028127010133768714L;
-    private int[] barRating;
+    private final int[] barRating;
     private double fuelTonnage = 0;
 
     public SupportTank() {

@@ -60,7 +60,7 @@ public class TestBot extends BotClient {
      * @author Mike Kiscaden
      */
     public class CalculateEntityMove implements Runnable {
-        private Entity entity;
+        private final Entity entity;
         private MoveOption[] result;
 
         CalculateEntityMove(Entity entity) {

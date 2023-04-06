@@ -24,9 +24,9 @@ public class FixedWingSupport extends ConvFighter {
 
     public static final int LOC_BODY = 5;
 
-    private static String[] LOCATION_ABBRS = { "NOS", "LWG", "RWG", "AFT", "WNG", "BOD" };
-    private static String[] LOCATION_NAMES = { "Nose", "Left Wing", "Right Wing", "Aft", "Wings", "Body" };
-    private int[] barRating;
+    private static final String[] LOCATION_ABBRS = { "NOS", "LWG", "RWG", "AFT", "WNG", "BOD" };
+    private static final String[] LOCATION_NAMES = { "Nose", "Left Wing", "Right Wing", "Aft", "Wings", "Body" };
+    private final int[] barRating;
 
     public FixedWingSupport() {
         super();

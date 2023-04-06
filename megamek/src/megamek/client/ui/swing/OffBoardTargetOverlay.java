@@ -39,10 +39,10 @@ public class OffBoardTargetOverlay implements IDisplayable {
     private static final String FILENAME_OFFBOARD_TARGET_IMAGE = "OffBoardTarget.png";
     
     private boolean isHit = false;
-    private ClientGUI clientgui;
-    private Map<OffBoardDirection, Rectangle> buttons = new HashMap<>();
+    private final ClientGUI clientgui;
+    private final Map<OffBoardDirection, Rectangle> buttons = new HashMap<>();
     private TargetingPhaseDisplay targetingPhaseDisplay;
-    private Image offBoardTargetImage;
+    private final Image offBoardTargetImage;
     
     private Game getCurrentGame() {
         return clientgui.getClient().getGame();

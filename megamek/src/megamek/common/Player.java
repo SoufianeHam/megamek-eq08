@@ -39,7 +39,7 @@ public final class Player extends TurnOrdered {
 
     private String name;
     private String email;
-    private int id;
+    private final int id;
 
     private int team = TEAM_NONE;
 

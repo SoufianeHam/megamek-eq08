@@ -254,8 +254,8 @@ public class BoardEditor extends JPanel
     private EditorTextField texTerrExits;
     private ScalingIconButton butTerrExits;
     private JCheckBox cheRoadsAutoExit;
-    private JButton copyButton = new JButton(Messages.getString("BoardEditor.copyButton"));
-    private JButton pasteButton = new JButton(Messages.getString("BoardEditor.pasteButton"));
+    private final JButton copyButton = new JButton(Messages.getString("BoardEditor.copyButton"));
+    private final JButton pasteButton = new JButton(Messages.getString("BoardEditor.pasteButton"));
     private ScalingIconButton butExitUp, butExitDown;
     private JComboBox<String> choTheme;
     private ScalingIconButton butTerrDown, butTerrUp;

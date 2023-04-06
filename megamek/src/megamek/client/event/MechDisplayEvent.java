@@ -34,7 +34,7 @@ public class MechDisplayEvent extends java.util.EventObject {
     private int weaponId = megamek.common.Entity.NONE;
     private Entity entity = null;
     private Mounted equip = null;
-    private int type;
+    private final int type;
 
     public MechDisplayEvent(Object source, Entity entity, Mounted weapon) {
         super(source);

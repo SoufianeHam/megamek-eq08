@@ -27,7 +27,7 @@ import java.util.Vector;
  */
 public abstract class AbstractOptions implements Serializable {
     private static final long serialVersionUID = 6406883135074654379L;
-    private Hashtable<String, IOption> optionsHash = new Hashtable<>();
+    private final Hashtable<String, IOption> optionsHash = new Hashtable<>();
 
     protected AbstractOptions() {
         initialize();
@@ -247,7 +247,7 @@ public abstract class AbstractOptions implements Serializable {
 
     protected class GroupsEnumeration implements Enumeration<IOptionGroup> {
 
-        private Enumeration<IBasicOptionGroup> groups;
+        private final Enumeration<IBasicOptionGroup> groups;
 
         GroupsEnumeration() {
             groups = getOptionsInfo().getGroups();
@@ -275,7 +275,7 @@ public abstract class AbstractOptions implements Serializable {
 
         protected class GroupProxy implements IOptionGroup {
 
-            private IBasicOptionGroup group;
+            private final IBasicOptionGroup group;
 
             GroupProxy(IBasicOptionGroup group) {
                 this.group = group;

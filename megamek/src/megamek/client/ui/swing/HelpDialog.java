@@ -32,7 +32,7 @@ public class HelpDialog extends JDialog {
     private static final int WIDTH = 600;
     private static final int HEIGHT = 400;
 
-    private URL helpUrl;
+    private final URL helpUrl;
 
     public HelpDialog(String title, URL helpURL) {
         setTitle(title);

@@ -46,79 +46,79 @@ public class EquipChoicePanel extends JPanel {
 
     private int[] entityCorrespondance;
 
-    private List<MunitionChoicePanel> m_vMunitions = new ArrayList<>();
-    private List<WeaponAmmoChoicePanel> m_vWeaponAmmoChoice = new ArrayList<>();
+    private final List<MunitionChoicePanel> m_vMunitions = new ArrayList<>();
+    private final List<WeaponAmmoChoicePanel> m_vWeaponAmmoChoice = new ArrayList<>();
     
     /**
      * An <code>ArrayList</code> to keep track of all of the 
      * <code>APWeaponChoicePanels</code> that were added, so we can apply 
      * their choices when the dialog is closed.
      */
-    private ArrayList<APWeaponChoicePanel> m_vAPMounts = new ArrayList<>();
+    private final ArrayList<APWeaponChoicePanel> m_vAPMounts = new ArrayList<>();
     
     /**
      * An <code>ArrayList</code> to keep track of all of the 
      * <code>MEAChoicePanels</code> that were added, so we can apply 
      * their choices when the dialog is closed.
      */
-    private ArrayList<MEAChoicePanel> m_vMEAdaptors = new ArrayList<>();
+    private final ArrayList<MEAChoicePanel> m_vMEAdaptors = new ArrayList<>();
     
     /**
      * Panel for adding components related to selecting which anti-personnel
      * weapons are mounted in an AP Mount (armored gloves are also considered 
      * AP mounts)
      **/
-    private JPanel panAPMounts = new JPanel();
-    private JPanel panMEAdaptors = new JPanel();
+    private final JPanel panAPMounts = new JPanel();
+    private final JPanel panMEAdaptors = new JPanel();
     private JPanel panMunitions = new JPanel();
-    private JPanel panWeaponAmmoSelector = new JPanel();
+    private final JPanel panWeaponAmmoSelector = new JPanel();
 
-    private ArrayList<RapidfireMGPanel> m_vMGs = new ArrayList<>();
-    private JPanel panRapidfireMGs = new JPanel();
+    private final ArrayList<RapidfireMGPanel> m_vMGs = new ArrayList<>();
+    private final JPanel panRapidfireMGs = new JPanel();
 
-    private InfantryArmorPanel panInfArmor = new InfantryArmorPanel();
+    private final InfantryArmorPanel panInfArmor = new InfantryArmorPanel();
 
-    private ArrayList<MineChoicePanel> m_vMines = new ArrayList<>();
-    private JPanel panMines = new JPanel();
+    private final ArrayList<MineChoicePanel> m_vMines = new ArrayList<>();
+    private final JPanel panMines = new JPanel();
 
     private BombChoicePanel m_bombs;
-    private JPanel panBombs = new JPanel();
+    private final JPanel panBombs = new JPanel();
 
-    private JLabel labAutoEject = new JLabel(
+    private final JLabel labAutoEject = new JLabel(
             Messages.getString("CustomMechDialog.labAutoEject"), SwingConstants.RIGHT);
-    private JCheckBox chAutoEject = new JCheckBox();
+    private final JCheckBox chAutoEject = new JCheckBox();
 
-    private JLabel labCondEjectAmmo = new JLabel(
+    private final JLabel labCondEjectAmmo = new JLabel(
             Messages.getString("CustomMechDialog.labConditional_Ejection_Ammo"), SwingConstants.RIGHT);
-    private JCheckBox chCondEjectAmmo = new JCheckBox();
+    private final JCheckBox chCondEjectAmmo = new JCheckBox();
 
-    private JLabel labCondEjectEngine = new JLabel(
+    private final JLabel labCondEjectEngine = new JLabel(
             Messages.getString("CustomMechDialog.labConditional_Ejection_Engine"), SwingConstants.RIGHT);
-    private JCheckBox chCondEjectEngine = new JCheckBox();
+    private final JCheckBox chCondEjectEngine = new JCheckBox();
 
-    private JLabel labCondEjectCTDest = new JLabel(
+    private final JLabel labCondEjectCTDest = new JLabel(
             Messages.getString("CustomMechDialog.labConditional_Ejection_CT_Destroyed"), SwingConstants.RIGHT);
-    private JCheckBox chCondEjectCTDest = new JCheckBox();
+    private final JCheckBox chCondEjectCTDest = new JCheckBox();
 
-    private JLabel labCondEjectHeadshot = new JLabel(
+    private final JLabel labCondEjectHeadshot = new JLabel(
             Messages.getString("CustomMechDialog.labConditional_Ejection_Headshot"), SwingConstants.RIGHT);
-    private JCheckBox chCondEjectHeadshot = new JCheckBox();
+    private final JCheckBox chCondEjectHeadshot = new JCheckBox();
     
-    private JLabel labCondEjectFuel = new JLabel(
+    private final JLabel labCondEjectFuel = new JLabel(
             Messages.getString("CustomMechDialog.labConditional_Ejection_Fuel"), SwingConstants.RIGHT);
-    private JCheckBox chCondEjectFuel = new JCheckBox();
+    private final JCheckBox chCondEjectFuel = new JCheckBox();
 
-    private JLabel labCondEjectSIDest = new JLabel(
+    private final JLabel labCondEjectSIDest = new JLabel(
             Messages.getString("CustomMechDialog.labConditional_Ejection_SI_Destroyed"), SwingConstants.RIGHT);
-    private JCheckBox chCondEjectSIDest = new JCheckBox();
+    private final JCheckBox chCondEjectSIDest = new JCheckBox();
 
-    private JLabel labSearchlight = new JLabel(
+    private final JLabel labSearchlight = new JLabel(
             Messages.getString("CustomMechDialog.labSearchlight"), SwingConstants.RIGHT);
-    private JCheckBox chSearchlight = new JCheckBox();
+    private final JCheckBox chSearchlight = new JCheckBox();
 
-    private JLabel labC3 = new JLabel(
+    private final JLabel labC3 = new JLabel(
             Messages.getString("CustomMechDialog.labC3"), SwingConstants.RIGHT);
-    private JComboBox<String> choC3 = new JComboBox<>();
+    private final JComboBox<String> choC3 = new JComboBox<>();
 
     ClientGUI clientgui;
     Client client;
@@ -718,9 +718,9 @@ public class EquipChoicePanel extends JPanel {
         class MineChoicePanel extends JPanel {
             private static final long serialVersionUID = -1868675102440527538L;
 
-            private JComboBox<String> m_choice;
+            private final JComboBox<String> m_choice;
 
-            private Mounted m_mounted;
+            private final Mounted m_mounted;
 
             MineChoicePanel(Mounted m) {
                 m_mounted = m;
@@ -757,13 +757,13 @@ public class EquipChoicePanel extends JPanel {
         class APWeaponChoicePanel extends JPanel {
             private static final long serialVersionUID = 6189888202192403704L;
 
-            private Entity entity;
+            private final Entity entity;
             
-            private ArrayList<WeaponType> m_APWeaps;
+            private final ArrayList<WeaponType> m_APWeaps;
 
-            private JComboBox<String> m_choice;
+            private final JComboBox<String> m_choice;
 
-            private Mounted m_APmounted;
+            private final Mounted m_APmounted;
 
             APWeaponChoicePanel(Entity e, Mounted m, ArrayList<WeaponType> weapons) {
                 entity = e;
@@ -867,11 +867,11 @@ public class EquipChoicePanel extends JPanel {
         class MEAChoicePanel extends JPanel {
             private static final long serialVersionUID = 6189888202192403704L;
 
-            private Entity entity;
+            private final Entity entity;
             
-            private ArrayList<MiscType> m_Manipulators;
+            private final ArrayList<MiscType> m_Manipulators;
 
-            private JComboBox<String> m_choice;
+            private final JComboBox<String> m_choice;
 
             /**
              * The manipulator currently mounted by a modular equipment adaptor.
@@ -881,7 +881,7 @@ public class EquipChoicePanel extends JPanel {
             /**
              * The BattleArmor mount location of the modular equipment adaptor.
              */
-            private int baMountLoc;
+            private final int baMountLoc;
 
             MEAChoicePanel(Entity e, int mountLoc, Mounted m, 
                     ArrayList<MiscType> manips) {
@@ -967,17 +967,17 @@ public class EquipChoicePanel extends JPanel {
         class MunitionChoicePanel extends JPanel {
             private static final long serialVersionUID = 3401106035583965326L;
 
-            private List<AmmoType> m_vTypes;
+            private final List<AmmoType> m_vTypes;
 
-            private JComboBox<AmmoType> m_choice;
+            private final JComboBox<AmmoType> m_choice;
             
             @SuppressWarnings("rawtypes")
-            private JComboBox m_num_shots;
-            private ItemListener numShotsListener;
+            private final JComboBox m_num_shots;
+            private final ItemListener numShotsListener;
            
             boolean numShotsChanged = false;
 
-            private Mounted m_mounted;
+            private final Mounted m_mounted;
 
             JLabel labDump = new JLabel(Messages.getString("CustomMechDialog.labDump"));
 
@@ -1281,7 +1281,7 @@ public class EquipChoicePanel extends JPanel {
         class RapidfireMGPanel extends JPanel {
             private static final long serialVersionUID = 5261919826318225201L;
 
-            private Mounted m_mounted;
+            private final Mounted m_mounted;
 
             JCheckBox chRapid = new JCheckBox();
 
@@ -1322,8 +1322,8 @@ public class EquipChoicePanel extends JPanel {
         JLabel labSneakIR = new JLabel(Messages.getString("CustomMechDialog.labSneakIR"));
         JLabel labSneakECM = new JLabel(Messages.getString("CustomMechDialog.labSneakECM"));
         JLabel labSpec = new JLabel(Messages.getString("CustomMechDialog.labInfSpec"));
-        private JComboBox<String> cbArmorKit = new JComboBox<>();
-        private JTextField fldDivisor = new JTextField(3);
+        private final JComboBox<String> cbArmorKit = new JComboBox<>();
+        private final JTextField fldDivisor = new JTextField(3);
         JCheckBox chEncumber = new JCheckBox();
         JCheckBox chSpaceSuit = new JCheckBox();
         JCheckBox chDEST = new JCheckBox();

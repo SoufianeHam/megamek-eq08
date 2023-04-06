@@ -46,16 +46,16 @@ import java.util.*;
  * Context menu for the board.
  */
 public class MapMenu extends JPopupMenu {
-    private Coords coords;
+    private final Coords coords;
     Game game;
     Component currentPanel;
-    private Board board;
+    private final Board board;
     Client client;
     ClientGUI gui;
     Entity selectedEntity;
     Entity myEntity;
     Targetable myTarget = null;
-    private boolean hasMenu;
+    private final boolean hasMenu;
 
     public MapMenu(Coords coords, Client client, Component panel, ClientGUI gui) {
         this.coords = coords;

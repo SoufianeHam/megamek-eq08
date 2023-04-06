@@ -427,7 +427,7 @@ public class GameOptions extends AbstractOptions {
     }
 
     private static class GameOptionsInfo extends AbstractOptionsInfo {
-        private static AbstractOptionsInfo instance = new GameOptionsInfo();
+        private static final AbstractOptionsInfo instance = new GameOptionsInfo();
 
         protected GameOptionsInfo() {
             super("GameOptionsInfo");

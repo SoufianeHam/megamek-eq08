@@ -29,33 +29,33 @@ import java.util.Vector;
  */
 class SystemPanel extends PicMap implements ItemListener, ActionListener, ListSelectionListener, IPreferenceChangeListener {
     
-    private static int LOC_ALL_EQUIP = 0;
-    private static int LOC_ALL_WEAPS = 1;
-    private static int LOC_SPACER = 2;
-    private static int LOC_OFFSET = 3;
+    private static final int LOC_ALL_EQUIP = 0;
+    private static final int LOC_ALL_WEAPS = 1;
+    private static final int LOC_SPACER = 2;
+    private static final int LOC_OFFSET = 3;
 
     private final UnitDisplay unitDisplay;
 
     private static final long serialVersionUID = 6660316427898323590L;
 
-    private JPanel panelMain;
-    private JScrollPane tSlotScroll;
-    private JLabel locLabel;
-    private JLabel slotLabel;
-    private JLabel modeLabel;
-    private JLabel unitLabel;
-    private JList<String> slotList;
-    private JList<String> locList;
-    private JList<String> unitList;
+    private final JPanel panelMain;
+    private final JScrollPane tSlotScroll;
+    private final JLabel locLabel;
+    private final JLabel slotLabel;
+    private final JLabel modeLabel;
+    private final JLabel unitLabel;
+    private final JList<String> slotList;
+    private final JList<String> locList;
+    private final JList<String> unitList;
 
-    private JComboBox<String> m_chMode;
-    private JButton m_bDumpAmmo;
+    private final JComboBox<String> m_chMode;
+    private final JButton m_bDumpAmmo;
 
     private Entity en;
-    private Vector<Entity> entities = new Vector<>();
+    private final Vector<Entity> entities = new Vector<>();
 
-    private int minTopMargin = 8;
-    private int minLeftMargin = 8;
+    private final int minTopMargin = 8;
+    private final int minLeftMargin = 8;
 
     SystemPanel(UnitDisplay unitDisplay) {
         this.unitDisplay = unitDisplay;

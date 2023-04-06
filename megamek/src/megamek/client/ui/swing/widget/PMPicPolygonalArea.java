@@ -25,7 +25,7 @@ public class PMPicPolygonalArea extends PMGenericHotArea {
     private Image idleImage;
     private Image activeImage;
     private boolean highlight = true;
-    private Polygon areaShape;
+    private final Polygon areaShape;
     private boolean selected = false;
     private boolean visible = true;
 

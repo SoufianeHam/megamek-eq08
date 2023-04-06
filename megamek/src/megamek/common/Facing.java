@@ -14,16 +14,16 @@ import java.util.EnumMap;
 public enum Facing {
     N(0), NE(1), SE(2), S(3), SW(4), NW(5), NONE(6);
 
-    private Facing(int intValue) {
+    Facing(int intValue) {
         this.intValue = intValue;
     }
 
     private final int intValue;
 
     static private final Facing[] valuesOfInt = { N, NE, SE, S, SW, NW, NONE };
-    static private EnumMap<Facing, Facing> opposite = new EnumMap<>(Facing.class);
-    static private EnumMap<Facing, Facing> cw = new EnumMap<>(Facing.class);
-    static private EnumMap<Facing, Facing> ccw = new EnumMap<>(Facing.class);
+    static private final EnumMap<Facing, Facing> opposite = new EnumMap<>(Facing.class);
+    static private final EnumMap<Facing, Facing> cw = new EnumMap<>(Facing.class);
+    static private final EnumMap<Facing, Facing> ccw = new EnumMap<>(Facing.class);
 
     static {
         for (Facing f : values()) {

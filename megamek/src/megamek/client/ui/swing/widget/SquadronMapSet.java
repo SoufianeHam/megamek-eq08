@@ -30,39 +30,39 @@ import java.util.Vector;
  */
 public class SquadronMapSet implements DisplayMapSet {
 
-    private JComponent comp;
+    private final JComponent comp;
     // Images that shows how much armor left.
-    private Image[] armorImage;
+    private final Image[] armorImage;
     // Set of areas to show fighter armor left
-    private PMPicArea[] armorArea;
+    private final PMPicArea[] armorArea;
     // Set of labels to show fighter armor left
     // images and areas for each crit tally
-    private Image[] avCritImage;
-    private PMPicArea[] avCritArea;
-    private Image[] engineCritImage;
-    private PMPicArea[] engineCritArea;
-    private Image[] fcsCritImage;
-    private PMPicArea[] fcsCritArea;
-    private Image[] sensorCritImage;
-    private PMPicArea[] sensorCritArea;
-    private Image[] pilotCritImage;
-    private PMPicArea[] pilotCritArea;
-    private PMSimpleLabel[] nameLabel;
-    private PMValueLabel[] armorVLabel;
-    private PMSimpleLabel[] avCritLabel;
-    private PMSimpleLabel[] engineCritLabel;
-    private PMSimpleLabel[] fcsCritLabel;
-    private PMSimpleLabel[] sensorCritLabel;
-    private PMSimpleLabel[] pilotCritLabel;
-    private Vector<BackGroundDrawer> bgDrawers = new Vector<>();
-    private PMAreasGroup content = new PMAreasGroup();
+    private final Image[] avCritImage;
+    private final PMPicArea[] avCritArea;
+    private final Image[] engineCritImage;
+    private final PMPicArea[] engineCritArea;
+    private final Image[] fcsCritImage;
+    private final PMPicArea[] fcsCritArea;
+    private final Image[] sensorCritImage;
+    private final PMPicArea[] sensorCritArea;
+    private final Image[] pilotCritImage;
+    private final PMPicArea[] pilotCritArea;
+    private final PMSimpleLabel[] nameLabel;
+    private final PMValueLabel[] armorVLabel;
+    private final PMSimpleLabel[] avCritLabel;
+    private final PMSimpleLabel[] engineCritLabel;
+    private final PMSimpleLabel[] fcsCritLabel;
+    private final PMSimpleLabel[] sensorCritLabel;
+    private final PMSimpleLabel[] pilotCritLabel;
+    private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
+    private final PMAreasGroup content = new PMAreasGroup();
 
-    private int stepY = 11;
-    private int squareSize = 7;
-    private int armorRows = 6;
-    private int armorCols = 8;
+    private final int stepY = 11;
+    private final int squareSize = 7;
+    private final int armorRows = 6;
+    private final int armorCols = 8;
 
-    private int max_size;
+    private final int max_size;
 
     private static final Font FONT_LABEL = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 9);
 

@@ -449,7 +449,7 @@ public class MechTileset {
      * other entity
      */
     public class MechEntry {
-        private String imageFile;
+        private final String imageFile;
         private Image image;
 
         public MechEntry(String imageFile) {

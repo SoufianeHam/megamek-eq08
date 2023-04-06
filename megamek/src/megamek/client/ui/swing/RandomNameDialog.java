@@ -38,7 +38,7 @@ import megamek.common.enums.Gender;
 public class RandomNameDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -2459992981678758743L;
     private Client client;
-    private ClientGUI clientgui;
+    private final ClientGUI clientgui;
     private List<Entity> units;
 
     private JComboBox<String> comboFaction;

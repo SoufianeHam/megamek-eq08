@@ -38,20 +38,20 @@ public class AbstractOptionsInfo implements IOptionsInfo {
      * @see getGroupDisplayableName
      * @see getOptionDescription
      */
-    private String name;
+    private final String name;
 
     /**
      * Hashtable of the <code>OptionInfo</code> used to store/find option
      * info.
      */
-    private Hashtable<String, OptionInfo> optionsHash = new Hashtable<>();
+    private final Hashtable<String, OptionInfo> optionsHash = new Hashtable<>();
 
     /**
      * List of option groups. The order of groups is important. The first group
      * added by <code>addGroup</code> is the first in the
      * <code>Enumeration</code> returned by <code>getGroups</code>
      */
-    private Vector<IBasicOptionGroup> groups = new Vector<>();
+    private final Vector<IBasicOptionGroup> groups = new Vector<>();
 
     /**
      * Flag that indicates that this filling the options info data is
@@ -70,7 +70,7 @@ public class AbstractOptionsInfo implements IOptionsInfo {
      *
      * @see AbstractOptionsInfo()
      */
-    private static HashSet<String> names = new HashSet<>();
+    private static final HashSet<String> names = new HashSet<>();
 
     /**
      * Protected constructor. It is called only by descendants. The name must be
@@ -188,10 +188,10 @@ public class AbstractOptionsInfo implements IOptionsInfo {
      * @see getOptionInfo
      */
     private class OptionInfo implements IOptionInfo {
-        private String name;
-        private int textFieldLength = 3;
+        private final String name;
+        private final int textFieldLength = 3;
 
-        private boolean labelBeforeTextField = false;
+        private final boolean labelBeforeTextField = false;
 
         public OptionInfo(String optionName) {
             this.name = optionName;

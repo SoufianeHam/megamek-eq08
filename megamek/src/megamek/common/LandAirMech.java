@@ -137,7 +137,7 @@ public class LandAirMech extends BipedMech implements IAero, IBomber {
     private int capitalArmor_orig = 2;
     private int fatalThresh = 0;
     private int currentDamage = 0;
-    private Map<String, Integer> weaponGroups = new HashMap<>();
+    private final Map<String, Integer> weaponGroups = new HashMap<>();
 
     public LandAirMech(int inGyroType, int inCockpitType, int inLAMType) {
         super(inGyroType, inCockpitType);

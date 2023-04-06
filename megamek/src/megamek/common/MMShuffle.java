@@ -26,8 +26,8 @@ public class MMShuffle extends Roll {
     /**
      * Record the two "dice" of this "roll".
      */
-    private int one;
-    private int two;
+    private final int one;
+    private final int two;
 
     /**
      * Record the order in which this "roll" was dealt from its shuffle.

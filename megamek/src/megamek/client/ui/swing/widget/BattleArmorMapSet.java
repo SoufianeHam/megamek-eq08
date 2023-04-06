@@ -35,21 +35,21 @@ public class BattleArmorMapSet implements DisplayMapSet {
     // Picture with figure
     private Image battleArmorImage;
     // Images that shows how much armor + 1 internal damage left.
-    private Image[] armorImage = new Image[BattleArmor.BA_MAX_MEN];
+    private final Image[] armorImage = new Image[BattleArmor.BA_MAX_MEN];
     // Reference to Component (required for Image handling)
-    private JComponent comp;
+    private final JComponent comp;
     // Set of areas to show BA figures
-    private PMPicArea[] unitAreas = new PMPicArea[BattleArmor.BA_MAX_MEN];
+    private final PMPicArea[] unitAreas = new PMPicArea[BattleArmor.BA_MAX_MEN];
     // Set of areas to show BA armor left
-    private PMPicArea[] armorAreas = new PMPicArea[BattleArmor.BA_MAX_MEN];
+    private final PMPicArea[] armorAreas = new PMPicArea[BattleArmor.BA_MAX_MEN];
     // Set of labels to show BA armor left
-    private PMValueLabel[] armorLabels = new PMValueLabel[BattleArmor.BA_MAX_MEN];
+    private final PMValueLabel[] armorLabels = new PMValueLabel[BattleArmor.BA_MAX_MEN];
     // Content group which will be sent to PicMap component
-    private PMAreasGroup content = new PMAreasGroup();
+    private final PMAreasGroup content = new PMAreasGroup();
     // Set of Background drawers which will be sent to PicMap component
-    private Vector<BackGroundDrawer> bgDrawers = new Vector<>();
+    private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
 
-    private int stepY = 53;
+    private final int stepY = 53;
 
     private static final Font FONT_VALUE = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN,
             GUIPreferences.getInstance().getInt("AdvancedMechDisplayArmorLargeFontSize"));

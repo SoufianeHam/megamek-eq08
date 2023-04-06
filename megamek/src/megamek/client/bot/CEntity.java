@@ -31,7 +31,7 @@ import java.util.*;
 public class CEntity {
     static class Table extends HashMap<Integer, CEntity> {
         private static final long serialVersionUID = 6437109733397107056L;
-        private TestBot tb;
+        private final TestBot tb;
 
         public Table(TestBot tb) {
             this.tb = tb;
@@ -192,7 +192,7 @@ public class CEntity {
     // relative position in the enemy array
     int enemy_num;
 
-    private TestBot tb;
+    private final TestBot tb;
 
     boolean engaged = false; // am i fighting
     boolean moved = false;

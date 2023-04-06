@@ -33,37 +33,37 @@ import java.util.Vector;
  */
 public class ProtomechMapSet implements DisplayMapSet {
 
-    private UnitDisplay unitDisplay;
+    private final UnitDisplay unitDisplay;
     
     // Boring list of labels.
-    private PMValueLabel[] sectionLabels = new PMValueLabel[Protomech.NUM_PMECH_LOCATIONS];
-    private PMValueLabel[] armorLabels = new PMValueLabel[Protomech.NUM_PMECH_LOCATIONS];
-    private PMValueLabel[] internalLabels = new PMValueLabel[Protomech.NUM_PMECH_LOCATIONS];
-    private PMSimplePolygonArea[] areas = new PMSimplePolygonArea[Protomech.NUM_PMECH_LOCATIONS];
+    private final PMValueLabel[] sectionLabels = new PMValueLabel[Protomech.NUM_PMECH_LOCATIONS];
+    private final PMValueLabel[] armorLabels = new PMValueLabel[Protomech.NUM_PMECH_LOCATIONS];
+    private final PMValueLabel[] internalLabels = new PMValueLabel[Protomech.NUM_PMECH_LOCATIONS];
+    private final PMSimplePolygonArea[] areas = new PMSimplePolygonArea[Protomech.NUM_PMECH_LOCATIONS];
 
-    private Polygon head = new Polygon(new int[] { 50, 50, 60, 80, 90, 90, 80,
+    private final Polygon head = new Polygon(new int[] { 50, 50, 60, 80, 90, 90, 80,
             60 }, new int[] { 40, 20, 10, 10, 20, 40, 50, 50 }, 8);
-    private Polygon mainGun = new Polygon(new int[] { 20, 20, 50, 50 },
+    private final Polygon mainGun = new Polygon(new int[] { 20, 20, 50, 50 },
             new int[] { 30, 0, 0, 30 }, 4);
-    private Polygon leftArm = new Polygon(new int[] { 0, 0, 20, 30, 40, 30, 20,
+    private final Polygon leftArm = new Polygon(new int[] { 0, 0, 20, 30, 40, 30, 20,
             20, 10 }, new int[] { 100, 40, 30, 30, 60, 60, 70, 110, 110 }, 9);
-    private Polygon rightArm = new Polygon(new int[] { 120, 120, 110, 100, 110,
+    private final Polygon rightArm = new Polygon(new int[] { 120, 120, 110, 100, 110,
             120, 140, 140, 130 }, new int[] { 110, 70, 60, 60, 30, 30, 40, 100,
             110, 110 }, 9);
-    private Polygon torso = new Polygon(new int[] { 40, 40, 30, 50, 50, 60, 80,
+    private final Polygon torso = new Polygon(new int[] { 40, 40, 30, 50, 50, 60, 80,
             90, 90, 110, 100, 100 }, new int[] { 130, 60, 30, 30, 40, 50, 50,
             40, 30, 30, 60, 130 }, 12);
-    private Polygon legs = new Polygon(new int[] { 0, 0, 10, 30, 30, 40, 100,
+    private final Polygon legs = new Polygon(new int[] { 0, 0, 10, 30, 30, 40, 100,
             110, 110, 130, 140, 140, 100, 90, 90, 80, 60, 50, 50, 40 },
             new int[] { 240, 230, 220, 220, 160, 130, 130, 160, 220, 220, 230,
                     240, 240, 230, 190, 170, 170, 190, 230, 240 }, 20);
 
     // Reference to Component (required for Image handling)
-    private JComponent comp;
+    private final JComponent comp;
     // Content group which will be sent to PicMap component
-    private PMAreasGroup content = new PMAreasGroup();
+    private final PMAreasGroup content = new PMAreasGroup();
     // Set of Background drawers which will be sent to PicMap component
-    private Vector<BackGroundDrawer> bgDrawers = new Vector<>();
+    private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
 
     private static final Font FONT_VALUE = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN,
             GUIPreferences.getInstance().getInt("AdvancedMechDisplayArmorLargeFontSize"));

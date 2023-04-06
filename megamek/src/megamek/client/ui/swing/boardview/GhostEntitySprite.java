@@ -9,9 +9,9 @@ import java.awt.image.ImageObserver;
 
 class GhostEntitySprite extends Sprite {
 
-    private Entity entity;
+    private final Entity entity;
 
-    private Rectangle modelRect;
+    private final Rectangle modelRect;
 
     public GhostEntitySprite(BoardView boardView1, final Entity entity) {
         super(boardView1);

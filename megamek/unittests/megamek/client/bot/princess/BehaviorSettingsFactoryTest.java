@@ -43,7 +43,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class BehaviorSettingsFactoryTest {
 
-    private BehaviorSettingsFactory testFactory = BehaviorSettingsFactory.getInstance();
+    private final BehaviorSettingsFactory testFactory = BehaviorSettingsFactory.getInstance();
 
     private static Document buildTestDocument() throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilder documentBuilder = MMXMLUtility.newSafeDocumentBuilder();

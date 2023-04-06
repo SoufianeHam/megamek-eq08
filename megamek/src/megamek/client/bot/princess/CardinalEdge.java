@@ -30,8 +30,8 @@ public enum CardinalEdge {
     // no edge
     NONE(5, Messages.getString("BotConfigDialog.noEdge"));
 
-    private int index;
-    private String text;
+    private final int index;
+    private final String text;
 
     CardinalEdge(int index, String text) {
         this.index = index;

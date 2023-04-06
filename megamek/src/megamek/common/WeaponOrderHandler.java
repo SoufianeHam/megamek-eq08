@@ -72,8 +72,8 @@ public class WeaponOrderHandler {
     private static final String ORDER_LIST = "orderList";
 
     private static Map<String, WeaponOrder> weaponOrderMap;
-    private static AtomicBoolean initialized = new AtomicBoolean(false);
-    private static AtomicBoolean updated = new AtomicBoolean(false);
+    private static final AtomicBoolean initialized = new AtomicBoolean(false);
+    private static final AtomicBoolean updated = new AtomicBoolean(false);
 
     /**
      * Save customWeaponOrderMap to a file.

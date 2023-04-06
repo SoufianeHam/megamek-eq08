@@ -31,9 +31,9 @@ public class INarcPod implements Serializable, Targetable {
     public static final int HAYWIRE = 4;
     public static final int NEMESIS = 8;
 
-    private int team;
-    private int type;
-    private int location;
+    private final int team;
+    private final int type;
+    private final int location;
 
     /**
      * Creates a new <code>INarcPod</code>, from the team and of the type

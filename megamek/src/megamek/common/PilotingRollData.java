@@ -16,7 +16,7 @@ package megamek.common;
 
 public class PilotingRollData extends TargetRoll {
     private static final long serialVersionUID = -8965684775619336323L;
-    private int entityId;
+    private final int entityId;
 
     public PilotingRollData(int entityId) {
         this.entityId = entityId;

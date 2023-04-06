@@ -16,7 +16,7 @@ import megamek.server.ScenarioLoader;
 import megamek.server.Server;
 
 public class ScenarioLoaderTest {
-    private List<String> errCache = new ArrayList<>();
+    private final List<String> errCache = new ArrayList<>();
     private PrintStream cachedPs;
     private PrintStream originalOut;
     private PrintStream originalErr;
@@ -38,7 +38,7 @@ public class ScenarioLoaderTest {
         originalOut = System.out;
         System.setOut(nullPs);
         cachedPs = new PrintStream(new OutputStream() {
-            private StringBuilder line = new StringBuilder();
+            private final StringBuilder line = new StringBuilder();
             
             @Override
             public void write(int b) throws IOException {

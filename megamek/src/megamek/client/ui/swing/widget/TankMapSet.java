@@ -33,55 +33,55 @@ import java.util.Vector;
  */
 public class TankMapSet implements DisplayMapSet {
 
-    private JComponent comp;
-    private PMSimplePolygonArea[] areas = new PMSimplePolygonArea[12];
-    private PMSimpleLabel[] labels = new PMSimpleLabel[13];
-    private PMValueLabel[] vLabels = new PMValueLabel[13];
-    private Vector<BackGroundDrawer> bgDrawers = new Vector<>();
-    private PMAreasGroup content = new PMAreasGroup();
+    private final JComponent comp;
+    private final PMSimplePolygonArea[] areas = new PMSimplePolygonArea[12];
+    private final PMSimpleLabel[] labels = new PMSimpleLabel[13];
+    private final PMValueLabel[] vLabels = new PMValueLabel[13];
+    private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
+    private final PMAreasGroup content = new PMAreasGroup();
     
-    private UnitDisplay unitDisplay;
+    private final UnitDisplay unitDisplay;
 
     private static final int INT_STR_OFFSET = 6;
     // Polygons for all areas
-    private Polygon frontArmor = new Polygon(new int[] { 0, 19, 109, 128, 105,
+    private final Polygon frontArmor = new Polygon(new int[] { 0, 19, 109, 128, 105,
             92, 37, 23 }, new int[] { 55, 27, 27, 55, 68, 49, 49, 68 }, 8);
     // front internal structure
-    private Polygon frontIS = new Polygon(new int[] { 67, 67, 105, 92, 37, 23,
+    private final Polygon frontIS = new Polygon(new int[] { 67, 67, 105, 92, 37, 23,
             61, 61 }, new int[] { 40, 77, 39, 20, 20, 39, 77, 40 }, 8);
     // Left armor
-    private Polygon leftArmor = new Polygon(new int[] { 0, 0, 23, 23 },
+    private final Polygon leftArmor = new Polygon(new int[] { 0, 0, 23, 23 },
             new int[] { 26, 214, 200, 39 }, 4);
 
     // Left internal structure
-    private Polygon leftIS = new Polygon(new int[] { 61, 23, 23, 23, 40, 33,
+    private final Polygon leftIS = new Polygon(new int[] { 61, 23, 23, 23, 40, 33,
             33, 46, 54, 58, 61 }, new int[] { 77, 39, 200, 200, 183, 168, 120,
             94, 94, 85, 85 }, 11);
     // Right armor
-    private Polygon rightArmor = new Polygon(new int[] { 128, 105, 105, 128 },
+    private final Polygon rightArmor = new Polygon(new int[] { 128, 105, 105, 128 },
             new int[] { 26, 39, 200, 214 }, 4);
 
     // Right internal structure
 
-    private Polygon rightIS = new Polygon(new int[] { 83, 96, 96, 88, 105, 105,
+    private final Polygon rightIS = new Polygon(new int[] { 83, 96, 96, 88, 105, 105,
             105, 67, 67, 71, 75 }, new int[] { 94, 120, 168, 183, 200, 200, 39,
             77, 85, 85, 94 }, 11);
 
     // Rear armor
-    private Polygon rearArmor = new Polygon(new int[] { 128, 105, 92, 35, 23,
+    private final Polygon rearArmor = new Polygon(new int[] { 128, 105, 92, 35, 23,
             0, 11, 116 }, new int[] { 214, 200, 220, 220, 200, 214, 239, 239 },
             8);
     // Rear internal structure
-    private Polygon rearIS = new Polygon(new int[] { 105, 88, 79, 50, 40, 23,
+    private final Polygon rearIS = new Polygon(new int[] { 105, 88, 79, 50, 40, 23,
             35, 92 }, new int[] { 200, 183, 202, 202, 183, 200, 220, 220 }, 8);
     // Turret armor
-    private Polygon turretArmor = new Polygon(new int[] { 64, 74, 89, 89, 39,
+    private final Polygon turretArmor = new Polygon(new int[] { 64, 74, 89, 89, 39,
             39, 54, 64, 64, 64, 64, 50, 33, 33, 46, 54, 58, 61, 61, 67, 67, 71,
             75, 83, 96, 96, 88, 79, 64 }, new int[] { 187, 187, 160, 139, 139,
             160, 187, 187, 202, 187, 202, 202, 168, 120, 94, 94, 85, 85, 40,
             40, 85, 85, 94, 94, 120, 168, 183, 202, 202 }, 29);
     // Turret internal structure
-    private Polygon turretIS = new Polygon(
+    private final Polygon turretIS = new Polygon(
             new int[] { 39, 39, 54, 74, 89, 89 }, new int[] { 139, 160, 187,
                     187, 160, 139 }, 6);
 

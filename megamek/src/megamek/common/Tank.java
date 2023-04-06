@@ -94,12 +94,12 @@ public class Tank extends Entity {
     // tanks have no critical slot limitations
     private static final int[] NUM_OF_SLOTS = { 25, 25, 25, 25, 25, 25, 25 };
 
-    private static String[] LOCATION_ABBRS = { "BD", "FR", "RS", "LS", "RR",
+    private static final String[] LOCATION_ABBRS = { "BD", "FR", "RS", "LS", "RR",
             "TU", "FT" };
-    private static String[] LOCATION_NAMES = { "Body", "Front", "Right",
+    private static final String[] LOCATION_NAMES = { "Body", "Front", "Right",
             "Left", "Rear", "Turret" };
 
-    private static String[] LOCATION_NAMES_DUAL_TURRET = { "Body", "Front",
+    private static final String[] LOCATION_NAMES_DUAL_TURRET = { "Body", "Front",
             "Right", "Left", "Rear", "Rear Turret", "Front Turret" };
 
     // maps ToHitData - SIDE_X constants to LOC_X constants here for hull down fixed side hit locations

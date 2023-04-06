@@ -42,17 +42,17 @@ import megamek.common.Mounted;
  */
 public class MineLayingDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -1067865530113792340L;
-    private JButton butOkay = new JButton(Messages.getString("Okay"));
-    private JButton butCancel = new JButton(Messages.getString("Cancel"));
-    private JLabel labMessage;
+    private final JButton butOkay = new JButton(Messages.getString("Okay"));
+    private final JButton butCancel = new JButton(Messages.getString("Cancel"));
+    private final JLabel labMessage;
     private boolean okay = true;
 
     /**
      * The <code>int</code> ID of the entity that lays the mine.
      */
-    private Entity entity;
-    private JComboBox<String> chMines = new JComboBox<>();
-    private ArrayList<Mounted> vMines = new ArrayList<>();
+    private final Entity entity;
+    private final JComboBox<String> chMines = new JComboBox<>();
+    private final ArrayList<Mounted> vMines = new ArrayList<>();
 
     /**
      * Display a dialog that shows the mines on the entity, and allows the

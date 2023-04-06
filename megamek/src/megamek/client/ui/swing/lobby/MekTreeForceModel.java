@@ -36,7 +36,7 @@ public class MekTreeForceModel extends DefaultTreeModel {
 
     private static final long serialVersionUID = -6458173460367645667L;
 
-    private ChatLounge lobby;
+    private final ChatLounge lobby;
     /** A sorted list of all top-level objects: top-level forces and force-less entities. */
     private ArrayList<Object> allToplevel;
 

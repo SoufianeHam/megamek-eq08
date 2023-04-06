@@ -81,7 +81,7 @@ public class Board implements Serializable {
      * the Server sending a serialized image, the image isn't loaded until
      * requested.
      */
-    private List<String> backgroundPaths = new ArrayList<>();
+    private final List<String> backgroundPaths = new ArrayList<>();
 
     /**
      * Keeps track of how many boards were combined to create this board. These
@@ -102,7 +102,8 @@ public class Board implements Serializable {
      * necessary to properly index into the background image, and only need to
      * be set if backgroundPaths are present.
      */
-    private List<Boolean> flipBGHoriz = new ArrayList<>(), flipBGVert = new ArrayList<>();
+    private final List<Boolean> flipBGHoriz = new ArrayList<>();
+    private final List<Boolean> flipBGVert = new ArrayList<>();
 
     /**
      * Building data structures.
@@ -132,10 +133,10 @@ public class Board implements Serializable {
     /**
      * Per-hex annotations on the map.
      */
-    private Map<Coords, Collection<String>> annotations = new HashMap<>();
+    private final Map<Coords, Collection<String>> annotations = new HashMap<>();
 
     /** Tags associated with this board to facilitate searching for it. */
-    private Set<String> tags = new HashSet<>();
+    private final Set<String> tags = new HashSet<>();
     //endregion Variable Declarations
 
     //region Constructors

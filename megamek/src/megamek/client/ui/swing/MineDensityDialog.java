@@ -34,12 +34,12 @@ import megamek.client.ui.Messages;
  */
 public class MineDensityDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -7642956136536119067L;
-    private GridBagLayout gridbag = new GridBagLayout();
-    private GridBagConstraints c = new GridBagConstraints();
-    private JButton butOk = new JButton(Messages.getString("Okay"));
-    private JLabel labDensity = new JLabel(Messages.getString("MineDensityDialog.labDensity"),
+    private final GridBagLayout gridbag = new GridBagLayout();
+    private final GridBagConstraints c = new GridBagConstraints();
+    private final JButton butOk = new JButton(Messages.getString("Okay"));
+    private final JLabel labDensity = new JLabel(Messages.getString("MineDensityDialog.labDensity"),
             SwingConstants.RIGHT);
-    private JComboBox<String> choDensity = new JComboBox<>();
+    private final JComboBox<String> choDensity = new JComboBox<>();
     private int density = -1;
     //private JFrame frame;
 

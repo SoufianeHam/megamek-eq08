@@ -50,7 +50,7 @@ public class TestAero extends TestEntity {
      * 
      * @author arlith
      */
-    public static enum AeroArmor {
+    public enum AeroArmor {
         STANDARD(EquipmentType.T_ARMOR_STANDARD, 0, 0, false),   
         CLAN_FERRO_ALUM(EquipmentType.T_ARMOR_ALUM, 1, 1, true),
         FERRO_LAMELLOR(EquipmentType.T_ARMOR_FERRO_LAMELLOR, 2, 1, true),
@@ -188,9 +188,9 @@ public class TestAero extends TestEntity {
         SECOND_CLASS (7, SecondClassQuartersCargoBay.class, size -> new SecondClassQuartersCargoBay(size, 0)),
         STEERAGE (5, SteerageQuartersCargoBay.class, size -> new SteerageQuartersCargoBay(size, 0));
         
-        private int tonnage;
-        private Class<? extends Bay> bayClass;
-        private Function<Integer, Bay> init;
+        private final int tonnage;
+        private final Class<? extends Bay> bayClass;
+        private final Function<Integer, Bay> init;
         
         Quarters(int tonnage, Class<? extends Bay> bayClass, Function<Integer, Bay> init) {
             this.tonnage = tonnage;

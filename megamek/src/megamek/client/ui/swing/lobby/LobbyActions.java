@@ -692,17 +692,16 @@ public class LobbyActions {
         for (Client sender: senders) {
             // Gather the entities for this sending client; 
             // Serialization doesn't like the toList() result, therefore the new ArrayList
-            List<Integer> ids = new ArrayList<>(finalEnDelete.stream()
-                    .filter(e -> Objects.requireNonNull(correctSender(e)).equals(sender)).map(Entity::getId).collect(toList()));
+            List<Integer> ids = finalEnDelete.stream()
+                    .filter(e -> Objects.requireNonNull(correctSender(e)).equals(sender)).map(Entity::getId).collect(java.util.stream.Collectors.toList());
             sender.sendDeleteEntities(ids);
         }
         
         // Send a command to remove the forces (with entities)
         senders = finalFoDelete.stream().map(this::correctSender).collect(toSet());
         for (Client sender: senders) {
-            List<Force> foList = new ArrayList<>(finalFoDelete.stream()
-                    .filter(f -> Objects.requireNonNull(correctSender(f)).equals(sender))
-                    .collect(toList()));
+            List<Force> foList = finalFoDelete.stream()
+                    .filter(f -> Objects.requireNonNull(correctSender(f)).equals(sender)).collect(java.util.stream.Collectors.toList());
             sender.sendDeleteForces(foList);
         }
     }
@@ -1016,7 +1015,7 @@ public class LobbyActions {
         // Now, actually create the squadron
         FighterSquadron fs = new FighterSquadron(name);
         fs.setOwner(createSquadronOwner(entities));
-        List<Integer> fighterIds = new ArrayList<>(entities.stream().map(Entity::getId).collect(toList()));
+        List<Integer> fighterIds = entities.stream().map(Entity::getId).collect(java.util.stream.Collectors.toList());
         Objects.requireNonNull(correctSender(fs)).sendAddSquadron(fs, fighterIds);
     }
     

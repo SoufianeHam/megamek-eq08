@@ -22,8 +22,8 @@ import megamek.client.Client;
 public abstract class ClientCommand {
     protected Client client;
 
-    private String name;
-    private String helpText;
+    private final String name;
+    private final String helpText;
 
     /** Creates new ServerCommand */
     public ClientCommand(Client client, String name, String helpText) {

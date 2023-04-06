@@ -22,7 +22,7 @@ import java.net.Socket;
  * Connections factory. Creates the Client/Server connections
  */
 public class ConnectionFactory {
-    private static ConnectionFactory instance = new ConnectionFactory();
+    private static final ConnectionFactory instance = new ConnectionFactory();
 
     private ConnectionFactory() {
 

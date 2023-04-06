@@ -31,13 +31,13 @@ public class AnalyzeFormationDialog extends JDialog {
 
     private static final long serialVersionUID = 6487681030307585648L;
 
-    private JTable tblUnits;
-    private TableRowSorter<UnitTableModel> tableSorter;
+    private final JTable tblUnits;
+    private final TableRowSorter<UnitTableModel> tableSorter;
     
-    private FormationType formationType;
-    private List<MechSummary> units = new ArrayList<>();
-    private List<JCheckBox> otherCriteriaChecks = new ArrayList<>();
-    private List<FormationType.Constraint> allConstraints = new ArrayList<>();
+    private final FormationType formationType;
+    private final List<MechSummary> units = new ArrayList<>();
+    private final List<JCheckBox> otherCriteriaChecks = new ArrayList<>();
+    private final List<FormationType.Constraint> allConstraints = new ArrayList<>();
     
     public AnalyzeFormationDialog(JFrame frame, List<MechSummary> generatedUnits,
             FormationType ft, List<UnitTable.Parameters> params,
@@ -268,7 +268,7 @@ public class AnalyzeFormationDialog extends JDialog {
         private static final int COL_WEIGHT_CLASS = 1;
         private static final int COL_MOVEMENT = 2;
         private static final int COL_ROLE = 3;
-        private List<String> colNames = new ArrayList<>();
+        private final List<String> colNames = new ArrayList<>();
         
         public UnitTableModel() {
             colNames.add("Name");

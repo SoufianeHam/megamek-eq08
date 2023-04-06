@@ -30,20 +30,20 @@ class MovementSprite extends Sprite {
 
     private Point t;
 
-    private double an;
+    private final double an;
 
     private StraightArrowPolygon movePoly;
 
     private Color moveColor;
 
     // private MovementVector mv;
-    private int[] vectors;
+    private final int[] vectors;
 
-    private Coords start;
+    private final Coords start;
 
-    private Coords end;
+    private final Coords end;
 
-    private Entity en;
+    private final Entity en;
 
     private int vel;
 

@@ -111,12 +111,12 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
         /**
          * A collection of Mounted instantiations.
          */
-        private ArrayList<Mounted> weapons;
+        private final ArrayList<Mounted> weapons;
 
         /**
          * The Entity that owns the collection of Mounteds.
          */
-        private Entity en;
+        private final Entity en;
 
         WeaponListModel(Entity e) {
             en = e;
@@ -285,7 +285,7 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
 
     private final UnitDisplay unitDisplay;
 
-    private MMComboBox<WeaponSortOrder> comboWeaponSortOrder;
+    private final MMComboBox<WeaponSortOrder> comboWeaponSortOrder;
     public JList<String> weaponList;
     /**
      * Keep track of the previous target, used for certain weapons (like VGLs)
@@ -293,61 +293,61 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
      * after the forced target.
      */
     private Targetable prevTarget = null;
-    private JPanel panelMain;
-    private JScrollPane tWeaponScroll;
-    private JComboBox<String> m_chAmmo;
+    private final JPanel panelMain;
+    private final JScrollPane tWeaponScroll;
+    private final JComboBox<String> m_chAmmo;
     public JComboBox<String> m_chBayWeapon;
 
-    private JLabel wSortOrder;
-    private JLabel wAmmo;
-    private JLabel wBayWeapon;
-    private JLabel wNameL;
-    private JLabel wHeatL;
-    private JLabel wArcHeatL;
-    private JLabel wDamL;
-    private JLabel wMinL;
-    private JLabel wShortL;
-    private JLabel wMedL;
-    private JLabel wLongL;
-    private JLabel wExtL;
-    private JLabel wAVL;
-    private JLabel wNameR;
-    private JLabel wHeatR;
-    private JLabel wArcHeatR;
-    private JLabel wDamR;
-    private JLabel wMinR;
-    private JLabel wShortR;
-    private JLabel wMedR;
-    private JLabel wLongR;
-    private JLabel wExtR;
-    private JLabel wShortAVR;
-    private JLabel wMedAVR;
-    private JLabel wLongAVR;
-    private JLabel wExtAVR;
-    private JLabel currentHeatBuildupL;
-    private JLabel currentHeatBuildupR;
+    private final JLabel wSortOrder;
+    private final JLabel wAmmo;
+    private final JLabel wBayWeapon;
+    private final JLabel wNameL;
+    private final JLabel wHeatL;
+    private final JLabel wArcHeatL;
+    private final JLabel wDamL;
+    private final JLabel wMinL;
+    private final JLabel wShortL;
+    private final JLabel wMedL;
+    private final JLabel wLongL;
+    private final JLabel wExtL;
+    private final JLabel wAVL;
+    private final JLabel wNameR;
+    private final JLabel wHeatR;
+    private final JLabel wArcHeatR;
+    private final JLabel wDamR;
+    private final JLabel wMinR;
+    private final JLabel wShortR;
+    private final JLabel wMedR;
+    private final JLabel wLongR;
+    private final JLabel wExtR;
+    private final JLabel wShortAVR;
+    private final JLabel wMedAVR;
+    private final JLabel wLongAVR;
+    private final JLabel wExtAVR;
+    private final JLabel currentHeatBuildupL;
+    private final JLabel currentHeatBuildupR;
 
-    private JLabel wTargetL;
-    private JLabel wRangeL;
-    private JLabel wToHitL;
+    private final JLabel wTargetL;
+    private final JLabel wRangeL;
+    private final JLabel wToHitL;
     public JLabel wTargetR;
     public JLabel wRangeR;
     public JLabel wToHitR;
 
-    private JLabel wDamageTrooperL;
-    private JLabel wDamageTrooperR;
-    private JLabel wInfantryRange0L;
-    private JLabel wInfantryRange0R;
-    private JLabel wInfantryRange1L;
-    private JLabel wInfantryRange1R;
-    private JLabel wInfantryRange2L;
-    private JLabel wInfantryRange2R;
-    private JLabel wInfantryRange3L;
-    private JLabel wInfantryRange3R;
-    private JLabel wInfantryRange4L;
-    private JLabel wInfantryRange4R;
-    private JLabel wInfantryRange5L;
-    private JLabel wInfantryRange5R;
+    private final JLabel wDamageTrooperL;
+    private final JLabel wDamageTrooperR;
+    private final JLabel wInfantryRange0L;
+    private final JLabel wInfantryRange0R;
+    private final JLabel wInfantryRange1L;
+    private final JLabel wInfantryRange1R;
+    private final JLabel wInfantryRange2L;
+    private final JLabel wInfantryRange2R;
+    private final JLabel wInfantryRange3L;
+    private final JLabel wInfantryRange3R;
+    private final JLabel wInfantryRange4L;
+    private final JLabel wInfantryRange4R;
+    private final JLabel wInfantryRange5L;
+    private final JLabel wInfantryRange5R;
 
     public JTextArea toHitText;
 
@@ -356,8 +356,8 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
     private ArrayList<Mounted> vAmmo;
     private Entity entity;
 
-    private int minTopMargin = 8;
-    private int minLeftMargin = 8;
+    private final int minTopMargin = 8;
+    private final int minLeftMargin = 8;
 
     public static final int TARGET_DISPLAY_WIDTH = 200;
 

@@ -18,9 +18,9 @@ import java.util.Map;
 
 public class HexTarget implements Targetable {
     private static final long serialVersionUID = -5742445409423125942L;
-    private Coords m_coords;
-    private boolean m_bIgnite;
-    private int m_type;
+    private final Coords m_coords;
+    private final boolean m_bIgnite;
+    private final int m_type;
 
     public HexTarget(Coords c, int nType) {
         m_coords = c;

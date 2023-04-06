@@ -26,7 +26,7 @@ import megamek.common.options.OptionsConstants;
 /** A Lobby Mek Table sorter that sorts by BV. */
 public class BVSorter implements MekTableSorter {
 
-    private Sorting direction;
+    private final Sorting direction;
 
     /** A Lobby Mek Table sorter that sorts by BV. */
     public BVSorter(MekTableSorter.Sorting dir) {

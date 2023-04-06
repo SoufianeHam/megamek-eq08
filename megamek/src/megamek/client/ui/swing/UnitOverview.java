@@ -53,23 +53,23 @@ public class UnitOverview implements IDisplayable {
     private int actUnitsPerPage = 0;
     private int scrollOffset = 0;
 
-    private ClientGUI clientgui;
+    private final ClientGUI clientgui;
 
-    private FontMetrics fm;
+    private final FontMetrics fm;
 
-    private Image scrollUp;
-    private Image scrollDown;
-    private Image pageUp;
-    private Image pageDown;
+    private final Image scrollUp;
+    private final Image scrollDown;
+    private final Image pageUp;
+    private final Image pageDown;
     
     public static int getUIWidth() {
         return ICON_WIDTH + DIST_SIDE;
     }
     
-    private Image scrollUpG;
-    private Image scrollDownG;
-    private Image pageUpG;
-    private Image pageDownG;
+    private final Image scrollUpG;
+    private final Image scrollDownG;
+    private final Image pageUpG;
+    private final Image pageDownG;
 
     public UnitOverview(ClientGUI clientgui) {
         this.clientgui = clientgui;

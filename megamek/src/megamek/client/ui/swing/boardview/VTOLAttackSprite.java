@@ -15,10 +15,10 @@ import java.util.List;
  * @author Neoancient
  */
 class VTOLAttackSprite extends Sprite {
-    private BoardView bv;
-    private Entity entity;
+    private final BoardView bv;
+    private final Entity entity;
     private List<Coords> targets;
-    private Color spriteColor;
+    private final Color spriteColor;
 
     VTOLAttackSprite(BoardView boardView, Entity en) {
         super(boardView);

@@ -29,13 +29,13 @@ import java.awt.event.ActionListener;
  */
 public class TeleMissileSettingDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -7642946136536329067L;
-    private GridBagLayout gridbag = new GridBagLayout();
-    private GridBagConstraints c = new GridBagConstraints();
-    private JButton butOk = new JButton(Messages.getString("Okay"));
-    private JTextField fldSetting = new JTextField("50", 2);
+    private final GridBagLayout gridbag = new GridBagLayout();
+    private final GridBagConstraints c = new GridBagConstraints();
+    private final JButton butOk = new JButton(Messages.getString("Okay"));
+    private final JTextField fldSetting = new JTextField("50", 2);
     private int setting;
-    private JFrame frame;
-    private int minimumVelocity = CapitalMissileBayWeapon.CAPITAL_MISSILE_MIN_VELOCITY;
+    private final JFrame frame;
+    private final int minimumVelocity = CapitalMissileBayWeapon.CAPITAL_MISSILE_MIN_VELOCITY;
     private int maxVelocity = CapitalMissileBayWeapon.CAPITAL_MISSILE_DEFAULT_VELOCITY;
 
     public TeleMissileSettingDialog(JFrame p, Game game) {

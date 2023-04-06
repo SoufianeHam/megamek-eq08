@@ -52,9 +52,9 @@ public class MiniReportDisplay extends JPanel implements ActionListener, Hyperli
     private JButton butEntitySearchDown;
     private JButton butQuickSearchUp;
     private JButton butQuickSearchDown;
-    private JComboBox<String> comboPlayer = new JComboBox<>();
-    private JComboBox<String> comboEntity = new JComboBox<>();
-    private JComboBox<String> comboQuick = new JComboBox<>();
+    private final JComboBox<String> comboPlayer = new JComboBox<>();
+    private final JComboBox<String> comboEntity = new JComboBox<>();
+    private final JComboBox<String> comboQuick = new JComboBox<>();
     private ClientGUI currentClientgui;
     private Client currentClient;
     private static final GUIPreferences GUIP = GUIPreferences.getInstance();
@@ -347,7 +347,7 @@ public class MiniReportDisplay extends JPanel implements ActionListener, Hyperli
         }
     }
 
-    private GameListener gameListener = new GameListenerAdapter() {
+    private final GameListener gameListener = new GameListenerAdapter() {
         @Override
         public void gamePhaseChange(GamePhaseChangeEvent e) {
             switch (e.getOldPhase()) {

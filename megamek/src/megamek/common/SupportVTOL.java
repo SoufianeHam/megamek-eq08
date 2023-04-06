@@ -24,7 +24,7 @@ public class SupportVTOL extends VTOL {
      *
      */
     private static final long serialVersionUID = 2771230410747098997L;
-    private int[] barRating;
+    private final int[] barRating;
     private double fuelTonnage = 0;
 
     public SupportVTOL() {

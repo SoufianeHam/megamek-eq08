@@ -26,7 +26,7 @@ import megamek.common.Player;
 /** A Lobby Mek Table sorter that sorts by C3 network association (and by ID after that). */
 public class C3IDSorter implements MekTableSorter {
     
-    private ClientGUI clientGui;
+    private final ClientGUI clientGui;
     
     /** A Lobby Mek Table sorter that sorts mainly by association to C3 networks */
     public C3IDSorter(ClientGUI cg) {

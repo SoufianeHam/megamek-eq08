@@ -19,8 +19,8 @@ package megamek.client.ui.swing.util;
  */
 public class VerifyNotNullOrEmpty implements DataVerifier {
 
-    private DataVerifier verifyNotNull = new VerifyNotNull();
-    private DataVerifier verifyNotEmpty = new VerifyNotEmpty();
+    private final DataVerifier verifyNotNull = new VerifyNotNull();
+    private final DataVerifier verifyNotEmpty = new VerifyNotEmpty();
 
     @Override
     public String verify(Object value) {

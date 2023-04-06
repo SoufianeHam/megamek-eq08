@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  */
 public class ForceGeneratorOptionsView extends JPanel implements FocusListener, ActionListener {
     private int currentYear;
-    private Consumer<ForceDescriptor> onGenerate;
+    private final Consumer<ForceDescriptor> onGenerate;
 
     private ForceDescriptor forceDesc = new ForceDescriptor();
 
@@ -43,13 +43,13 @@ public class ForceGeneratorOptionsView extends JPanel implements FocusListener, 
     private JComboBox<Integer> cbWeightClass;
     private JCheckBox chkAttachments;
 
-    private DefaultListCellRenderer factionRenderer = new CBRenderer<FactionRecord>
+    private final DefaultListCellRenderer factionRenderer = new CBRenderer<FactionRecord>
     (Messages.getString("ForceGeneratorDialog.general"),
             fRec -> fRec.getName(currentYear));
 
-    private HashMap<String,String> ratingDisplayNames = new HashMap<>();
-    private HashMap<String,String> formationDisplayNames = new HashMap<>();
-    private HashMap<String,String> flagDisplayNames = new HashMap<>();
+    private final HashMap<String,String> ratingDisplayNames = new HashMap<>();
+    private final HashMap<String,String> formationDisplayNames = new HashMap<>();
+    private final HashMap<String,String> flagDisplayNames = new HashMap<>();
 
     private JPanel panGroundRole;
     private JPanel panInfRole;
@@ -89,7 +89,7 @@ public class ForceGeneratorOptionsView extends JPanel implements FocusListener, 
     private JButton btnExportMUL;
     private JButton btnClear;
 
-    private ClientGUI clientGui;
+    private final ClientGUI clientGui;
 
     public ForceGeneratorOptionsView(ClientGUI gui, Consumer<ForceDescriptor> onGenerate) {
         clientGui = gui;
@@ -997,7 +997,7 @@ public class ForceGeneratorOptionsView extends JPanel implements FocusListener, 
         private static final long serialVersionUID = 4895258839502183158L;
 
         private String nullVal = Messages.getString("ForceGeneratorDialog.default");
-        private Function<T,String> toString;
+        private final Function<T,String> toString;
 
         public CBRenderer(String nullVal) {
             this(nullVal, null);
@@ -1022,7 +1022,7 @@ public class ForceGeneratorOptionsView extends JPanel implements FocusListener, 
     }
 
     private class GenerateTask extends SwingWorker<ForceDescriptor, Double> implements ProgressListener {
-        private ForceDescriptor fd;
+        private final ForceDescriptor fd;
 
         private final Object progressLock = new Object();
         private double progress = 0;

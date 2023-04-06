@@ -167,7 +167,7 @@ public class TargetingPhaseDisplay extends StatusBarPhaseDisplay implements
     private Targetable target; // target
 
     // shots we have so far.
-    private Vector<EntityAction> attacks;
+    private final Vector<EntityAction> attacks;
 
     // is the shift key held?
     private boolean shiftheld;

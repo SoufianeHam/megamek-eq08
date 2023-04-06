@@ -32,17 +32,17 @@ import java.awt.image.BufferedImage;
 class StepSprite extends Sprite {
     
     private final static GUIPreferences GUIP = GUIPreferences.getInstance(); 
-    private static AffineTransform shadowOffset = new AffineTransform();
-    private static AffineTransform upDownOffset = new AffineTransform();
-    private static AffineTransform stepOffset = new AffineTransform();
+    private static final AffineTransform shadowOffset = new AffineTransform();
+    private static final AffineTransform upDownOffset = new AffineTransform();
+    private static final AffineTransform stepOffset = new AffineTransform();
     static {
         shadowOffset.translate(-1, -1);
         upDownOffset.translate(-30, 0);
         stepOffset.translate(1, 1);
     }
 
-    private MoveStep step;
-    private boolean isLastStep;
+    private final MoveStep step;
+    private final boolean isLastStep;
     private Image baseScaleImage;
 
     public StepSprite(BoardView boardView1, final MoveStep step,

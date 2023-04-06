@@ -38,7 +38,7 @@ public class QuirkRewriteTool implements MechSummaryCache.Listener {
 
     private static MechSummaryCache mechSummaryCache = null;
 
-    private static String[] quirkETypes = { "Mech", "Aero", "VTOL", "Tank",
+    private static final String[] quirkETypes = { "Mech", "Aero", "VTOL", "Tank",
             "Infantry", "Protomech" };
 
     public static void main(String[] args) {

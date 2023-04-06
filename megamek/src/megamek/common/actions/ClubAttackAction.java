@@ -38,7 +38,7 @@ import megamek.common.options.OptionsConstants;
 public class ClubAttackAction extends PhysicalAttackAction {
     private static final long serialVersionUID = -8744665286254604559L;
     private Mounted club;
-    private int aiming;
+    private final int aiming;
     private boolean zweihandering;
 
     /**

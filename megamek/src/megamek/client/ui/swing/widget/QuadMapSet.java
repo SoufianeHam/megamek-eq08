@@ -40,86 +40,86 @@ public class QuadMapSet implements DisplayMapSet {
     private static final int REAR_AREA_OFFSET = 7;
     private static final int INT_STRUCTURE_OFFSET = 11;
 
-    private UnitDisplay unitDisplay;
+    private final UnitDisplay unitDisplay;
     
     // Array of polygonal areas - parts of mech body.
-    private PMSimplePolygonArea[] areas = new PMSimplePolygonArea[19];
+    private final PMSimplePolygonArea[] areas = new PMSimplePolygonArea[19];
     // Array of fixed labels - short names of body parts
-    private PMSimpleLabel[] labels = new PMSimpleLabel[19];
+    private final PMSimpleLabel[] labels = new PMSimpleLabel[19];
     // Array of value labels to show armor and IS values
-    private PMValueLabel[] vLabels = new PMValueLabel[20];
+    private final PMValueLabel[] vLabels = new PMValueLabel[20];
     // Heat control area
     private PMPicPolygonalArea heatHotArea;
     // Set of Background Drawers
-    private Vector<BackGroundDrawer> bgDrawers = new Vector<>();
+    private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
     // Main areas group that keeps everything in itself and is passed to PicMap
     // component
-    private PMAreasGroup content = new PMAreasGroup();
+    private final PMAreasGroup content = new PMAreasGroup();
     // Reference to Component class (need to manage images and fonts)
-    private JComponent comp;
+    private final JComponent comp;
 
     // Points for build hot areas (maybe too heavy, think of to load from external file)
     // Mek armor - Front
-    private Polygon rightArm = new Polygon(new int[] { 102, 102, 100, 95, 95,
+    private final Polygon rightArm = new Polygon(new int[] { 102, 102, 100, 95, 95,
             100, 110, 120, 120, 125 }, new int[] { 120, 70, 65, 65, 50, 55, 55,
             65, 115, 120 }, 10);
-    private Polygon leftArm = new Polygon(new int[] { 0, 5, 5, 15, 25, 30, 30,
+    private final Polygon leftArm = new Polygon(new int[] { 0, 5, 5, 15, 25, 30, 30,
             25, 23, 23 },
             new int[] { 120, 115, 65, 55, 55, 50, 65, 65, 70, 120 }, 10);
-    private Polygon head = new Polygon(new int[] { 50, 50, 55, 70, 75, 75 },
+    private final Polygon head = new Polygon(new int[] { 50, 50, 55, 70, 75, 75 },
             new int[] { 40, 25, 20, 20, 25, 40 }, 6);
-    private Polygon centralTorso = new Polygon(new int[] { 50, 50, 75, 75 },
+    private final Polygon centralTorso = new Polygon(new int[] { 50, 50, 75, 75 },
             new int[] { 80, 40, 40, 80 }, 4);
-    private Polygon leftTorso = new Polygon(
+    private final Polygon leftTorso = new Polygon(
             new int[] { 50, 35, 30, 30, 35, 50 }, new int[] { 80, 80, 75, 45,
                     40, 40 }, 6);
-    private Polygon rightTorso = new Polygon(
+    private final Polygon rightTorso = new Polygon(
             new int[] { 75, 75, 90, 95, 95, 90 }, new int[] { 80, 40, 40, 45,
                     75, 80 }, 6);
-    private Polygon leftLeg = new Polygon(new int[] { 30, 30, 35, 50, 50, 55 },
+    private final Polygon leftLeg = new Polygon(new int[] { 30, 30, 35, 50, 50, 55 },
             new int[] { 120, 85, 80, 80, 115, 120 }, 6);
-    private Polygon rightLeg = new Polygon(
+    private final Polygon rightLeg = new Polygon(
             new int[] { 70, 75, 75, 90, 95, 95 }, new int[] { 120, 115, 80, 80,
                     85, 120 }, 6);
 
     // Mek Armor - Rear
-    private Polygon rearLeftTorso = new Polygon(new int[] { 142, 142, 148, 139,
+    private final Polygon rearLeftTorso = new Polygon(new int[] { 142, 142, 148, 139,
             123, 123, 142 }, new int[] { 14, 43, 76, 76, 44, 17, 14 }, 7);
-    private Polygon rearCentralTorso = new Polygon(new int[] { 142, 148, 162,
+    private final Polygon rearCentralTorso = new Polygon(new int[] { 142, 148, 162,
             168, 168, 142 }, new int[] { 44, 76, 76, 44, 14, 14 }, 6);
-    private Polygon rearRightTorso = new Polygon(new int[] { 168, 168, 162,
+    private final Polygon rearRightTorso = new Polygon(new int[] { 168, 168, 162,
             171, 187, 187, 168 }, new int[] { 14, 43, 76, 76, 44, 17, 14 }, 7);
 
     // Internal Structure
-    private Polygon inStRightArm = new Polygon(new int[] { 102, 102, 100, 95,
+    private final Polygon inStRightArm = new Polygon(new int[] { 102, 102, 100, 95,
             95, 100, 110, 120, 120, 125 }, new int[] { 112 + 120, 112 + 70,
             112 + 65, 112 + 65, 112 + 50, 112 + 55, 112 + 55, 112 + 65,
             112 + 115, 112 + 120 }, 10);
-    private Polygon inStLeftArm = new Polygon(new int[] { 0, 5, 5, 15, 25, 30,
+    private final Polygon inStLeftArm = new Polygon(new int[] { 0, 5, 5, 15, 25, 30,
             30, 25, 23, 23 }, new int[] { 112 + 120, 112 + 115, 112 + 65,
             112 + 55, 112 + 55, 112 + 50, 112 + 65, 112 + 65, 112 + 70,
             112 + 120 }, 10);
-    private Polygon intStHead = new Polygon(
+    private final Polygon intStHead = new Polygon(
             new int[] { 50, 50, 55, 70, 75, 75 }, new int[] { 112 + 40,
                     112 + 25, 112 + 20, 112 + 20, 112 + 25, 112 + 40 }, 6);
-    private Polygon inStCentralTorso = new Polygon(
+    private final Polygon inStCentralTorso = new Polygon(
             new int[] { 50, 50, 75, 75 }, new int[] { 112 + 80, 112 + 40,
                     112 + 40, 112 + 80 }, 4);
-    private Polygon inStLeftTorso = new Polygon(new int[] { 50, 35, 30, 30, 35,
+    private final Polygon inStLeftTorso = new Polygon(new int[] { 50, 35, 30, 30, 35,
             50 }, new int[] { 112 + 80, 112 + 80, 112 + 75, 112 + 45, 112 + 40,
             112 + 40 }, 6);
-    private Polygon inStRightTorso = new Polygon(new int[] { 75, 75, 90, 95,
+    private final Polygon inStRightTorso = new Polygon(new int[] { 75, 75, 90, 95,
             95, 90 }, new int[] { 112 + 80, 112 + 40, 112 + 40, 112 + 45,
             112 + 75, 112 + 80 }, 6);
-    private Polygon inStLeftLeg = new Polygon(new int[] { 30, 30, 35, 50, 50,
+    private final Polygon inStLeftLeg = new Polygon(new int[] { 30, 30, 35, 50, 50,
             55 }, new int[] { 112 + 120, 112 + 85, 112 + 80, 112 + 80,
             112 + 115, 112 + 120 }, 6);
-    private Polygon inStRightLeg = new Polygon(new int[] { 70, 75, 75, 90, 95,
+    private final Polygon inStRightLeg = new Polygon(new int[] { 70, 75, 75, 90, 95,
             95 }, new int[] { 112 + 120, 112 + 115, 112 + 80, 112 + 80,
             112 + 85, 112 + 120 }, 6);
 
     // Heat control
-    private Polygon heatControl = new Polygon(new int[] { 149, 159, 159, 149 },
+    private final Polygon heatControl = new Polygon(new int[] { 149, 159, 159, 149 },
             new int[] { 100, 100, 220, 220 }, 4);
 
     private Image heatImage;

@@ -34,7 +34,7 @@ public class MechPanelTabStrip extends PicMap {
     private static final Image[] idleImage = new Image[NUM_TABS];
     private static final Image[] activeImage = new Image[NUM_TABS];
 
-    private PMPicPolygonalArea[] tabs = new PMPicPolygonalArea[NUM_TABS];
+    private final PMPicPolygonalArea[] tabs = new PMPicPolygonalArea[NUM_TABS];
     private Image idleCorner, selectedCorner;
     private int activeTab = 0;
     UnitDisplay md;

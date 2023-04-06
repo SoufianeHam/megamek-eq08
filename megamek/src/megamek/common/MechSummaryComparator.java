@@ -25,7 +25,7 @@ public class MechSummaryComparator implements Comparator<MechSummary> {
     public static final int T_COST = 5;
     public static final int T_LEVEL = 6;
 
-    private int m_nType;
+    private final int m_nType;
 
     public MechSummaryComparator(int nType) {
         m_nType = nType;

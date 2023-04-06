@@ -37,11 +37,11 @@ public class PlayerListDialog extends JDialog implements ActionListener, IPrefer
 
     private static final long serialVersionUID = 7270469195373150106L;
 
-    private JList<String> playerList = new JList<>(new DefaultListModel<>());
+    private final JList<String> playerList = new JList<>(new DefaultListModel<>());
 
-    private Client client;
-    private JButton butOkay;
-    private boolean modal;
+    private final Client client;
+    private final JButton butOkay;
+    private final boolean modal;
     private static final GUIPreferences GUIP = GUIPreferences.getInstance();
 
     public PlayerListDialog(JFrame parent, Client client, boolean modal) {

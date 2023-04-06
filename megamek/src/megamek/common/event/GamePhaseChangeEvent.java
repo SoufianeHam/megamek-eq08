@@ -25,12 +25,12 @@ public class GamePhaseChangeEvent extends GameEvent {
     /**
      * Old phase
      */
-    private GamePhase oldPhase;
+    private final GamePhase oldPhase;
 
     /**
      * new phase
      */
-    private GamePhase newPhase;
+    private final GamePhase newPhase;
 
     /**
      * Constructs new <code>GamePhaseChangeEvent</code>

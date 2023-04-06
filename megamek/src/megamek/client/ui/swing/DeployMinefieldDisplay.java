@@ -38,7 +38,7 @@ public class DeployMinefieldDisplay extends StatusBarPhaseDisplay {
      * appropriate for.
      * @author arlith
      */
-    public static enum DeployMinefieldCommand implements PhaseCommand {
+    public enum DeployMinefieldCommand implements PhaseCommand {
         DEPLOY_MINE_CONV("deployMineConv"),
         DEPLOY_MINE_COM("deployMineCom"),
         DEPLOY_MINE_VIBRA("deployMineVibra"),
@@ -90,7 +90,7 @@ public class DeployMinefieldDisplay extends StatusBarPhaseDisplay {
     private boolean remove = false;
 
     private Player p;
-    private Vector<Minefield> deployedMinefields = new Vector<>();
+    private final Vector<Minefield> deployedMinefields = new Vector<>();
 
     /**
      * Creates and lays out a new deployment phase display for the specified

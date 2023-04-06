@@ -36,9 +36,9 @@ public class Hex implements Serializable {
     private static final long serialVersionUID = 82483704768044698L;
     private Coords coords;
     private int level;
-    private Map<Integer, Terrain> terrains = new HashMap<>(1);
+    private final Map<Integer, Terrain> terrains = new HashMap<>(1);
     private String theme;
-    private String originalTheme;
+    private final String originalTheme;
     private int fireTurn;
     //endregion Variable Declarations
 

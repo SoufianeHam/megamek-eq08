@@ -8,8 +8,8 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class TextMarkerSprite extends HexSprite {
-    private String spriteText;
-    private Color spriteColor;
+    private final String spriteText;
+    private final Color spriteColor;
 
     public TextMarkerSprite(BoardView boardView1, Coords loc, String text, Color color) {
         super(boardView1, loc);

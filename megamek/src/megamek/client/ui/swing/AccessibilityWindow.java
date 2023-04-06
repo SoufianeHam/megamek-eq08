@@ -43,8 +43,8 @@ public class AccessibilityWindow extends JDialog implements KeyListener {
     JTextArea chatArea;
 
     private Coords selectedTarget;
-    private JTextField inputField;
-    private LinkedList<String> history;
+    private final JTextField inputField;
+    private final LinkedList<String> history;
     private int historyBookmark = -1;
 
     public AccessibilityWindow(ClientGUI clientGUI) {

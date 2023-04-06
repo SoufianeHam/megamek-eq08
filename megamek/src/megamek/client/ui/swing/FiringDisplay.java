@@ -53,7 +53,7 @@ public class FiringDisplay extends StatusBarPhaseDisplay implements ItemListener
      *
      * @author arlith
      */
-    public static enum FiringCommand implements PhaseCommand {
+    public enum FiringCommand implements PhaseCommand {
         FIRE_NEXT("fireNext"),
         FIRE_TWIST("fireTwist"),
         FIRE_FIRE("fireFire"),
@@ -81,7 +81,7 @@ public class FiringDisplay extends StatusBarPhaseDisplay implements ItemListener
          */
         public int priority;
 
-        private FiringCommand(String c) {
+        FiringCommand(String c) {
             cmd = c;
         }
 
@@ -197,7 +197,7 @@ public class FiringDisplay extends StatusBarPhaseDisplay implements ItemListener
     /**
      * Keeps track of the Coords that are in a strafing run.
      */
-    private ArrayList<Coords> strafingCoords = new ArrayList<>(5);
+    private final ArrayList<Coords> strafingCoords = new ArrayList<>(5);
 
     /**
      * Creates and lays out a new firing phase display for the specified

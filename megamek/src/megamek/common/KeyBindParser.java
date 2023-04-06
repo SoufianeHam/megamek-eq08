@@ -52,7 +52,7 @@ public class KeyBindParser {
     public static String IS_REPEATABLE = "isRepeatable";
     
     // Keybinds change event 
-    private static ArrayList<IPreferenceChangeListener> listeners = new ArrayList<>();
+    private static final ArrayList<IPreferenceChangeListener> listeners = new ArrayList<>();
     public static final String KEYBINDS_CHANGED = "keyBindsChanged";
 
     public static void parseKeyBindings(MegaMekController controller) {

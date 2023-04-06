@@ -18,7 +18,7 @@ import javax.swing.JRadioButton;
 
 public class IndexedRadioButton extends JRadioButton{
     private static final long serialVersionUID = 5224809762401860469L;
-    private int index;
+    private final int index;
 
     public IndexedRadioButton(String label, boolean state, ButtonGroup group,
             int index) {

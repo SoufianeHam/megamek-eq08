@@ -24,7 +24,7 @@ import megamek.common.Entity;
 /** A Lobby Mek Table sorter that sorts by unit ID. */
 public class IDSorter implements MekTableSorter {
     
-    private Sorting direction;
+    private final Sorting direction;
     
     /** A Lobby Mek Table sorter that sorts by unit ID. */
     public IDSorter(MekTableSorter.Sorting dir) {

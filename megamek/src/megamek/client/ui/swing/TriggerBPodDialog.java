@@ -56,20 +56,20 @@ import megamek.common.actions.TriggerBPodAction;
  */
 public class TriggerBPodDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -5882060083607984056L;
-    private JButton butOkay = new JButton(Messages.getString("Okay"));
-    private JTextArea labMessage;
+    private final JButton butOkay = new JButton(Messages.getString("Okay"));
+    private final JTextArea labMessage;
 
     /**
      * The <code>FirePodTracker</code>s for the entity's active Anti-BA Pods.
      */
-    private ArrayList<TriggerPodTracker> trackers = new ArrayList<>();
+    private final ArrayList<TriggerPodTracker> trackers = new ArrayList<>();
 
     /**
      * The <code>int</code> ID of the entity that can fire Anti-BA Pods.
      */
     private int entityId = Entity.NONE;
 
-    private ClientGUI clientgui;
+    private final ClientGUI clientgui;
 
     /**
      * A helper class to track when a Anti-BA Pod has been selected to be
@@ -85,7 +85,7 @@ public class TriggerBPodDialog extends JDialog implements ActionListener {
         /**
          * The <code>JCheckBox</code> being tracked.
          */
-        private JCheckBox checkbox;
+        private final JCheckBox checkbox;
 
         /**
          * Create a tracker.

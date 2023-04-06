@@ -32,7 +32,7 @@ import java.util.Vector;
 public class FireCommand extends ClientCommand {
     private int cen = Entity.NONE;
 
-    private Vector<AbstractEntityAction> attacks;
+    private final Vector<AbstractEntityAction> attacks;
 
     /**
      * @param client

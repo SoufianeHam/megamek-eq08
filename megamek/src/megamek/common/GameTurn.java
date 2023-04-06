@@ -265,7 +265,7 @@ public class GameTurn implements Serializable {
      */
     public static class TriggerBPodTurn extends SpecificEntityTurn {
         private static final long serialVersionUID = -9082006433957145275L;
-        private String attackType;
+        private final String attackType;
 
         public TriggerBPodTurn(int playerId, int entityId, String attackType) {
             super(playerId, entityId);
@@ -386,7 +386,7 @@ public class GameTurn implements Serializable {
      */
     public static class UnloadStrandedTurn extends GameTurn {
         private static final long serialVersionUID = 2403095752478007872L;
-        private int[] entityIds;
+        private final int[] entityIds;
 
         /**
          * Any player that owns an entity whose ID is in the passed array should be given a chance

@@ -37,7 +37,7 @@ public class BehaviorSettingsFactory {
     private static final String PRINCESS_BEHAVIOR_PATH = "mmconf" + File.separator + "princessBehaviors.xml";
 
     final Map<String, BehaviorSettings> behaviorMap = new HashMap<>();
-    private static BehaviorSettingsFactory instance = new BehaviorSettingsFactory();
+    private static final BehaviorSettingsFactory instance = new BehaviorSettingsFactory();
 
     private BehaviorSettingsFactory() {
         init(true);

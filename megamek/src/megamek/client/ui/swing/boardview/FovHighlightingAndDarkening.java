@@ -23,7 +23,7 @@ class FovHighlightingAndDarkening {
     private java.util.List<Color> ringsColors = new ArrayList<>();
     private java.util.List<Integer> ringsRadii = new ArrayList<>();
     GUIPreferences gs = GUIPreferences.getInstance();
-    private IPreferenceChangeListener ringsChangeListner;
+    private final IPreferenceChangeListener ringsChangeListner;
 
     public FovHighlightingAndDarkening(BoardView boardView1) {
         this.boardView1 = boardView1;

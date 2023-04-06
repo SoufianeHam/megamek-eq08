@@ -1238,8 +1238,8 @@ public class BLKFile {
      *
      */
     public static class ParsedBayInfo {
-        private double size;
-        private int doors;
+        private final double size;
+        private final int doors;
         private int bayNumber = -1;
         private PlatoonType platoonType = InfantryBay.PlatoonType.FOOT;
         private boolean isComstarBay;

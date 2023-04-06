@@ -25,13 +25,13 @@ public interface IBasicOption {
      * 
      * @return name of the option
      */
-    public abstract String getName();
+    String getName();
 
     /**
      * Returns the option value
      * 
      * @return option value
      */
-    public abstract Object getValue();
+    Object getValue();
 
 }

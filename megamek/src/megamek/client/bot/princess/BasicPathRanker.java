@@ -47,7 +47,7 @@ public class BasicPathRanker extends PathRanker implements IPathRanker {
 
     // the best damage enemies could expect were I not here. Used to determine 
     // whether they will target me.
-    private Map<Integer, Double> bestDamageByEnemies;
+    private final Map<Integer, Double> bestDamageByEnemies;
     
     public BasicPathRanker(Princess owningPrincess) {
         super(owningPrincess);

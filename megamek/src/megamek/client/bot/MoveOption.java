@@ -47,8 +47,8 @@ public class MoveOption extends MovePath {
 
     public static class WeightedComparator implements Comparator<MoveOption> {
 
-        private double utility_weight;
-        private double damage_weight;
+        private final double utility_weight;
+        private final double damage_weight;
 
         public WeightedComparator(double utility, double damage) {
             utility_weight = utility;
@@ -124,7 +124,7 @@ public class MoveOption extends MovePath {
     double damage = 0;
     double threat = 0;
 
-    private transient CEntity centity;
+    private final transient CEntity centity;
     transient ArrayList<String> tv = new ArrayList<>();
     transient HashMap<CEntity, DamageInfo> damageInfos = new HashMap<>();
     private Coords pos;

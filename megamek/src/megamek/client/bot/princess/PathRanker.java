@@ -46,7 +46,7 @@ public abstract class PathRanker implements IPathRanker {
         NewtonianAerospace
     }
     
-    private Princess owner;
+    private final Princess owner;
 
     public PathRanker(Princess princess) {
         owner = princess;

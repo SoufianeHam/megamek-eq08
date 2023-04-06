@@ -29,7 +29,7 @@ public interface Distractable extends java.util.EventListener {
      *
      * @return <code>true</code> if the listener is ignoring events.
      */
-    public boolean isIgnoringEvents();
+    boolean isIgnoringEvents();
 
     /**
      * Specify if the listener should be distracted.
@@ -39,11 +39,11 @@ public interface Distractable extends java.util.EventListener {
      *            again. Events that occured while the listener was distracted
      *            NOT going to be processed.
      */
-    public void setIgnoringEvents(boolean distracted);
+    void setIgnoringEvents(boolean distracted);
 
     /**
      * Stop just ignoring events and actually stop listening to them.
      */
-    public void removeAllListeners();
+    void removeAllListeners();
 
 }

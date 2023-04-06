@@ -31,7 +31,7 @@ import java.util.List;
 public class GameCFREvent extends GameEvent {
     private static final long serialVersionUID = 230173422932412803L;
     
-    private PacketCommand cfrType;
+    private final PacketCommand cfrType;
     
     private int eId;
 

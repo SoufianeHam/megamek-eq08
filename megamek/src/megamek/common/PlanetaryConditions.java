@@ -39,7 +39,7 @@ public class PlanetaryConditions implements Serializable {
     private static final String MSG_NAME_LIGHT_FULLMOONNIGHT = Messages.getString("PlanetaryConditions.DisplayableName.Light.Full Moon Night");
     private static final String MSG_NAME_LIGHT_MOONLESSNIGHT = Messages.getString("PlanetaryConditions.DisplayableName.Light.Moonless Night");
     private static final String MSG_NAME_LIGHT_PITCHBLACK = Messages.getString("PlanetaryConditions.DisplayableName.Light.Pitch Black");
-    private static String[] lightNames = { MSG_NAME_LIGHT_DAYLIGHT, MSG_NAME_LIGHT_DUSK, MSG_NAME_LIGHT_FULLMOONNIGHT,
+    private static final String[] lightNames = { MSG_NAME_LIGHT_DAYLIGHT, MSG_NAME_LIGHT_DUSK, MSG_NAME_LIGHT_FULLMOONNIGHT,
             MSG_NAME_LIGHT_MOONLESSNIGHT, MSG_NAME_LIGHT_PITCHBLACK };
     public static final int L_SIZE = lightNames.length;
     private static final String MSG_INDICATOR_LIGHT_DAY = Messages.getString("PlanetaryConditions.Indicator.Light.Day");
@@ -47,7 +47,7 @@ public class PlanetaryConditions implements Serializable {
     private static final String MSG_INDICATOR_LIGHT_FULL_MOON = Messages.getString("PlanetaryConditions.Indicator.Light.FullMoon");
     private static final String MSG_INDICATOR_LIGHT_MOONLESS = Messages.getString("PlanetaryConditions.Indicator.Light.Moonless");
     private static final String MSG_INDICATOR_LIGHT_PITCH_BLACK = Messages.getString("PlanetaryConditions.Indicator.Light.PitchBlack");
-    private static String[] lightIndicators = { MSG_INDICATOR_LIGHT_DAY, MSG_INDICATOR_LIGHT_DUSK, MSG_INDICATOR_LIGHT_FULL_MOON,
+    private static final String[] lightIndicators = { MSG_INDICATOR_LIGHT_DAY, MSG_INDICATOR_LIGHT_DUSK, MSG_INDICATOR_LIGHT_FULL_MOON,
             MSG_INDICATOR_LIGHT_MOONLESS, MSG_INDICATOR_LIGHT_PITCH_BLACK };
 
     // Weather
@@ -79,7 +79,7 @@ public class PlanetaryConditions implements Serializable {
     private static final String MSG_NAME_WEATHER_HEAVYSNOWFALL = Messages.getString("PlanetaryConditions.DisplayableName.Weather.Heavy Snowfall");
     private static final String MSG_NAME_WEATHER_SLEET = Messages.getString("PlanetaryConditions.DisplayableName.Weather.Sleet");
     private static final String MSG_NAME_WEATHER_ICESTORM = Messages.getString("PlanetaryConditions.DisplayableName.Weather.Ice Storm");
-    private static String[] weatherNames = { MSG_NAME_WEATHER_CLEAR, MSG_NAME_WEATHER_LIGHTRAIN, MSG_NAME_WEATHER_MODRAIN,
+    private static final String[] weatherNames = { MSG_NAME_WEATHER_CLEAR, MSG_NAME_WEATHER_LIGHTRAIN, MSG_NAME_WEATHER_MODRAIN,
             MSG_NAME_WEATHER_HEAVYGRAIN, MSG_NAME_WEATHER_GUSTINGRAIN, MSG_NAME_WEATHER_TORRDOWNPOUR,
             MSG_NAME_WEATHER_LIGHTSNOWFALL, MSG_NAME_WEATHER_MODSNOWFALL, MSG_NAME_WEATHER_SNOWFLUFFIES,
             MSG_NAME_WEATHER_HEAVYSNOWFALL, MSG_NAME_WEATHER_SLEET, MSG_NAME_WEATHER_ICESTORM };//, "Light Hail", "Heavy Hail", "Lightning Storm" };
@@ -96,7 +96,7 @@ public class PlanetaryConditions implements Serializable {
     private static final String MSG_INDICATOR_WEATHER_HEAVY_SNOW = Messages.getString("PlanetaryConditions.Indicator.Weather.HeavySnow");
     private static final String MSG_INDICATOR_WEATHER_SLEET = Messages.getString("PlanetaryConditions.Indicator.Weather.Sleet");
     private static final String MSG_INDICATOR_WEATHER_ICE_STORM = Messages.getString("PlanetaryConditions.Indicator.Weather.IceStorm");
-    private static String[] weatherIndicators = { MSG_INDICATOR_WEATHER_NONE, MSG_INDICATOR_WEATHER_LIGHT_RAIN, MSG_INDICATOR_WEATHER_MOD_RAIN,
+    private static final String[] weatherIndicators = { MSG_INDICATOR_WEATHER_NONE, MSG_INDICATOR_WEATHER_LIGHT_RAIN, MSG_INDICATOR_WEATHER_MOD_RAIN,
             MSG_INDICATOR_WEATHER_HEAVY_RAIN, MSG_INDICATOR_WEATHER_GUSTING_RAIN, MSG_INDICATOR_WEATHER_DOWNPOUR,
             MSG_INDICATOR_WEATHER_LIGHT_SNOW, MSG_INDICATOR_WEATHER_MOD_SNOW,  MSG_INDICATOR_WEATHER_SNOW_FLURRIES,
             MSG_INDICATOR_WEATHER_HEAVY_SNOW, MSG_INDICATOR_WEATHER_SLEET, MSG_INDICATOR_WEATHER_ICE_STORM};
@@ -116,7 +116,7 @@ public class PlanetaryConditions implements Serializable {
     private static final String MSG_NAME_WINDSTRENGTH_STORM = Messages.getString("PlanetaryConditions.DisplayableName.WindStrength.Storm");
     private static final String MSG_NAME_WINDSTRENGTH_TORNADO_F13 = Messages.getString("PlanetaryConditions.DisplayableName.WindStrength.Tornado F1-F3");
     private static final String MSG_NAME_WINDSTRENGTH_TORNADO_F4 = Messages.getString("PlanetaryConditions.DisplayableName.WindStrength.Tornado F4");
-    private static String[] windNames = { MSG_NAME_WINDSTRENGTH_LIGHT_CALM, MSG_NAME_WINDSTRENGTH_LIGHT_GALE,
+    private static final String[] windNames = { MSG_NAME_WINDSTRENGTH_LIGHT_CALM, MSG_NAME_WINDSTRENGTH_LIGHT_GALE,
             MSG_NAME_WINDSTRENGTH_MOD_GALE, MSG_NAME_WINDSTRENGTH_STRONG_GALE,
             MSG_NAME_WINDSTRENGTH_STORM, MSG_NAME_WINDSTRENGTH_TORNADO_F13,
             MSG_NAME_WINDSTRENGTH_TORNADO_F4 };
@@ -128,7 +128,7 @@ public class PlanetaryConditions implements Serializable {
     private static final String MSG_INDICATOR_WINDSTRENGTH_STORM = Messages.getString("PlanetaryConditions.Indicator.WindStrength.Storm");
     private static final String MSG_INDICATOR_WINDSTRENGTH_TORNADO_F13 = Messages.getString("PlanetaryConditions.Indicator.WindStrength.TornadoF13");
     private static final String MSG_INDICATOR_WINDSTRENGTH_TORNADO_F4 = Messages.getString("PlanetaryConditions.Indicator.WindStrength.TornadoF4");
-    private static String[] windStrengthIndicators = { MSG_INDICATOR_WINDSTRENGTH_LIGHT_CALM, MSG_INDICATOR_WINDSTRENGTH_LIGHT_GALE,
+    private static final String[] windStrengthIndicators = { MSG_INDICATOR_WINDSTRENGTH_LIGHT_CALM, MSG_INDICATOR_WINDSTRENGTH_LIGHT_GALE,
             MSG_INDICATOR_WINDSTRENGTH_MOD_GALE, MSG_INDICATOR_WINDSTRENGTH_STRONG_GALE,
             MSG_INDICATOR_WINDSTRENGTH_STORM, MSG_INDICATOR_WINDSTRENGTH_TORNADO_F13,
             MSG_INDICATOR_WINDSTRENGTH_TORNADO_F4 };
@@ -142,7 +142,7 @@ public class PlanetaryConditions implements Serializable {
     private static final String MSG_NAME_WINDDIRECTION_NORTHWEST = Messages.getString("PlanetaryConditions.DisplayableName.WindDirection.Northwest");
     private static final String MSG_NAME_WINDDIRECTION_RANDOM = Messages.getString("PlanetaryConditions.DisplayableName.WindDirection.RandomWindDirection");
     // no east and west, because the map uses 6 side hex tiles.  east and west are skipped.
-    private static String[] dirNames = { MSG_NAME_WINDDIRECTION_NORTH, MSG_NAME_WINDDIRECTION_NORTHEAST,
+    private static final String[] dirNames = { MSG_NAME_WINDDIRECTION_NORTH, MSG_NAME_WINDDIRECTION_NORTHEAST,
             MSG_NAME_WINDDIRECTION_SOUTHEAST, MSG_NAME_WINDDIRECTION_SOUTH, MSG_NAME_WINDDIRECTION_SOUTHWEST,
             MSG_NAME_WINDDIRECTION_NORTHWEST, MSG_NAME_WINDDIRECTION_RANDOM };
     public static final int DIR_SIZE = dirNames.length;
@@ -155,7 +155,7 @@ public class PlanetaryConditions implements Serializable {
     private static final String MSG_INDICATOR_WINDDIRECTION_NORTHWEST = Messages.getString("PlanetaryConditions.Indicator.WindDirection.Northwest");
     private static final String MSG_INDICATOR_WINDDIRECTION_RANDOM = Messages.getString("PlanetaryConditions.Indicator.WindDirection.RandomWindDirection");
     // no east and west, because the map uses 6 side hex tiles.  east and west are skipped.
-    private static String[] windDirectionIndicators = { MSG_INDICATOR_WINDDIRECTION_NORTH, MSG_INDICATOR_WINDDIRECTION_NORTHEAST,
+    private static final String[] windDirectionIndicators = { MSG_INDICATOR_WINDDIRECTION_NORTH, MSG_INDICATOR_WINDDIRECTION_NORTHEAST,
             MSG_INDICATOR_WINDDIRECTION_SOUTHEAST,  MSG_INDICATOR_WINDDIRECTION_SOUTH, MSG_INDICATOR_WINDDIRECTION_SOUTHWEST,
             MSG_INDICATOR_WINDDIRECTION_NORTHWEST, MSG_INDICATOR_WINDDIRECTION_RANDOM };
 
@@ -181,7 +181,7 @@ public class PlanetaryConditions implements Serializable {
     private static final String MSG_INDICATOR_ATMOSPHERE_STANDARD = Messages.getString("PlanetaryConditions.Indicator.Atmosphere.Standard");
     private static final String MSG_INDICATOR_ATMOSPHERE_HIGH = Messages.getString("PlanetaryConditions.Indicator.Atmosphere.High");
     private static final String MSG_INDICATOR_ATMOSPHERE_VHIGH = Messages.getString("PlanetaryConditions.Indicator.Atmosphere.VHigh");
-    private static String[] atmosphereIndicators = { MSG_INDICATOR_ATMOSPHERE_VACUUM, MSG_INDICATOR_ATMOSPHERE_TRACE, MSG_INDICATOR_ATMOSPHERE_THIN,
+    private static final String[] atmosphereIndicators = { MSG_INDICATOR_ATMOSPHERE_VACUUM, MSG_INDICATOR_ATMOSPHERE_TRACE, MSG_INDICATOR_ATMOSPHERE_THIN,
             MSG_INDICATOR_ATMOSPHERE_STANDARD ,MSG_INDICATOR_ATMOSPHERE_HIGH ,MSG_INDICATOR_ATMOSPHERE_VHIGH };
 
     // fog
@@ -191,12 +191,12 @@ public class PlanetaryConditions implements Serializable {
     private static final String MSG_NAME_FOG_NONE = Messages.getString("PlanetaryConditions.DisplayableName.Fog.None");
     private static final String MSG_NAME_FOG_LIGHT = Messages.getString("PlanetaryConditions.DisplayableName.Fog.Light Fog");
     private static final String MSG_NAME_FOG_HEAVY = Messages.getString("PlanetaryConditions.DisplayableName.Fog.Heavy Fog");
-    private static String[] fogNames = { MSG_NAME_FOG_NONE, MSG_NAME_FOG_LIGHT, MSG_NAME_FOG_HEAVY };
+    private static final String[] fogNames = { MSG_NAME_FOG_NONE, MSG_NAME_FOG_LIGHT, MSG_NAME_FOG_HEAVY };
     public static final int FOG_SIZE = fogNames.length;
     private static final String MSG_INDICATOR_FOG_NONE = Messages.getString("PlanetaryConditions.Indicator.Fog.None");
     private static final String MSG_INDICATOR_FOG_LIGHT = Messages.getString("PlanetaryConditions.Indicator.Fog.Light");
     private static final String MSG_INDICATOR_FOG_HEAVY = Messages.getString("PlanetaryConditions.Indicator.Fog.Heavy");
-    private static String[] fogIndicators = { MSG_INDICATOR_FOG_NONE, MSG_INDICATOR_FOG_LIGHT, MSG_INDICATOR_FOG_HEAVY };
+    private static final String[] fogIndicators = { MSG_INDICATOR_FOG_NONE, MSG_INDICATOR_FOG_LIGHT, MSG_INDICATOR_FOG_HEAVY };
 
     // misc
     private boolean blowingSand = false;

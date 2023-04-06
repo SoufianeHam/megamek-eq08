@@ -25,7 +25,7 @@ public class GameTurnChangeEvent extends GamePlayerEvent {
     /**
      * Track the ID of the player who took the turn that triggered this even.
      */
-    private int prevPlayerId;
+    private final int prevPlayerId;
 
     /**
      * @param source

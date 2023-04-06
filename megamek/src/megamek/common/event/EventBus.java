@@ -30,10 +30,10 @@ public final class EventBus {
     
     private final Object REGISTER_LOCK = new Object[0];
     
-    private ConcurrentHashMap<Object, List<EventListener>> handlerMap = new ConcurrentHashMap<>();
-    private ConcurrentHashMap<Class<? extends MMEvent>, List<EventListener>> eventMap = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Object, List<EventListener>> handlerMap = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Class<? extends MMEvent>, List<EventListener>> eventMap = new ConcurrentHashMap<>();
     // There is no Java-supplied IdentityHashSet ...
-    private Map<Object, Object> unregisterQueue = new IdentityHashMap<>();
+    private final Map<Object, Object> unregisterQueue = new IdentityHashMap<>();
     
     public static EventBus getInstance() {
         synchronized(INSTANCE_LOCK) {

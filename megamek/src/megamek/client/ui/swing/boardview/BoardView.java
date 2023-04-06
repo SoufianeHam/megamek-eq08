@@ -130,15 +130,15 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
     // line width of the fly over lines
     static final int FLY_OVER_LINE_WIDTH = 3;
-    private static Font FONT_7 = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 7);
-    private static Font FONT_8 = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 8);
-    private static Font FONT_9 = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 9);
-    private static Font FONT_10 = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 10);
-    private static Font FONT_12 = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 12);
+    private static final Font FONT_7 = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 7);
+    private static final Font FONT_8 = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 8);
+    private static final Font FONT_9 = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 9);
+    private static final Font FONT_10 = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 10);
+    private static final Font FONT_12 = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 12);
 
     Dimension hex_size;
 
-    private Font font_note = FONT_10;
+    private final Font font_note = FONT_10;
     private Font font_hexnum = FONT_10;
     private Font font_elev = FONT_9;
     private Font font_minefield = FONT_12;
@@ -164,7 +164,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     private Queue<EntitySprite> entitySprites = new PriorityQueue<>();
     private Queue<IsometricSprite> isometricSprites = new PriorityQueue<>();
 
-    private ArrayList<FlareSprite> flareSprites = new ArrayList<>();
+    private final ArrayList<FlareSprite> flareSprites = new ArrayList<>();
     /**
      * A Map that maps an Entity ID and a secondary position to a Sprite. Note
      * that the key is a List where the first entry will be the Entity ID and
@@ -183,39 +183,39 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     private Map<List<Integer>, IsometricSprite> isometricSpriteIds = new HashMap<>();
 
     // sprites for the three selection cursors
-    private CursorSprite cursorSprite;
-    private CursorSprite highlightSprite;
-    private CursorSprite selectedSprite;
-    private CursorSprite firstLOSSprite;
-    private CursorSprite secondLOSSprite;
+    private final CursorSprite cursorSprite;
+    private final CursorSprite highlightSprite;
+    private final CursorSprite selectedSprite;
+    private final CursorSprite firstLOSSprite;
+    private final CursorSprite secondLOSSprite;
 
     // sprite for current movement
     ArrayList<StepSprite> pathSprites = new ArrayList<>();
 
-    private ArrayList<Coords> strafingCoords = new ArrayList<>(5);
+    private final ArrayList<Coords> strafingCoords = new ArrayList<>(5);
 
-    private ArrayList<FiringSolutionSprite> firingSprites = new ArrayList<>();
+    private final ArrayList<FiringSolutionSprite> firingSprites = new ArrayList<>();
 
-    private ArrayList<MovementEnvelopeSprite> moveEnvSprites = new ArrayList<>();
-    private ArrayList<MovementModifierEnvelopeSprite> moveModEnvSprites = new ArrayList<>();
+    private final ArrayList<MovementEnvelopeSprite> moveEnvSprites = new ArrayList<>();
+    private final ArrayList<MovementModifierEnvelopeSprite> moveModEnvSprites = new ArrayList<>();
 
     // vector of sprites for all firing lines
     ArrayList<AttackSprite> attackSprites = new ArrayList<>();
 
     // vector of sprites for all movement paths (using vectored movement)
-    private ArrayList<MovementSprite> movementSprites = new ArrayList<>();
+    private final ArrayList<MovementSprite> movementSprites = new ArrayList<>();
 
     // vector of sprites for C3 network lines
-    private ArrayList<C3Sprite> c3Sprites = new ArrayList<>();
+    private final ArrayList<C3Sprite> c3Sprites = new ArrayList<>();
 
     // list of sprites for declared VTOL/airmech bombing/strafing targets
-    private ArrayList<VTOLAttackSprite> vtolAttackSprites = new ArrayList<>();
+    private final ArrayList<VTOLAttackSprite> vtolAttackSprites = new ArrayList<>();
 
     // vector of sprites for aero flyover lines
-    private ArrayList<FlyOverSprite> flyOverSprites = new ArrayList<>();
+    private final ArrayList<FlyOverSprite> flyOverSprites = new ArrayList<>();
 
     // List of sprites for the weapon field of fire
-    private ArrayList<HexSprite> fieldofFireSprites = new ArrayList<>();
+    private final ArrayList<HexSprite> fieldofFireSprites = new ArrayList<>();
     public int[][] fieldofFireRanges = { new int[5], new int[5] };
     public int fieldofFireWpArc;
     public Entity fieldofFireUnit;
@@ -249,14 +249,14 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
     // Image to hold the complete board shadow map
     BufferedImage shadowMap;
-    private static Kernel kernel = new Kernel(5, 5,
+    private static final Kernel kernel = new Kernel(5, 5,
             new float[] {
                     1f / 25f, 1f / 25f, 1f / 25f, 1f / 25f, 1f / 25f,
                     1f / 25f, 1f / 25f, 1f / 25f, 1f / 25f, 1f / 25f,
                     1f / 25f, 1f / 25f, 1f / 25f, 1f / 25f, 1f / 25f,
                     1f / 25f, 1f / 25f, 1f / 25f, 1f / 25f, 1f / 25f,
                     1f / 25f, 1f / 25f, 1f / 25f, 1f / 25f, 1f / 25f });
-    private static BufferedImageOp blurOp = new ConvolveOp(kernel);
+    private static final BufferedImageOp blurOp = new ConvolveOp(kernel);
 
     // the player who owns this BoardView's client
     private Player localPlayer = null;
@@ -273,22 +273,22 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     // Initial scale factor for sprites and map
     float scale = 1.00f;
     private ImageCache<Integer, Image> scaledImageCache = new ImageCache<>();
-    private ImageCache<Integer, BufferedImage> shadowImageCache = new ImageCache<>();
+    private final ImageCache<Integer, BufferedImage> shadowImageCache = new ImageCache<>();
 
-    private Set<Integer> animatedImages = new HashSet<>();
+    private final Set<Integer> animatedImages = new HashSet<>();
 
     // Displayables (Chat box, etc.)
     ArrayList<IDisplayable> displayables = new ArrayList<>();
 
     // Move units step by step
-    private ArrayList<MovingUnit> movingUnits = new ArrayList<>();
+    private final ArrayList<MovingUnit> movingUnits = new ArrayList<>();
 
     private long moveWait = 0;
 
     // moving entity sprites
     private List<MovingEntitySprite> movingEntitySprites = new ArrayList<>();
     private HashMap<Integer, MovingEntitySprite> movingEntitySpriteIds = new HashMap<>();
-    private ArrayList<GhostEntitySprite> ghostEntitySprites = new ArrayList<>();
+    private final ArrayList<GhostEntitySprite> ghostEntitySprites = new ArrayList<>();
 
     protected transient ArrayList<BoardViewListener> boardListeners = new ArrayList<>();
 
@@ -336,7 +336,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     private long totalTime;
     private long averageTime;
     private int frameCount;
-    private Font fpsFont = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 20);
+    private final Font fpsFont = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 20);
 
     /**
      * Keeps track of whether we have an active ChatterBox2
@@ -351,13 +351,13 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
     FovHighlightingAndDarkening fovHighlightingAndDarkening;
 
-    private String FILENAME_FLARE_IMAGE = "flare.png";
+    private final String FILENAME_FLARE_IMAGE = "flare.png";
 
-    private String FILENAME_RADAR_BLIP_IMAGE = "radarBlip.png";
+    private final String FILENAME_RADAR_BLIP_IMAGE = "radarBlip.png";
 
-    private Image flareImage;
+    private final Image flareImage;
 
-    private Image radarBlipImage;
+    private final Image radarBlipImage;
 
     /**
     * Cache that stores hex images for different coords
@@ -380,7 +380,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     /** True when the board is in the process of centering to a spot. */
     private boolean isSoftCentering = false;
     /** The final position of a soft centering relative to board size (x, y = 0...1). */
-    private Point2D softCenterTarget = new Point2D.Double();
+    private final Point2D softCenterTarget = new Point2D.Double();
     private Point2D oldCenter = new Point2D.Double();
     private long waitTimer;
     /** Speed of soft centering of the board, less is faster */
@@ -400,7 +400,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     boolean displayInvalidHexInfo = false;
 
     /** Stores the correct tooltip dismiss delay so it can be restored when exiting the boardview */
-    private int dismissDelay = ToolTipManager.sharedInstance().getDismissDelay();
+    private final int dismissDelay = ToolTipManager.sharedInstance().getDismissDelay();
     
     /** A map overlay showing some important keybinds. */ 
     KeyBindingsOverlay keybindOverlay;
@@ -4926,7 +4926,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         repaint();
     }
 
-    private GameListener gameListener = new GameListenerAdapter() {
+    private final GameListener gameListener = new GameListenerAdapter() {
 
         @Override
         public void gameEntityNew(GameEntityNewEvent e) {

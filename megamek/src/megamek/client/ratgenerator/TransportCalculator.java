@@ -45,8 +45,8 @@ public class TransportCalculator {
         hardpointCache.clear();
     }
 
-    private ForceDescriptor fd;
-    private Map<Integer, Integer> unitCounts;
+    private final ForceDescriptor fd;
+    private final Map<Integer, Integer> unitCounts;
 
     public TransportCalculator(ForceDescriptor fd) {
         this.fd = fd;

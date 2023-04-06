@@ -23,7 +23,7 @@ public class SimplexGenerator implements ElevationGenerator {
     /** Vertical distance between hexagons */
     private static final double DIST_V = Math.sqrt(3) / 2.0;
     
-    private Random rnd;
+    private final Random rnd;
     
     public SimplexGenerator() {
         this(new Random());

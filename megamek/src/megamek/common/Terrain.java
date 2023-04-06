@@ -38,8 +38,8 @@ public class Terrain implements Serializable {
      * types (ie, Light Woods vs Heavy woods). Not to be confused with Hex
      * levels.
      */
-    private int level;
-    private boolean exitsSpecified;
+    private final int level;
+    private final boolean exitsSpecified;
     private int exits;
     private int terrainFactor;
     //endregion Variable Declarations

@@ -69,13 +69,13 @@ public enum BayType implements ITechnologyDelegator {
     public static final int CATEGORY_INFANTRY     = 1;
     public static final int CATEGORY_NON_INFANTRY = 2;
     
-    private int category;
-    private double weight;
-    private double capacity;
-    private int personnel;
-    private long cost;
-    private Predicate<Entity> canLoad;
-    private TechAdvancement techAdvancement;
+    private final int category;
+    private final double weight;
+    private final double capacity;
+    private final int personnel;
+    private final long cost;
+    private final Predicate<Entity> canLoad;
+    private final TechAdvancement techAdvancement;
     
     BayType(int category, double weight, double capacity, int personnel, long cost,
             Predicate<Entity> canLoad, TechAdvancement techAdvancement) {

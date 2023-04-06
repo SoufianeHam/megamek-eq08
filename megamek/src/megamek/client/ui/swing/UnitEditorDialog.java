@@ -33,7 +33,7 @@ import java.util.function.BiConsumer;
 public class UnitEditorDialog extends JDialog {
     private static final long serialVersionUID = 8144354264100884817L;
 
-    private Entity entity;
+    private final Entity entity;
 
     JPanel panArmor;
     JPanel panSystem;
@@ -1517,7 +1517,7 @@ public class UnitEditorDialog extends JDialog {
          */
         private static final long serialVersionUID = 8662728291188274362L;
 
-        private ArrayList<JCheckBox> checks = new ArrayList<>();
+        private final ArrayList<JCheckBox> checks = new ArrayList<>();
 
         public CheckCritPanel(int crits, int current) {
             setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));

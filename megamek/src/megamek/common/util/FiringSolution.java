@@ -11,9 +11,9 @@ import megamek.common.ToHitData;
  */
 public class FiringSolution {
     
-    private ToHitData toHit;
+    private final ToHitData toHit;
     
-    private boolean targetSpotted;
+    private final boolean targetSpotted;
     
     /**
      * 

@@ -448,7 +448,7 @@ public class TestBattleArmor extends TestEntity {
         }
     }
     
-    private BattleArmor ba;
+    private final BattleArmor ba;
 
     public TestBattleArmor(BattleArmor armor, TestEntityOption option,
             String fileString) {

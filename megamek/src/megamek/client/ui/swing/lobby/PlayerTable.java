@@ -113,7 +113,7 @@ class PlayerTable extends JTable {
         static final int COL_PLAYER = 0;
         static final int N_COL = 1;
 
-        private ArrayList<Player> players;
+        private final ArrayList<Player> players;
 
         public PlayerTableModel() {
             players = new ArrayList<>();

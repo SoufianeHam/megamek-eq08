@@ -23,7 +23,7 @@ public class UnitBehavior {
         NoPathToDestination
     }
     
-    private Map<Integer, BehaviorType> entityBehaviors = new HashMap<>();
+    private final Map<Integer, BehaviorType> entityBehaviors = new HashMap<>();
     
     /**
      * Worker function that calculates a unit's desired behavior

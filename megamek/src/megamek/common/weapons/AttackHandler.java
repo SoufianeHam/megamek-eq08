@@ -29,32 +29,32 @@ import megamek.common.enums.GamePhase;
 public interface AttackHandler {
 
     // Does it care?
-    public boolean cares(GamePhase phase);
+    boolean cares(GamePhase phase);
 
     // If it cares, call this. If it needs to remain in queue, returns true,
     // else false.
-    public boolean handle(GamePhase phase, Vector<Report> vPhaseReports);
+    boolean handle(GamePhase phase, Vector<Report> vPhaseReports);
 
     // Frankly, wish I could get rid of this, but I think certain things
     // occasionally need to know the firer.
-    public int getAttackerId();
+    int getAttackerId();
     
-    public Entity getAttacker();
+    Entity getAttacker();
 
-    public boolean announcedEntityFiring();
+    boolean announcedEntityFiring();
 
-    public void setAnnouncedEntityFiring(boolean announcedEntityFiring);
+    void setAnnouncedEntityFiring(boolean announcedEntityFiring);
 
-    public WeaponAttackAction getWaa();
+    WeaponAttackAction getWaa();
     
     /**
      * Used to determine if the AttackHandler is handling a strafing run.
      * 
      * @return
      */
-    public boolean isStrafing();
+    boolean isStrafing();
     
-    public void setStrafing(boolean isStrafing);
+    void setStrafing(boolean isStrafing);
     
     /**
      * Used to determine if this is the firt time a weapon is firing as part of
@@ -63,8 +63,8 @@ public interface AttackHandler {
      * 
      * @return
      */
-    public boolean isStrafingFirstShot();
+    boolean isStrafingFirstShot();
     
-    public void setStrafingFirstShot(boolean isFirstShotStrafing);
+    void setStrafingFirstShot(boolean isFirstShotStrafing);
 
 }

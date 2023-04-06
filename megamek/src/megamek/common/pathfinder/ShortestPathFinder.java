@@ -67,7 +67,7 @@ public class ShortestPathFinder extends MovePathFinder<MovePath> {
      * @see #shouldStay(MovePath)
      */
     public static class MovePathGreedyFilter extends Filter<MovePath> {
-        private Coords dest;
+        private final Coords dest;
 
         public MovePathGreedyFilter(Coords dest) {
             this.dest = dest;

@@ -17,10 +17,10 @@ import java.util.Enumeration;
 class PilotPanel extends PicMap {
     private static final long serialVersionUID = 8284603003897415518L;
 
-    private PilotMapSet pi;
+    private final PilotMapSet pi;
 
-    private int minTopMargin = 8;
-    private int minLeftMargin = 8;
+    private final int minTopMargin = 8;
+    private final int minLeftMargin = 8;
     private final JComboBox<String> cbCrewSlot = new JComboBox<>();
     private final JToggleButton btnSwapRoles = new JToggleButton();
     

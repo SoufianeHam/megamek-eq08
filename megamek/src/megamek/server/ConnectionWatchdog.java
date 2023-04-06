@@ -19,8 +19,8 @@ import org.apache.logging.log4j.LogManager;
 import java.util.TimerTask;
 
 public class ConnectionWatchdog extends TimerTask {
-    private Server server;
-    private int id;
+    private final Server server;
+    private final int id;
     private int failCount;
 
     public ConnectionWatchdog(Server server, int id) {

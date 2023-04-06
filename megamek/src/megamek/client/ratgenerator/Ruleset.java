@@ -64,7 +64,7 @@ public class Ruleset {
     private static final String CONSTANTS_FILE = "constants.txt";
 
     private static HashMap<String,String> constants;
-    private static Pattern constantPattern = Pattern.compile("%(.*?)%");
+    private static final Pattern constantPattern = Pattern.compile("%(.*?)%");
     private static HashMap<String,Ruleset> rulesets;
     private static boolean initialized;
     private static boolean initializing;
@@ -74,8 +74,8 @@ public class Ruleset {
     private DefaultsNode defaults;
     private TOCNode toc;
     private int customRankBase;
-    private HashMap<Integer,String> customRanks;
-    private ArrayList<ForceNode> forceNodes;
+    private final HashMap<Integer,String> customRanks;
+    private final ArrayList<ForceNode> forceNodes;
     private String parent;
     
     private Ruleset() {

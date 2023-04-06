@@ -38,14 +38,15 @@ import megamek.common.SpecialHexDisplay;
 public class NoteDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -3126840102187553386L;
     
-    private JLabel noteLbl, visibilityLbl;
+    private final JLabel noteLbl;
+    private final JLabel visibilityLbl;
     
-    private JComboBox<String> visibility = new JComboBox<>();
+    private final JComboBox<String> visibility = new JComboBox<>();
     
-    private JTextArea noteText = new JTextArea("");
+    private final JTextArea noteText = new JTextArea("");
   
-    private JButton butDone = new JButton(Messages.getString("NoteDialog.Done"));
-    private JButton butCancel = new JButton(Messages.getString("NoteDialog.Cancel"));
+    private final JButton butDone = new JButton(Messages.getString("NoteDialog.Done"));
+    private final JButton butCancel = new JButton(Messages.getString("NoteDialog.Cancel"));
     
     boolean accepted = false;
     

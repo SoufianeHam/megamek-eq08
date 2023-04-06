@@ -73,12 +73,12 @@ public class Building implements Serializable {
     /**
      * The coordinates of every hex of this building.
      */
-    private Vector<Coords> coordinates = new Vector<>();
+    private final Vector<Coords> coordinates = new Vector<>();
 
     /**
      * The Basement type of the building.
      */
-    private Map<Coords, BasementType> basement = new HashMap<>();
+    private final Map<Coords, BasementType> basement = new HashMap<>();
 
     private int collapsedHexes = 0;
 
@@ -88,24 +88,24 @@ public class Building implements Serializable {
      * The current construction factor of the building hexes. Any damage
      * immediately updates this value.
      */
-    private Map<Coords, Integer> currentCF = new HashMap<>();
+    private final Map<Coords, Integer> currentCF = new HashMap<>();
     
     /**
      * The construction factor of the building hexes at the start of this attack
      * phase. Damage that is received during the phase is applied at the end of
      * the phase.
      */
-    private Map<Coords, Integer> phaseCF = new HashMap<>();
+    private final Map<Coords, Integer> phaseCF = new HashMap<>();
     
     /**
      * The current armor of the building hexes.
      */
-    private Map<Coords, Integer> armor = new HashMap<>();
+    private final Map<Coords, Integer> armor = new HashMap<>();
 
     /**
      * The current state of the basement.
      */
-    private Map<Coords, Boolean> basementCollapsed = new HashMap<>();
+    private final Map<Coords, Boolean> basementCollapsed = new HashMap<>();
 
     /**
      * The name of the building.
@@ -115,7 +115,7 @@ public class Building implements Serializable {
     /**
      * Flag that indicates whether this building is burning
      */
-    private Map<Coords, Boolean> burning = new HashMap<>();
+    private final Map<Coords, Boolean> burning = new HashMap<>();
 
     public static class DemolitionCharge implements Serializable {
         private static final long serialVersionUID = -6655782801564155668L;

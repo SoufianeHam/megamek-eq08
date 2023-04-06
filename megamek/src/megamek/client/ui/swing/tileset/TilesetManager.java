@@ -73,7 +73,7 @@ public class TilesetManager implements IPreferenceChangeListener, ITilesetManage
     public static final int ARTILLERY_INCOMING = 2;
 
     // component to load images to
-    private BoardView boardview;
+    private final BoardView boardview;
 
     // keep tracking of loading images
     private MediaTracker tracker;
@@ -81,12 +81,12 @@ public class TilesetManager implements IPreferenceChangeListener, ITilesetManage
     private boolean loaded = false;
 
     // mech images
-    private MechTileset wreckTileset = new MechTileset(
+    private final MechTileset wreckTileset = new MechTileset(
             new MegaMekFile(Configuration.unitImagesDir(), DIR_NAME_WRECKS).getFile());
-    private List<EntityImage> mechImageList = new ArrayList<>();
-    private Map<ArrayList<Integer>, EntityImage> mechImages = new HashMap<>();
-    private Map<String, Image> wreckageDecals = new HashMap<>();
-    private Map<String, Integer> wreckageDecalCount;
+    private final List<EntityImage> mechImageList = new ArrayList<>();
+    private final Map<ArrayList<Integer>, EntityImage> mechImages = new HashMap<>();
+    private final Map<String, Image> wreckageDecals = new HashMap<>();
+    private final Map<String, Integer> wreckageDecalCount;
 
     // hex images
     private HexTileset hexTileset;
@@ -107,7 +107,7 @@ public class TilesetManager implements IPreferenceChangeListener, ITilesetManage
      * images for various colors (for Players, and possibly multiple players
      * in the same hex).
      */
-    private Map<Color, Image> ecmStaticImages = new HashMap<>();
+    private final Map<Color, Image> ecmStaticImages = new HashMap<>();
 
     /** Creates new TilesetManager. */
     public TilesetManager(BoardView bv) throws IOException {

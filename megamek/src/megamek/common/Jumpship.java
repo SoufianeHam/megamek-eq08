@@ -46,10 +46,10 @@ public class Jumpship extends Aero {
     
     // The percentage of the total unit weight taken up by the drive core. The value
     // given for primitive assumes a 30ly range, but the final value has to be computed.
-    private static double[] DRIVE_CORE_WEIGHT_PCT = { 0.95, 0.4525, 0.5, 0.0, 0.95 };
+    private static final double[] DRIVE_CORE_WEIGHT_PCT = { 0.95, 0.4525, 0.5, 0.0, 0.95 };
 
-    private static String[] LOCATION_ABBRS = { "NOS", "FLS", "FRS", "AFT", "ALS", "ARS", "HULL" };
-    private static String[] LOCATION_NAMES = { "Nose", "Left Front Side", "Right Front Side",
+    private static final String[] LOCATION_ABBRS = { "NOS", "FLS", "FRS", "AFT", "ALS", "ARS", "HULL" };
+    private static final String[] LOCATION_NAMES = { "Nose", "Left Front Side", "Right Front Side",
             "Aft", "Aft Left Side", "Aft Right Side", "Hull" };
 
     // K-F Drive Stuff
@@ -96,17 +96,17 @@ public class Jumpship extends Aero {
      * we just stored the number of standard, large and huge grav decks, and could not specify the exact size of the
      * deck.
      */
-    private List<Integer> gravDecks = new ArrayList<>();
+    private final List<Integer> gravDecks = new ArrayList<>();
     
     /**
      * Keep track of all of the grav decks and their damage status
      *
      * Stores the number of hits on each grav deck by the index value from the list gravDecks
      */
-    private Map<Integer,Integer> damagedGravDecks = new HashMap<>();
+    private final Map<Integer,Integer> damagedGravDecks = new HashMap<>();
 
     // station-keeping thrust and accumulated thrust
-    private double stationThrust = 0.2;
+    private final double stationThrust = 0.2;
     private double accumulatedThrust = 0.0;
 
     public Jumpship() {
@@ -128,7 +128,7 @@ public class Jumpship extends Aero {
 
     // ASEW Missile Effects, per location
     // Values correspond to Locations: NOS, FLS, FRS, AFT, ALS, ARS
-    private int[] asewAffectedTurns = { 0, 0, 0, 0, 0, 0 };
+    private final int[] asewAffectedTurns = { 0, 0, 0, 0, 0, 0 };
     
     /*
      * Accessor for the asewAffectedTurns array, which may be different for inheriting classes.

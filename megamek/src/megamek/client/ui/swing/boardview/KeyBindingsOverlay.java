@@ -331,7 +331,7 @@ public class KeyBindingsOverlay implements IDisplayable, IPreferenceChangeListen
     }
     
     /** Detects phase and turn changes to display only relevant keybinds. */
-    private GameListener gameListener = new GameListenerAdapter() {
+    private final GameListener gameListener = new GameListenerAdapter() {
         @Override
         public void gamePhaseChange(GamePhaseChangeEvent e) {
             currentPhase = e.getNewPhase();

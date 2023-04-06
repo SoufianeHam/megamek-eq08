@@ -25,7 +25,7 @@ public interface IOptionInfo {
      * 
      * @return displayable name
      */
-    public abstract String getDisplayableName();
+    String getDisplayableName();
 
     /**
      * Returns the user friendly name suitable for displaying in cases where not
@@ -33,7 +33,7 @@ public interface IOptionInfo {
      * 
      * @return displayable name
      */
-    public abstract String getDisplayableNameWithValue();
+    String getDisplayableNameWithValue();
 
     /**
      * Return verbose description of the option suitable for context help, tip
@@ -41,16 +41,16 @@ public interface IOptionInfo {
      * 
      * @return option description
      */
-    public abstract String getDescription();
+    String getDescription();
 
     /**
      * returns the length of the textfield (how many characters).
      */
-    public abstract int getTextFieldLength();
+    int getTextFieldLength();
 
     /**
      * returns on which side of the text field the label is.
      */
-    public abstract boolean isLabelBeforeTextField();
+    boolean isLabelBeforeTextField();
 
 }

@@ -28,8 +28,8 @@ public class SmallCraft extends Aero {
     
     public static final int LOC_HULL = 4;
     
-    private static String[] LOCATION_ABBRS = { "NOS", "LS", "RS", "AFT", "HULL" };
-    private static String[] LOCATION_NAMES = { "Nose", "Left Side", "Right Side", "Aft", "Hull" };
+    private static final String[] LOCATION_ABBRS = { "NOS", "LS", "RS", "AFT", "HULL" };
+    private static final String[] LOCATION_NAMES = { "Nose", "Left Side", "Right Side", "Aft", "Hull" };
 
     // crew and passengers
     private int nOfficers = 0;
@@ -38,8 +38,8 @@ public class SmallCraft extends Aero {
     private int nOtherPassenger = 0;
     
     // Maps transported crew, passengers, marines to a host ship so we can match them up again post-game
-    private Map<String,Integer> nOtherCrew = new HashMap<>();
-    private Map<String,Integer> passengers = new HashMap<>();
+    private final Map<String,Integer> nOtherCrew = new HashMap<>();
+    private final Map<String,Integer> passengers = new HashMap<>();
     
     // escape pods and lifeboats
     private int escapePods = 0;

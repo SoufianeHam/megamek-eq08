@@ -24,7 +24,7 @@ import megamek.client.ui.IClientCommandHandler;
  */
 public class HelpCommand extends ClientCommand {
 
-    private IClientCommandHandler cmdHandler;
+    private final IClientCommandHandler cmdHandler;
 
     /** Creates new HelpCommand */
     public HelpCommand(Client client) {

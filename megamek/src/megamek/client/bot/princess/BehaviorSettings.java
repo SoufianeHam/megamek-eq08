@@ -99,7 +99,7 @@ public class BehaviorSettings implements Serializable {
     private String description = BehaviorSettingsFactory.DEFAULT_BEHAVIOR_DESCRIPTION;
 
     private boolean forcedWithdrawal = true; // Will I follow the Forced Withdrawal rules?
-    private boolean goHome = false; // Should I immediately proceed to my home board edge?
+    private final boolean goHome = false; // Should I immediately proceed to my home board edge?
     private boolean autoFlee = false; // Should I flee even if I'm not crippled?
     private int selfPreservationIndex = 5; // How worried about enemy damage am I?
     private int fallShameIndex = 5; // How much do I want to avoid failed Piloting Rolls?

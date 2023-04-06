@@ -31,11 +31,11 @@ import java.util.Map;
 public class UnitFailureDialog extends JDialog implements ActionListener, ListSelectionListener, KeyListener {
     private static final long serialVersionUID = -7075012201265932299L;
 
-    private Map<String, String> hFailedFiles;
+    private final Map<String, String> hFailedFiles;
 
-    private JList<String> failedList;
+    private final JList<String> failedList;
 
-    private JTextArea reasonTextArea = new JTextArea("", 4, 20);
+    private final JTextArea reasonTextArea = new JTextArea("", 4, 20);
 
     public UnitFailureDialog(JFrame frame, Map<String, String> hff) {
         super(frame, Messages.getString("UnitFailureDialog.title"));

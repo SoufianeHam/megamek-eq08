@@ -29,47 +29,47 @@ import java.util.StringTokenizer;
 public class TestXMLOption implements TestEntityOption {
 
     @XmlElement(name = "ceilWeight")
-    private WeightCeiling weightCeiling = new WeightCeiling();
+    private final WeightCeiling weightCeiling = new WeightCeiling();
     
     @XmlElement
-    private double maxOverweight = 0.25;
+    private final double maxOverweight = 0.25;
 
     @XmlElement
-    private boolean showOverweighted = true;
+    private final boolean showOverweighted = true;
 
     @XmlElement
-    private double minUnderweight = 1.0;
+    private final double minUnderweight = 1.0;
 
     @XmlElement
-    private boolean showUnderweighted = false;
+    private final boolean showUnderweighted = false;
 
     @XmlElement(name = "ignoreFailedEquipment")
     @XmlJavaTypeAdapter(CSVAdapter.class)
-    private List<String> ignoreFailedEquip = new ArrayList<>();
+    private final List<String> ignoreFailedEquip = new ArrayList<>();
 
     @XmlElement
-    private boolean skip = false;
+    private final boolean skip = false;
 
     @XmlElement(name = "showCorrectArmorPlacement")
-    private boolean showCorrectArmor = true;
+    private final boolean showCorrectArmor = true;
 
     @XmlElement(name = "showCorrectCriticalAllocation")
-    private boolean showCorrectCritical = true;
+    private final boolean showCorrectCritical = true;
 
     @XmlElement
-    private boolean showFailedEquip = true;
+    private final boolean showFailedEquip = true;
     
     @XmlElement(name = "showIncorrectIntroYear")
-    private boolean showIncorrectIntroYear = true;
+    private final boolean showIncorrectIntroYear = true;
     
     @XmlElement(name = "introYearMargin")
-    private int introYearMargin = 5;
+    private final int introYearMargin = 5;
 
     @XmlElement
-    private int targCompCrits = 0;
+    private final int targCompCrits = 0;
 
     @XmlElement
-    private int printSize = 70;
+    private final int printSize = 70;
 
     public TestXMLOption() {
     }

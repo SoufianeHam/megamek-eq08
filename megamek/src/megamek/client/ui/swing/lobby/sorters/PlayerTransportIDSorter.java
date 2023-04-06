@@ -26,7 +26,7 @@ import megamek.common.Player;
 /** A Lobby Mek Table sorter that sorts by 1) player 2) transported units 3) ID. */
 public class PlayerTransportIDSorter implements MekTableSorter {
     
-    private ClientGUI clientGui;
+    private final ClientGUI clientGui;
     
     /** A Lobby Mek Table sorter that sorts by 1) player 2) transported units 3) ID. */
     public PlayerTransportIDSorter(ClientGUI cg) {

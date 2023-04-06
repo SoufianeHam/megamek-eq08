@@ -956,7 +956,7 @@ public abstract class BotClient extends Client {
     // Missile hits table
     // Some of these are interpolated for odd weapons sizes found in Protos and
     // new BAs
-    private static float[] expectedHitsByRackSize = {0.0f, 1.0f, 1.58f, 2.0f,
+    private static final float[] expectedHitsByRackSize = {0.0f, 1.0f, 1.58f, 2.0f,
                                                      2.63f, 3.17f, 4.0f, 4.49f, 4.98f, 5.47f, 6.31f, 7.23f, 8.14f,
                                                      8.59f, 9.04f, 9.5f, 0.0f, 0.0f, 0.0f, 0.0f, 12.7f};
 

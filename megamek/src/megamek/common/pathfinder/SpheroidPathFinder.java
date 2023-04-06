@@ -34,10 +34,10 @@ import java.util.*;
  * @author NickAragua
  */
 public class SpheroidPathFinder {
-    private Game game;
+    private final Game game;
     private List<MovePath> spheroidPaths;
 
-    private Set<Coords> visitedCoords = new HashSet<>();
+    private final Set<Coords> visitedCoords = new HashSet<>();
     
     private SpheroidPathFinder(Game game) {
         this.game = game;

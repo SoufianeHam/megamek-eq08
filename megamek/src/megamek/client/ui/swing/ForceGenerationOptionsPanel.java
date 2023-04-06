@@ -66,14 +66,14 @@ class ForceGenerationOptionsPanel extends JPanel implements ActionListener, Focu
         RAT_GENERATOR, FORMATION_BUILDER //, FORCE_GENERATOR
     }
 
-    private JTextField txtNumUnits = new JTextField(3);
-    private JTextField txtYear = new JTextField(4);
-    private JComboBox<FactionRecord> cbFaction = new JComboBox<>();
-    private JComboBox<FactionRecord> cbSubfaction = new JComboBox<>();
-    private JCheckBox chkShowMinor = new JCheckBox(
+    private final JTextField txtNumUnits = new JTextField(3);
+    private final JTextField txtYear = new JTextField(4);
+    private final JComboBox<FactionRecord> cbFaction = new JComboBox<>();
+    private final JComboBox<FactionRecord> cbSubfaction = new JComboBox<>();
+    private final JCheckBox chkShowMinor = new JCheckBox(
             Messages.getString("RandomArmyDialog.ShowMinorFactions"));
-    private JComboBox<String> cbUnitType = new JComboBox<>();
-    private JComboBox<String> cbRating = new JComboBox<>();
+    private final JComboBox<String> cbUnitType = new JComboBox<>();
+    private final JComboBox<String> cbRating = new JComboBox<>();
 
     private UnitTypeOptions panUnitTypeOptions;
 
@@ -450,7 +450,7 @@ class ForceGenerationOptionsPanel extends JPanel implements ActionListener, Focu
         panUnitTypeOptions.updateGeneratedUnits(list);
     }
 
-    private DefaultListCellRenderer factionCbRenderer = new DefaultListCellRenderer() {
+    private final DefaultListCellRenderer factionCbRenderer = new DefaultListCellRenderer() {
         private static final long serialVersionUID = -333065979253244440L;
 
         @Override
@@ -465,7 +465,7 @@ class ForceGenerationOptionsPanel extends JPanel implements ActionListener, Focu
         }
     };
     
-    private Comparator<FactionRecord> factionSorter = new Comparator<>() {
+    private final Comparator<FactionRecord> factionSorter = new Comparator<>() {
         @Override
         public int compare(FactionRecord o1, FactionRecord o2) {
             return o1.getName(ratGenYear).compareTo(o2.getName(ratGenYear));
@@ -502,7 +502,7 @@ class ForceGenerationOptionsPanel extends JPanel implements ActionListener, Focu
     public class RATGenUnitTypeOptions extends UnitTypeOptions {
         private static final long serialVersionUID = 6536972747395725718L;
 
-        private Map<String, RATGenUnitTypeCard> cardMap = new HashMap<>();
+        private final Map<String, RATGenUnitTypeCard> cardMap = new HashMap<>();
         
         public RATGenUnitTypeOptions() {
             setLayout(new CardLayout());
@@ -562,12 +562,12 @@ class ForceGenerationOptionsPanel extends JPanel implements ActionListener, Focu
     private static class RATGenUnitTypeCard extends JPanel {
         private static final long serialVersionUID = -3961143911841133921L;
 
-        private JComboBox<String> cbWeightClass = new JComboBox<>();
-        private List<JCheckBox> weightChecks = new ArrayList<>();
-        private JComboBox<String> cbRoleStrictness = new JComboBox<>();
-        private List<JCheckBox> roleChecks = new ArrayList<>();
-        private ButtonGroup networkButtons = new ButtonGroup();
-        private List<JCheckBox> subtypeChecks = new ArrayList<>();
+        private final JComboBox<String> cbWeightClass = new JComboBox<>();
+        private final List<JCheckBox> weightChecks = new ArrayList<>();
+        private final JComboBox<String> cbRoleStrictness = new JComboBox<>();
+        private final List<JCheckBox> roleChecks = new ArrayList<>();
+        private final ButtonGroup networkButtons = new ButtonGroup();
+        private final List<JCheckBox> subtypeChecks = new ArrayList<>();
         
         public RATGenUnitTypeCard(int unitType) {
             setLayout(new BorderLayout());
@@ -947,16 +947,16 @@ class ForceGenerationOptionsPanel extends JPanel implements ActionListener, Focu
 
         private static final long serialVersionUID = 1439149790457737700L;
 
-        private JRadioButton bSimpleFormation = new JRadioButton(Messages.getString("RandomArmyDialog.simpleFormation"));
-        private JRadioButton bMechBA = new JRadioButton(Messages.getString("RandomArmyDialog.mechBA"));
-        private JRadioButton bAirLance = new JRadioButton(Messages.getString("RandomArmyDialog.airLance"));
-        private JRadioButton bOtherUnitType = new JRadioButton(Messages.getString("RandomArmyDialog.otherUnitType"));
-        private JComboBox<String> cbOtherUnitType = new JComboBox<>();
-        private JTextField tNumUnits = new JTextField("0");
-        private ButtonGroup formationBtnGroup = new ButtonGroup();
-        private JComboBox<String> cbNetwork = new JComboBox<>();
-        private Map<String, Integer> networkOptions = new LinkedHashMap<>();
-        private JTextArea txtNoFormation = new JTextArea();
+        private final JRadioButton bSimpleFormation = new JRadioButton(Messages.getString("RandomArmyDialog.simpleFormation"));
+        private final JRadioButton bMechBA = new JRadioButton(Messages.getString("RandomArmyDialog.mechBA"));
+        private final JRadioButton bAirLance = new JRadioButton(Messages.getString("RandomArmyDialog.airLance"));
+        private final JRadioButton bOtherUnitType = new JRadioButton(Messages.getString("RandomArmyDialog.otherUnitType"));
+        private final JComboBox<String> cbOtherUnitType = new JComboBox<>();
+        private final JTextField tNumUnits = new JTextField("0");
+        private final ButtonGroup formationBtnGroup = new ButtonGroup();
+        private final JComboBox<String> cbNetwork = new JComboBox<>();
+        private final Map<String, Integer> networkOptions = new LinkedHashMap<>();
+        private final JTextArea txtNoFormation = new JTextArea();
         private List<MechSummary> generatedUnits = null;
         
         public FormationTypesCard(boolean groundUnit) {

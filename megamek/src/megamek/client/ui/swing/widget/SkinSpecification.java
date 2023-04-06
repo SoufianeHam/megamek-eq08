@@ -110,7 +110,7 @@ public class SkinSpecification {
     /**
      * The name of the component this SkinSpec is for.  This helps identify the skin spec, particularly for debugging.
      */
-    private String compName;
+    private final String compName;
 
     /**
      * Path to an image to be used in the top left corner.

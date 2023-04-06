@@ -257,7 +257,7 @@ public class ClientGUI extends JPanel implements BoardViewListener,
      */
     private JFileChooser dlgLoadList;
     private JFileChooser dlgSaveList;
-    private Client client;
+    private final Client client;
 
     private File curfileBoardImage;
     private File curfileBoard;
@@ -272,7 +272,7 @@ public class ClientGUI extends JPanel implements BoardViewListener,
     /**
      * Map each phase to the name of the card for the main display area.
      */
-    private Map<String, String> mainNames = new HashMap<>();
+    private final Map<String, String> mainNames = new HashMap<>();
 
     private MiniReportDisplay miniReportDisplay;
     private MiniReportDisplayDialog miniReportDisplayDialog;
@@ -280,22 +280,22 @@ public class ClientGUI extends JPanel implements BoardViewListener,
     /**
      * The <code>JPanel</code> containing the main display area.
      */
-    private JPanel panMain = new JPanel();
+    private final JPanel panMain = new JPanel();
 
     /**
      * The <code>CardLayout</code> of the main display area.
      */
-    private CardLayout cardsMain = new CardLayout();
+    private final CardLayout cardsMain = new CardLayout();
 
     /**
      * Map each phase to the name of the card for the secondary area.
      */
-    private Map<String, String> secondaryNames = new HashMap<>();
+    private final Map<String, String> secondaryNames = new HashMap<>();
 
     /**
      * The <code>JPanel</code> containing the secondary display area.
      */
-    private JPanel panSecondary = new JPanel();
+    private final JPanel panSecondary = new JPanel();
 
     private ReportDisplay reportDisply;
 
@@ -304,12 +304,12 @@ public class ClientGUI extends JPanel implements BoardViewListener,
     /**
      * The <code>CardLayout</code> of the secondary display area.
      */
-    private CardLayout cardsSecondary = new CardLayout();
+    private final CardLayout cardsSecondary = new CardLayout();
 
     /**
      * Map phase component names to phase component objects.
      */
-    private Map<String, JComponent> phaseComponents = new HashMap<>();
+    private final Map<String, JComponent> phaseComponents = new HashMap<>();
 
     /**
      * Current Selected entity
@@ -2185,7 +2185,7 @@ public class ClientGUI extends JPanel implements BoardViewListener,
         }
     }
 
-    private GameListener gameListener = new GameListenerAdapter() {
+    private final GameListener gameListener = new GameListenerAdapter() {
         @Override
         public void gamePlayerChange(GamePlayerChangeEvent evt) {
              if (playerListDialog != null) {

@@ -30,7 +30,7 @@ public class TeleMissileTracker implements Serializable {
     /**
      * map the entity id of the missile to the weapon that it came from
      */
-    private Hashtable<Integer, Integer> missiles;
+    private final Hashtable<Integer, Integer> missiles;
 
     /**
      * Creates new instance of the tracker

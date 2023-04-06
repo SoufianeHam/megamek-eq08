@@ -31,7 +31,7 @@ import static megamek.client.ui.swing.util.UIUtil.uiLightViolet;
 public class ReportDisplay extends StatusBarPhaseDisplay  {
     private static final long serialVersionUID = 6185643976857892270L;
 
-    public static enum ReportCommand implements PhaseCommand {
+    public enum ReportCommand implements PhaseCommand {
         REPORT_REPORT("reportReport"),
         REPORT_PLAYERLIST("reportPlayerList"),
         REPORT_REROLLINITIATIVE("reportRerollInitiative");
@@ -43,7 +43,7 @@ public class ReportDisplay extends StatusBarPhaseDisplay  {
          */
         public int priority;
 
-        private ReportCommand(String c) {
+        ReportCommand(String c) {
             cmd = c;
         }
 

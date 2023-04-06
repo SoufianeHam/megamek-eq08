@@ -55,12 +55,12 @@ public abstract class AbstractCommandLineParser {
     /**
      * Parser input
      */
-    private String[] args;
+    private final String[] args;
 
     /**
      * The length of the input array
      */
-    private int argsLen;
+    private final int argsLen;
 
     /**
      * Index of the next token to process

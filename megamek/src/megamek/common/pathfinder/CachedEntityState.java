@@ -15,7 +15,7 @@ import megamek.common.TripodMech;
  * 
  */
 public class CachedEntityState {
-    private Entity backingEntity;
+    private final Entity backingEntity;
     
     private Integer walkMP;
     private Integer runMP;
@@ -27,7 +27,7 @@ public class CachedEntityState {
     private Integer sprintMPWithoutMasc;
     private Integer jumpMP;
     private Integer jumpMPWithTerrain;
-    private Map<BigInteger, Boolean> hasWorkingMisc;
+    private final Map<BigInteger, Boolean> hasWorkingMisc;
     private Integer torsoJumpJets;
     private Integer jumpMPNoGravity;
     private Integer numBreachedLegs;

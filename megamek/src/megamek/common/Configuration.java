@@ -618,10 +618,10 @@ public final class Configuration {
      *
      * This is a little paranoid, but at least I know it will work...
      */
-    private static ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+    private static final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 
     /** The configured configuration directory. */
-    private static File userdata_dir = new File(DEFAULT_USER_DATA_DIR);
+    private static final File userdata_dir = new File(DEFAULT_USER_DATA_DIR);
 
     /** The configured configuration directory. */
     private static File config_dir = new File(DEFAULT_DIR_NAME_CONFIG);
@@ -655,7 +655,7 @@ public final class Configuration {
     private static File units_dir = null;
 
     /** The configured names directory. */
-    private static File names_dir = null;
+    private static final File names_dir = null;
 
     /** The configured scenarios directory. */
     private static File scenarios_dir = null;

@@ -32,12 +32,12 @@ public class ProtomechClampMount extends BattleArmorHandles {
     /**
      * The set of locations that loads a protomech externally
      */
-    private static int[] EXTERIOR_LOCATIONS = { Mech.LOC_CT };
+    private static final int[] EXTERIOR_LOCATIONS = { Mech.LOC_CT };
     
     /**
      * The set of locations that loads a protomech externally on the opposite side
      */
-    private static int[] OTHER_SIDE_LOCATIONS = { };
+    private static final int[] OTHER_SIDE_LOCATIONS = { };
     
     /**
      * The <code>String</code> reported when the mount is in use.

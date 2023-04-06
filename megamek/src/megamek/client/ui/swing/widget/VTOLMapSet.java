@@ -58,59 +58,59 @@ public class VTOLMapSet implements DisplayMapSet {
 
     UnitDisplay unitDisplay;
     
-    private JComponent comp;
-    private PMSimplePolygonArea[] areas = new PMSimplePolygonArea[LABEL_LOC_NUMBER];
-    private PMSimpleLabel[] labels = new PMSimpleLabel[25];
-    private PMValueLabel[] vLabels = new PMValueLabel[LABEL_LOC_NUMBER+1];
-    private Vector<BackGroundDrawer> bgDrawers = new Vector<>();
-    private PMAreasGroup content = new PMAreasGroup();
+    private final JComponent comp;
+    private final PMSimplePolygonArea[] areas = new PMSimplePolygonArea[LABEL_LOC_NUMBER];
+    private final PMSimpleLabel[] labels = new PMSimpleLabel[25];
+    private final PMValueLabel[] vLabels = new PMValueLabel[LABEL_LOC_NUMBER+1];
+    private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
+    private final PMAreasGroup content = new PMAreasGroup();
 
     // Polygons for all areas
     // Chin Turret Armor
-    private Polygon chinTurretArmor = new Polygon( new int[] {50, 50, 100, 100},
+    private final Polygon chinTurretArmor = new Polygon( new int[] {50, 50, 100, 100},
             new int[] {5, -50, -50, 5}, 4);
     // Chin Turret IS
-    private Polygon chinTurretIS = new Polygon( new int[] {60, 60, 90, 90},
+    private final Polygon chinTurretIS = new Polygon( new int[] {60, 60, 90, 90},
             new int[] {0, -25, -25, 0}, 4);
     // front armor
-    private Polygon frontArmor = new Polygon(new int[] { 30, 60, 90, 120 },
+    private final Polygon frontArmor = new Polygon(new int[] { 30, 60, 90, 120 },
             new int[] { 30, 0, 0, 30 }, 4);
     // front internal structure
-    private Polygon frontIS = new Polygon(new int[] { 30, 60, 90, 120 },
+    private final Polygon frontIS = new Polygon(new int[] { 30, 60, 90, 120 },
             new int[] { 30, 45, 45, 30 }, 4);
     // Left armor
-    private Polygon leftArmor1 = new Polygon(new int[] { 30, 30, 60, 60 },
+    private final Polygon leftArmor1 = new Polygon(new int[] { 30, 30, 60, 60 },
             new int[] { 75, 30, 45, 75 }, 4);
-    private Polygon leftArmor2 = new Polygon(new int[] { 30, 30, 60, 60 },
+    private final Polygon leftArmor2 = new Polygon(new int[] { 30, 30, 60, 60 },
             new int[] { 135, 90, 90, 150 }, 4);
     // Left internal structure
-    private Polygon leftIS1 = new Polygon(new int[] { 60, 60, 75, 75 },
+    private final Polygon leftIS1 = new Polygon(new int[] { 60, 60, 75, 75 },
             new int[] { 75, 45, 45, 75 }, 4);
-    private Polygon leftIS2 = new Polygon(new int[] { 60, 60, 75, 75 },
+    private final Polygon leftIS2 = new Polygon(new int[] { 60, 60, 75, 75 },
             new int[] { 150, 90, 90, 150 }, 4);
     // Right armor
-    private Polygon rightArmor1 = new Polygon(new int[] { 90, 90, 120, 120 },
+    private final Polygon rightArmor1 = new Polygon(new int[] { 90, 90, 120, 120 },
             new int[] { 75, 45, 30, 75 }, 4);
-    private Polygon rightArmor2 = new Polygon(new int[] { 90, 90, 120, 120 },
+    private final Polygon rightArmor2 = new Polygon(new int[] { 90, 90, 120, 120 },
             new int[] { 150, 90, 90, 135 }, 4);
     // Right internal structure
-    private Polygon rightIS1 = new Polygon(new int[] { 75, 75, 90, 90 },
+    private final Polygon rightIS1 = new Polygon(new int[] { 75, 75, 90, 90 },
             new int[] { 75, 45, 45, 75 }, 4);
-    private Polygon rightIS2 = new Polygon(new int[] { 75, 75, 90, 90 },
+    private final Polygon rightIS2 = new Polygon(new int[] { 75, 75, 90, 90 },
             new int[] { 150, 90, 90, 150 }, 4);
     // Rear armor
-    private Polygon rearArmor = new Polygon(new int[] { 67, 67, 83, 83 },
+    private final Polygon rearArmor = new Polygon(new int[] { 67, 67, 83, 83 },
             new int[] { 240, 180, 180, 240 }, 4);
     // Rear internal structure
-    private Polygon rearIS = new Polygon(new int[] { 67, 67, 83, 83 },
+    private final Polygon rearIS = new Polygon(new int[] { 67, 67, 83, 83 },
             new int[] { 180, 150, 150, 180 }, 4);
     // Rotor armor
-    private Polygon rotorArmor1 = new Polygon(new int[] { 0, 0, 45, 45 },
+    private final Polygon rotorArmor1 = new Polygon(new int[] { 0, 0, 45, 45 },
             new int[] { 90, 75, 75, 90 }, 4);
-    private Polygon rotorArmor2 = new Polygon(new int[] { 105, 105, 150, 150 },
+    private final Polygon rotorArmor2 = new Polygon(new int[] { 105, 105, 150, 150 },
             new int[] { 90, 75, 75, 90 }, 4);
     // Rotor internal structure
-    private Polygon rotorIS = new Polygon(new int[] { 45, 45, 105, 105 },
+    private final Polygon rotorIS = new Polygon(new int[] { 45, 45, 105, 105 },
             new int[] { 90, 75, 75, 90 }, 4);
 
     private static final Font FONT_LABEL = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN,

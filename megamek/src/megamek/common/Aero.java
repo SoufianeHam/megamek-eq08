@@ -89,8 +89,8 @@ public class Aero extends Entity implements IAero, IBomber {
     // and bombs and such
     private static final int[] NUM_OF_SLOTS = { 100, 100, 100, 100, 100, 100, 100 };
 
-    private static String[] LOCATION_ABBRS = { "NOS", "LWG", "RWG", "AFT", "WNG", "FSLG" };
-    private static String[] LOCATION_NAMES = { "Nose", "Left Wing", "Right Wing", "Aft", "Wings", "Fuselage" };
+    private static final String[] LOCATION_ABBRS = { "NOS", "LWG", "RWG", "AFT", "WNG", "FSLG" };
+    private static final String[] LOCATION_NAMES = { "Nose", "Left Wing", "Right Wing", "Aft", "Wings", "Fuselage" };
 
     @Override
     public String[] getLocationAbbrs() {
@@ -210,7 +210,7 @@ public class Aero extends Entity implements IAero, IBomber {
     private int eccmRoll = 0;
     
     //List of escape craft used by this ship
-    private Set<String> escapeCraftList = new HashSet<>();
+    private final Set<String> escapeCraftList = new HashSet<>();
     
     //Maps unique id of each assigned marine to marine point value
     private Map<UUID,Integer> marines;

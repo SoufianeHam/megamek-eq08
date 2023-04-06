@@ -14,12 +14,12 @@ import java.awt.event.ActionListener;
 public class BoardNewDialog extends JDialog implements ActionListener {
     private int xvalue;
     private int yvalue;
-    private JLabel labWidth;
-    private JLabel labHeight;
-    private JTextField texWidth;
-    private JTextField texHeight;
-    private JButton butOkay;
-    private JButton butCancel;
+    private final JLabel labWidth;
+    private final JLabel labHeight;
+    private final JTextField texWidth;
+    private final JTextField texHeight;
+    private final JButton butOkay;
+    private final JButton butCancel;
 
     BoardNewDialog(JFrame frame) {
         super(frame, Messages.getString("BoardEditor.SetDimensions"), true);

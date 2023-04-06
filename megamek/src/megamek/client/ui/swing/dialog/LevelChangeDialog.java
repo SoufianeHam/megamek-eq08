@@ -34,7 +34,7 @@ import static megamek.client.ui.Messages.*;
  */ 
 public final class LevelChangeDialog extends AbstractButtonDialog {
     
-    private BoardEditor.EditorTextField txtLevelChange = new BoardEditor.EditorTextField("1", 5, -10, 15);
+    private final BoardEditor.EditorTextField txtLevelChange = new BoardEditor.EditorTextField("1", 5, -10, 15);
 
     /** Constructs a modal LevelChangeDialog with frame as parent. */
     public LevelChangeDialog(JFrame frame) {

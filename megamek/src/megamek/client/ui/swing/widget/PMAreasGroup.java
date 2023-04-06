@@ -25,7 +25,7 @@ import java.util.Vector;
  * PMAreasGroup allows to group handle PicMap elements as single entity.
  */
 public class PMAreasGroup implements PMElement {
-    private Vector<PMElement> gr = new Vector<>();
+    private final Vector<PMElement> gr = new Vector<>();
 
     /**
      * Adds area to group

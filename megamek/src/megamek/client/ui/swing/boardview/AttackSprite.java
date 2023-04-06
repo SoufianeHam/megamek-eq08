@@ -40,21 +40,21 @@ class AttackSprite extends Sprite {
 
     private Point t;
 
-    private double an;
+    private final double an;
 
     private StraightArrowPolygon attackPoly;
 
-    private Color attackColor;
+    private final Color attackColor;
 
-    private int entityId;
+    private final int entityId;
 
-    private int targetType;
+    private final int targetType;
 
-    private int targetId;
+    private final int targetId;
 
-    private String attackerDesc;
+    private final String attackerDesc;
 
-    private String targetDesc;
+    private final String targetDesc;
 
     ArrayList<String> weaponDescs = new ArrayList<>();
 
@@ -62,10 +62,10 @@ class AttackSprite extends Sprite {
 
     private final Targetable target;
 
-    private Coords aCoord;
-    private Coords tCoord;
-    private IdealHex aHex;
-    private IdealHex tHex;
+    private final Coords aCoord;
+    private final Coords tCoord;
+    private final IdealHex aHex;
+    private final IdealHex tHex;
 
 
     public AttackSprite(BoardView boardView1, final AttackAction attack) {

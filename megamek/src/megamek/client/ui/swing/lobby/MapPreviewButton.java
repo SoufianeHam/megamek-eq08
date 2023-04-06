@@ -46,8 +46,8 @@ public class MapPreviewButton extends JButton {
     private Dimension currentPreviewSize;
     private Image scaledImage;
     private Image baseImage;
-    private ChatLounge lobby;
-    private MapButtonTransferHandler dndHandler;
+    private final ChatLounge lobby;
+    private final MapButtonTransferHandler dndHandler;
     private int index;
     private boolean isExample = false;
     private String boardName = "";
@@ -218,8 +218,8 @@ public class MapPreviewButton extends JButton {
         private static final long serialVersionUID = -1798418800717656572L;
 
         public final DataFlavor flavor = DataFlavor.stringFlavor;
-        private MapPreviewButton button;
-        private ChatLounge lobby;
+        private final MapPreviewButton button;
+        private final ChatLounge lobby;
 
         public MapButtonTransferHandler(ChatLounge cl, MapPreviewButton mpButton) {
             lobby = cl;

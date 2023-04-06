@@ -36,54 +36,54 @@ public interface BoardViewListener extends java.util.EventListener {
      * 
      * @param b an event
      */
-    public void hexMoused(BoardViewEvent b);
+    void hexMoused(BoardViewEvent b);
 
     /**
      * Sent when BoardView 'cursor' is set to Hex.
      * 
      * @param b an event
      */
-    public void hexCursor(BoardViewEvent b);
+    void hexCursor(BoardViewEvent b);
 
     /**
      * Sent when Hex is highlighted.
      * 
      * @param b an event
      */
-    public void boardHexHighlighted(BoardViewEvent b);
+    void boardHexHighlighted(BoardViewEvent b);
 
     /**
      * Sent when Hex is selected.
      * 
      * @param b an event
      */
-    public void hexSelected(BoardViewEvent b);
+    void hexSelected(BoardViewEvent b);
 
     /**
      * Sent when firstLOS is set.
      * 
      * @param b an event
      */
-    public void firstLOSHex(BoardViewEvent b);
+    void firstLOSHex(BoardViewEvent b);
 
     /**
      * Sent when secondLOS is set.
      * 
      * @param b an event
      */
-    public void secondLOSHex(BoardViewEvent b, Coords c);
+    void secondLOSHex(BoardViewEvent b, Coords c);
 
     /**
      * Sent when moving units is finished.
      * 
      * @param b an event
      */
-    public void finishedMovingUnits(BoardViewEvent b);
+    void finishedMovingUnits(BoardViewEvent b);
 
     /**
      * Sent when Unit is selected.
      * 
      * @param b an event
      */
-    public void unitSelected(BoardViewEvent b);
+    void unitSelected(BoardViewEvent b);
 }

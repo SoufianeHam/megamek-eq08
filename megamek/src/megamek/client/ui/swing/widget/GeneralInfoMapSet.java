@@ -32,9 +32,9 @@ import java.util.Vector;
  */
 public class GeneralInfoMapSet implements DisplayMapSet {
 
-    private static String STAR3 = "***";
-    private JComponent comp;
-    private PMAreasGroup content = new PMAreasGroup();
+    private static final String STAR3 = "***";
+    private final JComponent comp;
+    private final PMAreasGroup content = new PMAreasGroup();
     private PMSimpleLabel mechTypeL0, statusL, pilotL, playerL,
             teamL, weightL, bvL, mpL0, mpL1, mpL2, mpL3, mpL4, curMoveL, heatL,
             movementTypeL, ejectL, elevationL, fuelL, curSensorsL,
@@ -43,7 +43,7 @@ public class GeneralInfoMapSet implements DisplayMapSet {
             mpR1, mpR2, mpR3, mpR4, curMoveR, heatR, movementTypeR, ejectR,
             elevationR, fuelR, curSensorsR, visualRangeR;
     private PMMultiLineLabel quirksAndPartReps;
-    private Vector<BackGroundDrawer> bgDrawers = new Vector<>();
+    private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
     private static final Font FONT_VALUE = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN,
             GUIPreferences.getInstance().getInt("AdvancedMechDisplayLargeFontSize"));
     private static final Font FONT_TITLE = new Font(MMConstants.FONT_SANS_SERIF, Font.ITALIC,

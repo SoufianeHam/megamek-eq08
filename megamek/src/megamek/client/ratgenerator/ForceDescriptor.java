@@ -77,20 +77,20 @@ public class ForceDescriptor {
     private boolean augmented;
     private Integer weightClass;
     private Integer unitType;
-    private HashSet<EntityMovementMode> movementModes;
-    private HashSet<MissionRole> roles;
+    private final HashSet<EntityMovementMode> movementModes;
+    private final HashSet<MissionRole> roles;
     private String rating;
     private Integer experience;
     private Integer rankSystem;
     private Integer coRank;
-    private HashSet<String> models;
-    private HashSet<String> chassis;
-    private HashSet<String> variants;
+    private final HashSet<String> models;
+    private final HashSet<String> chassis;
+    private final HashSet<String> variants;
     private CrewDescriptor co;
     private CrewDescriptor xo;
     private String camo;
 
-    private HashSet<String> flags;
+    private final HashSet<String> flags;
 
     private FormationType formationType;
     private String generationRule;
@@ -1041,7 +1041,7 @@ public class ForceDescriptor {
         attached.forEach(ForceDescriptor::assignPositions);
     }
 
-    private Comparator<? super ForceDescriptor> forceSorter = new Comparator<>() {
+    private final Comparator<? super ForceDescriptor> forceSorter = new Comparator<>() {
         /* Rank by difference in experience + difference in unit/eschelon weights */
         private int rank(ForceDescriptor fd) {
             int retVal = 0;

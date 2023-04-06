@@ -137,7 +137,7 @@ public class BayMunitionsChoicePanel extends JPanel {
         private final List<JSpinner> spinners;
         private final List<AmmoType> munitions;
         
-        private double tonnage;
+        private final double tonnage;
         
         AmmoRowPanel(Mounted bay, int at, int rackSize, List<Mounted> ammoMounts) {
             this.bay = bay;

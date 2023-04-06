@@ -22,7 +22,7 @@ public class CircularIntegerBuffer {
 
     private int begin;
     private int end;
-    private int[] buffer;
+    private final int[] buffer;
 
     /**
      * Creates the new buffer

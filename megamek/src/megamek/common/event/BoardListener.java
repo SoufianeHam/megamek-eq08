@@ -34,20 +34,20 @@ public interface BoardListener extends java.util.EventListener {
      *
      * @param b an event containing information about the change
      */
-    public void boardNewBoard(BoardEvent b);
+    void boardNewBoard(BoardEvent b);
 
     /**
      * Sent when a single hex on the Board changed.
      *
      * @param b an event containing information about the change
      */
-    public void boardChangedHex(BoardEvent b);
+    void boardChangedHex(BoardEvent b);
 
     /**
      * Sent when all hexes on the board changed.
      *
      * @param b an event containing information about the change
      */
-    public void boardChangedAllHexes(BoardEvent b);
+    void boardChangedAllHexes(BoardEvent b);
 
 }

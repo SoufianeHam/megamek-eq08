@@ -146,34 +146,34 @@ public enum KeyCommandBind {
      */
     public boolean isMenuBar = false;
     
-    private KeyCommandBind(String c, int k) {
+    KeyCommandBind(String c, int k) {
         this(c, false, k, 0, false);
     }
     
-    private KeyCommandBind(String c, int k, int m) {
+    KeyCommandBind(String c, int k, int m) {
         this(c, false, k, m, false);
     }
     
-    private KeyCommandBind(String c, boolean r, int k) {
+    KeyCommandBind(String c, boolean r, int k) {
         this(c, r, k, 0, false);
     }
     
-    private KeyCommandBind(String c, boolean r, int k, int m) {
+    KeyCommandBind(String c, boolean r, int k, int m) {
         this(c, r, k, m, false);
     }
     
     // CommonMenuBar keybinds - these are exclusive, as multiple menu items on the same key don't work
-    private KeyCommandBind(boolean n, String c, int k, int m) {
+    KeyCommandBind(boolean n, String c, int k, int m) {
         this(c, false, k, m, true);
         isMenuBar = n;
     }
     
-    private KeyCommandBind(boolean n, String c, int k) {
+    KeyCommandBind(boolean n, String c, int k) {
         this(c, false, k, 0, true);
         isMenuBar = n;
     }
     
-    private KeyCommandBind(String c, boolean r, int k, int m, boolean e) {
+    KeyCommandBind(String c, boolean r, int k, int m, boolean e) {
         cmd = c;
         key = k;
         modifiers = m;

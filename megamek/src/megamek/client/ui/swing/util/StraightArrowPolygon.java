@@ -30,14 +30,14 @@ import java.awt.Polygon;
  */
 public class StraightArrowPolygon extends Polygon {
     private static final long serialVersionUID = 6865457471619747091L;
-    private Polygon hotArea = new Polygon();
-    private Point startPoint;
-    private Point endPoint;
+    private final Polygon hotArea = new Polygon();
+    private final Point startPoint;
+    private final Point endPoint;
     private int headLength = 30;
     private int headWidth = 5;
     private int arrowWidthAtHead = 3;
     private int tailWidth = 3;
-    private int tailLength = 0;
+    private final int tailLength = 0;
     private boolean halved = false;
 
     /**

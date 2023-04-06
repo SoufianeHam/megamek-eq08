@@ -39,8 +39,8 @@ import static megamek.client.ui.swing.tooltip.TipUtil.*;
  */
 public class SummaryPanel extends PicMap {
 
-    private UnitDisplay unitDisplay;
-    private JLabel unitInfo;
+    private final UnitDisplay unitDisplay;
+    private final JLabel unitInfo;
 
     /**
      * @param unitDisplay the UnitDisplay UI to attach to

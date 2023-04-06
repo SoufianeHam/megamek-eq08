@@ -145,17 +145,17 @@ public class DataStreamConnection extends AbstractConnection {
         /**
          * Is data compressed
          */
-        private boolean compressed;
+        private final boolean compressed;
 
         /**
          * Data marshalling type
          */
-        private int marshallingType;
+        private final int marshallingType;
 
         /**
          * Packet data
          */
-        private byte[] data;
+        private final byte[] data;
 
         /**
          * Creates new packet

@@ -41,32 +41,32 @@ public class Ruler extends JDialog implements BoardViewListener, IPreferenceChan
     private Color startColor;
     private Color endColor;
     private int distance;
-    private Client client;
-    private BoardView bv;
+    private final Client client;
+    private final BoardView bv;
     private boolean flip;
 
     private JPanel buttonPanel;
-    private GridBagLayout gridBagLayout1 = new GridBagLayout();
-    private JButton butFlip = new JButton();
+    private final GridBagLayout gridBagLayout1 = new GridBagLayout();
+    private final JButton butFlip = new JButton();
     private JLabel jLabel1;
-    private JTextField tf_start = new JTextField();
+    private final JTextField tf_start = new JTextField();
     private JLabel jLabel2;
-    private JTextField tf_end = new JTextField();
+    private final JTextField tf_end = new JTextField();
     private JLabel jLabel3;
-    private JTextField tf_distance = new JTextField();
+    private final JTextField tf_distance = new JTextField();
     private JLabel jLabel4;
-    private JTextField tf_los1 = new JTextField();
+    private final JTextField tf_los1 = new JTextField();
     private JLabel jLabel5;
-    private JTextField tf_los2 = new JTextField();
-    private JButton butClose = new JButton();
+    private final JTextField tf_los2 = new JTextField();
+    private final JButton butClose = new JButton();
     private JLabel heightLabel1;
-    private JTextField height1 = new JTextField();
+    private final JTextField height1 = new JTextField();
     private JLabel heightLabel2;
-    private JTextField height2 = new JTextField();
+    private final JTextField height2 = new JTextField();
     
-    private JCheckBox cboIsMech1 = 
+    private final JCheckBox cboIsMech1 =
         new JCheckBox(Messages.getString("Ruler.isMech"));
-    private JCheckBox cboIsMech2 = 
+    private final JCheckBox cboIsMech2 =
         new JCheckBox(Messages.getString("Ruler.isMech"));
 
     public Ruler(JFrame f, Client c, BoardView b) {

@@ -45,73 +45,73 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
     private static final long serialVersionUID = 1L;
     private boolean isCanceled = true;
     public MechSearchFilter mechFilter = null;
-    private Vector<TWAdvancedSearchPanel.FilterTokens> filterToks;
-    private JButton btnOkay = new JButton(Messages.getString("Okay"));
-    private JButton btnCancel = new JButton(Messages.getString("Cancel"));
+    private final Vector<TWAdvancedSearchPanel.FilterTokens> filterToks;
+    private final JButton btnOkay = new JButton(Messages.getString("Okay"));
+    private final JButton btnCancel = new JButton(Messages.getString("Cancel"));
 
-    private JButton btnLeftParen = new JButton("(");
-    private JButton btnRightParen = new JButton(")");
-    private JButton btnAdd = new JButton(Messages.getString("MechSelectorDialog.Search.add"));
-    private JButton btnAnd = new JButton(Messages.getString("MechSelectorDialog.Search.and"));
-    private JButton btnOr = new JButton(Messages.getString("MechSelectorDialog.Search.or"));
-    private JButton btnClear = new JButton(Messages.getString("MechSelectorDialog.Reset"));
-    private JButton btnBack = new JButton("Back");
+    private final JButton btnLeftParen = new JButton("(");
+    private final JButton btnRightParen = new JButton(")");
+    private final JButton btnAdd = new JButton(Messages.getString("MechSelectorDialog.Search.add"));
+    private final JButton btnAnd = new JButton(Messages.getString("MechSelectorDialog.Search.and"));
+    private final JButton btnOr = new JButton(Messages.getString("MechSelectorDialog.Search.or"));
+    private final JButton btnClear = new JButton(Messages.getString("MechSelectorDialog.Reset"));
+    private final JButton btnBack = new JButton("Back");
 
-    private JLabel  lblEqExpTxt = new JLabel(Messages.getString("MechSelectorDialog.Search.FilterExpression"));
-    private JTextArea  txtEqExp = new JTextArea("");
-    private JScrollPane expScroller = new JScrollPane(txtEqExp,
+    private final JLabel  lblEqExpTxt = new JLabel(Messages.getString("MechSelectorDialog.Search.FilterExpression"));
+    private final JTextArea  txtEqExp = new JTextArea("");
+    private final JScrollPane expScroller = new JScrollPane(txtEqExp,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-    private JLabel lblWalk = new JLabel(Messages.getString("MechSelectorDialog.Search.Walk"));
-    private JTextField tStartWalk = new JTextField(4);
-    private JTextField tEndWalk = new JTextField(4);
+    private final JLabel lblWalk = new JLabel(Messages.getString("MechSelectorDialog.Search.Walk"));
+    private final JTextField tStartWalk = new JTextField(4);
+    private final JTextField tEndWalk = new JTextField(4);
 
-    private JLabel lblJump = new JLabel(Messages.getString("MechSelectorDialog.Search.Jump"));
-    private JTextField tStartJump = new JTextField(4);
-    private JTextField tEndJump = new JTextField(4);
+    private final JLabel lblJump = new JLabel(Messages.getString("MechSelectorDialog.Search.Jump"));
+    private final JTextField tStartJump = new JTextField(4);
+    private final JTextField tEndJump = new JTextField(4);
 
-    private JLabel lblArmor = new JLabel(Messages.getString("MechSelectorDialog.Search.Armor"));
-    private JComboBox<String> cArmor = new JComboBox<>();
+    private final JLabel lblArmor = new JLabel(Messages.getString("MechSelectorDialog.Search.Armor"));
+    private final JComboBox<String> cArmor = new JComboBox<>();
 
-    private JLabel lblTableFilters = new JLabel(Messages.getString("MechSelectorDialog.Search.TableFilters"));
-    private JLabel lblUnitType = new JLabel(Messages.getString("MechSelectorDialog.Search.UnitType"));
-    private JLabel lblTechClass = new JLabel(Messages.getString("MechSelectorDialog.Search.TechClass"));
-    private JLabel lblTechLevel = new JLabel(Messages.getString("MechSelectorDialog.Search.TechLevel"));
-    private JComboBox<String> cboUnitType = new JComboBox<>();
-    private JComboBox<String> cboTechClass = new JComboBox<>();
-    private JComboBox<String> cboTechLevel = new JComboBox<>();
+    private final JLabel lblTableFilters = new JLabel(Messages.getString("MechSelectorDialog.Search.TableFilters"));
+    private final JLabel lblUnitType = new JLabel(Messages.getString("MechSelectorDialog.Search.UnitType"));
+    private final JLabel lblTechClass = new JLabel(Messages.getString("MechSelectorDialog.Search.TechClass"));
+    private final JLabel lblTechLevel = new JLabel(Messages.getString("MechSelectorDialog.Search.TechLevel"));
+    private final JComboBox<String> cboUnitType = new JComboBox<>();
+    private final JComboBox<String> cboTechClass = new JComboBox<>();
+    private final JComboBox<String> cboTechLevel = new JComboBox<>();
 
-    private JLabel lblWeapons = new JLabel(Messages.getString("MechSelectorDialog.Search.Weapons"));
-    private JScrollPane scrTableWeapons = new JScrollPane();
-    private MegamekTable tblWeapons;
-    private WeaponsTableModel weaponsModel;
-    private TableRowSorter<WeaponsTableModel> weaponsSorter;
+    private final JLabel lblWeapons = new JLabel(Messages.getString("MechSelectorDialog.Search.Weapons"));
+    private final JScrollPane scrTableWeapons = new JScrollPane();
+    private final MegamekTable tblWeapons;
+    private final WeaponsTableModel weaponsModel;
+    private final TableRowSorter<WeaponsTableModel> weaponsSorter;
 
-    private JLabel lblEquipment = new JLabel(Messages.getString("MechSelectorDialog.Search.Equipment"));
-    private JScrollPane scrTableEquipment = new JScrollPane();
-    private MegamekTable tblEquipment;
-    private EquipmentTableModel equipmentModel;
-    private TableRowSorter<EquipmentTableModel> equipmentSorter;
+    private final JLabel lblEquipment = new JLabel(Messages.getString("MechSelectorDialog.Search.Equipment"));
+    private final JScrollPane scrTableEquipment = new JScrollPane();
+    private final MegamekTable tblEquipment;
+    private final EquipmentTableModel equipmentModel;
+    private final TableRowSorter<EquipmentTableModel> equipmentSorter;
 
-    private JLabel lblYear = new JLabel(Messages.getString("MechSelectorDialog.Search.Year"));
-    private JTextField tStartYear = new JTextField(4);
-    private JTextField tEndYear = new JTextField(4);
-    private JLabel lblCockpitType  = new JLabel(Messages.getString("MechSelectorDialog.Search.CockpitType"));
-    private JList<String> listCockpitType  = new JList<>(new DefaultListModel<String>());
-    private JScrollPane spCockpitType = new JScrollPane(listCockpitType);
-    private JLabel lblArmorType  = new JLabel(Messages.getString("MechSelectorDialog.Search.ArmorType"));
-    private JList<String> listArmorType  = new JList<>(new DefaultListModel<String>());
-    private JScrollPane spArmorType = new JScrollPane(listArmorType);
-    private JLabel lblInternalsType  = new JLabel(Messages.getString("MechSelectorDialog.Search.InternalsType"));
-    private JList<String> listInternalsType  = new JList<>(new DefaultListModel<String>());
-    private JScrollPane spInternalsType = new JScrollPane(listInternalsType);
-    private JComboBox<String> cboQty = new JComboBox<>();
+    private final JLabel lblYear = new JLabel(Messages.getString("MechSelectorDialog.Search.Year"));
+    private final JTextField tStartYear = new JTextField(4);
+    private final JTextField tEndYear = new JTextField(4);
+    private final JLabel lblCockpitType  = new JLabel(Messages.getString("MechSelectorDialog.Search.CockpitType"));
+    private final JList<String> listCockpitType  = new JList<>(new DefaultListModel<String>());
+    private final JScrollPane spCockpitType = new JScrollPane(listCockpitType);
+    private final JLabel lblArmorType  = new JLabel(Messages.getString("MechSelectorDialog.Search.ArmorType"));
+    private final JList<String> listArmorType  = new JList<>(new DefaultListModel<String>());
+    private final JScrollPane spArmorType = new JScrollPane(listArmorType);
+    private final JLabel lblInternalsType  = new JLabel(Messages.getString("MechSelectorDialog.Search.InternalsType"));
+    private final JList<String> listInternalsType  = new JList<>(new DefaultListModel<String>());
+    private final JScrollPane spInternalsType = new JScrollPane(listInternalsType);
+    private final JComboBox<String> cboQty = new JComboBox<>();
 
     /**
      * Stores the games current year.
      */
-    private int gameYear;
+    private final int gameYear;
 
     private static class NoSelectionModel extends DefaultListSelectionModel {
         @Override

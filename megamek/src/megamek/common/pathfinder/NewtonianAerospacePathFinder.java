@@ -15,7 +15,7 @@ import java.util.*;
  * @author NickAragua
  */
 public class NewtonianAerospacePathFinder {
-    private Game game;
+    private final Game game;
     protected List<MovePath> aerospacePaths;
     protected MovePath offBoardPath;
 

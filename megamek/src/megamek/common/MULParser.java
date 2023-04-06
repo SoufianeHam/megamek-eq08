@@ -257,13 +257,13 @@ public class MULParser {
      * Keep a separate list of pilot/crews parsed because dismounted pilots may
      * need to be read separately
      */
-    private Vector<Crew> pilots;
+    private final Vector<Crew> pilots;
 
     /**
      * A hashtable containing the names of killed units as the key and the external id
      * of the killer as the value
      */
-    private Hashtable<String, String> kills;
+    private final Hashtable<String, String> kills;
 
     StringBuffer warning;
 

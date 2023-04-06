@@ -37,9 +37,9 @@ public class GunEmplacement extends Tank {
 
     public static final String[] HIT_LOCATION_NAMES = { "guns" };
 
-    private static int[] CRITICAL_SLOTS = new int[] { 0 };
-    private static String[] LOCATION_ABBRS = { "GUN" };
-    private static String[] LOCATION_NAMES = { "GUNS" };
+    private static final int[] CRITICAL_SLOTS = new int[] { 0 };
+    private static final String[] LOCATION_ABBRS = { "GUN" };
+    private static final String[] LOCATION_NAMES = { "GUNS" };
         
     private static final TechAdvancement TA_GUN_EMPLACEMENT = new TechAdvancement(TECH_BASE_ALL)
             .setAdvancement(DATE_PS, DATE_PS, DATE_PS)

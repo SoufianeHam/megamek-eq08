@@ -43,7 +43,7 @@ public class TestProtoMekTest {
         return mockProtoMek;
     }
     
-    private TestEntityOption option = new TestEntityOption() {
+    private final TestEntityOption option = new TestEntityOption() {
         @Override
         public Ceil getWeightCeilingEngine() {
             return Ceil.KILO;

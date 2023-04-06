@@ -35,7 +35,7 @@ public class FighterSquadron extends Aero {
 
     private static final Predicate<Entity> ACTIVE_CHECK = ent -> !(ent.isDestroyed() || ent.isDoomed());
     
-    private Vector<Integer> fighters = new Vector<>();
+    private final Vector<Integer> fighters = new Vector<>();
 
     // fighter squadrons need to keep track of heat capacity apart from their fighters
     private int heatCapacity = 0;

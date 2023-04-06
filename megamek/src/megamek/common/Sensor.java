@@ -26,7 +26,7 @@ public class Sensor implements Serializable {
 
     private static final long serialVersionUID = 6838624193286089782L;
 
-    private int type;
+    private final int type;
 
     // types of sensors
     public static final int TYPE_MEK_RADAR = 0;
@@ -66,7 +66,7 @@ public class Sensor implements Serializable {
     public static final String ISBALIGHT_AP = "ISBALightActiveProbe";
     public static final String EW_EQUIPMENT = "ISElectronicWarfareEquipment";
 
-    private static String[] sensorNames = { "Mech Radar", "Vehicle Radar",
+    private static final String[] sensorNames = { "Mech Radar", "Vehicle Radar",
             "Beagle Active Probe", "Clan BAP", "Bloodhound AP", "Watchdog",
             "Light AP", "Mech IR", "Vehicle IR", "Mech Magscan",
             "Vehicle Magscan", "Heat Sensors", "Improved Sensors",

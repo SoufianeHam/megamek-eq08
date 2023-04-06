@@ -33,37 +33,37 @@ import java.util.Vector;
  */
 public class JumpshipMapSet implements DisplayMapSet{
 
-    private JComponent comp;
-    private PMSimplePolygonArea[] areas = new PMSimplePolygonArea[7];
-    private PMSimpleLabel[] labels = new PMSimpleLabel[17];
-    private PMValueLabel[] vLabels = new PMValueLabel[17];
-    private Vector<BackGroundDrawer>  bgDrawers = new Vector<>();
-    private PMAreasGroup content = new PMAreasGroup();
+    private final JComponent comp;
+    private final PMSimplePolygonArea[] areas = new PMSimplePolygonArea[7];
+    private final PMSimpleLabel[] labels = new PMSimpleLabel[17];
+    private final PMValueLabel[] vLabels = new PMValueLabel[17];
+    private final Vector<BackGroundDrawer>  bgDrawers = new Vector<>();
+    private final PMAreasGroup content = new PMAreasGroup();
     
     UnitDisplay unitDisplay;
 
     //private static final int INT_STR_OFFSET = 4;
     //Polygons for all areas
-    private Polygon noseArmor = new Polygon( new int[] { 0, 20, 80, 100, 100, 80, 20, 0 },
+    private final Polygon noseArmor = new Polygon( new int[] { 0, 20, 80, 100, 100, 80, 20, 0 },
             new int[] { 20, 0, 0, 20, 40, 60, 60, 40 }, 8);
     //front internal structure
-    private Polygon Structure = new Polygon(new int[] { 40, 60, 60, 40 },
+    private final Polygon Structure = new Polygon(new int[] { 40, 60, 60, 40 },
             new int[] { 60, 60, 160, 160 }, 4);
     //Left front armor
-    private Polygon leftFSArmor = new Polygon(new int[] { 20, 40, 40, 20 },
+    private final Polygon leftFSArmor = new Polygon(new int[] { 20, 40, 40, 20 },
             new int[] { 60, 60, 120, 120 }, 4);
     //Left aft armor
-    private Polygon leftASArmor = new Polygon(new int[] { 20, 40, 40, 20 },
+    private final Polygon leftASArmor = new Polygon(new int[] { 20, 40, 40, 20 },
             new int[] { 120, 120, 160, 160 }, 4);
 
-    private Polygon rightFSArmor = new Polygon(new int[] { 60, 80, 80, 60 },
+    private final Polygon rightFSArmor = new Polygon(new int[] { 60, 80, 80, 60 },
             new int[] { 60, 60, 120, 120 }, 4);
     //right aft armor
-    private Polygon rightASArmor = new Polygon(new int[] { 60, 80, 80, 60 },
+    private final Polygon rightASArmor = new Polygon(new int[] { 60, 80, 80, 60 },
             new int[] { 120, 120, 160, 160 }, 4);
 
     //Rear armor
-    private Polygon aftArmor = new Polygon (new int[] { 20, 0, 40, 40, 60, 60, 100, 80 },
+    private final Polygon aftArmor = new Polygon (new int[] { 20, 0, 40, 40, 60, 60, 100, 80 },
             new int[] { 160, 200, 190, 200, 200, 190, 200, 160 }, 8);
 
     private static final Font FONT_LABEL = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN,

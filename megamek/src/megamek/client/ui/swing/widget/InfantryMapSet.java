@@ -35,18 +35,18 @@ public class InfantryMapSet implements DisplayMapSet {
     // Picture to represent single trooper
     private Image infImage;
     // Reference to Component class required to handle images and fonts
-    private JComponent comp;
+    private final JComponent comp;
     // Assuming that it will be no more than 50 men in
     // platoon - ejected crews can be larger than platoons
-    private PMPicArea[] areas = new PMPicArea[EjectedCrew.EJ_CREW_MAX_MEN];
+    private final PMPicArea[] areas = new PMPicArea[EjectedCrew.EJ_CREW_MAX_MEN];
     // Main areas group that will be passing to PicMap
-    private PMAreasGroup content = new PMAreasGroup();
+    private final PMAreasGroup content = new PMAreasGroup();
     // JLabel
     private PMValueLabel label;   
     // JLabel
     private PMValueLabel armorLabel;
     // Set of Background drawers
-    private Vector<BackGroundDrawer> bgDrawers = new Vector<>();
+    private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
 
     private static final Font FONT_VALUE = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN,
             GUIPreferences.getInstance().getInt("AdvancedMechDisplayArmorMediumFontSize"));

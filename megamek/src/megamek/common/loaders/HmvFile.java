@@ -28,43 +28,43 @@ import java.util.*;
  * @author <a href="mailto:mnewcomb@sourceforge.net">Michael Newcomb</a>
  */
 public class HmvFile implements IMechLoader {
-    private String name;
-    private String model;
+    private final String name;
+    private final String model;
 
-    private HMVMovementType movementType;
-    private int rulesLevel;
-    private int year;
-    private boolean isOmni;
-    private HMVTechType techType;
+    private final HMVMovementType movementType;
+    private final int rulesLevel;
+    private final int year;
+    private final boolean isOmni;
+    private final HMVTechType techType;
 
-    private HMVTechType engineTechType;
+    private final HMVTechType engineTechType;
 
-    private int engineRating;
-    private HMVEngineType engineType;
+    private final int engineRating;
+    private final HMVEngineType engineType;
 
-    private int cruiseMP;
-    private int jumpMP;
+    private final int cruiseMP;
+    private final int jumpMP;
 
-    private HMVArmorType armorType;
-    private HMVTechType armorTechType;
+    private final HMVArmorType armorType;
+    private final HMVTechType armorTechType;
 
-    private int roundedInternalStructure;
+    private final int roundedInternalStructure;
 
-    private int turretArmor;
-    private int frontArmor;
-    private int leftArmor;
-    private int rightArmor;
-    private int rearArmor;
+    private final int turretArmor;
+    private final int frontArmor;
+    private final int leftArmor;
+    private final int rightArmor;
+    private final int rearArmor;
 
-    private int artemisType;
+    private final int artemisType;
 
-    private Hashtable<HMVWeaponLocation, Hashtable<EquipmentType, Integer>> equipment = new Hashtable<>();
+    private final Hashtable<HMVWeaponLocation, Hashtable<EquipmentType, Integer>> equipment = new Hashtable<>();
 
     private double troopSpace = 0;
 
     private String fluff;
 
-    private List<String> failedEquipment = new ArrayList<>();
+    private final List<String> failedEquipment = new ArrayList<>();
 
     private boolean hasTurret = false;
 
@@ -1200,8 +1200,8 @@ public class HmvFile implements IMechLoader {
 }
 
 abstract class HMVType {
-    private String name;
-    private int id;
+    private final String name;
+    private final int id;
 
     protected HMVType(String name, int id) {
         this.name = name;

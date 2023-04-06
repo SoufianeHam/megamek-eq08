@@ -157,14 +157,14 @@ public class TeamOverviewPanel extends JPanel {
     private class TeamOverviewModel extends AbstractTableModel {
         private static final long serialVersionUID = 2747614890129092912L;
 
-        private ArrayList<Team> teams = new ArrayList<>();
-        private ArrayList<Integer> teamID = new ArrayList<>();
-        private ArrayList<String> teamNames = new ArrayList<>();
-        private ArrayList<Long> bvs = new ArrayList<>();
-        private ArrayList<Long> costs = new ArrayList<>();
-        private ArrayList<Long> tons = new ArrayList<>();
-        private ArrayList<String> units = new ArrayList<>();
-        private ArrayList<Double> hidden = new ArrayList<>();
+        private final ArrayList<Team> teams = new ArrayList<>();
+        private final ArrayList<Integer> teamID = new ArrayList<>();
+        private final ArrayList<String> teamNames = new ArrayList<>();
+        private final ArrayList<Long> bvs = new ArrayList<>();
+        private final ArrayList<Long> costs = new ArrayList<>();
+        private final ArrayList<Long> tons = new ArrayList<>();
+        private final ArrayList<String> units = new ArrayList<>();
+        private final ArrayList<Double> hidden = new ArrayList<>();
 
         @Override
         public int getRowCount() {

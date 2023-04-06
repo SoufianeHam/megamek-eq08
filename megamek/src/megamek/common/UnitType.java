@@ -35,7 +35,7 @@ public class UnitType {
     public static final int WARSHIP = 13;
     public static final int SPACE_STATION = 14;
 
-    private static String[] names = { "Mek", "Tank", "BattleArmor", "Infantry",
+    private static final String[] names = { "Mek", "Tank", "BattleArmor", "Infantry",
             "ProtoMek", "VTOL", "Naval", "Gun Emplacement", "Conventional Fighter",
             "Aero", "Small Craft", "Dropship",
             "Jumpship", "Warship", "Space Station" };

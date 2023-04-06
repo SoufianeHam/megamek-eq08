@@ -17,7 +17,7 @@ public class MechSlotLabel extends PicMap {
     // Margins - used to draw 3D box
     private static final int MARGIN_WIDTH = 2;
 
-    private BackGroundDrawer bgd = new BackGroundDrawer(null);
+    private final BackGroundDrawer bgd = new BackGroundDrawer(null);
 
     public MechSlotLabel(String s, FontMetrics fm, Image im, Color textColor,
             Color bgColor) {

@@ -62,100 +62,100 @@ public class RandomArmyDialog extends JDialog implements ActionListener, TreeSel
     private static final String CARD_PREVIEW = "card_preview";
     private static final String CARD_FORCE_TREE = "card_force_tree";
     
-    private ClientGUI m_clientgui;
-    private Client m_client;
+    private final ClientGUI m_clientgui;
+    private final Client m_client;
     AdvancedSearchDialog2 asd;
 
     private MechSearchFilter searchFilter;
 
-    private JLabel m_labelPlayer = new JLabel(Messages.getString("RandomArmyDialog.Player"), SwingConstants.RIGHT);
+    private final JLabel m_labelPlayer = new JLabel(Messages.getString("RandomArmyDialog.Player"), SwingConstants.RIGHT);
 
-    private JComboBox<String> m_chPlayer = new JComboBox<>();
-    private JComboBox<String> m_chType = new JComboBox<>();
+    private final JComboBox<String> m_chPlayer = new JComboBox<>();
+    private final JComboBox<String> m_chType = new JComboBox<>();
 
-    private JTree m_treeRAT = new JTree();
-    private JTabbedPane m_pMain = new JTabbedPane();
-    private JPanel m_pRAT = new JPanel();
-    private JPanel m_pRATGen = new JPanel();
-    private JPanel m_pFormations = new JPanel();
-    private ForceGeneratorViewUi m_pForceGen;
+    private final JTree m_treeRAT = new JTree();
+    private final JTabbedPane m_pMain = new JTabbedPane();
+    private final JPanel m_pRAT = new JPanel();
+    private final JPanel m_pRATGen = new JPanel();
+    private final JPanel m_pFormations = new JPanel();
+    private final ForceGeneratorViewUi m_pForceGen;
     private ForceGenerationOptionsPanel m_pRATGenOptions;
-    private JPanel m_pUnitTypeOptions = new JPanel(new CardLayout());
+    private final JPanel m_pUnitTypeOptions = new JPanel(new CardLayout());
     private ForceGenerationOptionsPanel m_pFormationOptions;
-    private JPanel m_pParameters = new JPanel();
-    private JPanel m_pPreview = new JPanel();
-    private JPanel m_pButtons = new JPanel();
-    private JPanel m_pAdvSearch = new JPanel();
-    private JButton m_bOK = new JButton(Messages.getString("Okay"));
-    private JButton m_bCancel = new JButton(Messages.getString("Cancel"));
-    private JButton m_bRandomSkills = new JButton(Messages.getString("SkillGenerationDialog.title"));
-    private JButton m_bAdvSearch = new JButton(Messages.getString("RandomArmyDialog.AdvancedSearch"));
-    private JButton m_bAdvSearchClear = new JButton(Messages.getString("RandomArmyDialog.AdvancedSearchClear"));
-    private JLabel m_lMechCount = new JLabel();
-    private JLabel m_lVehicleCount = new JLabel();
-    private JLabel m_lBattleArmorCount = new JLabel();
-    private JLabel m_lInfantryCount = new JLabel();
-    private JButton m_bGenerate = new JButton(Messages.getString("RandomArmyDialog.Generate"));
-    private JButton m_bAddToForce = new JButton(Messages.getString("RandomArmyDialog.AddToForce"));
+    private final JPanel m_pParameters = new JPanel();
+    private final JPanel m_pPreview = new JPanel();
+    private final JPanel m_pButtons = new JPanel();
+    private final JPanel m_pAdvSearch = new JPanel();
+    private final JButton m_bOK = new JButton(Messages.getString("Okay"));
+    private final JButton m_bCancel = new JButton(Messages.getString("Cancel"));
+    private final JButton m_bRandomSkills = new JButton(Messages.getString("SkillGenerationDialog.title"));
+    private final JButton m_bAdvSearch = new JButton(Messages.getString("RandomArmyDialog.AdvancedSearch"));
+    private final JButton m_bAdvSearchClear = new JButton(Messages.getString("RandomArmyDialog.AdvancedSearchClear"));
+    private final JLabel m_lMechCount = new JLabel();
+    private final JLabel m_lVehicleCount = new JLabel();
+    private final JLabel m_lBattleArmorCount = new JLabel();
+    private final JLabel m_lInfantryCount = new JLabel();
+    private final JButton m_bGenerate = new JButton(Messages.getString("RandomArmyDialog.Generate"));
+    private final JButton m_bAddToForce = new JButton(Messages.getString("RandomArmyDialog.AddToForce"));
 
-    private CardLayout m_lRightCards = new CardLayout();
-    private JPanel m_pRightPane = new JPanel(m_lRightCards);
-    private JSplitPane m_pSplit;
+    private final CardLayout m_lRightCards = new CardLayout();
+    private final JPanel m_pRightPane = new JPanel(m_lRightCards);
+    private final JSplitPane m_pSplit;
 
-    private JButton m_bAddAll = new JButton(Messages.getString("RandomArmyDialog.AddAll"));
-    private JButton m_bAdd = new JButton(Messages.getString("RandomArmyDialog.AddSelected"));
-    private JButton m_bRoll = new JButton(Messages.getString("RandomArmyDialog.Roll"));
-    private JButton m_bClear = new JButton(Messages.getString("RandomArmyDialog.Clear"));
+    private final JButton m_bAddAll = new JButton(Messages.getString("RandomArmyDialog.AddAll"));
+    private final JButton m_bAdd = new JButton(Messages.getString("RandomArmyDialog.AddSelected"));
+    private final JButton m_bRoll = new JButton(Messages.getString("RandomArmyDialog.Roll"));
+    private final JButton m_bClear = new JButton(Messages.getString("RandomArmyDialog.Clear"));
 
     private JTable m_lArmy;
-    private RandomArmyTableMouseAdapter armyTableMouseAdapter = new RandomArmyTableMouseAdapter();
+    private final RandomArmyTableMouseAdapter armyTableMouseAdapter = new RandomArmyTableMouseAdapter();
     protected TableRowSorter<UnitTableModel> armySorter;
     private JLabel m_lArmyBVTotal;
     private JTable m_lUnits;
-    private RandomArmyTableMouseAdapter unitsTableMouseAdapter = new RandomArmyTableMouseAdapter();
+    private final RandomArmyTableMouseAdapter unitsTableMouseAdapter = new RandomArmyTableMouseAdapter();
     protected TableRowSorter<UnitTableModel> unitsSorter;
     private JLabel m_lUnitsBVTotal;
     private JTable m_lRAT;
-    private RandomArmyTableMouseAdapter ratTableMouseAdapter = new RandomArmyTableMouseAdapter();
+    private final RandomArmyTableMouseAdapter ratTableMouseAdapter = new RandomArmyTableMouseAdapter();
     protected TableRowSorter<RATTableModel> ratSorter;
 
     private UnitTableModel armyModel;
     private UnitTableModel unitsModel;
     private RATTableModel ratModel;
 
-    private JLabel m_labBV = new JLabel(Messages
+    private final JLabel m_labBV = new JLabel(Messages
             .getString("RandomArmyDialog.BV"));
-    private JLabel m_labYear = new JLabel(Messages
+    private final JLabel m_labYear = new JLabel(Messages
             .getString("RandomArmyDialog.Year"));
-    private JLabel m_labMechs = new JLabel(Messages
+    private final JLabel m_labMechs = new JLabel(Messages
             .getString("RandomArmyDialog.Mechs"));
-    private JLabel m_labVees = new JLabel(Messages
+    private final JLabel m_labVees = new JLabel(Messages
             .getString("RandomArmyDialog.Vees"));
-    private JLabel m_labBA = new JLabel(Messages
+    private final JLabel m_labBA = new JLabel(Messages
             .getString("RandomArmyDialog.BA"));
-    private JLabel m_labInfantry = new JLabel(Messages
+    private final JLabel m_labInfantry = new JLabel(Messages
             .getString("RandomArmyDialog.Infantry"));
-    private JLabel m_labTech = new JLabel(Messages
+    private final JLabel m_labTech = new JLabel(Messages
             .getString("RandomArmyDialog.Tech"));
-    private JLabel m_labUnits = new JLabel(Messages
+    private final JLabel m_labUnits = new JLabel(Messages
             .getString("RandomArmyDialog.Unit"));
-    private JLabel m_ratStatus;
+    private final JLabel m_ratStatus;
 
-    private JTextField m_tBVmin = new JTextField(6);
-    private JTextField m_tBVmax = new JTextField(6);
-    private JTextField m_tMinYear = new JTextField(4);
-    private JTextField m_tMaxYear = new JTextField(4);
-    private JTextField m_tMechs = new JTextField(3);
-    private JTextField m_tVees = new JTextField(3);
-    private JTextField m_tBA = new JTextField(3);
-    private JTextField m_tInfantry = new JTextField(3);
-    private JTextField m_tUnits = new JTextField(3);
-    private JCheckBox m_chkPad = new JCheckBox(Messages
+    private final JTextField m_tBVmin = new JTextField(6);
+    private final JTextField m_tBVmax = new JTextField(6);
+    private final JTextField m_tMinYear = new JTextField(4);
+    private final JTextField m_tMaxYear = new JTextField(4);
+    private final JTextField m_tMechs = new JTextField(3);
+    private final JTextField m_tVees = new JTextField(3);
+    private final JTextField m_tBA = new JTextField(3);
+    private final JTextField m_tInfantry = new JTextField(3);
+    private final JTextField m_tUnits = new JTextField(3);
+    private final JCheckBox m_chkPad = new JCheckBox(Messages
             .getString("RandomArmyDialog.Pad"));
-    private JCheckBox m_chkCanon = new JCheckBox(Messages
+    private final JCheckBox m_chkCanon = new JCheckBox(Messages
             .getString("RandomArmyDialog.Canon"));
     
-    private RandomUnitGenerator rug;
+    private final RandomUnitGenerator rug;
     private UnitTable generatedRAT;
 
     static final String UNITS_BV = "UNITS_BV";
@@ -1157,7 +1157,7 @@ public class RandomArmyDialog extends JDialog implements ActionListener, TreeSel
      * This class now listens for game settings changes and updates the RAT year whenever
      * the game year changes. Well, whenever any game settings changes.
      */
-    private GameListener gameListener = new GameListenerAdapter() {
+    private final GameListener gameListener = new GameListenerAdapter() {
         @Override
         public void gameSettingsChange(GameSettingsChangeEvent evt) {
             if (!evt.isMapSettingsOnlyChange()) {

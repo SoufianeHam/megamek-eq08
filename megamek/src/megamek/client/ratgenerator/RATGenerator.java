@@ -63,7 +63,7 @@ public class RATGenerator {
     private boolean initialized;
     private boolean initializing;
 
-    private ArrayList<ActionListener> listeners;
+    private final ArrayList<ActionListener> listeners;
     
     protected RATGenerator() {
         models = new HashMap<>();

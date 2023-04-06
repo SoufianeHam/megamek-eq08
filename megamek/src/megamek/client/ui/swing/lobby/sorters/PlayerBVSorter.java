@@ -26,8 +26,8 @@ import megamek.common.Player;
 /** A Lobby Mek Table sorter that sorts for 1) Player 2) BV. */
 public class PlayerBVSorter implements MekTableSorter {
     
-    private ClientGUI clientGui;
-    private Sorting direction;
+    private final ClientGUI clientGui;
+    private final Sorting direction;
 
     /** A Lobby Mek Table sorter that sorts for 1) Player 2) BV. */
     public PlayerBVSorter(ClientGUI cg, Sorting dir) {

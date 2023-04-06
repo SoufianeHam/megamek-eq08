@@ -25,7 +25,7 @@ import java.util.Comparator;
  */
 public class WeaponComparatorCustom implements Comparator<Mounted> {
     
-    private Entity entity;
+    private final Entity entity;
     
     public WeaponComparatorCustom(Entity e) {
         entity = e;

@@ -32,7 +32,7 @@ import java.util.Vector;
  */
 public class CapitalFighterMapSet implements DisplayMapSet {
 
-    private JComponent comp;
+    private final JComponent comp;
     // Images that shows how much armor left.
     private Image armorImage;
     // Set of areas to show fighter armor left
@@ -56,13 +56,13 @@ public class CapitalFighterMapSet implements DisplayMapSet {
     private PMSimpleLabel fcsCritLabel;
     private PMSimpleLabel sensorCritLabel;
     private PMSimpleLabel pilotCritLabel;
-    private Vector<BackGroundDrawer> bgDrawers = new Vector<>();
-    private PMAreasGroup content = new PMAreasGroup();
+    private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
+    private final PMAreasGroup content = new PMAreasGroup();
 
-    private int stepY = 14;
-    private int squareSize = 7;
-    private int armorRows = 8;
-    private int armorCols = 6;
+    private final int stepY = 14;
+    private final int squareSize = 7;
+    private final int armorRows = 8;
+    private final int armorCols = 6;
 
     private static final Font FONT_LABEL = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN,
             GUIPreferences.getInstance().getInt("AdvancedMechDisplayArmorSmallFontSize"));

@@ -26,11 +26,11 @@ import megamek.common.options.OptionsConstants;
 public class Victory implements Serializable {
     private static final long serialVersionUID = -8633873540471130320L;
     
-    private boolean checkForVictory;
+    private final boolean checkForVictory;
     private int neededVictoryConditions;
 
-    private IVictoryConditions force = new ForceVictory();
-    private IVictoryConditions lastMan = new LastManStandingVictory();
+    private final IVictoryConditions force = new ForceVictory();
+    private final IVictoryConditions lastMan = new LastManStandingVictory();
     private IVictoryConditions[] VCs = null;
 
     public Victory(GameOptions options) {

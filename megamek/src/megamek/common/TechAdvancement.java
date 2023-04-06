@@ -45,7 +45,7 @@ public class TechAdvancement implements ITechnology {
     private int[] reintroductionFactions = {};
     private SimpleTechLevel staticTechLevel = SimpleTechLevel.STANDARD;
     private int techRating = RATING_C;
-    private int[] availability = new int[ERA_DA + 1];
+    private final int[] availability = new int[ERA_DA + 1];
 
     public TechAdvancement() {
         Arrays.fill(isAdvancement, DATE_NONE);

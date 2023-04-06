@@ -219,7 +219,7 @@ public class CommonSettingsDialog extends AbstractButtonDialog implements ItemLi
     private DefaultListModel<StatusBarPhaseDisplay.PhaseCommand> targetingPhaseCommands;
 
     // Unit Display order
-    private DefaultListModel<String> unitDisplayNonTabbed = new DefaultListModel<>();
+    private final DefaultListModel<String> unitDisplayNonTabbed = new DefaultListModel<>();
     private final StatusBarPhaseDisplay.CommandComparator cmdComp = new StatusBarPhaseDisplay.CommandComparator();
     private final PhaseCommandListMouseAdapter cmdMouseAdaptor = new PhaseCommandListMouseAdapter();
     

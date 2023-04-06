@@ -50,9 +50,9 @@ public class BombPayloadDialog extends JDialog implements ActionListener, ItemLi
     private int limit;
     private int[] bombs;
 
-    private JPanel panButtons = new JPanel();
-    private JButton butOK = new JButton(Messages.getString("Okay"));
-    private JButton butCancel = new JButton(Messages.getString("Cancel"));
+    private final JPanel panButtons = new JPanel();
+    private final JButton butOK = new JButton(Messages.getString("Okay"));
+    private final JButton butCancel = new JButton(Messages.getString("Cancel"));
 
     @SuppressWarnings("rawtypes")
     private JComboBox[] b_choices;

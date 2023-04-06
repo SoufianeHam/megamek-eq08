@@ -31,13 +31,13 @@ import megamek.common.MechSummaryCache;
 
 public class UnitLoadingDialog extends JDialog {
     private static final long serialVersionUID = -3454307876761238915L;
-    private JLabel lLoading = new JLabel(Messages.getString("UnitLoadingDialog.LoadingUnits"));
-    private JLabel lCacheText = new JLabel(Messages.getString("UnitLoadingDialog.fromCache"));
-    private JLabel lCacheCount = new JLabel();
-    private JLabel lFileText = new JLabel(Messages.getString("UnitLoadingDialog.fromFiles"));
-    private JLabel lFileCount = new JLabel();
-    private JLabel lZipText = new JLabel(Messages.getString("UnitLoadingDialog.fromZips"));
-    private JLabel lZipCount = new JLabel();
+    private final JLabel lLoading = new JLabel(Messages.getString("UnitLoadingDialog.LoadingUnits"));
+    private final JLabel lCacheText = new JLabel(Messages.getString("UnitLoadingDialog.fromCache"));
+    private final JLabel lCacheCount = new JLabel();
+    private final JLabel lFileText = new JLabel(Messages.getString("UnitLoadingDialog.fromFiles"));
+    private final JLabel lFileCount = new JLabel();
+    private final JLabel lZipText = new JLabel(Messages.getString("UnitLoadingDialog.fromZips"));
+    private final JLabel lZipCount = new JLabel();
 
     // Determines how often to update the loading dialog.
     // Setting this too low causes noticeable loading delays.
@@ -45,7 +45,7 @@ public class UnitLoadingDialog extends JDialog {
     
     boolean loadingDone = false;
     
-    private MechSummaryCache.Listener mechSummaryCacheListener = () -> {
+    private final MechSummaryCache.Listener mechSummaryCacheListener = () -> {
         loadingDone = true;
         setVisible(false);
     };

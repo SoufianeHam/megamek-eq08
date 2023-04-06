@@ -151,7 +151,7 @@ public class EquipmentType implements ITechnology {
     /** Sorting lists of equipment by this string groups and sorts equipment better. */
     protected String sortingName;
 
-    private Vector<String> namesVector = new Vector<>();
+    private final Vector<String> namesVector = new Vector<>();
 
     protected double tonnage = 0;
     protected int criticals = 0;
@@ -940,7 +940,7 @@ public class EquipmentType implements ITechnology {
     /**
      * Cost in C-bills of a single point of SV armor for various BAR values.
      */
-    private static int[] SV_ARMOR_COST = {
+    private static final int[] SV_ARMOR_COST = {
             0, 0, 50, 100, 150, 200, 250, 300, 400, 500, 625
     };
 

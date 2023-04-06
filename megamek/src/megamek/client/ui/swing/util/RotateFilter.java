@@ -27,8 +27,8 @@ import java.awt.image.RGBImageFilter;
 public class RotateFilter extends RGBImageFilter {
     private static final int ALPHA_CLIP = 144;
 
-    private double sin;
-    private double cos;
+    private final double sin;
+    private final double cos;
 
     private int width;
     private int height;

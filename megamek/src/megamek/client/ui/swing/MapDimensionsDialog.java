@@ -31,25 +31,25 @@ import java.awt.event.ActionListener;
 public class MapDimensionsDialog extends JDialog implements ActionListener {
     private static final long serialVersionUID = -6941422625466067948L;
 
-    private ClientGUI clientGUI;
-    private MapSettings mapSettings;
+    private final ClientGUI clientGUI;
+    private final MapSettings mapSettings;
     
-    private JPanel panMapSize = new JPanel();
-    private JLabel labBoardSize = new JLabel(Messages.getString("BoardSelectionDialog.BoardSize"),
+    private final JPanel panMapSize = new JPanel();
+    private final JLabel labBoardSize = new JLabel(Messages.getString("BoardSelectionDialog.BoardSize"),
             SwingConstants.RIGHT);
-    private JLabel labBoardDivider = new JLabel("x", SwingConstants.CENTER);
-    private JTextField texBoardWidth = new JTextField(2);
-    private JTextField texBoardHeight = new JTextField(2);
+    private final JLabel labBoardDivider = new JLabel("x", SwingConstants.CENTER);
+    private final JTextField texBoardWidth = new JTextField(2);
+    private final JTextField texBoardHeight = new JTextField(2);
 
-    private JLabel labMapSize = new JLabel(Messages.getString("BoardSelectionDialog.MapSize"),
+    private final JLabel labMapSize = new JLabel(Messages.getString("BoardSelectionDialog.MapSize"),
             SwingConstants.RIGHT);
-    private JLabel labMapDivider = new JLabel("x", SwingConstants.CENTER);
+    private final JLabel labMapDivider = new JLabel("x", SwingConstants.CENTER);
     private JSpinner spnMapWidth = new JSpinner();
     private JSpinner spnMapHeight = new JSpinner();
     
-    private JPanel panButtons = new JPanel();
-    private JButton butOkay = new JButton(Messages.getString("Okay"));
-    private JButton butCancel = new JButton(Messages.getString("Cancel"));
+    private final JPanel panButtons = new JPanel();
+    private final JButton butOkay = new JButton(Messages.getString("Okay"));
+    private final JButton butCancel = new JButton(Messages.getString("Cancel"));
     
     public MapDimensionsDialog(ClientGUI clientGUI, MapSettings mapSettings) {
         super(clientGUI.frame, Messages.getString("MapDimensionsDialog.MapDimensions"), true);
@@ -297,7 +297,7 @@ public class MapDimensionsDialog extends JDialog implements ActionListener {
     @Override
     public void setVisible(boolean b) {
         if (b) {
-            adaptToGUIScale();;
+            adaptToGUIScale();
             pack();
         }
         super.setVisible(b);

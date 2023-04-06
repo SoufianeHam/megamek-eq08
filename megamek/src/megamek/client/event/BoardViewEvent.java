@@ -44,7 +44,7 @@ public class BoardViewEvent extends java.util.EventObject {
 
     private Coords c;
     private Entity entity;
-    private int type;
+    private final int type;
     private int modifiers;
     private int entityId;
     private int mouseButton = 0;

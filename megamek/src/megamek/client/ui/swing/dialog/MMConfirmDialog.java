@@ -63,9 +63,9 @@ public class MMConfirmDialog {
 
         private boolean userResponse = false;
         
-        private JPanel panButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        private JButton butYes = new DialogButton(Messages.getString("Yes"));
-        private JButton butNo = new DialogButton(Messages.getString("No"));
+        private final JPanel panButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        private final JButton butYes = new DialogButton(Messages.getString("Yes"));
+        private final JButton butNo = new DialogButton(Messages.getString("No"));
         
         public ConfirmDialog(JFrame owner, String title, String message) {
             super(owner, title, true, true);

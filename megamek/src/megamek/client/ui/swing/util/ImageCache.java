@@ -33,7 +33,7 @@ public class ImageCache<K, V> {
     /**
      * The cache of Key/Value pairs.
      */
-    private Hashtable<K, V> cache;
+    private final Hashtable<K, V> cache;
         
     /**
      * Create a cache with the default maximum size.

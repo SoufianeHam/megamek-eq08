@@ -90,7 +90,7 @@ public class SelectArtyAutoHitHexDisplay extends StatusBarPhaseDisplay {
     protected Map<ArtyAutoHitCommand,MegamekButton> buttons;
 
     private Player p;
-    private PlayerIDandList<Coords> artyAutoHitHexes = new PlayerIDandList<>();
+    private final PlayerIDandList<Coords> artyAutoHitHexes = new PlayerIDandList<>();
     
     private int startingHexes;
 

@@ -14,10 +14,10 @@ import java.util.*;
  * @author NickAragua
  */
 public class InfantryPathFinder {
-    private Game game;
+    private final Game game;
     private List<MovePath> infantryPaths;
 
-    private Set<Coords> visitedCoords = new HashSet<>();
+    private final Set<Coords> visitedCoords = new HashSet<>();
     
     
     private InfantryPathFinder(Game game) {

@@ -309,7 +309,7 @@ public class AmmoType extends EquipmentType {
     // If you want to add another munition type, tough luck: longs can only be
     // bit-shifted 63 times.
 
-    private static Vector<AmmoType>[] m_vaMunitions = new Vector[NUM_TYPES];
+    private static final Vector<AmmoType>[] m_vaMunitions = new Vector[NUM_TYPES];
 
     public static Vector<AmmoType> getMunitionsFor(int nAmmoType) {
         return m_vaMunitions[nAmmoType];
@@ -13092,21 +13092,21 @@ public class AmmoType extends EquipmentType {
         /**
          * The name of this munition type.
          */
-        private String name;
+        private final String name;
 
         /**
          * The weight ratio of a round of this munition to a standard round.
          */
-        private int weight;
+        private final int weight;
 
         /**
          * The munition flag(s) for this type.
          */
-        private long type;
+        private final long type;
 
         protected String rulesRefs;
 
-        private TechAdvancement techAdvancement;
+        private final TechAdvancement techAdvancement;
 
         public MunitionMutator(String munitionName, int weightRatio, long munitionType,
                                TechAdvancement techAdvancement, String rulesRefs) {

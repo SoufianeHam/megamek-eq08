@@ -19,8 +19,8 @@ public class NarcPod implements Serializable {
      * 
      */
     private static final long serialVersionUID = 8883459353515484784L;
-    private int team;
-    private int location;
+    private final int team;
+    private final int location;
 
     public NarcPod(int team, int location) {
         this.team = team;

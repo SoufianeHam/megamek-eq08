@@ -670,7 +670,7 @@ public final class UnitToolTip {
                         }
                         col2 += "<BR>";
                     }
-                };
+                }
 
                 col1 = guiScaledFontHTML(uiTTWeaponColor()) + col1 + "</FONT>";
                 col1 = "<TD>" + col1 + "</TD>";

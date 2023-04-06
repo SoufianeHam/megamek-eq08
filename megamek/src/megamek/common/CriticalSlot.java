@@ -28,7 +28,7 @@ public class CriticalSlot implements Serializable {
      * represents everything else, and will have an entry in an EquipmentType
      * subclass.
      */
-    private int type;
+    private final int type;
 
     /**
      * Index is only used for system type critical slots. It is used as an

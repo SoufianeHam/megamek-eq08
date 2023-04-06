@@ -73,7 +73,7 @@ class ArmorPanel extends PicMap {
     private int minBottomMargin;
     private int minRightMargin;
     
-    private UnitDisplay unitDisplay;
+    private final UnitDisplay unitDisplay;
 
     private static final int minTankTopMargin = 8;
     private static final int minTankLeftMargin = 8;
@@ -88,7 +88,7 @@ class ArmorPanel extends PicMap {
     private static final int minAeroTopMargin = 8;
     private static final int minAeroLeftMargin = 8;
 
-    private Game game;
+    private final Game game;
 
     ArmorPanel(Game g, UnitDisplay unitDisplay) {
         game = g;

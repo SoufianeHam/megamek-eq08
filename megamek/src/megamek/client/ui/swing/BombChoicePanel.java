@@ -38,11 +38,11 @@ public class BombChoicePanel extends JPanel implements Serializable, ItemListene
     private static final long serialVersionUID = 483782753790544050L;
 
     @SuppressWarnings("rawtypes")
-    private JComboBox[] b_choices = new JComboBox[BombType.B_NUM];
-    private JLabel[] b_labels = new JLabel[BombType.B_NUM];
+    private final JComboBox[] b_choices = new JComboBox[BombType.B_NUM];
+    private final JLabel[] b_labels = new JLabel[BombType.B_NUM];
     private int maxPoints = 0;
     private int maxSize = 0;
-    private int maxRows = (int) Math.ceil(BombType.B_NUM / 2.0);
+    private final int maxRows = (int) Math.ceil(BombType.B_NUM / 2.0);
     
     //Variable for MekHQ functionality
     private int[] typeMax = null;

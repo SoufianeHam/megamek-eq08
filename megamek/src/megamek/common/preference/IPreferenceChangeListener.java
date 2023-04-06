@@ -16,5 +16,5 @@ package megamek.common.preference;
 
 public interface IPreferenceChangeListener {
 
-    public abstract void preferenceChange(PreferenceChangeEvent e);
+    void preferenceChange(PreferenceChangeEvent e);
 }

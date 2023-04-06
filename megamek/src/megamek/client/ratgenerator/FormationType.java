@@ -75,7 +75,7 @@ public class FormationType {
     private String category = null;
     private int allowedUnitTypes = FLAG_GROUND;
     // Some formation types allow units not normally generated for general combat roles (e.g. artillery, cargo)  
-    private EnumSet<MissionRole> missionRoles = EnumSet.noneOf(MissionRole.class);
+    private final EnumSet<MissionRole> missionRoles = EnumSet.noneOf(MissionRole.class);
     // If all units in the force have this role, other constraints can be ignored.
     private UnitRole idealRole = UnitRole.UNDETERMINED;
     private String exclusiveFaction = null;
@@ -85,12 +85,12 @@ public class FormationType {
     // Used as a filter when generating units
     private Predicate<MechSummary> mainCriteria = ms -> true;
     // Additional criteria that have to be fulfilled by a portion of the force
-    private List<Constraint> otherCriteria = new ArrayList<>();
+    private final List<Constraint> otherCriteria = new ArrayList<>();
     private GroupingConstraint groupingCriteria = null;
     
     // Provide values for the various criteria for reporting purposes
     private String mainDescription = null;
-    private Map<String, Function<MechSummary,?>> reportMetrics = new HashMap<>();
+    private final Map<String, Function<MechSummary,?>> reportMetrics = new HashMap<>();
     
     public String getName() {
         return name;

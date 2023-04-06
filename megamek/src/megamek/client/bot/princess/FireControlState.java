@@ -15,12 +15,12 @@ import megamek.common.Targetable;
  */
 public class FireControlState {
     private List<Targetable> additionalTargets;
-    private Map<Integer, Boolean> entityIDFStates;
-    private LinkedList<Entity> orderedFiringEntities;
-    private Map<Integer, Integer> weaponRanges;
-    private Map<Integer, Integer> airborneTargetWeaponRanges;
-    private Map<Integer, Boolean> isCommander;
-    private Map<Integer, Boolean> isSubCommander;
+    private final Map<Integer, Boolean> entityIDFStates;
+    private final LinkedList<Entity> orderedFiringEntities;
+    private final Map<Integer, Integer> weaponRanges;
+    private final Map<Integer, Integer> airborneTargetWeaponRanges;
+    private final Map<Integer, Boolean> isCommander;
+    private final Map<Integer, Boolean> isSubCommander;
     
     public FireControlState() {
         additionalTargets = new ArrayList<>();

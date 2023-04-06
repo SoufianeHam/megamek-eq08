@@ -12,8 +12,8 @@ import megamek.common.MovePath;
  *
  */
 public class PathRankerState {
-    private Map<MovePath.Key, Double> pathSuccessProbabilities = new HashMap<>();
-    private Map<Coords, Double> incomingFriendlyArtilleryDamage = new HashMap<>();
+    private final Map<MovePath.Key, Double> pathSuccessProbabilities = new HashMap<>();
+    private final Map<Coords, Double> incomingFriendlyArtilleryDamage = new HashMap<>();
     
     /**
      * The map of success probabilities for given move paths.

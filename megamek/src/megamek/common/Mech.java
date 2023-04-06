@@ -195,14 +195,14 @@ public abstract class Mech extends Entity {
 
     public static final int HAS_TRUE = 1;
     // rear armor
-    private int[] rearArmor;
+    private final int[] rearArmor;
 
-    private int[] orig_rearArmor;
+    private final int[] orig_rearArmor;
 
-    private boolean[] rearHardenedArmorDamaged;
+    private final boolean[] rearHardenedArmorDamaged;
 
     // for Harjel II/III
-    private boolean[] armorDamagedThisTurn;
+    private final boolean[] armorDamagedThisTurn;
 
     private int sinksOn = -1;
 

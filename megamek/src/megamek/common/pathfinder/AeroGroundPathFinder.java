@@ -367,7 +367,7 @@ public class AeroGroundPathFinder {
         }
     }
 
-    private Map<Coords, MovePath> visitedCoords = new HashMap<>();
+    private final Map<Coords, MovePath> visitedCoords = new HashMap<>();
     /**
      * Determines if the given move path is "redundant".
      * In this case, it means that the path has not visited any new hexes.

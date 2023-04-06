@@ -719,7 +719,7 @@ public class MapSettings implements Serializable {
                     List<String> boards = LobbyUtility.extractSurpriseMaps(boardName);
                     ArrayList<String> remainingBoards = new ArrayList<>();
                     for (String board: boards) {
-                        if (boardsAvailable.indexOf(board) != -1) {
+                        if (boardsAvailable.contains(board)) {
                             remainingBoards.add(board);
                         }
                     }
@@ -732,7 +732,7 @@ public class MapSettings implements Serializable {
                         boardsSelected.set(i, MapSettings.BOARD_SURPRISE + remBoards);
                     }
                 } else {
-                    if (boardsAvailable.indexOf(boardName) == -1) {
+                    if (!boardsAvailable.contains(boardName)) {
                         boardsSelected.set(i, null);
                     }
                 }

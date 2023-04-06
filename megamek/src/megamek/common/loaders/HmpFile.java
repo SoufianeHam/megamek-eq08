@@ -31,13 +31,13 @@ import java.util.Vector;
  * @author Ryan McConnell (oscarmm) with lots of help from Ian Hamilton.
  */
 public class HmpFile implements IMechLoader {
-    private String name;
-    private String model;
+    private final String name;
+    private final String model;
     private String fluff;
 
-    private ChassisType chassisType;
+    private final ChassisType chassisType;
 
-    private TechType techType;
+    private final TechType techType;
 
     private TechType mixedBaseTechType;
     private TechType engineTechType;
@@ -47,70 +47,70 @@ public class HmpFile implements IMechLoader {
     private TechType myomerTechType;
     private TechType armorTechType;
 
-    private int year;
-    private int rulesLevel;
+    private final int year;
+    private final int rulesLevel;
 
-    private int tonnage;
+    private final int tonnage;
 
-    private InternalStructureType internalStructureType;
-    private int engineRating;
-    private EngineType engineType;
-    private ArmorType armorType;
+    private final InternalStructureType internalStructureType;
+    private final int engineRating;
+    private final EngineType engineType;
+    private final ArmorType armorType;
 
     private int heatSinks;
-    private HeatSinkType heatSinkType;
+    private final HeatSinkType heatSinkType;
 
-    private int walkMP;
-    private int jumpMP;
+    private final int walkMP;
+    private final int jumpMP;
 
-    private int laArmor;
+    private final int laArmor;
     private ArmorType laArmorType;
-    private int ltArmor;
+    private final int ltArmor;
     private ArmorType ltArmorType;
-    private int ltrArmor;
+    private final int ltrArmor;
     private ArmorType ltrArmorType;
-    private int llArmor;
+    private final int llArmor;
     private ArmorType llArmorType;
 
-    private int raArmor;
+    private final int raArmor;
     private ArmorType raArmorType;
-    private int rtArmor;
+    private final int rtArmor;
     private ArmorType rtArmorType;
-    private int rtrArmor;
+    private final int rtrArmor;
     private ArmorType rtrArmorType;
-    private int rlArmor;
+    private final int rlArmor;
     private ArmorType rlArmorType;
 
-    private int headArmor;
+    private final int headArmor;
     private ArmorType headArmorType;
 
-    private int ctArmor;
+    private final int ctArmor;
     private ArmorType ctArmorType;
-    private int ctrArmor;
+    private final int ctrArmor;
     private ArmorType ctrArmorType;
 
-    private MyomerType myomerType;
+    private final MyomerType myomerType;
 
-    private int totalWeaponCount;
-    private int[][] weaponArray;
+    private final int totalWeaponCount;
+    private final int[][] weaponArray;
 
-    private long[] laCriticals = new long[12];
-    private long[] ltCriticals = new long[12];
-    private long[] llCriticals = new long[12];
+    private final long[] laCriticals = new long[12];
+    private final long[] ltCriticals = new long[12];
+    private final long[] llCriticals = new long[12];
 
-    private long[] raCriticals = new long[12];
-    private long[] rtCriticals = new long[12];
-    private long[] rlCriticals = new long[12];
+    private final long[] raCriticals = new long[12];
+    private final long[] rtCriticals = new long[12];
+    private final long[] rlCriticals = new long[12];
 
-    private long[] headCriticals = new long[12];
-    private long[] ctCriticals = new long[12];
+    private final long[] headCriticals = new long[12];
+    private final long[] ctCriticals = new long[12];
 
-    private Hashtable<EquipmentType, Mounted> spreadEquipment = new Hashtable<>();
-    private Vector<Mounted> vSplitWeapons = new Vector<>();
+    private final Hashtable<EquipmentType, Mounted> spreadEquipment = new Hashtable<>();
+    private final Vector<Mounted> vSplitWeapons = new Vector<>();
 
     private int gyroType = Mech.GYRO_STANDARD;
     private int cockpitType = Mech.COCKPIT_STANDARD;
-    private int jjType;
+    private final int jjType;
 
     private int atmCounter = 0;
     private int lbxCounter = 0;
@@ -1942,9 +1942,9 @@ public class HmpFile implements IMechLoader {
 }
 
 abstract class HMPType {
-    private String name;
+    private final String name;
 
-    private int id;
+    private final int id;
 
     protected HMPType(String name, int id) {
         this.name = name;

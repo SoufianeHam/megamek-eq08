@@ -1154,9 +1154,9 @@ public class MechSearchFilter {
                 }
                 else if (weaponClass != null) {
                     if (qty == 1) {
-                        return qty + " " + weaponClass.toString();
+                        return qty + " " + weaponClass;
                     } else {
-                        return qty + " " + weaponClass.toString() + "s";
+                        return qty + " " + weaponClass + "s";
                     }
                 }
             }

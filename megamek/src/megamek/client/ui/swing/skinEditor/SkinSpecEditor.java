@@ -39,38 +39,38 @@ import java.util.ArrayList;
 public class SkinSpecEditor extends JPanel implements ListSelectionListener, ActionListener {
     private static final long serialVersionUID = -37452332974426228L;
     
-    private SkinEditorMainGUI mainGUI;
+    private final SkinEditorMainGUI mainGUI;
     
-    private JComboBox<String> currSkinCombo = new JComboBox<>();
+    private final JComboBox<String> currSkinCombo = new JComboBox<>();
     
     /**
      * Adds a new SkinSpecification
      */
-    private JButton addButton = new JButton(Messages.getString("SkinEditor.AddButton"));
+    private final JButton addButton = new JButton(Messages.getString("SkinEditor.AddButton"));
 
-    private JButton addCompButton = new JButton(Messages.getString("SkinEditor.AddCompButton"));
+    private final JButton addCompButton = new JButton(Messages.getString("SkinEditor.AddCompButton"));
 
-    private JButton removeCompButton = new JButton(Messages.getString("SkinEditor.RemoveCompButton"));
+    private final JButton removeCompButton = new JButton(Messages.getString("SkinEditor.RemoveCompButton"));
 
-    private JButton saveSkinButton = new JButton(Messages.getString("SkinEditor.SaveSkinButton"));
+    private final JButton saveSkinButton = new JButton(Messages.getString("SkinEditor.SaveSkinButton"));
 
-    private JButton resetSkinButton = new JButton(Messages.getString("SkinEditor.ResetSkinButton"));
+    private final JButton resetSkinButton = new JButton(Messages.getString("SkinEditor.ResetSkinButton"));
 
     /**
      * Lists all SkinSpecifications for the current skin.
      */
-    private DefaultListModel<UIComponents> skinSpecCompModel = new DefaultListModel<>();
-    private JList<UIComponents> skinSpecCompList = new JList<>(skinSpecCompModel);
+    private final DefaultListModel<UIComponents> skinSpecCompModel = new DefaultListModel<>();
+    private final JList<UIComponents> skinSpecCompList = new JList<>(skinSpecCompModel);
     
-    private JCheckBox enableBorders = new JCheckBox(Messages.getString("SkinEditor.EnableBorders"));
+    private final JCheckBox enableBorders = new JCheckBox(Messages.getString("SkinEditor.EnableBorders"));
     
-    private JPanel editPanel = new JPanel();
+    private final JPanel editPanel = new JPanel();
     /**
      * Panel that holds UI widgets for editing the selected skin spec.
      */
-    private SkinSpecPanel skinEditPanel = new SkinSpecPanel(this);
+    private final SkinSpecPanel skinEditPanel = new SkinSpecPanel(this);
 
-    private UnitDisplaySpecPanel udEditPanel = new UnitDisplaySpecPanel(this);
+    private final UnitDisplaySpecPanel udEditPanel = new UnitDisplaySpecPanel(this);
 
     public SkinSpecEditor(SkinEditorMainGUI mainGUI) {
         super(new GridBagLayout());

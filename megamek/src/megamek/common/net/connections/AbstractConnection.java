@@ -43,7 +43,7 @@ import java.util.zip.GZIPOutputStream;
  */
 public abstract class AbstractConnection {
 
-    private static PacketMarshallerFactory marshallerFactory = PacketMarshallerFactory.getInstance();
+    private static final PacketMarshallerFactory marshallerFactory = PacketMarshallerFactory.getInstance();
 
     private static final int DEFAULT_MARSHALLING = PacketMarshaller.NATIVE_SERIALIZATION_MARSHALING;
 
@@ -85,12 +85,12 @@ public abstract class AbstractConnection {
     /**
      * Queue of <code>Packets</code> to send
      */
-    private SendQueue sendQueue = new SendQueue();
+    private final SendQueue sendQueue = new SendQueue();
 
     /**
      * Connection listeners list
      */
-    private Vector<ConnectionListener> connectionListeners = new Vector<>();
+    private final Vector<ConnectionListener> connectionListeners = new Vector<>();
 
     /**
      * Type of marshalling used to represent sent packets
@@ -435,7 +435,7 @@ public abstract class AbstractConnection {
      * to send. Note that this implementation is not synchronized.
      */
     static class SendQueue {
-        private LinkedList<SendPacket> queue = new LinkedList<>();
+        private final LinkedList<SendPacket> queue = new LinkedList<>();
         private boolean finished = false;
 
         public void addPacket(SendPacket packet) {

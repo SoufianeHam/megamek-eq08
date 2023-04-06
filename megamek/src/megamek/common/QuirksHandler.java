@@ -135,8 +135,8 @@ public class QuirksHandler {
 
     private static Map<String, List<QuirkEntry>> canonQuirkMap;
     private static Map<String, List<QuirkEntry>> customQuirkMap;
-    private static AtomicBoolean customQuirksDirty = new AtomicBoolean(false);
-    private static AtomicBoolean initialized = new AtomicBoolean(false);
+    private static final AtomicBoolean customQuirksDirty = new AtomicBoolean(false);
+    private static final AtomicBoolean initialized = new AtomicBoolean(false);
     //endregion Variable Declarations
 
     private QuirksHandler() {

@@ -42,9 +42,9 @@ public class TestMech extends TestEntity {
         JJ_UMU (EquipmentTypeLookup.MECH_UMU, false, Mech.JUMP_NONE),
         JJ_BOOSTER (EquipmentTypeLookup.MECH_JUMP_BOOSTER, true, Mech.JUMP_BOOSTER);
         
-        private String internalName;
-        private boolean industrial;
-        private int jumpType;
+        private final String internalName;
+        private final boolean industrial;
+        private final int jumpType;
         
         MechJumpJets(String internalName, boolean industrial, int jumpType) {
             this.internalName = internalName;

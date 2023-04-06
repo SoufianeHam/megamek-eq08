@@ -98,14 +98,14 @@ public abstract class AbstractUnitSelectorDialog extends JDialog implements Runn
     protected static MechSummaryCache mscInstance = MechSummaryCache.getInstance();
     protected MechSummary[] mechs;
 
-    private MechTableModel unitModel = new MechTableModel();
-    private XTableColumnModel unitColumnModel = new XTableColumnModel();
+    private final MechTableModel unitModel = new MechTableModel();
+    private final XTableColumnModel unitColumnModel = new XTableColumnModel();
     private TableColumn pvColumn;
     private TableColumn bvColumn;
     protected MechSearchFilter searchFilter;
 
     protected JFrame frame;
-    private UnitLoadingDialog unitLoadingDialog;
+    private final UnitLoadingDialog unitLoadingDialog;
     private AdvancedSearchDialog2 advancedSearchDialog2;
 
     protected TableRowSorter<MechTableModel> sorter;

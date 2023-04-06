@@ -30,8 +30,8 @@ public class BoardEvent extends java.util.EventObject {
     public static final int BOARD_CHANGED_HEX = 1;
     public static final int BOARD_CHANGED_ALL_HEXES = 2;
 
-    private Coords coords;
-    private int type;
+    private final Coords coords;
+    private final int type;
 
     public BoardEvent(Object source, Coords coords, int type) {
         super(source);

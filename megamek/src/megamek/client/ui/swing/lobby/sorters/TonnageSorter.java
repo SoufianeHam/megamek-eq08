@@ -26,7 +26,7 @@ import megamek.common.options.OptionsConstants;
 /** A Lobby Mek Table sorter that sorts by tonnage. */
 public class TonnageSorter implements MekTableSorter {
     
-    private Sorting direction;
+    private final Sorting direction;
     
     /** A Lobby Mek Table sorter that sorts by tonnage. */
     public TonnageSorter(MekTableSorter.Sorting dir) {

@@ -108,16 +108,16 @@ public class ChatterBox2 implements KeyListener, IDisplayable, IPreferenceChange
 
     private Point lastScrollPoint;
 
-    private Vector<String> messages = new Vector<>();
+    private final Vector<String> messages = new Vector<>();
 
-    private Client client;
-    private BoardView bv;
+    private final Client client;
+    private final BoardView bv;
 
-    private Image upbutton;
-    private Image downbutton;
-    private Image maxbutton;
-    private Image minbutton;
-    private Image resizebutton;
+    private final Image upbutton;
+    private final Image downbutton;
+    private final Image maxbutton;
+    private final Image minbutton;
+    private final Image resizebutton;
 
     private FontMetrics fm;
     protected static final GUIPreferences GUIP = GUIPreferences.getInstance();

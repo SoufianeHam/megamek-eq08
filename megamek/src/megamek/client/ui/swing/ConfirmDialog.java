@@ -45,13 +45,13 @@ import megamek.client.ui.swing.util.UIUtil;
 public class ConfirmDialog extends JDialog{
 
     private static final long serialVersionUID = -8491332593940944224L;
-    private GridBagLayout gridbag = new GridBagLayout();
-    private GridBagConstraints c = new GridBagConstraints();
+    private final GridBagLayout gridbag = new GridBagLayout();
+    private final GridBagConstraints c = new GridBagConstraints();
 
-    private boolean useCheckbox;
+    private final boolean useCheckbox;
     private JCheckBox botherCheckbox;
 
-    private JPanel panButtons = new JPanel();
+    private final JPanel panButtons = new JPanel();
     JButton butYes;
     JButton butNo;
     JButton defaultButton;

@@ -55,41 +55,41 @@ public class BotConfigDialog extends AbstractButtonDialog implements ActionListe
         ListSelectionListener, ChangeListener {
     private static final String OK_ACTION = "Ok_Action";
 
-    private BehaviorSettingsFactory behaviorSettingsFactory = BehaviorSettingsFactory.getInstance();
+    private final BehaviorSettingsFactory behaviorSettingsFactory = BehaviorSettingsFactory.getInstance();
     private BehaviorSettings princessBehavior;
 
-    private JLabel nameLabel = new JLabel(Messages.getString("BotConfigDialog.nameLabel"));
-    private TipTextField nameField = new TipTextField("", 16);
+    private final JLabel nameLabel = new JLabel(Messages.getString("BotConfigDialog.nameLabel"));
+    private final TipTextField nameField = new TipTextField("", 16);
     
-    private JButton addTargetButton = new TipButton(Messages.getString("BotConfigDialog.addHexTarget"));
-    private JButton addUnitButton = new TipButton(Messages.getString("BotConfigDialog.addUnitTarget"));
-    private JButton removeTargetButton = new TipButton(Messages.getString("BotConfigDialog.removeTarget"));
-    private DefaultListModel<Object> targetsListModel = new DefaultListModel<>();
-    private TipList<Object> targetsList = new TipList<>(targetsListModel);
+    private final JButton addTargetButton = new TipButton(Messages.getString("BotConfigDialog.addHexTarget"));
+    private final JButton addUnitButton = new TipButton(Messages.getString("BotConfigDialog.addUnitTarget"));
+    private final JButton removeTargetButton = new TipButton(Messages.getString("BotConfigDialog.removeTarget"));
+    private final DefaultListModel<Object> targetsListModel = new DefaultListModel<>();
+    private final TipList<Object> targetsList = new TipList<>(targetsListModel);
     
-    private MMToggleButton forcedWithdrawalCheck = new TipMMToggleButton(Messages.getString("BotConfigDialog.forcedWithdrawalCheck"));
-    private JLabel withdrawEdgeLabel = new JLabel(Messages.getString("BotConfigDialog.retreatEdgeLabel"));
-    private MMComboBox<CardinalEdge> withdrawEdgeCombo = new TipCombo<>("EdgeToWithdraw", CardinalEdge.values());
-    private MMToggleButton autoFleeCheck = new TipMMToggleButton(Messages.getString("BotConfigDialog.autoFleeCheck"));
-    private JLabel fleeEdgeLabel = new JLabel(Messages.getString("BotConfigDialog.homeEdgeLabel"));
-    private MMComboBox<CardinalEdge> fleeEdgeCombo = new TipCombo<>("EdgeToFlee", CardinalEdge.values());
+    private final MMToggleButton forcedWithdrawalCheck = new TipMMToggleButton(Messages.getString("BotConfigDialog.forcedWithdrawalCheck"));
+    private final JLabel withdrawEdgeLabel = new JLabel(Messages.getString("BotConfigDialog.retreatEdgeLabel"));
+    private final MMComboBox<CardinalEdge> withdrawEdgeCombo = new TipCombo<>("EdgeToWithdraw", CardinalEdge.values());
+    private final MMToggleButton autoFleeCheck = new TipMMToggleButton(Messages.getString("BotConfigDialog.autoFleeCheck"));
+    private final JLabel fleeEdgeLabel = new JLabel(Messages.getString("BotConfigDialog.homeEdgeLabel"));
+    private final MMComboBox<CardinalEdge> fleeEdgeCombo = new TipCombo<>("EdgeToFlee", CardinalEdge.values());
     
-    private TipSlider aggressionSlidebar = new TipSlider(SwingConstants.HORIZONTAL, 0, 10, 5);
-    private TipSlider fallShameSlidebar = new TipSlider(SwingConstants.HORIZONTAL, 0, 10, 5);
-    private TipSlider herdingSlidebar = new TipSlider(SwingConstants.HORIZONTAL, 0, 10, 5);
-    private TipSlider selfPreservationSlidebar = new TipSlider(SwingConstants.HORIZONTAL, 0, 10, 5);
-    private TipSlider braverySlidebar = new TipSlider(SwingConstants.HORIZONTAL, 0, 10, 5);
-    private TipButton savePreset = new TipButton(Messages.getString("BotConfigDialog.save"));
-    private TipButton saveNewPreset = new TipButton(Messages.getString("BotConfigDialog.saveNew"));
+    private final TipSlider aggressionSlidebar = new TipSlider(SwingConstants.HORIZONTAL, 0, 10, 5);
+    private final TipSlider fallShameSlidebar = new TipSlider(SwingConstants.HORIZONTAL, 0, 10, 5);
+    private final TipSlider herdingSlidebar = new TipSlider(SwingConstants.HORIZONTAL, 0, 10, 5);
+    private final TipSlider selfPreservationSlidebar = new TipSlider(SwingConstants.HORIZONTAL, 0, 10, 5);
+    private final TipSlider braverySlidebar = new TipSlider(SwingConstants.HORIZONTAL, 0, 10, 5);
+    private final TipButton savePreset = new TipButton(Messages.getString("BotConfigDialog.save"));
+    private final TipButton saveNewPreset = new TipButton(Messages.getString("BotConfigDialog.saveNew"));
     
-    private JButton princessHelpButton = new JButton(Messages.getString("BotConfigDialog.help"));
+    private final JButton princessHelpButton = new JButton(Messages.getString("BotConfigDialog.help"));
             
     private JPanel presetsPanel;
-    private JLabel chooseLabel = new JLabel(Messages.getString("BotConfigDialog.behaviorNameLabel"));
+    private final JLabel chooseLabel = new JLabel(Messages.getString("BotConfigDialog.behaviorNameLabel"));
     /** A copy of the current presets. Modifications will only be saved when accepted. */
     private List<String> presets;
-    private PresetsModel presetsModel = new PresetsModel();
-    private JList<String> presetsList = new JList<>(presetsModel);
+    private final PresetsModel presetsModel = new PresetsModel();
+    private final JList<String> presetsList = new JList<>(presetsModel);
     
     private final JButton butOK = new JButton(Messages.getString("Okay"));
     private final JButton butCancel = new JButton(Messages.getString("Cancel"));
@@ -651,7 +651,7 @@ public class BotConfigDialog extends AbstractButtonDialog implements ActionListe
     }
     
     /** Shows a popup menu for a behavior preset, allowing to delete it. */
-    private MouseListener presetsMouseListener = new MouseAdapter() {
+    private final MouseListener presetsMouseListener = new MouseAdapter() {
         
         @Override
         public void mouseReleased(MouseEvent e) {

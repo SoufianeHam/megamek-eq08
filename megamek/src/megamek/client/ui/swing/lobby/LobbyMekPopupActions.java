@@ -26,7 +26,7 @@ import static megamek.client.ui.swing.lobby.LobbyMekPopup.*;
 /** The ActionListener for the lobby popup menu for both the MekTable and MekTrees. */
 public class LobbyMekPopupActions implements ActionListener {
 
-    private ChatLounge lobby;
+    private final ChatLounge lobby;
 
     /** The ActionListener for the lobby popup menu for both the MekTable and MekTrees. */
     LobbyMekPopupActions(ChatLounge cl) {

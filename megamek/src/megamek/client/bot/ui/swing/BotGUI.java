@@ -22,8 +22,8 @@ import megamek.common.event.*;
 import javax.swing.*;
 
 public class BotGUI implements GameListener {
-    private JFrame frame;
-    private BotClient bot;
+    private final JFrame frame;
+    private final BotClient bot;
 
     public BotGUI(final JFrame frame, final BotClient botClient) {
         this.frame = frame;

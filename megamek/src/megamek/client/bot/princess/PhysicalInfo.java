@@ -43,7 +43,7 @@ public class PhysicalInfo {
     private double expectedCriticals;
     private double killProbability; // probability to destroy CT or HEAD (ignores criticals)
     private double utility; // filled out externally
-    private Princess owner;
+    private final Princess owner;
 
     /**
      * For unit testing.

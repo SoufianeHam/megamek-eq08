@@ -75,13 +75,13 @@ public class Client implements IClientCommandHandler {
     private AbstractConnection connection;
 
     // the hash table of client commands
-    private Hashtable<String, ClientCommand> commandsHash = new Hashtable<>();
+    private final Hashtable<String, ClientCommand> commandsHash = new Hashtable<>();
 
     // some info about us and the server
     private boolean connected = false;
     protected int localPlayerNumber = -1;
-    private String host;
-    private int port;
+    private final String host;
+    private final int port;
 
     // the game state object
     protected Game game = new Game();
@@ -93,7 +93,7 @@ public class Client implements IClientCommandHandler {
     // random generatorsI
     private AbstractSkillGenerator skillGenerator;
     // And close client events!
-    private Vector<CloseClientListener> closeClientListeners = new Vector<>();
+    private final Vector<CloseClientListener> closeClientListeners = new Vector<>();
 
     // we might want to keep a game log...
     private GameLog log;
@@ -143,7 +143,7 @@ public class Client implements IClientCommandHandler {
 
     private Thread connThread;
 
-    private ConnectionListener connectionListener = new ConnectionListener() {
+    private final ConnectionListener connectionListener = new ConnectionListener() {
 
         /**
          * Called when it is sensed that a connection has terminated.

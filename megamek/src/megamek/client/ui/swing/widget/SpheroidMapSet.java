@@ -30,32 +30,32 @@ import java.util.Vector;
  */
 public class SpheroidMapSet implements DisplayMapSet{
 
-    private UnitDisplay unitDisplay;
+    private final UnitDisplay unitDisplay;
     
-    private JComponent comp;
-    private PMSimplePolygonArea[] areas = new PMSimplePolygonArea[5];
-    private PMSimpleLabel[] labels = new PMSimpleLabel[13];
-    private PMValueLabel[] vLabels = new PMValueLabel[13];
-    private Vector<BackGroundDrawer>  bgDrawers = new Vector<>();
-    private PMAreasGroup content = new PMAreasGroup();
+    private final JComponent comp;
+    private final PMSimplePolygonArea[] areas = new PMSimplePolygonArea[5];
+    private final PMSimpleLabel[] labels = new PMSimpleLabel[13];
+    private final PMValueLabel[] vLabels = new PMValueLabel[13];
+    private final Vector<BackGroundDrawer>  bgDrawers = new Vector<>();
+    private final PMAreasGroup content = new PMAreasGroup();
 
     //private static final int INT_STR_OFFSET = 4;
     //Polygons for all areas
-    private Polygon noseArmor = new Polygon(new int[] { 0, 20, 80, 100 },
+    private final Polygon noseArmor = new Polygon(new int[] { 0, 20, 80, 100 },
             new int[] { 50, 0, 0, 50 }, 4);
     //front internal structure
-    private Polygon Structure = new Polygon(new int[] { 40, 60, 60, 40 },
+    private final Polygon Structure = new Polygon(new int[] { 40, 60, 60, 40 },
             new int[] { 50, 50, 150, 150 }, 4);
     //Left armor
-    private Polygon leftWingArmor = new Polygon(new int[] { 0, 40, 40, 0 },
+    private final Polygon leftWingArmor = new Polygon(new int[] { 0, 40, 40, 0 },
             new int[] { 50, 50, 150, 150 }, 4);
 
     //Right armor
-    private Polygon rightWingArmor = new Polygon(new int[] { 60, 100, 100, 60 },
+    private final Polygon rightWingArmor = new Polygon(new int[] { 60, 100, 100, 60 },
             new int[] { 50, 50, 150, 150 }, 4);
 
     //Rear armor
-    private Polygon aftArmor = new Polygon (new int[] { 0, 20, 80, 100 },
+    private final Polygon aftArmor = new Polygon (new int[] { 0, 20, 80, 100 },
             new int[] { 150, 200, 200, 150 }, 4);
 
     private static final Font FONT_LABEL = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN,

@@ -35,8 +35,8 @@ public class GameVictoryEvent extends GameEvent {
     /**
      * Track game entities
      */
-    private Vector<Entity> entities = new Vector<>();
-    private Hashtable<Integer, Entity> entityIds = new Hashtable<>();
+    private final Vector<Entity> entities = new Vector<>();
+    private final Hashtable<Integer, Entity> entityIds = new Hashtable<>();
 
     /**
      * Track entities removed from the game (probably by death)

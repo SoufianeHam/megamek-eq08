@@ -29,7 +29,7 @@ public enum UnitRole {
     TRANSPORT (false),
 	NONE (false);
 
-    private boolean ground;
+    private final boolean ground;
 
     UnitRole(boolean ground) {
         this.ground = ground;

@@ -186,7 +186,7 @@ public class WeaponQuirks extends AbstractOptions {
     }
 
     private static class WeaponQuirksInfo extends AbstractOptionsInfo {
-        private static AbstractOptionsInfo instance = new WeaponQuirksInfo();
+        private static final AbstractOptionsInfo instance = new WeaponQuirksInfo();
 
         public static AbstractOptionsInfo getInstance() {
             return instance;

@@ -48,8 +48,8 @@ public class TdbFile implements IMechLoader {
     @XmlElement(name = "critdefs")
     private CriticalDefinitions critdefs;
     
-    private Map<EquipmentType, Mounted> hSharedEquip = new HashMap<>();
-    private List<Mounted> vSplitWeapons = new ArrayList<>();
+    private final Map<EquipmentType, Mounted> hSharedEquip = new HashMap<>();
+    private final List<Mounted> vSplitWeapons = new ArrayList<>();
 
     /**
      * Creates new TdbFile.

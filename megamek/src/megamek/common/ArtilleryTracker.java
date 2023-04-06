@@ -31,7 +31,7 @@ public class ArtilleryTracker implements Serializable {
      * Maps WeaponID's of artillery weapons to a Vector of ArtilleryModifiers, for all the different
      * coords it's got mods to.
      */
-    private Map<Mounted, Vector<ArtilleryModifier>> weapons;
+    private final Map<Mounted, Vector<ArtilleryModifier>> weapons;
 
     private boolean spotterIsForwardObs;
 
@@ -123,7 +123,7 @@ public class ArtilleryTracker implements Serializable {
      */
     public static class ArtilleryModifier implements Serializable {
         private static final long serialVersionUID = 4913880091708068708L;
-        private Coords coords;
+        private final Coords coords;
         private int modifier;
 
         public ArtilleryModifier(Coords coords, int modifier) {

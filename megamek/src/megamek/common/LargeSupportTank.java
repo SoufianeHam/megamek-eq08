@@ -37,13 +37,13 @@ public class LargeSupportTank extends SupportTank {
     
     private double fuelTonnage = 0;
 
-    private static String[] LOCATION_ABBRS = { "BD", "FR", "FRRS", "FRLS",
+    private static final String[] LOCATION_ABBRS = { "BD", "FR", "FRRS", "FRLS",
             "RRRS", "RRLS", "RR", "TU", "TU2" };
 
-    private static String[] LOCATION_NAMES = { "Body", "Front", "Front Right",
+    private static final String[] LOCATION_NAMES = { "Body", "Front", "Front Right",
             "Front Left", "Rear Right", "Rear Left", "Rear", "Turret"};
     
-    private static String[] LOCATION_NAMES_DUAL_TURRET = { "Body", "Front", "Front Right",
+    private static final String[] LOCATION_NAMES_DUAL_TURRET = { "Body", "Front", "Front Right",
             "Front Left", "Rear Right", "Rear Left", "Rear", "Rear Turret",
             "Front Turret" };
 

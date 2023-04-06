@@ -30,9 +30,9 @@ import megamek.common.alphaStrike.conversion.ASConverter;
 /** A Lobby Mek Table sorter that sorts by 1) player 2) unit role. */
 public class PlayerUnitRoleSorter implements MekTableSorter {
 
-    private ClientGUI clientGui;
-    private Sorting direction;
-    private int d;
+    private final ClientGUI clientGui;
+    private final Sorting direction;
+    private final int d;
 
     /** A Lobby Mek Table sorter that sorts by 1) player 2) unit role. */
     public PlayerUnitRoleSorter(ClientGUI cg, Sorting dir) {

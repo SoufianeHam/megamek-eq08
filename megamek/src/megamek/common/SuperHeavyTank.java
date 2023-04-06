@@ -36,13 +36,13 @@ public class SuperHeavyTank extends Tank {
     private static final int[] NUM_OF_SLOTS =
         { 25, 25, 25, 25, 25, 25, 25, 25, 25 };
 
-    private static String[] LOCATION_ABBRS = { "BD", "FR", "FRRS", "FRLS",
+    private static final String[] LOCATION_ABBRS = { "BD", "FR", "FRRS", "FRLS",
         "RRRS", "RRLS", "RR", "TU", "FT" };
 
-    private static String[] LOCATION_NAMES = { "Body", "Front", "Front Right",
+    private static final String[] LOCATION_NAMES = { "Body", "Front", "Front Right",
         "Front Left", "Rear Right", "Rear Left", "Rear", "Turret" };
 
-    private static String[] LOCATION_NAMES_DUAL_TURRET = { "Body", "Front", "Front Right",
+    private static final String[] LOCATION_NAMES_DUAL_TURRET = { "Body", "Front", "Front Right",
         "Front Left", "Rear Right", "Rear Left", "Rear", "Rear Turret", "Front Turret" };
 
     @Override

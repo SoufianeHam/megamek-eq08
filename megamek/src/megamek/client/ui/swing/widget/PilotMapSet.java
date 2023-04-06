@@ -36,15 +36,15 @@ import java.util.Vector;
  */
 public class PilotMapSet implements DisplayMapSet {
 
-    private static String STAR3 = "***";
-    private static int N_ADV = 35;
-    private JComponent comp;
-    private PMAreasGroup content = new PMAreasGroup();
+    private static final String STAR3 = "***";
+    private static final int N_ADV = 35;
+    private final JComponent comp;
+    private final PMAreasGroup content = new PMAreasGroup();
     private PMPicArea portraitArea;
     private PMSimpleLabel nameL, nickL, pilotL, gunneryL, gunneryLL, gunneryML, gunneryBL, toughBL, initBL, commandBL;
     private PMSimpleLabel pilotR, gunneryR, gunneryLR, gunneryMR, gunneryBR, toughBR, initBR, commandBR, hitsR;
     private PMSimpleLabel[] advantagesR;
-    private Vector<BackGroundDrawer> bgDrawers = new Vector<>();
+    private final Vector<BackGroundDrawer> bgDrawers = new Vector<>();
     private static final Font FONT_VALUE = new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN,
             GUIPreferences.getInstance().getInt("AdvancedMechDisplayLargeFontSize"));
     private static final Font FONT_TITLE = new Font(MMConstants.FONT_SANS_SERIF, Font.ITALIC,

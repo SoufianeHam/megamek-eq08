@@ -22,8 +22,8 @@ public class TeleMissile extends Aero {
 
     public static final int LOC_BODY = 0;
 
-    private static String[] LOCATION_ABBRS = { "BODY" };
-    private static String[] LOCATION_NAMES = { "Body" };
+    private static final String[] LOCATION_ABBRS = { "BODY" };
+    private static final String[] LOCATION_NAMES = { "Body" };
 
     private int originalRideId;
 

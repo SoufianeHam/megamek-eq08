@@ -669,7 +669,7 @@ public class BoardEdgePathFinder {
      *
      */
     private class SortByDistanceToEdge implements Comparator<MovePath> {
-        private int targetRegion;
+        private final int targetRegion;
 
         /**
          * Constructor - initializes the destination edge.

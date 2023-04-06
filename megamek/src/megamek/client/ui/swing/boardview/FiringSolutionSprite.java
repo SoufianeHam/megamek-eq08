@@ -43,19 +43,19 @@ class FiringSolutionSprite extends HexSprite {
     
     // calculated statics
     // text positions
-    private static Point centerHex = new Point(BoardView.HEX_W / 2,
+    private static final Point centerHex = new Point(BoardView.HEX_W / 2,
             BoardView.HEX_H / 2);
-    private static Point firstLine = new Point(BoardView.HEX_W / 2 - 2,
+    private static final Point firstLine = new Point(BoardView.HEX_W / 2 - 2,
             BoardView.HEX_H / 4 + 2);
-    private static Point secondLine = new Point(BoardView.HEX_W / 2 + 9,
+    private static final Point secondLine = new Point(BoardView.HEX_W / 2 + 9,
             BoardView.HEX_H * 3 / 4 - 2);
 
     // sprite object data
-    private FiringSolution fsoln;
-    private String range;
+    private final FiringSolution fsoln;
+    private final String range;
     private String toHitMod;
     private boolean noHitPossible = false;
-    private Shape finalHex;
+    private final Shape finalHex;
 
     public FiringSolutionSprite(BoardView boardView1, final FiringSolution fsoln) {
         super(boardView1, fsoln.getToHitData().getLocation());

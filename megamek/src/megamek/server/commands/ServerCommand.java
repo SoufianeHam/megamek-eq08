@@ -27,8 +27,8 @@ public abstract class ServerCommand {
 
     protected Server server;
 
-    private String name;
-    private String helpText;
+    private final String name;
+    private final String helpText;
 
     /** Creates new ServerCommand */
     public ServerCommand(Server server, String name, String helpText) {

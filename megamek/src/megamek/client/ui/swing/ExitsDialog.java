@@ -46,13 +46,13 @@ public class ExitsDialog extends JDialog implements ActionListener {
     JToggleButton cheExit3;
     JToggleButton cheExit4;
     JToggleButton cheExit5;
-    private JLabel labBlank = new JLabel("                            ");
-    private JPanel panNorth = new JPanel(new GridBagLayout());
-    private JPanel panSouth = new JPanel(new GridBagLayout());
-    private JPanel panWest = new JPanel(new BorderLayout());
-    private JPanel panEast = new JPanel(new BorderLayout());
-    private JPanel panExits = new JPanel(new BorderLayout());
-    private JButton butDone = new JButton(Messages.getString("BoardEditor.Done"));
+    private final JLabel labBlank = new JLabel("                            ");
+    private final JPanel panNorth = new JPanel(new GridBagLayout());
+    private final JPanel panSouth = new JPanel(new GridBagLayout());
+    private final JPanel panWest = new JPanel(new BorderLayout());
+    private final JPanel panEast = new JPanel(new BorderLayout());
+    private final JPanel panExits = new JPanel(new BorderLayout());
+    private final JButton butDone = new JButton(Messages.getString("BoardEditor.Done"));
 
     ExitsDialog(JFrame frame) {
         super(frame, Messages.getString("BoardEditor.SetExits"), true);

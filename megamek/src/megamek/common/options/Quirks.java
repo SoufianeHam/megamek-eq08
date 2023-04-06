@@ -351,7 +351,7 @@ public class Quirks extends AbstractOptions {
 
     private static class QuirksInfo extends AbstractOptionsInfo {
         private static boolean initliazed = false;
-        private static AbstractOptionsInfo instance = new QuirksInfo();
+        private static final AbstractOptionsInfo instance = new QuirksInfo();
 
         public static AbstractOptionsInfo getInstance() {
             if (!initliazed) {

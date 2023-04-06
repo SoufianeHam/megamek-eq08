@@ -25,7 +25,7 @@ public enum OffBoardDirection {
     EAST(2),
     WEST(3);
 
-    private int value;
+    private final int value;
     OffBoardDirection(int value) {
         this.value = value;
     }

@@ -18,53 +18,53 @@ package megamek.common.verifier;
  * @author Reinhard Vicinus
  */
 public interface TestEntityOption {
-    public static final int CEIL_TARGCOMP_CRITS = 0;
-    public static final int ROUND_TARGCOMP_CRITS = 1;
-    public static final int FLOOR_TARGCOMP_CRITS = 2;
+    int CEIL_TARGCOMP_CRITS = 0;
+    int ROUND_TARGCOMP_CRITS = 1;
+    int FLOOR_TARGCOMP_CRITS = 2;
 
-    public TestEntity.Ceil getWeightCeilingEngine();
+    TestEntity.Ceil getWeightCeilingEngine();
 
-    public TestEntity.Ceil getWeightCeilingStructure();
+    TestEntity.Ceil getWeightCeilingStructure();
 
-    public TestEntity.Ceil getWeightCeilingArmor();
+    TestEntity.Ceil getWeightCeilingArmor();
 
-    public TestEntity.Ceil getWeightCeilingControls();
+    TestEntity.Ceil getWeightCeilingControls();
 
-    public TestEntity.Ceil getWeightCeilingWeapons();
+    TestEntity.Ceil getWeightCeilingWeapons();
 
-    public TestEntity.Ceil getWeightCeilingTargComp();
+    TestEntity.Ceil getWeightCeilingTargComp();
 
-    public TestEntity.Ceil getWeightCeilingGyro();
+    TestEntity.Ceil getWeightCeilingGyro();
 
-    public TestEntity.Ceil getWeightCeilingTurret();
+    TestEntity.Ceil getWeightCeilingTurret();
     
-    public TestEntity.Ceil getWeightCeilingLifting();
+    TestEntity.Ceil getWeightCeilingLifting();
 
-    public TestEntity.Ceil getWeightCeilingPowerAmp();
+    TestEntity.Ceil getWeightCeilingPowerAmp();
 
-    public double getMaxOverweight();
+    double getMaxOverweight();
 
-    public boolean showOverweightedEntity();
+    boolean showOverweightedEntity();
 
-    public boolean showUnderweightedEntity();
+    boolean showUnderweightedEntity();
 
-    public boolean showCorrectArmor();
+    boolean showCorrectArmor();
 
-    public boolean showCorrectCritical();
+    boolean showCorrectCritical();
 
-    public boolean showFailedEquip();
+    boolean showFailedEquip();
     
-    public boolean showIncorrectIntroYear();
+    boolean showIncorrectIntroYear();
     
-    public int getIntroYearMargin();
+    int getIntroYearMargin();
 
-    public double getMinUnderweight();
+    double getMinUnderweight();
 
-    public boolean ignoreFailedEquip(String name);
+    boolean ignoreFailedEquip(String name);
 
-    public boolean skip();
+    boolean skip();
 
-    public int getTargCompCrits();
+    int getTargCompCrits();
 
-    public int getPrintSize();
+    int getPrintSize();
 }

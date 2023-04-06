@@ -220,7 +220,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
     protected int nMarines;
 
     private Quirks quirks = new Quirks();
-    private PartialRepairs partReps = new PartialRepairs();
+    private final PartialRepairs partReps = new PartialRepairs();
 
     // Variable for manually shutdown mechs.
     protected boolean manualShutdown = false;
@@ -364,8 +364,8 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
     protected int c3CompanyMasterIndex = LOC_DESTROYED;
     private String c3UUID = null;
     private String c3MasterIsUUID = null;
-    private String[] c3iUUIDs = new String[MAX_C3i_NODES];
-    private String[] NC3UUIDs = new String[MAX_C3i_NODES];
+    private final String[] c3iUUIDs = new String[MAX_C3i_NODES];
+    private final String[] NC3UUIDs = new String[MAX_C3i_NODES];
     private boolean networkBAP = false;
 
     protected int structureType = EquipmentType.T_STRUCTURE_UNKNOWN;
@@ -490,12 +490,12 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
      * The components of this entity that can transport other entities and occupy
      * pod space of an omni unit.
      */
-    private Vector<Transporter> omniPodTransports = new Vector<>();
+    private final Vector<Transporter> omniPodTransports = new Vector<>();
 
     /**
      * The ids of the MechWarriors this entity has picked up
      */
-    private Vector<Integer> pickedUpMechWarriors = new Vector<>();
+    private final Vector<Integer> pickedUpMechWarriors = new Vector<>();
 
     /**
      * The ID of the <code>Entity</code> that has loaded this unit.
@@ -636,7 +636,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
      *
      * @see Entity#hitBySwarmsWeapon
      */
-    private Vector<Integer> hitBySwarmsEntity = new Vector<>();
+    private final Vector<Integer> hitBySwarmsEntity = new Vector<>();
 
     /**
      * A vector that stores from which launcher we were hit by a swarm weapon this round. This
@@ -644,7 +644,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
      *
      * @see Entity#hitBySwarmsEntity
      */
-    private Vector<Integer> hitBySwarmsWeapon = new Vector<>();
+    private final Vector<Integer> hitBySwarmsWeapon = new Vector<>();
 
     /**
      * True if and only if this is a canon (published) unit.
@@ -671,7 +671,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
     /**
      * A vector of currently active sensors that might be able to check range
      */
-    private Vector<Sensor> sensors = new Vector<>();
+    private final Vector<Sensor> sensors = new Vector<>();
     // the currently selected sensor
     private Sensor activeSensor;
     // the sensor chosen for next turn
@@ -781,7 +781,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
     /**
      * Set of team IDs that have observed this entity making attacks from off-board
      */
-    private Set<Integer> offBoardShotObservers;
+    private final Set<Integer> offBoardShotObservers;
     
     private String forceString = "";
     private int forceId = Force.NO_FORCE;
@@ -15062,7 +15062,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
      * Used to ensure all following trailers are disconnected if the train
      * is broken at this entity.
      */
-    private List<Integer> connectedUnits = new ArrayList<>();
+    private final List<Integer> connectedUnits = new ArrayList<>();
 
     /**
      * @return the entities towed behind this entity
@@ -15145,7 +15145,7 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
      *
      * Use this for the tractor/engine/tug
      */
-    private List<Integer> isTractorFor = new ArrayList<>();
+    private final List<Integer> isTractorFor = new ArrayList<>();
 
     /**
      * @return a list of all entities towed behind this tractor.

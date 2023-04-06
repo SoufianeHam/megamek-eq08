@@ -126,7 +126,7 @@ public class PartialRepairs extends AbstractOptions {
     }
 
     private static class PartialRepairInfo extends AbstractOptionsInfo {
-        private static AbstractOptionsInfo instance = new PartialRepairInfo();
+        private static final AbstractOptionsInfo instance = new PartialRepairInfo();
 
         public static AbstractOptionsInfo getInstance() {
             return instance;

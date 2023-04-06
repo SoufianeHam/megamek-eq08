@@ -113,137 +113,137 @@ public class ChatLounge extends AbstractPhaseDisplay implements
     private final static int TEAMOVERVIEW_BORDER = 45;
     private final static int MAP_POPUP_OFFSET = -2; // a slight offset so cursor sits inside popup
 
-    private JTabbedPane panTabs = new JTabbedPane();
-    private JPanel panUnits = new JPanel();
-    private JPanel panMap = new JPanel();
-    private JPanel panTeam = new JPanel();
+    private final JTabbedPane panTabs = new JTabbedPane();
+    private final JPanel panUnits = new JPanel();
+    private final JPanel panMap = new JPanel();
+    private final JPanel panTeam = new JPanel();
     
     // Labels
-    private JLabel lblMapSummary = new JLabel("");
-    private JLabel lblGameYear = new JLabel("");
-    private JLabel lblTechLevel = new JLabel("");
+    private final JLabel lblMapSummary = new JLabel("");
+    private final JLabel lblGameYear = new JLabel("");
+    private final JLabel lblTechLevel = new JLabel("");
 
     // Game Setup
-    private JButton butOptions = new JButton(Messages.getString("ChatLounge.butOptions"));
-    private JToggleButton butGroundMap = new JToggleButton(Messages.getString("ChatLounge.butGroundMap"));
-    private JToggleButton butLowAtmoMap = new JToggleButton(Messages.getString("ChatLounge.name.lowAltitudeMap"));
-    private JToggleButton butHighAtmoMap = new JToggleButton(Messages.getString("ChatLounge.name.HighAltitudeMap"));
-    private JToggleButton butSpaceMap = new JToggleButton(Messages.getString("ChatLounge.name.spaceMap"));
-    private ButtonGroup grpMap = new ButtonGroup();
+    private final JButton butOptions = new JButton(Messages.getString("ChatLounge.butOptions"));
+    private final JToggleButton butGroundMap = new JToggleButton(Messages.getString("ChatLounge.butGroundMap"));
+    private final JToggleButton butLowAtmoMap = new JToggleButton(Messages.getString("ChatLounge.name.lowAltitudeMap"));
+    private final JToggleButton butHighAtmoMap = new JToggleButton(Messages.getString("ChatLounge.name.HighAltitudeMap"));
+    private final JToggleButton butSpaceMap = new JToggleButton(Messages.getString("ChatLounge.name.spaceMap"));
+    private final ButtonGroup grpMap = new ButtonGroup();
 
     /* Unit Configuration Panel */
-    private FixedYPanel panUnitInfo = new FixedYPanel();
-    private JButton butAdd = new JButton(Messages.getString("ChatLounge.butLoad"));
-    private JButton butArmy = new JButton(Messages.getString("ChatLounge.butArmy"));
-    private JButton butSkills = new JButton(Messages.getString("ChatLounge.butSkills"));
-    private JButton butNames = new JButton(Messages.getString("ChatLounge.butNames"));
-    private JButton butLoadList = new JButton(Messages.getString("ChatLounge.butLoadList"));
-    private JButton butSaveList = new JButton(Messages.getString("ChatLounge.butSaveList"));
+    private final FixedYPanel panUnitInfo = new FixedYPanel();
+    private final JButton butAdd = new JButton(Messages.getString("ChatLounge.butLoad"));
+    private final JButton butArmy = new JButton(Messages.getString("ChatLounge.butArmy"));
+    private final JButton butSkills = new JButton(Messages.getString("ChatLounge.butSkills"));
+    private final JButton butNames = new JButton(Messages.getString("ChatLounge.butNames"));
+    private final JButton butLoadList = new JButton(Messages.getString("ChatLounge.butLoadList"));
+    private final JButton butSaveList = new JButton(Messages.getString("ChatLounge.butSaveList"));
 
     /* Unit Table */
     private JTable mekTable;
     public JScrollPane scrMekTable;
-    private MMToggleButton butCompact = new MMToggleButton(Messages.getString("ChatLounge.butCompact"));
-    private MMToggleButton butShowUnitID = new MMToggleButton(Messages.getString("ChatLounge.butShowUnitID"));
-    private JToggleButton butListView = new JToggleButton(Messages.getString("ChatLounge.butSortableView"));
-    private JToggleButton butForceView = new JToggleButton(Messages.getString("ChatLounge.butForceView"));
-    private JButton butCollapse = new JButton(Messages.getString("ChatLounge.butCollapse"));
-    private JButton butExpand = new JButton(Messages.getString("ChatLounge.butExpand"));
+    private final MMToggleButton butCompact = new MMToggleButton(Messages.getString("ChatLounge.butCompact"));
+    private final MMToggleButton butShowUnitID = new MMToggleButton(Messages.getString("ChatLounge.butShowUnitID"));
+    private final JToggleButton butListView = new JToggleButton(Messages.getString("ChatLounge.butSortableView"));
+    private final JToggleButton butForceView = new JToggleButton(Messages.getString("ChatLounge.butForceView"));
+    private final JButton butCollapse = new JButton(Messages.getString("ChatLounge.butCollapse"));
+    private final JButton butExpand = new JButton(Messages.getString("ChatLounge.butExpand"));
     private MekTableModel mekModel;
     
     /* Force Tree */
     private MekTreeForceModel mekForceTreeModel;
     JTree mekForceTree;
-    private MekForceTreeMouseAdapter mekForceTreeMouseListener = new MekForceTreeMouseAdapter();
+    private final MekForceTreeMouseAdapter mekForceTreeMouseListener = new MekForceTreeMouseAdapter();
 
     /* Player Configuration Panel */
     private FixedYPanel panPlayerInfo;
-    private JComboBox<String> comboTeam = new JComboBox<>();
-    private JButton butCamo = new JButton();
-    private JButton butAddBot = new JButton(Messages.getString("ChatLounge.butAddBot"));
-    private JButton butRemoveBot = new JButton(Messages.getString("ChatLounge.butRemoveBot"));
-    private JButton butConfigPlayer = new JButton(Messages.getString("ChatLounge.butConfigPlayer"));
-    private JButton butBotSettings = new JButton(Messages.getString("ChatLounge.butBotSettings"));
+    private final JComboBox<String> comboTeam = new JComboBox<>();
+    private final JButton butCamo = new JButton();
+    private final JButton butAddBot = new JButton(Messages.getString("ChatLounge.butAddBot"));
+    private final JButton butRemoveBot = new JButton(Messages.getString("ChatLounge.butRemoveBot"));
+    private final JButton butConfigPlayer = new JButton(Messages.getString("ChatLounge.butConfigPlayer"));
+    private final JButton butBotSettings = new JButton(Messages.getString("ChatLounge.butBotSettings"));
 
-    private MekTableMouseAdapter mekTableMouseAdapter = new MekTableMouseAdapter();
-    private PlayerTableModel playerModel = new PlayerTableModel();
-    private PlayerTable tablePlayers = new PlayerTable(playerModel, this);
-    private JScrollPane scrPlayers = new JScrollPane(tablePlayers);
+    private final MekTableMouseAdapter mekTableMouseAdapter = new MekTableMouseAdapter();
+    private final PlayerTableModel playerModel = new PlayerTableModel();
+    private final PlayerTable tablePlayers = new PlayerTable(playerModel, this);
+    private final JScrollPane scrPlayers = new JScrollPane(tablePlayers);
 
     /* Map Settings Panel */
-    private JLabel lblMapWidth = new JLabel(Messages.getString("ChatLounge.labMapWidth"));
-    private JButton butMapGrowW = new JButton(Messages.getString("ChatLounge.butGrow"));
-    private JButton butMapShrinkW = new JButton(Messages.getString("ChatLounge.butShrink"));
-    private JTextField fldMapWidth = new JTextField(3);
-    private JLabel lblMapHeight = new JLabel(Messages.getString("ChatLounge.labMapHeight"));
-    private JButton butMapGrowH = new JButton(Messages.getString("ChatLounge.butGrow"));
-    private JButton butMapShrinkH = new JButton(Messages.getString("ChatLounge.butShrink"));
-    private JTextField fldMapHeight = new JTextField(3);
-    private FixedYPanel panMapHeight = new FixedYPanel();
-    private FixedYPanel panMapWidth = new FixedYPanel();
+    private final JLabel lblMapWidth = new JLabel(Messages.getString("ChatLounge.labMapWidth"));
+    private final JButton butMapGrowW = new JButton(Messages.getString("ChatLounge.butGrow"));
+    private final JButton butMapShrinkW = new JButton(Messages.getString("ChatLounge.butShrink"));
+    private final JTextField fldMapWidth = new JTextField(3);
+    private final JLabel lblMapHeight = new JLabel(Messages.getString("ChatLounge.labMapHeight"));
+    private final JButton butMapGrowH = new JButton(Messages.getString("ChatLounge.butGrow"));
+    private final JButton butMapShrinkH = new JButton(Messages.getString("ChatLounge.butShrink"));
+    private final JTextField fldMapHeight = new JTextField(3);
+    private final FixedYPanel panMapHeight = new FixedYPanel();
+    private final FixedYPanel panMapWidth = new FixedYPanel();
     
-    private JLabel lblSpaceBoardWidth = new JLabel(Messages.getString("ChatLounge.labBoardWidth"));
-    private JTextField fldSpaceBoardWidth = new JTextField(3);
-    private JLabel lblSpaceBoardHeight = new JLabel(Messages.getString("ChatLounge.labBoardHeight"));
-    private JTextField fldSpaceBoardHeight = new JTextField(3);
-    private FixedYPanel panSpaceBoardHeight = new FixedYPanel();
-    private FixedYPanel panSpaceBoardWidth = new FixedYPanel();
+    private final JLabel lblSpaceBoardWidth = new JLabel(Messages.getString("ChatLounge.labBoardWidth"));
+    private final JTextField fldSpaceBoardWidth = new JTextField(3);
+    private final JLabel lblSpaceBoardHeight = new JLabel(Messages.getString("ChatLounge.labBoardHeight"));
+    private final JTextField fldSpaceBoardHeight = new JTextField(3);
+    private final FixedYPanel panSpaceBoardHeight = new FixedYPanel();
+    private final FixedYPanel panSpaceBoardWidth = new FixedYPanel();
     
-    private JLabel lblBoardSize = new JLabel(Messages.getString("ChatLounge.labBoardSize"));
-    private JButton butHelp = new JButton(" " + Messages.getString("ChatLounge.butHelp") + " ");
+    private final JLabel lblBoardSize = new JLabel(Messages.getString("ChatLounge.labBoardSize"));
+    private final JButton butHelp = new JButton(" " + Messages.getString("ChatLounge.butHelp") + " ");
 
-    private JButton butConditions = new JButton(Messages.getString("ChatLounge.butConditions"));
-    private JButton butRandomMap = new JButton(Messages.getString("BoardSelectionDialog.GeneratedMapSettings"));
+    private final JButton butConditions = new JButton(Messages.getString("ChatLounge.butConditions"));
+    private final JButton butRandomMap = new JButton(Messages.getString("BoardSelectionDialog.GeneratedMapSettings"));
     ArrayList<MapPreviewButton> mapButtons = new ArrayList<>(20);
     MapSettings mapSettings;
     private JPanel panGroundMap;
     @SuppressWarnings("rawtypes")
     private JComboBox<Comparable> comMapSizes;
-    private JButton butBoardPreview = new JButton(Messages.getString("BoardSelectionDialog.ViewGameBoard"));
-    private JPanel panMapButtons = new JPanel();
-    private JLabel lblBoardsAvailable = new JLabel();
+    private final JButton butBoardPreview = new JButton(Messages.getString("BoardSelectionDialog.ViewGameBoard"));
+    private final JPanel panMapButtons = new JPanel();
+    private final JLabel lblBoardsAvailable = new JLabel();
     private JList<String> lisBoardsAvailable;
     private JScrollPane scrBoardsAvailable;
-    private JButton butSpaceSize = new JButton(Messages.getString("ChatLounge.MapSize"));
+    private final JButton butSpaceSize = new JButton(Messages.getString("ChatLounge.MapSize"));
     private Set<BoardDimensions> mapSizes = new TreeSet<>();
     boolean resetAvailBoardSelection = false;
     boolean resetSelectedBoards = true;
     private ClientDialog boardPreviewW;
-    private Game boardPreviewGame = new Game();
+    private final Game boardPreviewGame = new Game();
     private BoardView previewBV;
     Dimension currentMapButtonSize = new Dimension(0, 0);
     
-    private ArrayList<String> invalidBoards = new ArrayList<>();
-    private ArrayList<String> serverBoards = new ArrayList<>();
+    private final ArrayList<String> invalidBoards = new ArrayList<>();
+    private final ArrayList<String> serverBoards = new ArrayList<>();
     
     private JSplitPane splGroundMap;
-    private JLabel lblSearch = new JLabel(Messages.getString("ChatLounge.labSearch"));
-    private JTextField fldSearch = new JTextField(10);
-    private JButton butCancelSearch = new JButton(Messages.getString("ChatLounge.butCancelSearch"));
+    private final JLabel lblSearch = new JLabel(Messages.getString("ChatLounge.labSearch"));
+    private final JTextField fldSearch = new JTextField(10);
+    private final JButton butCancelSearch = new JButton(Messages.getString("ChatLounge.butCancelSearch"));
 
     private MekTableSorter activeSorter;
-    private ArrayList<MekTableSorter> unitSorters = new ArrayList<>();
-    private ArrayList<MekTableSorter> bvSorters = new ArrayList<>();
+    private final ArrayList<MekTableSorter> unitSorters = new ArrayList<>();
+    private final ArrayList<MekTableSorter> bvSorters = new ArrayList<>();
     
-    private JButton butAddY = new JButton(Messages.getString("ChatLounge.butAdd"));
-    private JButton butAddX = new JButton(Messages.getString("ChatLounge.butAdd"));
-    private JButton butSaveMapSetup = new JButton(Messages.getString("ChatLounge.map.saveMapSetup") + " *");
-    private JButton butLoadMapSetup = new JButton(Messages.getString("ChatLounge.map.loadMapSetup"));
+    private final JButton butAddY = new JButton(Messages.getString("ChatLounge.butAdd"));
+    private final JButton butAddX = new JButton(Messages.getString("ChatLounge.butAdd"));
+    private final JButton butSaveMapSetup = new JButton(Messages.getString("ChatLounge.map.saveMapSetup") + " *");
+    private final JButton butLoadMapSetup = new JButton(Messages.getString("ChatLounge.map.loadMapSetup"));
     
     /* Team Overview Panel */
     private TeamOverviewPanel panTeamOverview;
     JButton butDetach = new JButton(Messages.getString("ChatLounge.butDetach"));
-    private JSplitPane splitPaneMain;
+    private final JSplitPane splitPaneMain;
     ClientDialog teamOverviewWindow;
         
     private ImageLoader loader;
-    private Map<String, Image> baseImages = new HashMap<>();
+    private final Map<String, Image> baseImages = new HashMap<>();
     
-    private MapListMouseAdapter mapListMouseListener = new MapListMouseAdapter(); 
+    private final MapListMouseAdapter mapListMouseListener = new MapListMouseAdapter();
     
     LobbyActions lobbyActions = new LobbyActions(this); 
     
-    private Map<String, String> boardTags = new HashMap<>();
+    private final Map<String, String> boardTags = new HashMap<>();
     
     LobbyKeyDispatcher lobbyKeyDispatcher = new LobbyKeyDispatcher(this);
 
@@ -471,7 +471,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
     }
 
     /** Enables buttons to allow adding units when the MSC has finished loading. */
-    private MechSummaryCache.Listener mechSummaryCacheListener = () -> {
+    private final MechSummaryCache.Listener mechSummaryCacheListener = () -> {
         butAdd.setEnabled(true);
         butArmy.setEnabled(true);
         butLoadList.setEnabled(true);
@@ -1656,7 +1656,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
         // Do nothing
     }
     
-    private ActionListener lobbyListener = new ActionListener() {
+    private final ActionListener lobbyListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ev) {
             // Are we ignoring events?
@@ -2412,7 +2412,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
         }
     }
     
-    private ActionListener playerTableActionListener = evt -> {
+    private final ActionListener playerTableActionListener = evt -> {
         if (tablePlayers.getSelectedRowCount() == 0) {
             return;
         }
@@ -3222,7 +3222,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
 
     class ImageLoader extends SwingWorker<Void, Image> {
 
-        private BlockingQueue<String> boards = new LinkedBlockingQueue<>();
+        private final BlockingQueue<String> boards = new LinkedBlockingQueue<>();
 
         private synchronized void add(String name) {
             if (!boards.contains(name)) {

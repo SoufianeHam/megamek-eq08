@@ -35,7 +35,7 @@ public class DestructionAwareDestinationPathfinder extends BoardEdgePathFinder {
 
     private Comparator<BulldozerMovePath> movePathComparator;
     private int maximumCost = Integer.MAX_VALUE;
-    private Map<Coords, Boolean> friendlyFireCheckResults = new HashMap<>();
+    private final Map<Coords, Boolean> friendlyFireCheckResults = new HashMap<>();
     
     /**
      * Uses an A* search to find the "optimal" path to the destination coordinates.
@@ -301,7 +301,7 @@ public class DestructionAwareDestinationPathfinder extends BoardEdgePathFinder {
      * @author NickAragua
      */
     private class AStarComparator implements Comparator<BulldozerMovePath> {
-        private Coords destination;
+        private final Coords destination;
 
         /**
          * Constructor - initializes the destination edge.

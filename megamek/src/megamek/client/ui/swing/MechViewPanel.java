@@ -42,8 +42,8 @@ public class MechViewPanel extends JPanel {
 
     private static final long serialVersionUID = 2438490306644271135L;
 
-    private JTextPane txtMek = new JTextPane();
-    private JLabel lblMek = new JLabel();
+    private final JTextPane txtMek = new JTextPane();
+    private final JLabel lblMek = new JLabel();
     private JScrollPane scrMek;
 
     public static final int DEFAULT_WIDTH = 360;

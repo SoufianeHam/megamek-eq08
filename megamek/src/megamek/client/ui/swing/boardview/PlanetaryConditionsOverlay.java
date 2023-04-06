@@ -374,7 +374,7 @@ public class PlanetaryConditionsOverlay implements IDisplayable, IPreferenceChan
     }
     
     /** Detects phase and turn changes to display Planetary Conditions. */
-    private GameListener gameListener = new GameListenerAdapter() {
+    private final GameListener gameListener = new GameListenerAdapter() {
         @Override
         public void gamePhaseChange(GamePhaseChangeEvent e) {
             currentPhase = e.getNewPhase();

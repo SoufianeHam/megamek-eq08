@@ -47,16 +47,16 @@ public class ReplacePlayersDialog extends AbstractButtonDialog {
     private final Game game;
     
     /** The list of displayed ghost players */
-    private Set<Player> ghostPlayers;
+    private final Set<Player> ghostPlayers;
     
     /** Maps a ghost player to the combobox that sets its replacement */
-    private Map<Player, JComboBox<String>> playerChoosers = new HashMap<>();
+    private final Map<Player, JComboBox<String>> playerChoosers = new HashMap<>();
     
     /** Maps a ghost player to the config button for the bot settings */
-    private Map<Player, JButton> configButtons = new HashMap<>();
+    private final Map<Player, JButton> configButtons = new HashMap<>();
     
     /** Maps a ghost player to bot settings chosen for it */
-    private Map<Player, BehaviorSettings> botConfigs = new HashMap<>();
+    private final Map<Player, BehaviorSettings> botConfigs = new HashMap<>();
 
     protected ReplacePlayersDialog(JFrame frame, ClientGUI cg) {
         super(frame, "ReplacePlayersDialog", "ReplacePlayersDialog.title");

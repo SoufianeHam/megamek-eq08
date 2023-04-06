@@ -215,7 +215,7 @@ public class MekForceTreeTransferHandler extends TransferHandler {
     private class StringTransferable implements Transferable {
 
         private final DataFlavor[] supported = { DataFlavor.stringFlavor };
-        private String selectionIds;
+        private final String selectionIds;
 
         StringTransferable(String str) {
             this.selectionIds = str;

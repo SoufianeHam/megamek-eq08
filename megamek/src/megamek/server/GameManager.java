@@ -94,31 +94,31 @@ public class GameManager implements IGameManager {
 
     private Game game = new Game();
 
-    private Vector<Report> vPhaseReport = new Vector<>();
+    private final Vector<Report> vPhaseReport = new Vector<>();
 
     public Vector<Report> getvPhaseReport() {
         return vPhaseReport;
     }
 
     // Track buildings that are affected by an entity's movement.
-    private Hashtable<Building, Boolean> affectedBldgs = new Hashtable<>();
+    private final Hashtable<Building, Boolean> affectedBldgs = new Hashtable<>();
 
     // Track Physical Action results, HACK to deal with opposing pushes
     // canceling each other
-    private Vector<PhysicalResult> physicalResults = new Vector<>();
+    private final Vector<PhysicalResult> physicalResults = new Vector<>();
 
-    private Vector<DynamicTerrainProcessor> terrainProcessors = new Vector<>();
+    private final Vector<DynamicTerrainProcessor> terrainProcessors = new Vector<>();
 
     private static EntityVerifier entityVerifier;
 
-    private ArrayList<int[]> scheduledNukes = new ArrayList<>();
+    private final ArrayList<int[]> scheduledNukes = new ArrayList<>();
 
     /**
      * Stores a set of <code>Coords</code> that have changed during this phase.
      */
-    private Set<Coords> hexUpdateSet = new LinkedHashSet<>();
+    private final Set<Coords> hexUpdateSet = new LinkedHashSet<>();
 
-    private List<DemolitionCharge> explodingCharges = new ArrayList<>();
+    private final List<DemolitionCharge> explodingCharges = new ArrayList<>();
 
     /**
      * Keeps track of what team a player requested to join.
@@ -1703,7 +1703,7 @@ public class GameManager implements IGameManager {
 
                     // Does the player have any artillery-equipped units?
                     EntitySelector playerArtySelector = new EntitySelector() {
-                        private Player owner = p;
+                        private final Player owner = p;
 
                         @Override
                         public boolean accept(Entity entity) {
@@ -13052,8 +13052,8 @@ public class GameManager implements IGameManager {
                     clearArtillerySpotters(firingEntity.getId(), aaa.getWeaponId());
                 }
                 Iterator<Entity> spotters = game.getSelectedEntities(new EntitySelector() {
-                    public int player = firingEntity.getOwnerId();
-                    public Targetable target = aaa.getTarget(game);
+                    public final int player = firingEntity.getOwnerId();
+                    public final Targetable target = aaa.getTarget(game);
 
                     @Override
                     public boolean accept(Entity entity) {

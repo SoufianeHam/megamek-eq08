@@ -13,7 +13,7 @@ import java.util.List;
  *
  */
 public class PMMultiLineLabel extends PMSimpleLabel {
-    private List<String> labels = new ArrayList<>();
+    private final List<String> labels = new ArrayList<>();
     
     /**
      * Constructs a new multi-line label

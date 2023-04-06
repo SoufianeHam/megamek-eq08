@@ -57,7 +57,7 @@ public class RandomUnitGenerator implements Serializable {
     private boolean initialized;
     private boolean initializing;
 
-    private ArrayList<ActionListener> listeners;
+    private final ArrayList<ActionListener> listeners;
 
     /**
      * Plain old data class used to represent nodes in a Random Assignment Table

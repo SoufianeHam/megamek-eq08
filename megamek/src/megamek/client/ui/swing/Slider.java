@@ -35,14 +35,14 @@ import megamek.client.ui.Messages;
  */
 public class Slider extends JDialog implements ActionListener, ChangeListener {
     private static final long serialVersionUID = -7823206132140091543L;
-    private JButton butOk = new JButton(Messages.getString("Okay"));
-    private JButton butCancel = new JButton(Messages.getString("Cancel"));
-    private JSlider value;
-    private JLabel lblText = new JLabel();
+    private final JButton butOk = new JButton(Messages.getString("Okay"));
+    private final JButton butCancel = new JButton(Messages.getString("Cancel"));
+    private final JSlider value;
+    private final JLabel lblText = new JLabel();
     private boolean ok;
-    private JLabel minText = new JLabel();
-    private JLabel maxText = new JLabel();
-    private JLabel curText = new JLabel();
+    private final JLabel minText = new JLabel();
+    private final JLabel maxText = new JLabel();
+    private final JLabel curText = new JLabel();
 
     public Slider(JFrame parent, String title, String question,
             int defaultValue, int min, int max) {

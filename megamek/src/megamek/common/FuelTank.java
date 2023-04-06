@@ -22,7 +22,7 @@ import megamek.common.enums.BasementType;
  */
 public class FuelTank extends Building {
     private static final long serialVersionUID = 5275543640680231747L;
-    private int _magnitude;
+    private final int _magnitude;
 
     public FuelTank(Coords coords, Board board, int structureType, int magnitude) {
         super(coords, board, structureType, BasementType.NONE);
