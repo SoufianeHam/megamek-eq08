@@ -313,8 +313,8 @@ public class GameOptions extends AbstractOptions {
         addOption(rpg, OptionsConstants.RPG_BEGIN_SHUTDOWN, false);
     }
 
-    public Vector<IOption> loadOptions() {
-        return loadOptions(new File(GAME_OPTIONS_FILE_NAME), true);
+    public void loadOptions() {
+        loadOptions(new File(GAME_OPTIONS_FILE_NAME), true);
     }
 
     public synchronized Vector<IOption> loadOptions(File file, boolean print) {

@@ -295,31 +295,31 @@ class EntitySprite extends Sprite {
             }
         }
 
-        Status(Color c, String s, Object... objs) {
-            color = c;
-            status = Messages.getString("BoardView1." + s, objs);
+        Status(Object... objs) {
+            color = Color.YELLOW;
+            status = Messages.getString("BoardView1." + "STUNNED", objs);
             small = false;
             if (color.equals(Color.RED)) {
                 criticalStatus = true;
             }
         }
 
-        Status(Color c, String s, boolean direct) {
-            color = c;
-            status = s;
+        Status() {
+            color = Color.YELLOW;
+            status = "Working";
             small = false;
             if (color.equals(Color.RED)) {
                 criticalStatus = true;
             }
         }
 
-        Status(Color c, String s, int t) {
+        Status(Color c, String s) {
             color = c;
             status = s;
             small = true;
         }
 
-        Status(Color c, int b, int t) {
+        Status(Color c) {
             color = c;
             status = null;
             small = true;
@@ -484,11 +484,11 @@ class EntitySprite extends Sprite {
             // draw elevation/altitude if non-zero
             if (entity.isAirborne()) {
                 if (!board.inSpace()) {
-                    stStr.add(new Status(Color.CYAN, "A", SMALL));
-                    stStr.add(new Status(Color.CYAN, Integer.toString(entity.getAltitude()), SMALL));
+                    stStr.add(new Status(Color.CYAN, "A"));
+                    stStr.add(new Status(Color.CYAN, Integer.toString(entity.getAltitude())));
                 }
             } else if (entity.getElevation() != 0) {
-                stStr.add(new Status(Color.CYAN, Integer.toString(entity.getElevation()), SMALL));
+                stStr.add(new Status(Color.CYAN, Integer.toString(entity.getElevation())));
             }
 
             // Shutdown
@@ -554,7 +554,7 @@ class EntitySprite extends Sprite {
 
             // Transporting
             if (!entity.getLoadedUnits().isEmpty()) {
-                stStr.add(new Status(Color.YELLOW, "T", SMALL));
+                stStr.add(new Status(Color.YELLOW, "T"));
             }
 
             if (!entity.getAllTowedUnits().isEmpty()) {
@@ -564,14 +564,14 @@ class EntitySprite extends Sprite {
             // Hidden, Unseen Unit
             if (trackThisEntitiesVisibilityInfo(entity)) {
                 if (!entity.isEverSeenByEnemy()) {
-                    stStr.add(new Status(Color.GREEN, "U", SMALL));
+                    stStr.add(new Status(Color.GREEN, "U"));
                 } else if (!entity.isVisibleToEnemy()) {
-                    stStr.add(new Status(Color.GREEN, "H", SMALL));
+                    stStr.add(new Status(Color.GREEN, "H"));
                 }
             }
 
             if (entity.hasAnyTypeNarcPodsAttached()) {
-                stStr.add(new Status(Color.RED, "N", SMALL));
+                stStr.add(new Status(Color.RED, "N"));
             }
 
             // Large Craft Ejecting
@@ -587,7 +587,7 @@ class EntitySprite extends Sprite {
             }
 
             if (crewStunned > 0)  {
-                stStr.add(new Status(Color.YELLOW, "STUNNED", new Object[] { crewStunned }));
+                stStr.add(new Status(new Object[] { crewStunned }));
             }
 
             // Infantry
@@ -595,17 +595,17 @@ class EntitySprite extends Sprite {
                 Infantry inf = ((Infantry) entity);
                 int dig = inf.getDugIn();
                 if (dig == Infantry.DUG_IN_COMPLETE) {
-                    stStr.add(new Status(Color.PINK, "D", SMALL));
+                    stStr.add(new Status(Color.PINK, "D"));
                 } else if (dig != Infantry.DUG_IN_NONE) {
-                    stStr.add(new Status(Color.YELLOW, "Working", DIRECT));
-                    stStr.add(new Status(Color.PINK, "D", SMALL));
+                    stStr.add(new Status());
+                    stStr.add(new Status(Color.PINK, "D"));
                 } else if (inf.isTakingCover()) {
                     stStr.add(new Status(Color.YELLOW, "TakingCover"));
                 }
 
                 if (inf.turnsLayingExplosives >= 0) {
-                    stStr.add(new Status(Color.YELLOW, "Working", DIRECT));
-                    stStr.add(new Status(Color.PINK, "E", SMALL));
+                    stStr.add(new Status());
+                    stStr.add(new Status(Color.PINK, "E"));
                 }
             }
 
@@ -614,8 +614,8 @@ class EntitySprite extends Sprite {
                 Tank tnk = ((Tank) entity);
                 int dig = tnk.getDugIn();
                 if ((dig >= Tank.DUG_IN_FORTIFYING1) && (dig <= Tank.DUG_IN_FORTIFYING3)) {
-                    stStr.add(new Status(Color.YELLOW, "Working", DIRECT));
-                    stStr.add(new Status(Color.PINK, "D", SMALL));
+                    stStr.add(new Status());
+                    stStr.add(new Status(Color.PINK, "D"));
                 }
             }
 
@@ -644,7 +644,7 @@ class EntitySprite extends Sprite {
             if (GUIP.getShowDamageLevel()) {
                 Color damageColor = getDamageColor();
                 if (damageColor != null) {
-                    stStr.add(new Status(damageColor, 0, SMALL));
+                    stStr.add(new Status(damageColor));
                 }
             }
 

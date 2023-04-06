@@ -76,13 +76,12 @@ public class MenuScroller {
      * Registers a menu to be scrolled with the default number of items to display at a time and the
      * specified scrolling interval.
      *
-     * @param menu the menu
+     * @param menu        the menu
      * @param scrollCount the number of items to display at a time
-     * @return the MenuScroller
      * @throws IllegalArgumentException if scrollCount is 0 or negative
      */
-    public static MenuScroller setScrollerFor(JMenu menu, int scrollCount) {
-        return new MenuScroller(menu, scrollCount);
+    public static void setScrollerFor(JMenu menu, int scrollCount) {
+        new MenuScroller(menu, scrollCount);
     }
 
     /**

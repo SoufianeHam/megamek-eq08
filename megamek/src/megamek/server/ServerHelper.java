@@ -51,15 +51,13 @@ public class ServerHelper {
                 te_hex = game.getBoard().getHex(te.getPosition());
             }
 
-            if ((te_hex != null) && !te_hex.containsTerrain(Terrains.WOODS) && !te_hex.containsTerrain(Terrains.JUNGLE)
+            return (te_hex != null) && !te_hex.containsTerrain(Terrains.WOODS) && !te_hex.containsTerrain(Terrains.JUNGLE)
                     && !te_hex.containsTerrain(Terrains.ROUGH) && !te_hex.containsTerrain(Terrains.RUBBLE)
                     && !te_hex.containsTerrain(Terrains.SWAMP) && !te_hex.containsTerrain(Terrains.BUILDING)
                     && !te_hex.containsTerrain(Terrains.FUEL_TANK) && !te_hex.containsTerrain(Terrains.FORTIFIED)
                     && (!te.hasAbility(OptionsConstants.INFANTRY_URBAN_GUERRILLA))
                     && (!te_hex.containsTerrain(Terrains.PAVEMENT) || !te_hex.containsTerrain(Terrains.ROAD))
-                    && !ammoExplosion) {
-                return true;
-            }
+                    && !ammoExplosion;
         }
         
         return false;

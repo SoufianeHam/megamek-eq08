@@ -87,8 +87,8 @@ public final class SimplexNoise { // Simplex noise in 2D, 3D and 4D
     }
 
     /** Limit the value to be between the two supplied ones, inclusive */
-    private static double clamp(double min, double max, double val) {
-        return Math.max(min, Math.min(max, val));
+    private static double clamp(double val) {
+        return Math.max(-1.0, Math.min(1.0, val));
     }
 
     public static double noiseOctaves(double xin, double yin, int octaves, double scale) {
@@ -169,7 +169,7 @@ public final class SimplexNoise { // Simplex noise in 2D, 3D and 4D
         }
         // Add contributions from each corner to get the final noise value.
         // The result is scaled to return values in the interval [-1, 1].
-        return clamp(-1.0, 1.0, 70.0 * (n0 + n1 + n2) / 0.9978893541475 /* sampled correction factor */);
+        return clamp(70.0 * (n0 + n1 + n2) / 0.9978893541475 /* sampled correction factor */);
     }
 
     // 3D simplex noise
@@ -298,7 +298,7 @@ public final class SimplexNoise { // Simplex noise in 2D, 3D and 4D
         }
         // Add contributions from each corner to get the final noise value.
         // The result is scaled to stay just inside [-1, 1]
-        return clamp(-1.0, 1.0, 32.0 * (n0 + n1 + n2 + n3) / 0.9787095282039 /* sampled correction factor */);
+        return clamp(32.0 * (n0 + n1 + n2 + n3) / 0.9787095282039 /* sampled correction factor */);
     }
 
     // 4D simplex noise, better simplex rank ordering method 2012-03-09
@@ -453,7 +453,10 @@ public final class SimplexNoise { // Simplex noise in 2D, 3D and 4D
     // Inner class to speed upp gradient computations
     // (array access is a lot slower than member access)
     private static class Grad {
-        double x, y, z, w;
+        final double x;
+        final double y;
+        final double z;
+        double w;
 
         Grad(double x, double y, double z) {
             this.x = x;

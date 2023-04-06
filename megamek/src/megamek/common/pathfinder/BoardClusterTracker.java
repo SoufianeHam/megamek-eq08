@@ -368,14 +368,10 @@ public class BoardClusterTracker {
             int buildingCF = building.getCurrentCF(coords);
             
             return entity.getWeight() > buildingCF;            
-        } else if ((relevantMovementType != MovementType.Flyer) &&
+        } else return (relevantMovementType != MovementType.Flyer) &&
                 (relevantMovementType != MovementType.Jump) &&
                 (relevantMovementType != MovementType.None) &&
-                (relevantMovementType != MovementType.Water)) {
-            return true;
-        } else {
-            return false;
-        }
+                (relevantMovementType != MovementType.Water);
     }
     
     /**
@@ -390,8 +386,8 @@ public class BoardClusterTracker {
      * A data structure representing a set of coordinates to which an entity can move.
      */
     public static class BoardCluster {
-        public Map<Coords, Integer> contents = new HashMap<>();
-        public int id;
+        public final Map<Coords, Integer> contents = new HashMap<>();
+        public final int id;
         
         public BoardCluster(int id) {
             this.id = id;

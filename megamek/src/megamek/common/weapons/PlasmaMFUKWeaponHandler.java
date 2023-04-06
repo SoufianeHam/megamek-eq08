@@ -22,7 +22,6 @@ package megamek.common.weapons;
 import megamek.common.*;
 import megamek.common.actions.WeaponAttackAction;
 import megamek.server.GameManager;
-import megamek.server.Server;
 
 import java.util.Vector;
 
@@ -73,7 +72,7 @@ public class PlasmaMFUKWeaponHandler extends EnergyWeaponHandler {
     }
 
     @Override
-    protected void handleIgnitionDamage(Vector<Report> vPhaseReport, Building bldg, int hits) {
+    protected void handleIgnitionDamage(Vector<Report> vPhaseReport) {
         if (!bSalvo) {
             // hits!
             Report r = new Report(2270);

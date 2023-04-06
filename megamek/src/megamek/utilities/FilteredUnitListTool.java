@@ -28,7 +28,7 @@ import java.io.File;
  */
 public class FilteredUnitListTool {
 
-    private static boolean filter(final Entity entity, final MechSummary summary) {
+    private static boolean filter(final Entity entity) {
         boolean passesFilter;
         // Between the lines, set passesFilter to any sort of check on entity or MechSummary that, when true,
         // should make the unit be listed.
@@ -53,7 +53,7 @@ public class FilteredUnitListTool {
         int countFound = 0;
         for (MechSummary unitSummary : cache.getAllMechs()) {
             Entity entity = loadEntity(unitSummary.getSourceFile(), unitSummary.getEntryName());
-            if ((entity != null) && filter(entity, unitSummary)) {
+            if ((entity != null) && filter(entity)) {
                 System.out.println(entity.getShortName());
                 countFound++;
             }

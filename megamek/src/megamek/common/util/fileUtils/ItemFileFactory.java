@@ -69,8 +69,7 @@ public interface ItemFileFactory extends FilenameFilter {
      * The method that must be implemented by any object that filters filenames within a
      * <code>ZipFile</code> (i.e., selects a subset of filenames from a list of filenames in a ZIP archive).
      *
-     * @param zipFile The <code>ZipFile</code> object that contains the named file's entry.
      * @param name The <code>String</code> name of the file.
      */
-    boolean accept(ZipFile zipFile, String name);
+    boolean accept(String name);
 }

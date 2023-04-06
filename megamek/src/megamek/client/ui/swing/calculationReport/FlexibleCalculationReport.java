@@ -47,19 +47,17 @@ public class FlexibleCalculationReport implements CalculationReport {
     }
 
     @Override
-    public CalculationReport addSubHeader(String text) {
+    public void addSubHeader(String text) {
         htmlReport.addSubHeader(text);
         swingReport.addSubHeader(text);
         textReport.addSubHeader(text);
-        return this;
     }
 
     @Override
-    public CalculationReport addHeader(String text) {
+    public void addHeader(String text) {
         htmlReport.addHeader(text);
         swingReport.addHeader(text);
         textReport.addHeader(text);
-        return this;
     }
 
     @Override

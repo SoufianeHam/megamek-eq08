@@ -40,7 +40,7 @@ public class ScenarioDialog extends JDialog implements ActionListener {
     private final JFrame m_frame;
 
     public boolean bSet;
-    public int[] playerTypes;
+    public final int[] playerTypes;
     public String localName = "";
 
     @SuppressWarnings("unchecked")

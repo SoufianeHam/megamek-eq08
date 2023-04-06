@@ -21,9 +21,9 @@ class FlyOverSprite extends Sprite {
 
     private Polygon flyOverPoly = null;
 
-    protected Entity en;
+    protected final Entity en;
 
-    Color spriteColor;
+    final Color spriteColor;
 
     public FlyOverSprite(BoardView boardView1, final Entity e) {
         super(boardView1);

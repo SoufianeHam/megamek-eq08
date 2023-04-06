@@ -17,6 +17,7 @@ import megamek.client.Client;
 import megamek.client.ui.Messages;
 import megamek.client.ui.swing.util.BASE64ToolKit;
 import megamek.client.ui.swing.util.UIUtil;
+import megamek.common.enums.GamePhase;
 import megamek.common.preference.ClientPreferences;
 import megamek.common.preference.IPreferenceChangeListener;
 import megamek.common.preference.PreferenceChangeEvent;
@@ -350,17 +351,15 @@ public class MiniReportDisplay extends JPanel implements ActionListener, Hyperli
     private final GameListener gameListener = new GameListenerAdapter() {
         @Override
         public void gamePhaseChange(GamePhaseChangeEvent e) {
-            switch (e.getOldPhase()) {
-                case VICTORY:
-                    setVisible(false);
-                    break;
-                default:
-                    if ((!e.getNewPhase().equals((e.getOldPhase())))
-                            && ((e.getNewPhase().isReport()) || ((e.getNewPhase().isOnMap()) && (tabs.getTabCount() == 0)))){
-                        addReportPages();
-                        updatePlayerChoice();
-                        updateEntityChoice();
-                    }
+            if (e.getOldPhase() == GamePhase.VICTORY) {
+                setVisible(false);
+            } else {
+                if ((!e.getNewPhase().equals((e.getOldPhase())))
+                        && ((e.getNewPhase().isReport()) || ((e.getNewPhase().isOnMap()) && (tabs.getTabCount() == 0)))) {
+                    addReportPages();
+                    updatePlayerChoice();
+                    updateEntityChoice();
+                }
             }
         }
     };

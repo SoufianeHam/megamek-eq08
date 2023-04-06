@@ -34,7 +34,7 @@ public class ResetCommand extends ServerCommand {
      */
     @Override
     public void run(int connId, String[] args) {
-        if (!canRunRestrictedCommand(connId)) {
+        if (canRunRestrictedCommand(connId)) {
             server.sendServerChat(connId,
                     "Observers are restricted from resetting.");
             return;

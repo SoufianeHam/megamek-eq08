@@ -138,7 +138,7 @@ final class ASMovementConverter {
         int walkingMP = entity.getWalkMP(false, true, true);
         int jumpingMP = entity.getJumpMP();
         if (entity instanceof BattleArmor) {
-            walkingMP = ((BattleArmor)entity).getWalkMP(true, true, true, true, true);
+            walkingMP = ((BattleArmor)entity).getWalkMP(true, true, true);
             jumpingMP = ((BattleArmor)entity).getJumpMP(true, true, true);
         }
 

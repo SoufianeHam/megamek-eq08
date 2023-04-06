@@ -649,12 +649,9 @@ public class TripodMech extends Mech {
                 if (rear) {
                     return false;
                 }
-                if (hasActiveShield(Mech.LOC_LARM)
-                    || hasActiveShield(Mech.LOC_RARM)) {
-                    return true;
-                }
+                return hasActiveShield(Mech.LOC_LARM)
+                        || hasActiveShield(Mech.LOC_RARM);
                 // else
-                return false;
             case Mech.LOC_LARM:
             case Mech.LOC_LT:
             case Mech.LOC_LLEG:
@@ -1013,7 +1010,7 @@ public class TripodMech extends Mech {
                                    int cover) {
         int roll = -1;
 
-        if ((aimedLocation != LOC_NONE) && !aimingMode.isNone()) {
+        if ((aimedLocation != LOC_NONE) && aimingMode.isNone()) {
 
             roll = Compute.d6(2);
 
@@ -1661,12 +1658,12 @@ public class TripodMech extends Mech {
 
     @Override
     public boolean canBrace() {
-        return getCrew().isActive()
-                && !isShutDown()
+        return !getCrew().isActive()
+                || isShutDown()
                 // needs to have at least one functional arm
-                && (!isLocationBad(Mech.LOC_RARM)
-                || !isLocationBad(Mech.LOC_LARM))
-                && !isProne();
+                || (isLocationBad(Mech.LOC_RARM)
+                && isLocationBad(Mech.LOC_LARM))
+                || isProne();
     }
 
     @Override

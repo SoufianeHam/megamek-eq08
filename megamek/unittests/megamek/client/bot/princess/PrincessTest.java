@@ -19,12 +19,10 @@
  */
 package megamek.client.bot.princess;
 
-import megamek.client.bot.princess.PathRanker.PathRankerType;
 import megamek.common.*;
 import megamek.common.enums.GamePhase;
 import megamek.common.options.GameOptions;
 import megamek.common.options.OptionsConstants;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -55,7 +53,7 @@ public class PrincessTest {
         MoraleUtil mockMoralUtil = mock(MoraleUtil.class);
 
         mockPrincess = mock(Princess.class);
-        when(mockPrincess.getPathRanker(PathRankerType.Basic)).thenReturn(mockPathRanker);
+        when(mockPrincess.getPathRanker()).thenReturn(mockPathRanker);
         when(mockPrincess.getPathRanker(any(Entity.class))).thenReturn(mockPathRanker);
         when(mockPrincess.getMoraleUtil()).thenReturn(mockMoralUtil);
     }

@@ -68,7 +68,7 @@ public class LobbyActions {
 
     /** Sets a deployment round for the given entities. Sends an update to the server. */ 
     void applyDeployment(Collection<Entity> entities, int newRound) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         Set<Entity> updateCandidates = new HashSet<>();
@@ -83,7 +83,7 @@ public class LobbyActions {
 
     /** Sets starting heat for the given entities. Sends an update to the server. */
     void applyHeat(Collection<Entity> entities, int heat) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         if (entities.stream().anyMatch(e -> !e.tracksHeat())) {
@@ -102,7 +102,7 @@ public class LobbyActions {
 
     /** Sets/removes hidden deployment for the given entities. Sends an update to the server. */
     void applyHidden(Collection<Entity> entities, boolean newHidden) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         Set<Entity> updateCandidates = new HashSet<>();
@@ -117,7 +117,7 @@ public class LobbyActions {
 
     /** Sets deploy prone for the given entities. Sends an update to the server. */
     void applyProne(Collection<Entity> entities, String info) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         if (entities.stream().anyMatch(e -> e.getUnitType() != UnitType.MEK)) {
@@ -183,7 +183,7 @@ public class LobbyActions {
             return;
         }
         Set<Force> forceList = forceIds.stream().map(forces::getForce).collect(toSet());
-        if (!areForcesEditable(forceList)) {
+        if (areForcesEditable(forceList)) {
             LobbyErrors.showCannotConfigEnemies(frame());
             return;
         }
@@ -196,7 +196,7 @@ public class LobbyActions {
             LobbyErrors.showSingleUnit(frame(), "assign damage");
             return;
         }
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         Entity entity = CollectionUtil.anyOneElement(entities);
@@ -215,10 +215,10 @@ public class LobbyActions {
             LobbyErrors.showOnlySingleEntityOrForce(frame());
             return;
         }
-        if (!entityList.isEmpty() && !validateUpdate(entityList)) {
+        if (!entityList.isEmpty() && validateUpdate(entityList)) {
             return;
         }
-        if (!forceList.isEmpty() && !areForcesEditable(forceList)) {
+        if (!forceList.isEmpty() && areForcesEditable(forceList)) {
             LobbyErrors.showCannotConfigEnemies(frame());
             return;
         }
@@ -249,7 +249,7 @@ public class LobbyActions {
      * i.e. his own units or those of his bots.
      */
     public void individualCamo(Collection<Entity> entities) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
 
@@ -277,7 +277,7 @@ public class LobbyActions {
      * Configure multiple entities at once. Only affects deployment options.
      */
     public void customizeMechs(Collection<Entity> entities) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         if (!haveSingleOwner(entities)) {
@@ -344,7 +344,7 @@ public class LobbyActions {
      * @param entity
      */
     public void customizeMech(Entity entity) {
-        if (!validateUpdate(Arrays.asList(entity))) {
+        if (validateUpdate(Arrays.asList(entity))) {
             return;
         }
         boolean editable = client().bots.get(entity.getOwner().getName()) != null;
@@ -434,7 +434,7 @@ public class LobbyActions {
      * be configured by the local player. 
      */
     void setRandomSkills(Collection<Entity> entities) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         for (final Entity entity : entities) {
@@ -449,7 +449,7 @@ public class LobbyActions {
      * be configured by the local player. 
      */
     void setRandomNames(Collection<Entity> entities) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         for (Entity e : entities) {
@@ -467,7 +467,7 @@ public class LobbyActions {
      * be configured by the local player. 
      */
     void setRandomCallsigns(Collection<Entity> entities) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         for (Entity e : entities) {
@@ -495,7 +495,7 @@ public class LobbyActions {
      * selected entities in it. 
      */
     void forceCreateFrom(Collection<Entity> entities) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         if (!areAllied(entities)) {
@@ -527,7 +527,7 @@ public class LobbyActions {
      * Toggles burst MG fire for the given entities to the state given as burstOn
      */
     void toggleBurstMg(Collection<Entity> entities, boolean burstOn) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         Set<Entity> updateCandidates = new HashSet<>();
@@ -556,7 +556,7 @@ public class LobbyActions {
      * Toggles hot loading LRMs for the given entities to the state given as hotLoadOn
      */
     void toggleHotLoad(Collection<Entity> entities, boolean hotLoadOn) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         Set<Entity> updateCandidates = new HashSet<>();
@@ -649,7 +649,7 @@ public class LobbyActions {
     /**
      * Deletes the given forces and entities. Asks for confirmation if confirm is true. 
      */
-    void delete(Collection<Force> foDelete, Collection<Entity> enDelete, boolean confirm) {
+    void delete(Collection<Force> foDelete, Collection<Entity> enDelete) {
         Forces forces = game().getForces();
         // Remove redundant forces = subforces of other forces in the list 
         Set<Force> allSubForces = new HashSet<>();
@@ -662,15 +662,15 @@ public class LobbyActions {
         enDelete.removeIf(inForces::contains);
         Set<Entity> finalEnDelete = new HashSet<>(enDelete);
         
-        if (!enDelete.isEmpty() && !validateUpdate(finalEnDelete)) {
+        if (!enDelete.isEmpty() && validateUpdate(finalEnDelete)) {
             return;
         }
-        if (!areForcesEditable(finalFoDelete)) {
+        if (areForcesEditable(finalFoDelete)) {
             LobbyErrors.showCannotConfigEnemies(frame());
             return;
         }
 
-        if (confirm) {
+        if (true) {
             int foCount = finalFoDelete.size();
             int enCount = finalEnDelete.size() + inForces.size();
             String question = "Really delete ";
@@ -712,7 +712,7 @@ public class LobbyActions {
      * (Having multiple owners makes sending updates correctly for one's own bots difficult) 
      */
     void forceRemoveEntity(Collection<Entity> entities) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         client().sendAddEntitiesToForce(entities, Force.NO_FORCE);
@@ -732,7 +732,7 @@ public class LobbyActions {
             return;
         }
         Entity selected = CollectionUtil.anyOneElement(entities);
-        if (!validateUpdate(Arrays.asList(target, selected))) {
+        if (validateUpdate(Arrays.asList(target, selected))) {
             return;
         }
         Crew temp = target.getCrew();
@@ -748,7 +748,7 @@ public class LobbyActions {
      * entity's own id. 
      */
     void c3DisconnectFromNetwork(Collection<Entity> entities) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         Set<Entity> updateCandidates = performDisconnect(entities);
@@ -782,7 +782,7 @@ public class LobbyActions {
     
     /**  Sets the entities' C3M to act as a Company Master. */
     void c3SetCompanyMaster(Collection<Entity> entities) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         if (!entities.stream().allMatch(Entity::hasC3M)) {
@@ -795,7 +795,7 @@ public class LobbyActions {
     
     /**  Sets the entities' C3M to act as a Lance Master (aka normal mode). */
     void c3SetLanceMaster(Collection<Entity> entities) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         if (!entities.stream().allMatch(Entity::hasC3M)) {
@@ -811,7 +811,7 @@ public class LobbyActions {
      * identified by masterID.
      */
     void c3JoinNh(Collection<Entity> entities, int masterID, boolean disconnectFirst) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         if (!areAllied(entities)) {
@@ -844,7 +844,7 @@ public class LobbyActions {
         Entity master = game().getEntity(masterID);
         // To make it possible to mark a C3S/C3S/C3S/C3M lance and connect it:
         entities.remove(master);
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         if (!areAllied(entities)) {
@@ -884,7 +884,7 @@ public class LobbyActions {
             LobbyErrors.showOnlyEntityOrForce(frame());
             return;
         }
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         client().sendChangeOwner(entities, newOwnerId);
@@ -906,7 +906,7 @@ public class LobbyActions {
      */
     void forceAddEntity(Collection<Entity> entities, int forceId) {
         Forces forces = game().getForces();
-        if (!validateUpdate(entities) || !forces.contains(forceId)) {
+        if (validateUpdate(entities) || !forces.contains(forceId)) {
             return;
         }
         var forceOwner = forces.getOwner(forceId);
@@ -930,7 +930,7 @@ public class LobbyActions {
         if (newOwner == null) {
             return;
         }
-        if (!areForcesEditable(forceList)) {
+        if (areForcesEditable(forceList)) {
             LobbyErrors.showCannotConfigEnemies(frame());
             return;
         }
@@ -955,7 +955,7 @@ public class LobbyActions {
         if (newOwner == null) {
             return;
         }
-        if (!areForcesEditable(forceList)) {
+        if (areForcesEditable(forceList)) {
             LobbyErrors.showCannotConfigEnemies(frame());
             return;
         }
@@ -968,7 +968,7 @@ public class LobbyActions {
             return;
         }
         Entity carrier = CollectionUtil.anyOneElement(entities);
-        if (!validateUpdate(Arrays.asList(carrier))) {
+        if (validateUpdate(Arrays.asList(carrier))) {
             return;
         }
         Bay bay = carrier.getBayById(bayId);
@@ -989,7 +989,7 @@ public class LobbyActions {
      * does not exceed squadron capacity. Asks for a squadron name.
      */
     void createSquadron(Collection<Entity> entities) {
-        if (!validateUpdate(entities)) {
+        if (validateUpdate(entities)) {
             return;
         }
         if (entities.stream().anyMatch(e -> !e.isFighter() || e instanceof FighterSquadron)) {
@@ -1041,7 +1041,7 @@ public class LobbyActions {
 
     /** Shows a non-modal dialog window with the Strategic BattleForce stats of the given forces. */
     void showSbfView(Collection<Force> fo) {
-        if (fo.stream().anyMatch(f -> !SBFFormationConverter.canConvertToSbfFormation(f, lobby.game()))) {
+        if (fo.stream().anyMatch(f -> SBFFormationConverter.canConvertToSbfFormation(f, lobby.game()))) {
             LobbyErrors.showSBFConversion(frame());
             return;
         }
@@ -1059,17 +1059,17 @@ public class LobbyActions {
      */
     private boolean validateUpdate(Collection<Entity> entities) {
         if (entities.isEmpty()) {
-            return false;
+            return true;
         }
         if (!isEditable(entities)) {
             LobbyErrors.showCannotConfigEnemies(frame());
-            return false;
+            return true;
         }
         if (!canSeeAll(entities)) {
             LobbyErrors.showCannotViewHidden(frame());
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     /** 
@@ -1189,10 +1189,10 @@ public class LobbyActions {
      * player is allowed to change everything.
      */
     boolean isEditable(Entity entity) {
-        return client().bots.containsKey(entity.getOwner().getName())
-                || (entity.getOwnerId() == localPlayer().getId())
-                || (entity.partOfForce() && isSelfOrLocalBot(game().getForces().getOwner(entity.getForceId())))
-                || (entity.partOfForce() && isEditable(game().getForces().getForce(entity)));
+        return !client().bots.containsKey(entity.getOwner().getName())
+                && (entity.getOwnerId() != localPlayer().getId())
+                && (!entity.partOfForce() || !isSelfOrLocalBot(game().getForces().getOwner(entity.getForceId())))
+                && (!entity.partOfForce() || !isEditable(game().getForces().getForce(entity)));
     }
 
     /** 
@@ -1201,7 +1201,7 @@ public class LobbyActions {
      * @see #isEditable(Entity)
      */
     boolean isNotEditable(Entity entity) {
-        return !isEditable(entity);
+        return isEditable(entity);
     }
 
     /** 
@@ -1254,7 +1254,7 @@ public class LobbyActions {
     }
     
     boolean areForcesEditable(Collection<Force> forces) {
-        return forces.stream().allMatch(this::isEditable);
+        return !forces.stream().allMatch(this::isEditable);
     }
     
     /**

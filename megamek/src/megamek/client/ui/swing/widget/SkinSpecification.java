@@ -176,14 +176,14 @@ public class SkinSpecification {
     /**
      * Specifies the font color for the UI component
      */
-    public ArrayList<Color> fontColors;
+    public final ArrayList<Color> fontColors;
     
     /**
      * A collection of background images.  Most UI components only need one,
      * but some have more.  For instance, buttons have a normal background and
      * a pressed background.
      */
-    public ArrayList<String> backgrounds;
+    public final ArrayList<String> backgrounds;
     
     /**
      * It set, it indicates that no borders should be drawn.

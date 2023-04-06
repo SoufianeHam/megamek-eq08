@@ -30,8 +30,8 @@ import java.util.stream.Collectors;
  */
 public class RulesetNode {
     protected String name;
-    protected Properties predicates;
-    protected Properties assertions;
+    protected final Properties predicates;
+    protected final Properties assertions;
 
     protected RulesetNode() {
         name = null;
@@ -212,7 +212,7 @@ public class RulesetNode {
         if (property.isBlank()) {
             return list.isEmpty();
         } else if (property.startsWith("!")) {
-            return !collectionMatchesProperty(list, property.replaceFirst("!", ""));
+            return collectionMatchesProperty(list, property.replaceFirst("!", ""));
         }
         String[] ands = property.split(",");
         for (String and : ands) {
@@ -231,10 +231,10 @@ public class RulesetNode {
             }
 
             if (!result) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public boolean matchesPredicate(String val, String key) {

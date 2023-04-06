@@ -94,6 +94,6 @@ public class ElevatorProcessor extends DynamicTerrainProcessor {
     }
 
     private static class ElevatorInfo {
-        List<Coords> positions = new ArrayList<>();
+        final List<Coords> positions = new ArrayList<>();
     }
 }

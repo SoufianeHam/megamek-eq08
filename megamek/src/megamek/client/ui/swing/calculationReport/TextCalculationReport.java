@@ -110,15 +110,13 @@ public class TextCalculationReport implements CalculationReport {
     }
 
     @Override
-    public CalculationReport addSubHeader(String text) {
+    public void addSubHeader(String text) {
         listToWrite().add(new ReportLine(text, "", "", LineType.SUBHEADER));
-        return this;
     }
 
     @Override
-    public CalculationReport addHeader(String text) {
+    public void addHeader(String text) {
         listToWrite().add(new ReportLine(text, "", "", LineType.HEADER));
-        return this;
     }
 
     @Override

@@ -190,8 +190,8 @@ public class ASCardPrinter implements Printable {
 
     /** Holds the card for a card slot on the page together with the info if this is the front or back side. */
     private static class CardSlot {
-        ASCard card;
-        boolean flipSide;
+        final ASCard card;
+        final boolean flipSide;
 
         CardSlot(ASCard card, boolean flipSide) {
             this.card = card;

@@ -383,7 +383,7 @@ public class PlayerSettingsDialog extends AbstractButtonDialog {
         }
     }
 
-    ActionListener listener = new ActionListener() {
+    final ActionListener listener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             // Deployment buttons

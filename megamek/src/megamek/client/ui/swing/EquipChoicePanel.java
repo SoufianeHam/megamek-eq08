@@ -120,8 +120,8 @@ public class EquipChoicePanel extends JPanel {
             Messages.getString("CustomMechDialog.labC3"), SwingConstants.RIGHT);
     private final JComboBox<String> choC3 = new JComboBox<>();
 
-    ClientGUI clientgui;
-    Client client;
+    final ClientGUI clientgui;
+    final Client client;
 
     public EquipChoicePanel(Entity entity, ClientGUI clientgui, Client client) {
         this.entity = entity;
@@ -604,7 +604,7 @@ public class EquipChoicePanel extends JPanel {
 
             for (AmmoType atCheck : vAllTypes) {
                 if (entity.hasETypeFlag(Entity.ETYPE_AERO)
-                        && !atCheck.canAeroUse(game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_AERO_ARTILLERY_MUNITIONS))) {
+                        && atCheck.canAeroUse(game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_AERO_ARTILLERY_MUNITIONS))) {
                     continue;
                 }
                 SimpleTechLevel legalLevel = SimpleTechLevel.getGameTechLevel(game);
@@ -979,13 +979,13 @@ public class EquipChoicePanel extends JPanel {
 
             private final Mounted m_mounted;
 
-            JLabel labDump = new JLabel(Messages.getString("CustomMechDialog.labDump"));
+            final JLabel labDump = new JLabel(Messages.getString("CustomMechDialog.labDump"));
 
-            JCheckBox chDump = new JCheckBox();
+            final JCheckBox chDump = new JCheckBox();
 
-            JLabel labHotLoad = new JLabel(Messages.getString("CustomMechDialog.switchToHotLoading"));
+            final JLabel labHotLoad = new JLabel(Messages.getString("CustomMechDialog.switchToHotLoading"));
 
-            JCheckBox chHotLoad = new JCheckBox();
+            final JCheckBox chHotLoad = new JCheckBox();
             
             @SuppressWarnings("unchecked")
             MunitionChoicePanel(Mounted m, ArrayList<AmmoType> vTypes, List<WeaponAmmoChoicePanel> weaponAmmoChoicePanels) {
@@ -1283,7 +1283,7 @@ public class EquipChoicePanel extends JPanel {
 
             private final Mounted m_mounted;
 
-            JCheckBox chRapid = new JCheckBox();
+            final JCheckBox chRapid = new JCheckBox();
 
             RapidfireMGPanel(Mounted m) {
                 m_mounted = m;
@@ -1313,26 +1313,26 @@ public class EquipChoicePanel extends JPanel {
         private static final long serialVersionUID = -909995917737642853L;
 
         private Infantry inf;
-        JLabel labArmor = new JLabel(Messages.getString("CustomMechDialog.labInfantryArmor"));
-        JLabel labDivisor = new JLabel(Messages.getString("CustomMechDialog.labDamageDivisor"));
-        JLabel labEncumber = new JLabel(Messages.getString("CustomMechDialog.labEncumber"));
-        JLabel labSpaceSuit = new JLabel(Messages.getString("CustomMechDialog.labSpaceSuit"));
-        JLabel labDEST = new JLabel(Messages.getString("CustomMechDialog.labDEST"));
-        JLabel labSneakCamo = new JLabel(Messages.getString("CustomMechDialog.labSneakCamo"));
-        JLabel labSneakIR = new JLabel(Messages.getString("CustomMechDialog.labSneakIR"));
-        JLabel labSneakECM = new JLabel(Messages.getString("CustomMechDialog.labSneakECM"));
-        JLabel labSpec = new JLabel(Messages.getString("CustomMechDialog.labInfSpec"));
+        final JLabel labArmor = new JLabel(Messages.getString("CustomMechDialog.labInfantryArmor"));
+        final JLabel labDivisor = new JLabel(Messages.getString("CustomMechDialog.labDamageDivisor"));
+        final JLabel labEncumber = new JLabel(Messages.getString("CustomMechDialog.labEncumber"));
+        final JLabel labSpaceSuit = new JLabel(Messages.getString("CustomMechDialog.labSpaceSuit"));
+        final JLabel labDEST = new JLabel(Messages.getString("CustomMechDialog.labDEST"));
+        final JLabel labSneakCamo = new JLabel(Messages.getString("CustomMechDialog.labSneakCamo"));
+        final JLabel labSneakIR = new JLabel(Messages.getString("CustomMechDialog.labSneakIR"));
+        final JLabel labSneakECM = new JLabel(Messages.getString("CustomMechDialog.labSneakECM"));
+        final JLabel labSpec = new JLabel(Messages.getString("CustomMechDialog.labInfSpec"));
         private final JComboBox<String> cbArmorKit = new JComboBox<>();
         private final JTextField fldDivisor = new JTextField(3);
-        JCheckBox chEncumber = new JCheckBox();
-        JCheckBox chSpaceSuit = new JCheckBox();
-        JCheckBox chDEST = new JCheckBox();
-        JCheckBox chSneakCamo = new JCheckBox();
-        JCheckBox chSneakIR = new JCheckBox();
-        JCheckBox chSneakECM = new JCheckBox();
-        List<JCheckBox> chSpecs = new ArrayList<>(Infantry.NUM_SPECIALIZATIONS);
+        final JCheckBox chEncumber = new JCheckBox();
+        final JCheckBox chSpaceSuit = new JCheckBox();
+        final JCheckBox chDEST = new JCheckBox();
+        final JCheckBox chSneakCamo = new JCheckBox();
+        final JCheckBox chSneakIR = new JCheckBox();
+        final JCheckBox chSneakECM = new JCheckBox();
+        final List<JCheckBox> chSpecs = new ArrayList<>(Infantry.NUM_SPECIALIZATIONS);
         
-        List<EquipmentType> armorKits = new ArrayList<>();
+        final List<EquipmentType> armorKits = new ArrayList<>();
 
         InfantryArmorPanel() {
             for (int i = 0; i < Infantry.NUM_SPECIALIZATIONS; i++) {

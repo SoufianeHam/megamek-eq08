@@ -21,7 +21,6 @@ import megamek.common.Report;
 import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Map;
 
 /**
  * Implements a kill count victory condition.  Victory is achieved if a team (or
@@ -31,14 +30,14 @@ import java.util.Map;
  */
 public class KillCountVictory implements IVictoryConditions, Serializable {
     private static final long serialVersionUID = -6622529899835634696L;
-    protected int killCondition;
+    protected final int killCondition;
 
     public KillCountVictory(int kc) {
         killCondition = kc;
     }
 
     @Override
-    public VictoryResult victory(Game game, Map<String, Object> ctx) {
+    public VictoryResult victory(Game game) {
         boolean victory = false;
         VictoryResult vr = new VictoryResult(true);
         // Stores the number of kills for each team

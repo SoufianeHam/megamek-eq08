@@ -18,7 +18,6 @@ import megamek.common.Player;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 /**
  * implementation of player-agreed victory
@@ -31,7 +30,7 @@ public class ForceVictory implements IVictoryConditions, Serializable {
     }
 
     @Override
-    public VictoryResult victory(Game game, Map<String, Object> ctx) {
+    public VictoryResult victory(Game game) {
         if (!game.isForceVictory()) {
             return VictoryResult.noResult();
         }
@@ -46,7 +45,7 @@ public class ForceVictory implements IVictoryConditions, Serializable {
                 Player player = players.get(i);
 
                 if (player.getId() != victoryPlayerId && !player.isObserver()) {
-                    if (!player.admitsDefeat()) {
+                    if (player.admitsDefeat()) {
                         forceVictory = false;
                         break;
                     }
@@ -59,7 +58,7 @@ public class ForceVictory implements IVictoryConditions, Serializable {
                 Player player = players.get(i);
 
                 if (player.getTeam() != victoryTeam && !player.isObserver()) {
-                    if (!player.admitsDefeat()) {
+                    if (player.admitsDefeat()) {
                         forceVictory = false;
                         break;
                     }

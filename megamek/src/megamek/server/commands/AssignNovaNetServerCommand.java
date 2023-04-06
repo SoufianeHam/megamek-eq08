@@ -184,7 +184,7 @@ public class AssignNovaNetServerCommand extends ServerCommand {
 
     }
 
-    private void setNewNetworkID(int connID, Entity ent, String net) {
+    private void setNewNetworkID(Entity ent, String net) {
         ent.setNewRoundNovaNetworkString(net);
         // TODO: Send packet to client.
 
@@ -224,8 +224,8 @@ public class AssignNovaNetServerCommand extends ServerCommand {
         rval += strUnlinkID(connID, id2);
         rval += strUnlinkID(connID, id3);
 
-        setNewNetworkID(connID, ent2, ent1.getNewRoundNovaNetworkString());
-        setNewNetworkID(connID, ent3, ent1.getNewRoundNovaNetworkString());
+        setNewNetworkID(ent2, ent1.getNewRoundNovaNetworkString());
+        setNewNetworkID(ent3, ent1.getNewRoundNovaNetworkString());
 
         return rval + "New Network! Linked Units: " + id1 + ", " + id2 + ", "
                 + id3 + "\n";
@@ -254,7 +254,7 @@ public class AssignNovaNetServerCommand extends ServerCommand {
 
         rval += strUnlinkID(connID, id1);
         rval += strUnlinkID(connID, id2);
-        setNewNetworkID(connID, ent2, ent1.getNewRoundNovaNetworkString());
+        setNewNetworkID(ent2, ent1.getNewRoundNovaNetworkString());
 
         return rval + "New Network! Linked Units: " + id1 + ", " + id2 + "\n";
     }
@@ -292,17 +292,17 @@ public class AssignNovaNetServerCommand extends ServerCommand {
                                                                 // default
                                                                 // 'Nova.ID'
         for (Entity e : network) {
-            setNewNetworkID(connID, e, newID);
+            setNewNetworkID(e, newID);
         }
         // finally set the unlinked units network ID to default value.
-        setNewNetworkID(connID, ent, ent.getOriginalNovaC3NetId());
+        setNewNetworkID(ent, ent.getOriginalNovaC3NetId());
         return "Unit " + id + " unlinked\n";
     }
 
     private String strUnlinkAll(int connID) {
         List<Entity> novaUnits = getMyNovaUnits(connID);
         for (Entity e : novaUnits) {
-            setNewNetworkID(connID, e, e.getOriginalNovaC3NetId());
+            setNewNetworkID(e, e.getOriginalNovaC3NetId());
         }
         return "Everything unlinked";
     }

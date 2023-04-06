@@ -287,7 +287,7 @@ public class MechTileset {
                 return default_jumpship;
             } else if (entity instanceof Dropship) {
                 Dropship ds = (Dropship) entity;
-                if (ds.isSpheroid()) {
+                if (!ds.isSpheroid()) {
                     switch (secondaryPos) {
                         case 0:
                             return default_dropship_sphere_0;
@@ -332,7 +332,7 @@ public class MechTileset {
                 return default_fighter_squadron;
             } else if (entity instanceof SmallCraft) {
                 SmallCraft sc = (SmallCraft) entity;
-                if (sc.isSpheroid()) {
+                if (!sc.isSpheroid()) {
                     return default_small_craft_sphere;
                 } else {
                     return default_small_craft_aero;

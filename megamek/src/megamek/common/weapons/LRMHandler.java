@@ -138,12 +138,9 @@ public class LRMHandler extends MissileWeaponHandler {
         Mounted mLinker = weapon.getLinkedBy();
         AmmoType atype = (AmmoType) ammo.getType();
         // is any hex in the flight path of the missile ECM affected?
-        boolean bECMAffected = false;
+        boolean bECMAffected = ComputeECM.isAffectedByECM(ae, ae.getPosition(), target.getPosition());
         // if the attacker is affected by ECM or the target is protected by ECM
         // then act as if affected.
-        if (ComputeECM.isAffectedByECM(ae, ae.getPosition(), target.getPosition())) {
-            bECMAffected = true;
-        }
 
         if (((mLinker != null) && (mLinker.getType() instanceof MiscType)
                 && !mLinker.isDestroyed() && !mLinker.isMissing()

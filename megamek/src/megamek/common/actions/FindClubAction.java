@@ -91,11 +91,7 @@ public class FindClubAction extends AbstractEntityAction {
         }
 
         // and last, check if you already have a club, greedy
-        if (!entity.getClubs().isEmpty()) {
-            return false;
-        }
-
-        return true;
+        return entity.getClubs().isEmpty();
     }
 
 }

@@ -47,13 +47,13 @@ import java.util.*;
  */
 public class MapMenu extends JPopupMenu {
     private final Coords coords;
-    Game game;
-    Component currentPanel;
+    final Game game;
+    final Component currentPanel;
     private final Board board;
-    Client client;
-    ClientGUI gui;
+    final Client client;
+    final ClientGUI gui;
     Entity selectedEntity;
-    Entity myEntity;
+    final Entity myEntity;
     Targetable myTarget = null;
     private final boolean hasMenu;
 

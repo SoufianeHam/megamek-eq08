@@ -119,9 +119,9 @@ public class Building implements Serializable {
 
     public static class DemolitionCharge implements Serializable {
         private static final long serialVersionUID = -6655782801564155668L;
-        public int damage;
-        public int playerId;
-        public Coords pos;
+        public final int damage;
+        public final int playerId;
+        public final Coords pos;
         /**
          * A UUID to keep track of the identify of this demolition charge.
          * Since we could have multiple charges in the same building hex, we
@@ -129,7 +129,7 @@ public class Building implements Serializable {
          * since we pass objects across the network, we need a mechanism to
          * track identify other than memory address.
          */
-        public UUID uuid = UUID.randomUUID();
+        public final UUID uuid = UUID.randomUUID();
 
         public DemolitionCharge(int playerId, int damage, Coords p) {
             this.damage = damage;

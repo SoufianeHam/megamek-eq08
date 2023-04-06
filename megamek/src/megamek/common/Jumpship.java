@@ -1338,7 +1338,7 @@ public class Jumpship extends Aero {
         // thrust. So once you
         // get 1 thrust point, you have to spend it before you can accumulate
         // more
-        if (isDeployed() && (isBattleStation() == true)) {
+        if (isDeployed() && (isBattleStation())) {
             setAccumulatedThrust(1);
         }
 

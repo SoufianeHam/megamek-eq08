@@ -22,7 +22,7 @@ public class SupportVeeStructure extends Structure {
     static final double[] SV_TECH_RATING_STRUCTURE_MULTIPLIER = 
         { 1.60, 1.30, 1.15, 1.00, 0.85, 0.66 };
     
-    Entity sv;
+    final Entity sv;
     
     public SupportVeeStructure(Entity supportVee) {
         this.sv = supportVee;

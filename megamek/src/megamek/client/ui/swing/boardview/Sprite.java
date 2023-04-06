@@ -108,7 +108,7 @@ abstract class Sprite implements ImageObserver, Comparable<Sprite> {
     }
     
     public boolean isHidden() {
-        return hidden;
+        return !hidden;
     }
     
     public void setHidden(boolean h) {

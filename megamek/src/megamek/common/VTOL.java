@@ -130,11 +130,7 @@ public class VTOL extends Tank implements IBomber {
             return true;
         }
 
-        if (hex.containsTerrain(Terrains.SPACE) && doomedInSpace()) {
-            return true;
-        }
-
-        return false;
+        return hex.containsTerrain(Terrains.SPACE) && doomedInSpace();
     }
 
     /*
@@ -171,7 +167,7 @@ public class VTOL extends Tank implements IBomber {
         }
         HitData rv = new HitData(nArmorLoc);
         boolean bHitAimed = false;
-        if ((aimedLocation != LOC_NONE) && !aimingMode.isNone()) {
+        if ((aimedLocation != LOC_NONE) && aimingMode.isNone()) {
             int roll = Compute.d6(2);
             if ((5 < roll) && (roll < 9)) {
                 rv = new HitData(aimedLocation, side == ToHitData.SIDE_REAR, true);
@@ -330,7 +326,7 @@ public class VTOL extends Tank implements IBomber {
         }
         if ((roll < 6)
                 || (game.getOptions().booleanOption(OptionsConstants.ADVCOMBAT_VEHICLES_THRESHOLD)
-                        && !getOverThresh() && !damagedByFire)) {
+                        && getOverThresh() && !damagedByFire)) {
             return CRIT_NONE;
         }
         for (int i = 0; i < 2; i++) {
@@ -349,7 +345,7 @@ public class VTOL extends Tank implements IBomber {
                         for (Mounted m : getWeaponList()) {
                             if ((m.getLocation() == loc) && !m.isDestroyed()
                                     && !m.isJammed() && !m.isHit()
-                                    && !m.jammedThisPhase()) {
+                                    && m.jammedThisPhase()) {
                                 return CRIT_WEAPON_JAM;
                             }
                         }
@@ -393,7 +389,7 @@ public class VTOL extends Tank implements IBomber {
                         for (Mounted m : getWeaponList()) {
                             if ((m.getLocation() == loc) && !m.isDestroyed()
                                     && !m.isJammed() && !m.isHit()
-                                    && !m.jammedThisPhase()) {
+                                    && m.jammedThisPhase()) {
                                 return CRIT_WEAPON_JAM;
                             }
                         }
@@ -458,7 +454,7 @@ public class VTOL extends Tank implements IBomber {
                         for (Mounted m : getWeaponList()) {
                             if ((m.getLocation() == loc) && !m.isDestroyed()
                                     && !m.isJammed() && !m.isHit()
-                                    && !m.jammedThisPhase()) {
+                                    && m.jammedThisPhase()) {
                                 return CRIT_WEAPON_JAM;
                             }
                         }
@@ -486,7 +482,7 @@ public class VTOL extends Tank implements IBomber {
                         for (Mounted m : getWeaponList()) {
                             if ((m.getLocation() == loc) && !m.isDestroyed()
                                     && !m.isJammed() && !m.isHit()
-                                    && !m.jammedThisPhase()) {
+                                    && m.jammedThisPhase()) {
                                 return CRIT_WEAPON_JAM;
                             }
                         }

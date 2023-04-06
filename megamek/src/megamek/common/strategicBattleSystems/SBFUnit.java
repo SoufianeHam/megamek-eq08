@@ -212,10 +212,7 @@ public class SBFUnit implements ASSpecialAbilityCollector, BattleForceSUAFormatt
         if ((type == SBFElementType.BM) && (sua == SOA || sua == SRCH)) {
             return false;
         }
-        if ((type == SBFElementType.V) && (sua == SRCH)) {
-            return false;
-        }
-        return true;
+        return (type != SBFElementType.V) || (sua != SRCH);
     }
 
     @Override
@@ -228,7 +225,7 @@ public class SBFUnit implements ASSpecialAbilityCollector, BattleForceSUAFormatt
             return "";
         }
         Object suaObject = specialAbilities.getSUA(sua);
-        if (!sua.isValidAbilityObject(suaObject)) {
+        if (sua.isValidAbilityObject(suaObject)) {
             return "ERROR - wrong ability object (" + sua + ")";
         } else if (sua.isAnyOf(CAP, SCAP, MSL)) {
             return sua.toString();

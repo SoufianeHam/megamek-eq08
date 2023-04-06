@@ -18,7 +18,6 @@ package megamek.common.net.connections;
 import megamek.common.annotations.Nullable;
 import megamek.common.net.enums.PacketCommand;
 import megamek.common.net.events.AbstractConnectionEvent;
-import megamek.common.net.events.ConnectedEvent;
 import megamek.common.net.events.DisconnectedEvent;
 import megamek.common.net.events.PacketReceivedEvent;
 import megamek.common.net.listeners.ConnectionListener;
@@ -118,7 +117,7 @@ public abstract class AbstractConnection {
         this.host = host;
         this.port = port;
         this.id = id;
-        setMarshallingType(DEFAULT_MARSHALLING);
+        setMarshallingType();
     }
 
     /**
@@ -130,7 +129,7 @@ public abstract class AbstractConnection {
     public AbstractConnection(Socket socket, int id) {
         this.socket = socket;
         this.id = id;
-        setMarshallingType(DEFAULT_MARSHALLING);
+        setMarshallingType();
     }
 
     /**
@@ -149,13 +148,11 @@ public abstract class AbstractConnection {
 
     /**
      * Sets the type of the marshalling used to send packets
-     *
-     * @param marshallingType new marshalling type
      */
-    protected void setMarshallingType(int marshallingType) {
-        PacketMarshaller pm = marshallerFactory.getMarshaller(marshallingType);
+    protected void setMarshallingType() {
+        PacketMarshaller pm = marshallerFactory.getMarshaller(AbstractConnection.DEFAULT_MARSHALLING);
         Objects.requireNonNull(pm);
-        this.marshallingType = marshallingType;
+        this.marshallingType = AbstractConnection.DEFAULT_MARSHALLING;
         marshaller = pm;
     }
 
@@ -482,7 +479,7 @@ public abstract class AbstractConnection {
             ConnectionListener l = e.nextElement();
             switch (event.getType()) {
                 case CONNECTED:
-                    l.connected((ConnectedEvent) event);
+                    l.connected();
                     break;
                 case DISCONNECTED:
                     l.disconnected((DisconnectedEvent) event);
@@ -497,7 +494,7 @@ public abstract class AbstractConnection {
     private class SendPacket implements INetworkPacket {
         byte[] data;
         boolean zipped = false;
-        PacketCommand command;
+        final PacketCommand command;
 
         public SendPacket(Packet packet) {
             command = packet.getCommand();

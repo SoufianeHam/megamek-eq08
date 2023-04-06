@@ -23,7 +23,7 @@ import megamek.common.net.connections.AbstractConnection;
  */
 public class ConnectionHandler implements Runnable {
 
-    AbstractConnection connection;
+    final AbstractConnection connection;
     
     boolean shouldStop = false;
     

@@ -38,7 +38,7 @@ public class GameEndEvent extends GameEvent {
 
     @Override
     public void fireEvent(GameListener gl) {
-        gl.gameEnd(this);
+        gl.gameEnd();
     }
 
     @Override

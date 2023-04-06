@@ -23,7 +23,6 @@ import org.apache.logging.log4j.LogManager;
 
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -864,40 +863,37 @@ public class Board implements Serializable {
             return false;
         }
 
-        int nLimit = startingWidth;
-        int minx = startingOffset;
         int maxx = width - startingOffset;
-        int miny = startingOffset;
         int maxy = height - startingOffset;
         
         switch (zoneType) {
             case START_ANY:
                 return true;
             case START_NW:
-                return ((c.getX() < (minx + nLimit)) && (c.getX() >= minx) && (c.getY() >= miny) && (c.getY() < (height / 2)))
-                        || ((c.getY() < (miny + nLimit)) && (c.getY() >= miny) && (c.getX() >= minx) && (c.getX() < (width / 2)));
+                return ((c.getX() < (startingOffset + startingWidth)) && (c.getX() >= startingOffset) && (c.getY() >= startingOffset) && (c.getY() < (height / 2)))
+                        || ((c.getY() < (startingOffset + startingWidth)) && (c.getY() >= startingOffset) && (c.getX() >= startingOffset) && (c.getX() < (width / 2)));
             case START_N:
-                return (c.getY() < (miny + nLimit)) && (c.getY() >= miny);
+                return (c.getY() < (startingOffset + startingWidth)) && (c.getY() >= startingOffset);
             case START_NE:
-                return ((c.getX() >= (maxx - nLimit)) && (c.getX() < maxx) && (c.getY() >= miny) && (c.getY() < (height / 2)))
-                        || ((c.getY() < (miny + nLimit)) && (c.getY() >= miny) && (c.getX() < maxx) && (c.getX() > (width / 2)));
+                return ((c.getX() >= (maxx - startingWidth)) && (c.getX() < maxx) && (c.getY() >= startingOffset) && (c.getY() < (height / 2)))
+                        || ((c.getY() < (startingOffset + startingWidth)) && (c.getY() >= startingOffset) && (c.getX() < maxx) && (c.getX() > (width / 2)));
             case START_E:
-                return (c.getX() >= (maxx - nLimit)) && (c.getX() < maxx);
+                return (c.getX() >= (maxx - startingWidth)) && (c.getX() < maxx);
             case START_SE:
-                return ((c.getX() >= (maxx - nLimit)) && (c.getX() < maxx) && (c.getY() < maxy) && (c.getY() > (height / 2)))
-                        || ((c.getY() >= (maxy - nLimit)) && (c.getY() < maxy) && (c.getX() < maxx) && (c.getX() > (width / 2)));
+                return ((c.getX() >= (maxx - startingWidth)) && (c.getX() < maxx) && (c.getY() < maxy) && (c.getY() > (height / 2)))
+                        || ((c.getY() >= (maxy - startingWidth)) && (c.getY() < maxy) && (c.getX() < maxx) && (c.getX() > (width / 2)));
             case START_S:
-                return (c.getY() >= (maxy - nLimit)) && (c.getY() < maxy);
+                return (c.getY() >= (maxy - startingWidth)) && (c.getY() < maxy);
             case START_SW:
-                return ((c.getX() < (minx + nLimit)) && (c.getX() >= minx) && (c.getY() < maxy) && (c.getY() > (height / 2)))
-                        || ((c.getY() >= (maxy - nLimit)) && (c.getY() < maxy) && (c.getX() >= minx) && (c.getX() < (width / 2)));
+                return ((c.getX() < (startingOffset + startingWidth)) && (c.getX() >= startingOffset) && (c.getY() < maxy) && (c.getY() > (height / 2)))
+                        || ((c.getY() >= (maxy - startingWidth)) && (c.getY() < maxy) && (c.getX() >= startingOffset) && (c.getX() < (width / 2)));
             case START_W:
-                return (c.getX() < (minx + nLimit)) && (c.getX() >= minx);
+                return (c.getX() < (startingOffset + startingWidth)) && (c.getX() >= startingOffset);
             case START_EDGE:
-                return ((c.getX() < (minx + nLimit)) && (c.getX() >= minx) && (c.getY() >= miny) && (c.getY() < maxy))
-                        || ((c.getY() < (miny + nLimit)) && (c.getY() >= miny) && (c.getX() >= minx) && (c.getX() < maxx))
-                        || ((c.getX() >= (maxx - nLimit)) && (c.getX() < maxx) && (c.getY() >= miny) && (c.getY() < maxy))
-                        || ((c.getY() >= (maxy - nLimit)) && (c.getY() < maxy) && (c.getX() >= minx) && (c.getX() < maxx));
+                return ((c.getX() < (startingOffset + startingWidth)) && (c.getX() >= startingOffset) && (c.getY() >= startingOffset) && (c.getY() < maxy))
+                        || ((c.getY() < (startingOffset + startingWidth)) && (c.getY() >= startingOffset) && (c.getX() >= startingOffset) && (c.getX() < maxx))
+                        || ((c.getX() >= (maxx - startingWidth)) && (c.getX() < maxx) && (c.getY() >= startingOffset) && (c.getY() < maxy))
+                        || ((c.getY() >= (maxy - startingWidth)) && (c.getY() < maxy) && (c.getX() >= startingOffset) && (c.getX() < maxx));
             case START_CENTER:
                 return (c.getX() >= (width / 3)) && (c.getX() <= ((2 * width) / 3)) && (c.getY() >= (height / 3))
                         && (c.getY() <= ((2 * height) / 3));
@@ -1070,9 +1066,9 @@ public class Board implements Serializable {
         return isValid(data, width, height, null);
     }
 
-    public boolean isValid(StringBuffer errBuff) {
+    public void isValid(StringBuffer errBuff) {
         // Search for black-listed hexes
-        return isValid(data, width, height, errBuff);
+        isValid(data, width, height, errBuff);
     }
 
     private boolean isValid(Hex[] data, int width, int height, StringBuffer errBuff) {
@@ -1545,10 +1541,10 @@ public class Board implements Serializable {
                     l.boardChangedHex(event);
                     break;
                 case BoardEvent.BOARD_NEW_BOARD:
-                    l.boardNewBoard(event);
+                    l.boardNewBoard();
                     break;
                 case BoardEvent.BOARD_CHANGED_ALL_HEXES:
-                    l.boardChangedAllHexes(event);
+                    l.boardChangedAllHexes();
                     break;
             }
         }

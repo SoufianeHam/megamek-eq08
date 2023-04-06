@@ -20,7 +20,7 @@ import megamek.common.Player;
  */
 public class GamePlayerChatEvent extends GamePlayerEvent {
     private static final long serialVersionUID = 9077796386452985153L;
-    protected String message;
+    protected final String message;
 
     /**
      * @param source

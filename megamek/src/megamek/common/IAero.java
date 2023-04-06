@@ -425,7 +425,7 @@ public interface IAero {
             roll.addModifier(5, "Avionics Destroyed");
         }
 
-        if (!hasLifeSupport()) {
+        if (hasLifeSupport()) {
             roll.addModifier(+2, "No life support");
         }
 
@@ -703,7 +703,7 @@ public interface IAero {
                     return "Not enough room on map" + lenString;
                 }
                 // landing must contain only acceptable terrain
-                if (!hex.isClearForLanding()) {
+                if (hex.isClearForLanding()) {
                     return "Unacceptable terrain for landing" + lenString;
                 }
 
@@ -734,7 +734,7 @@ public interface IAero {
             return "landing area not on the map";
         }
         // landing must contain only acceptable terrain
-        if (!hex.isClearForLanding()) {
+        if (hex.isClearForLanding()) {
             return "Unacceptable terrain for landing";
         }
 

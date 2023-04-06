@@ -30,12 +30,12 @@ import java.util.stream.Collectors;
 public class ForceNode extends RulesetNode {
     protected Integer eschelon;
     protected String eschelonName;
-    protected ArrayList<ValueNode> nameNodes;
-    protected ArrayList<CommanderNode> coNodes;
-    protected ArrayList<CommanderNode> xoNodes;
-    protected ArrayList<ArrayList <OptionGroupNode>> ruleGroups;
-    protected ArrayList <SubforcesNode> subforces;
-    protected ArrayList <SubforcesNode> attached;
+    protected final ArrayList<ValueNode> nameNodes;
+    protected final ArrayList<CommanderNode> coNodes;
+    protected final ArrayList<CommanderNode> xoNodes;
+    protected final ArrayList<ArrayList <OptionGroupNode>> ruleGroups;
+    protected final ArrayList <SubforcesNode> subforces;
+    protected final ArrayList <SubforcesNode> attached;
 
     protected String desc;
 

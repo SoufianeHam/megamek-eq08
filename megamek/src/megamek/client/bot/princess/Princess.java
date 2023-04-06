@@ -145,8 +145,8 @@ public class Princess extends BotClient {
         return pathRankers.get(PathRankerType.Basic);
     }
     
-    IPathRanker getPathRanker(PathRankerType pathRankerType) {
-        return pathRankers.get(pathRankerType);
+    IPathRanker getPathRanker() {
+        return pathRankers.get(PathRankerType.Basic);
     }
 
     public boolean getFallBack() {
@@ -214,8 +214,8 @@ public class Princess extends BotClient {
         return getBehaviorSettings().isForcedWithdrawal();
     }
 
-    private void setFleeBoard(final boolean fleeBoard, final String reason) {
-        LogManager.getLogger().debug("Setting Flee Board " + fleeBoard + " because: " + reason);
+    private void setFleeBoard(final boolean fleeBoard) {
+        LogManager.getLogger().debug("Setting Flee Board " + fleeBoard + " because: " + "Flee Board Configuration.");
 
         this.fleeBoard = fleeBoard;
     }
@@ -265,13 +265,13 @@ public class Princess extends BotClient {
         }
         getStrategicBuildingTargets().clear();
         setFallBack(behaviorSettings.shouldGoHome(), "Fall Back Configuration.");
-        setFleeBoard(behaviorSettings.shouldAutoFlee(), "Flee Board Configuration.");
+        setFleeBoard(behaviorSettings.shouldAutoFlee());
         if (getFallBack()) {
             return;
         }
 
         for (final String targetCoords : behaviorSettings.getStrategicBuildingTargets()) {
-            if (!StringUtil.isPositiveInteger(targetCoords) ||
+            if (StringUtil.isPositiveInteger(targetCoords) ||
                 (4 != targetCoords.length())) {
                 continue;
             }
@@ -1092,11 +1092,7 @@ public class Princess extends BotClient {
         } else if (0 < getPathRanker(entity).distanceToHomeEdge(entity.getPosition(),
                 getHomeEdge(entity), getGame())) {
             return false;
-        } else if (!getFleeBoard() && !(entity.isCrippled() && getForcedWithdrawal())) {
-            return false;
-        } else {
-            return true;
-        }
+        } else return getFleeBoard() || entity.isCrippled() && getForcedWithdrawal();
     }
 
     boolean isImmobilized(final Entity mover) {
@@ -1243,7 +1239,7 @@ public class Princess extends BotClient {
             }
 
             final long startTime = System.currentTimeMillis();
-            getPathRanker(entity).initUnitTurn(entity, getGame());
+            getPathRanker(entity).initUnitTurn();
             final double fallTolerance =
                     getBehaviorSettings().getFallShameIndex() / 10d;
                        
@@ -1458,8 +1454,8 @@ public class Princess extends BotClient {
                         continue;
                     }
 
-                    if (getHonorUtil().isEnemyBroken(entity.getId(), entity.getOwnerId(),
-                            getForcedWithdrawal()) || !entity.isMilitary()) {
+                    if (getHonorUtil().isEnemyBroken(entity.getId(), entity.getOwnerId()
+                    ) || !entity.isMilitary()) {
                         // If he'd just continued running, I would have let him 
                         // go, but the bastard shot at me!
                         msg.append("\n\t")
@@ -1617,7 +1613,7 @@ public class Princess extends BotClient {
             }
 
             initialized = true;
-            BotGeometry.debugSelfTest(this);
+            BotGeometry.debugSelfTest();
         } catch (Exception ignored) {
 
         }
@@ -1940,7 +1936,7 @@ public class Princess extends BotClient {
 
         final Entity movingEntity = path.getEntity();
         final Coords pathEndpoint = path.getFinalCoords();
-        Targetable closestEnemy = getPathRanker(movingEntity).findClosestEnemy(movingEntity, pathEndpoint, getGame(), false);
+        Targetable closestEnemy = getPathRanker(movingEntity).findClosestEnemy(pathEndpoint, false);
 
         // if there are no enemies on the board, then we're not unloading anything.
         // infantry can't clear hexes, so let's not unload them for that purpose
@@ -2002,7 +1998,7 @@ public class Princess extends BotClient {
         
         Entity movingEntity = path.getEntity();
         Coords pathEndpoint = path.getFinalCoords();
-        Targetable closestEnemy = getPathRanker(movingEntity).findClosestEnemy(movingEntity, pathEndpoint, getGame(), false);
+        Targetable closestEnemy = getPathRanker(movingEntity).findClosestEnemy(pathEndpoint, false);
 
         // if there are no enemies on the board, then we're not launching anything.
         if ((null == closestEnemy) || (closestEnemy.getTargetType() != Targetable.TYPE_ENTITY)) {

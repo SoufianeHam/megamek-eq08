@@ -37,7 +37,7 @@ public class ECMEffects {
     /**
      * A collection of <code>ECMInfo</code> instances that affect a location.
      */
-    protected LinkedList<ECMInfo> ecmEffects;
+    protected final LinkedList<ECMInfo> ecmEffects;
 
     /**
      * Flag that determines if the dominant effect for the location is ECCM.

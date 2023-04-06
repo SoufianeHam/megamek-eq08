@@ -72,9 +72,8 @@ public abstract class PMGenericHotArea implements PMHotArea {
     @Override
     public void onMouseOver(MouseEvent e) {
         int modifiers = e.getModifiersEx();
-        String command = PMHotArea.MOUSE_OVER;
         ActionEvent ae = new ActionEvent(this, ActionEvent.ACTION_PERFORMED,
-                command, modifiers);
+                PMHotArea.MOUSE_OVER, modifiers);
         dispatchEvent(ae);
 
     }
@@ -82,27 +81,24 @@ public abstract class PMGenericHotArea implements PMHotArea {
     @Override
     public void onMouseExit(MouseEvent e) {
         int modifiers = e.getModifiersEx();
-        String command = PMHotArea.MOUSE_EXIT;
         ActionEvent ae = new ActionEvent(this, ActionEvent.ACTION_PERFORMED,
-                command, modifiers);
+                PMHotArea.MOUSE_EXIT, modifiers);
         dispatchEvent(ae);
     }
 
     @Override
     public void onMouseDown(MouseEvent e) {
         int modifiers = e.getModifiersEx();
-        String command = PMHotArea.MOUSE_DOWN;
         ActionEvent ae = new ActionEvent(this, ActionEvent.ACTION_PERFORMED,
-                command, modifiers);
+                PMHotArea.MOUSE_DOWN, modifiers);
         dispatchEvent(ae);
     }
 
     @Override
     public void onMouseUp(MouseEvent e) {
         int modifiers = e.getModifiersEx();
-        String command = PMHotArea.MOUSE_UP;
         ActionEvent ae = new ActionEvent(this, ActionEvent.ACTION_PERFORMED,
-                command, modifiers);
+                PMHotArea.MOUSE_UP, modifiers);
         dispatchEvent(ae);
     }
 

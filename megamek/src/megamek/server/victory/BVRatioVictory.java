@@ -18,7 +18,6 @@ import megamek.common.Player;
 import megamek.common.Report;
 
 import java.util.HashSet;
-import java.util.Map;
 
 /**
  * implements bv-ratio victory checking ratio is defined as
@@ -30,14 +29,14 @@ import java.util.Map;
  */
 public class BVRatioVictory extends AbstractBVVictory {
     private static final long serialVersionUID = -6622529899835634696L;
-    protected int ratio;
+    protected final int ratio;
 
     public BVRatioVictory(int ratio) {
         this.ratio = ratio;
     }
 
     @Override
-    public VictoryResult victory(Game game, Map<String, Object> ctx) {
+    public VictoryResult victory(Game game) {
         boolean victory = false;
         VictoryResult vr = new VictoryResult(true);
         // now check for detailed victory conditions...

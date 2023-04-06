@@ -110,16 +110,16 @@ public class SpecialHexDisplay implements Serializable {
     /**
      * Defines that only the owner can see an obscured display.
      */
-    public static int SHD_OBSCURED_OWNER = 0;
+    public static final int SHD_OBSCURED_OWNER = 0;
     /**
      * Defines that only the owner and members of his team can see an obscured
      * display.
      */
-    public static int SHD_OBSCURED_TEAM = 1;
+    public static final int SHD_OBSCURED_TEAM = 1;
     /**
      * Defines that everyone can see an obscured display.
      */
-    public static int SHD_OBSCURED_ALL = 2;
+    public static final int SHD_OBSCURED_ALL = 2;
 
     private String info;
     private Type type;
@@ -129,7 +129,7 @@ public class SpecialHexDisplay implements Serializable {
 
     private int obscured = SHD_OBSCURED_ALL;
 
-    public static int NO_ROUND = -99;
+    public static final int NO_ROUND = -99;
 
     public SpecialHexDisplay(Type type, int round, Player owner, String info) {
         this.type = type;
@@ -223,11 +223,7 @@ public class SpecialHexDisplay implements Serializable {
         } else if ((obscured == SHD_OBSCURED_TEAM) && (other != null)
                 && (owner.getTeam() == other.getTeam())) {
             return false;
-        } else if (obscured == SHD_OBSCURED_ALL) {
-            return false;
-        } else {
-            return true;
-        }
+        } else return obscured != SHD_OBSCURED_ALL;
     }
 
     public void setObscured(int obscured) {

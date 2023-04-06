@@ -162,7 +162,7 @@ public class TilesetManager implements IPreferenceChangeListener, ITilesetManage
         EntityImage entityImage = getFromCache(entity, -1);
         if (entityImage == null) {
             LogManager.getLogger().error("Unable to load icon for entity: " + entity.getShortNameRaw());
-            Image generic = getGenericImage(entity, -1);
+            Image generic = getGenericImage(entity);
             return (generic != null) ? ImageUtil.getScaledImage(generic, 56, 48) : null;
         }
         return entityImage.getIcon();
@@ -179,7 +179,7 @@ public class TilesetManager implements IPreferenceChangeListener, ITilesetManage
     }
 
     /** Retrieves the "devastated" decoration for the given entity */
-    public Image getCraterFor(Entity entity, int secondaryPos) {
+    public Image getCraterFor(Entity entity) {
         Image marker;
 
         String suffix = EntityWreckHelper.getWeightSuffix(entity);
@@ -198,7 +198,7 @@ public class TilesetManager implements IPreferenceChangeListener, ITilesetManage
     }
 
     /** Retrieves the "destroyed" decoration for the given entity */
-    public Image bottomLayerWreckMarkerFor(Entity entity, int secondaryPos) {
+    public Image bottomLayerWreckMarkerFor(Entity entity) {
         Image marker;
 
         // wreck filenames are in the format destroyed_decal_x_weightsuffix, where x is 1 through however many bottom splats we have
@@ -310,7 +310,7 @@ public class TilesetManager implements IPreferenceChangeListener, ITilesetManage
         EntityImage entityImage = getFromCache(entity, secondaryPos);
         if (entityImage == null) {
             LogManager.getLogger().error("Unable to load image for entity: " + entity.getShortNameRaw());
-            return getGenericImage(entity, -1);
+            return getGenericImage(entity);
         }
         // get image rotated for facing
         return entityImage.getFacing(facing);
@@ -333,8 +333,8 @@ public class TilesetManager implements IPreferenceChangeListener, ITilesetManage
         return result;
     }
 
-    private @Nullable Image getGenericImage(Entity entity, int secondaryPos) {
-        return getGenericImage(entity, secondaryPos, MMStaticDirectoryManager.getMechTileset());
+    private @Nullable Image getGenericImage(Entity entity) {
+        return getGenericImage(entity, -1, MMStaticDirectoryManager.getMechTileset());
     }
 
     /** Retrieves a generic unit image if possible. May still return null! */

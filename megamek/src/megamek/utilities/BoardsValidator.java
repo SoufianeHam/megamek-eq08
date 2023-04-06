@@ -160,7 +160,7 @@ public class BoardsValidator {
     private static class Args {
         public boolean showHelp;
         public boolean isQuiet;
-        public List<String> paths = new ArrayList<>();
+        public final List<String> paths = new ArrayList<>();
 
         private static Args parse(String[] args) {
             Args a = new Args();

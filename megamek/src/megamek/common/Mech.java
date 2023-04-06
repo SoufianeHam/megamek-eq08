@@ -33,7 +33,6 @@ import org.apache.logging.log4j.LogManager;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -255,7 +254,7 @@ public abstract class Mech extends Entity {
 
     private boolean fullHeadEject = false;
 
-    protected static int[] EMERGENCY_COOLANT_SYSTEM_FAILURE = {3, 5, 7, 10, 13, 13, 13};
+    protected static final int[] EMERGENCY_COOLANT_SYSTEM_FAILURE = {3, 5, 7, 10, 13, 13, 13};
 
     // nCoolantSystemLevel is the # of turns RISC emergency coolant system has been used previously
     protected int nCoolantSystemLevel = 0;
@@ -468,7 +467,7 @@ public abstract class Mech extends Entity {
         super.setOmni(omni);
 
         // Add BattleArmorHandles to OmniMechs.
-        if (omni && !hasBattleArmorHandles()) {
+        if (omni && hasBattleArmorHandles()) {
             addTransporter(new BattleArmorHandles());
         }
     }
@@ -744,12 +743,12 @@ public abstract class Mech extends Entity {
                 // --Torren
                 if (mEquip.isBreached() || mEquip.isDestroyed()
                         || mEquip.isMissing()) {
-                    return false;
+                    return true;
                 }
                 jumpBoosters = true;
             }
         }
-        return jumpBoosters;
+        return !jumpBoosters;
     }
 
     /**
@@ -2068,7 +2067,7 @@ public abstract class Mech extends Entity {
                                    int cover) {
         int roll = -1;
 
-        if ((aimedLocation != LOC_NONE) && !aimingMode.isNone()) {
+        if ((aimedLocation != LOC_NONE) && aimingMode.isNone()) {
             roll = Compute.d6(2);
 
             if ((5 < roll) && (roll < 9)) {
@@ -3855,12 +3854,9 @@ public abstract class Mech extends Entity {
      */
     public boolean hasEjectSeat() {
         // Ejection Seat
-        boolean result = true;
+        boolean result = getCockpitType() != Mech.COCKPIT_TORSO_MOUNTED
+                && !hasQuirk(OptionsConstants.QUIRK_NEG_NO_EJECT);
         // torso mounted cockpits don't have an ejection seat
-        if (getCockpitType() == Mech.COCKPIT_TORSO_MOUNTED
-                || hasQuirk(OptionsConstants.QUIRK_NEG_NO_EJECT)) {
-            result = false;
-        }
         if (isIndustrial()) {
             result = false;
             // industrials can only eject when they have an ejection seat
@@ -4664,12 +4660,10 @@ public abstract class Mech extends Entity {
      * Add the critical slots necessary for a standard cockpit. Note: This is
      * part of the mek creation public API, and might not be referenced by any
      * MegaMek code.
-     *
-     * @return false if insufficient critical space
      */
-    public boolean addCockpit() {
+    public void addCockpit() {
         if (getEmptyCriticals(LOC_HEAD) < 5) {
-            return false;
+            return;
         }
         addCritical(LOC_HEAD, 0, new CriticalSlot(CriticalSlot.TYPE_SYSTEM,
                 SYSTEM_LIFE_SUPPORT));
@@ -4695,7 +4689,6 @@ public abstract class Mech extends Entity {
             setCockpitType(COCKPIT_STANDARD);
         }
 
-        return true;
     }
 
     /**
@@ -4950,13 +4943,13 @@ public abstract class Mech extends Entity {
         if ((getEmptyCriticals(LOC_CT) < 2) || !success) {
             success = false;
         } else {
-            addCritical(LOC_CT, getFirstEmptyCrit(LOC_CT), new CriticalSlot(
+            addCritical(LOC_CT, getFirstEmptyCrit(), new CriticalSlot(
                     CriticalSlot.TYPE_SYSTEM, SYSTEM_COCKPIT));
             if (vrpp) {
-                addCritical(LOC_CT, getFirstEmptyCrit(LOC_CT), new CriticalSlot(
+                addCritical(LOC_CT, getFirstEmptyCrit(), new CriticalSlot(
                         CriticalSlot.TYPE_SYSTEM, SYSTEM_LIFE_SUPPORT));
             } else {
-                addCritical(LOC_CT, getFirstEmptyCrit(LOC_CT), new CriticalSlot(
+                addCritical(LOC_CT, getFirstEmptyCrit(), new CriticalSlot(
                         CriticalSlot.TYPE_SYSTEM, SYSTEM_SENSORS));
             }
         }
@@ -5102,19 +5095,16 @@ public abstract class Mech extends Entity {
      * Add the critical slots necessary for a compact gyro. Also set the gyro
      * type variable. Note: This is part of the mek creation public API, and
      * might not be referenced by any MegaMek code.
-     *
-     * @return false if insufficient critical space
      */
-    public boolean addCompactGyro() {
+    public void addCompactGyro() {
         if (getEmptyCriticals(LOC_CT) < 2) {
-            return false;
+            return;
         }
         addCritical(LOC_CT, 3, new CriticalSlot(CriticalSlot.TYPE_SYSTEM,
                 SYSTEM_GYRO));
         addCritical(LOC_CT, 4, new CriticalSlot(CriticalSlot.TYPE_SYSTEM,
                 SYSTEM_GYRO));
         setGyroType(GYRO_COMPACT);
-        return true;
     }
 
     /**
@@ -5160,12 +5150,10 @@ public abstract class Mech extends Entity {
      * method before setting a mek's engine object will result in a NPE. Note:
      * This is part of the mek creation public API, and might not be referenced
      * by any MegaMek code.
-     *
-     * @return false if insufficient critical space
      */
-    public boolean addEngineCrits() {
+    public void addEngineCrits() {
         if (!hasEngine()) {
-            return true;
+            return;
         }
         boolean success = true;
 
@@ -5191,7 +5179,6 @@ public abstract class Mech extends Entity {
             }
         }
 
-        return success;
     }
 
     /**
@@ -5615,7 +5602,7 @@ public abstract class Mech extends Entity {
      * @see megamek.common.Entity#doCheckEngineStallRoll(java.util.Vector)
      */
     @Override
-    public Vector<Report> doCheckEngineStallRoll(Vector<Report> vPhaseReport) {
+    public void doCheckEngineStallRoll(Vector<Report> vPhaseReport) {
         if (hasEngine() && (getEngine().getEngineType() == Engine.COMBUSTION_ENGINE)) {
             Report r = new Report(2280);
             r.addDesc(this);
@@ -5665,7 +5652,6 @@ public abstract class Mech extends Entity {
                 vPhaseReport.add(r);
             }
         }
-        return vPhaseReport;
     }
 
     /*
@@ -5734,9 +5720,9 @@ public abstract class Mech extends Entity {
                 || (getCockpitType() == Mech.COCKPIT_PRIMITIVE_INDUSTRIAL);
     }
 
-    private int getFirstEmptyCrit(int Location) {
-        for (int i = 0; i < getNumberOfCriticals(Location); i++) {
-            if (getCritical(Location, i) == null) {
+    private int getFirstEmptyCrit() {
+        for (int i = 0; i < getNumberOfCriticals(Mech.LOC_CT); i++) {
+            if (getCritical(Mech.LOC_CT, i) == null) {
                 return i;
             }
         }
@@ -6202,7 +6188,7 @@ public abstract class Mech extends Entity {
         // can escape. We could also consider creating options to control this.
         if (((this instanceof BipedMech) && (legsDestroyed > 0))
                 || (legsDestroyed > 1) || (hipHits > 0)) {
-            return false;
+            return true;
         }
         return super.canEscape();
     }

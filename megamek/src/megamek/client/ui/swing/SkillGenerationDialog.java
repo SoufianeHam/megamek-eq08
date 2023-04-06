@@ -105,7 +105,7 @@ public class SkillGenerationDialog extends AbstractButtonDialog {
                 this::okButtonActionPerformed));
 
         panel.add(new MMButton("btnCancel", resources.getString("Cancel.text"),
-                resources.getString("Cancel.toolTipText"), this::cancelActionPerformed));
+                resources.getString("Cancel.toolTipText"), evt1 -> cancelActionPerformed()));
 
         final DefaultComboBoxModel<String> clientsModel = new DefaultComboBoxModel<>();
         clientsModel.addElement(getClientGUI().getClient().getName());

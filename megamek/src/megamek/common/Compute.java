@@ -21,7 +21,6 @@ import megamek.common.annotations.Nullable;
 import megamek.common.enums.AimingMode;
 import megamek.common.enums.BasementType;
 import megamek.common.enums.IlluminationLevel;
-import megamek.common.options.Option;
 import megamek.common.options.OptionsConstants;
 import megamek.common.weapons.InfantryAttack;
 import megamek.common.weapons.Weapon;
@@ -95,7 +94,7 @@ public class Compute {
     public static final int ARC_LEFT_BROADSIDE_WPL = 48;
     public static final int ARC_RIGHT_BROADSIDE_WPL = 49;
 
-    public static int DEFAULT_MAX_VISUAL_RANGE = 1;
+    public static final int DEFAULT_MAX_VISUAL_RANGE = 1;
 
     /** Lookup table for vehicular grenade launcher firing arc from facing */
     private static final int[] VGL_FIRING_ARCS = { ARC_VGL_FRONT, ARC_VGL_RF, ARC_VGL_RR,
@@ -394,7 +393,7 @@ public class Compute {
                 thisLowStackingLevel = entering.calcElevation(game.getBoard()
                         .getHex(origPosition), game.getBoard()
                         .getHex(coords), elevation, entering
-                        .climbMode(), false);
+                        .climbMode());
             }
             int thisHighStackingLevel = thisLowStackingLevel;
             // mechs only occupy one level of a building
@@ -545,7 +544,7 @@ public class Compute {
         }
 
         // airborne aircraft do not require pavement-related checks
-        final boolean isPavementStep = entity.isAirborne() ? false : Compute.canMoveOnPavement(game, src, dest, moveStep);
+        final boolean isPavementStep = !entity.isAirborne() && Compute.canMoveOnPavement(game, src, dest, moveStep);
 
         // check for rubble
         if ((movementType != EntityMovementType.MOVE_JUMP)
@@ -688,14 +687,10 @@ public class Compute {
         }
 
         // check leaps
-        if ((entity instanceof Mech) && (delta_alt < -2)
-            && (movementType != EntityMovementType.MOVE_JUMP
-            && (movementType != EntityMovementType.MOVE_VTOL_WALK
-            && (movementType != EntityMovementType.MOVE_VTOL_RUN)))) {
-            return true;
-        }
-
-        return false;
+        return (entity instanceof Mech) && (delta_alt < -2)
+                && (movementType != EntityMovementType.MOVE_JUMP
+                && (movementType != EntityMovementType.MOVE_VTOL_WALK
+                && (movementType != EntityMovementType.MOVE_VTOL_RUN)));
     }
 
     /**
@@ -734,10 +729,7 @@ public class Compute {
 
         // an easy check
         if (!game.getBoard().contains(dest)) {
-            if (game.getOptions().booleanOption(OptionsConstants.BASE_PUSH_OFF_BOARD)) {
-                return true;
-            }
-            return false;
+            return game.getOptions().booleanOption(OptionsConstants.BASE_PUSH_OFF_BOARD);
         }
 
         // can't be displaced into prohibited terrain
@@ -1318,7 +1310,7 @@ public class Compute {
                   || isAttackerBA))
             && !(ae.isAirborne())
             && !(ae.isBomber() && ((IBomber) ae).isVTOLBombing())
-            && !((ae instanceof Dropship) && ((Dropship) ae).isSpheroid()
+            && !((ae instanceof Dropship) && !((Dropship) ae).isSpheroid()
                  && !ae.isAirborne() && !ae.isSpaceborne())
             && !((ae instanceof Mech) && (((Mech) ae).getGrappled() == target
                 .getId()))) {
@@ -3064,7 +3056,7 @@ public class Compute {
             }
         }
 
-        if (use_table == true) {
+        if (use_table) {
             if (!(attacker instanceof BattleArmor)) {
                 if (weapon.getLinked() == null) {
                     return 0.0f;
@@ -3848,7 +3840,7 @@ public class Compute {
      * Returns true if the line between source Coords and target goes through
      * the hex in front of the attacker
      */
-    public static boolean isThroughFrontHex(Game game, Coords src, Entity t) {
+    public static boolean isThroughFrontHex(Coords src, Entity t) {
         Coords dest = t.getPosition();
         int fa = dest.degree(src) - (t.getFacing() * 60);
         if (fa < 0) {
@@ -4152,7 +4144,7 @@ public class Compute {
      * but not necessarily LoS
      */
     public static boolean inVisualRange(Game game, Entity ae, Targetable target) {
-        return inVisualRange(game, null, ae, target);
+        return !inVisualRange(game, null, ae, target);
     }
 
     /**
@@ -4229,11 +4221,7 @@ public class Compute {
                 if (ae.getAltitude() > 8) {
                     return false;
                 }
-                if (ae.passedOver(target)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return ae.passedOver(target);
             }
         }
 
@@ -4296,13 +4284,12 @@ public class Compute {
     /**
      * Calculates the ECM effects in play between a detector and target pair
      *
-     * @param game The current {@link Game}
-     * @param ae - the entity making a sensor scan
+     * @param ae     - the entity making a sensor scan
      * @param target - the entity we're trying to spot
      * @return
      */
-    private static int calcSpaceECM(Game game, Entity ae,
-            Targetable target) {
+    private static int calcSpaceECM(Entity ae,
+                                    Targetable target) {
         int mod = 0;
         int ecm = ComputeECM.getLargeCraftECM(ae, ae.getPosition(), target.getPosition());
         if (!ae.isLargeCraft()) {
@@ -4533,7 +4520,7 @@ public class Compute {
 
         // Apply ECM/ECCM effects
         if (game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_STRATOPS_ECM)) {
-            tn += calcSpaceECM(game, ae, target);
+            tn += calcSpaceECM(ae, target);
         }
 
         // Apply large craft sensor shadows
@@ -4617,12 +4604,9 @@ public class Compute {
         //Military ESM automatically detects anyone using active sensors, which includes all telemissiles
         if (ae.getActiveSensor().getType() == Sensor.TYPE_SPACECRAFT_ESM && target.getTargetType() == Targetable.TYPE_ENTITY) {
             Entity te = (Entity) target;
-            if (te.getActiveSensor().getType() == Sensor.TYPE_AERO_SENSOR
+            return te.getActiveSensor().getType() == Sensor.TYPE_AERO_SENSOR
                     || te.getActiveSensor().getType() == Sensor.TYPE_SPACECRAFT_RADAR
-                    || te instanceof TeleMissile) {
-                return true;
-            }
-            return false;
+                    || te instanceof TeleMissile;
         }
 
         //Can't detect anything beyond this distance
@@ -4640,7 +4624,7 @@ public class Compute {
 
         // Apply ECM/ECCM effects
         if (game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_STRATOPS_ECM)) {
-            tn += calcSpaceECM(game, ae, target);
+            tn += calcSpaceECM(ae, target);
         }
 
         // Apply large craft sensor shadows
@@ -5373,12 +5357,9 @@ public class Compute {
         IAero a = (IAero) attacker;
 
         // the fighters nose must be aligned with its direction of travel
-        boolean rightFacing = false;
+        boolean rightFacing = !game.useVectorMove();
         // using normal movement, I think this means that the last move can't be
         // a turn
-        if (!game.useVectorMove()) {
-            rightFacing = true;
-        }
         // for advanced movement, it must be aligned with largest vector
         if (game.useVectorMove()) {
             for (int h : attacker.getHeading()) {
@@ -5835,11 +5816,7 @@ public class Compute {
             return true;
         }
 
-        if (BAVibroClawAttackAction.toHit(game, entityId, target).getValue() != TargetRoll.IMPOSSIBLE) {
-            return true;
-        }
-
-        return false;
+        return BAVibroClawAttackAction.toHit(game, entityId, target).getValue() != TargetRoll.IMPOSSIBLE;
     }
 
     /**
@@ -6010,12 +5987,9 @@ public class Compute {
         }
 
         // Return true if the entity is in the range of building elevations.
-        if ((entityElev >= (-basement)) && (entityElev < (bldgHeight))) {
-            return true;
-        }
+        return (entityElev >= (-basement)) && (entityElev < (bldgHeight));
 
         // Entity is not *inside* of the building.
-        return false;
     }
 
     /**
@@ -6116,7 +6090,7 @@ public class Compute {
         Vector<Entity> possibleTargets = new Vector<>();
         while (entities.hasNext()) {
             tempEntity = entities.next();
-            if (!tempEntity.getTargetedBySwarm(aeId, weaponId)) {
+            if (tempEntity.getTargetedBySwarm(aeId, weaponId)) {
                 // we found a target
                 possibleTargets.add(tempEntity);
             }
@@ -6138,7 +6112,7 @@ public class Compute {
             entities = game.getEntities(tempcoords);
             if (entities.hasNext()) {
                 tempEntity = entities.next();
-                if (!tempEntity.getTargetedBySwarm(aeId, weaponId)) {
+                if (tempEntity.getTargetedBySwarm(aeId, weaponId)) {
                     // we found a target
                     possibleTargets.add(tempEntity);
                 }
@@ -6694,9 +6668,7 @@ public class Compute {
                 tAlt++;
             }
             int altDiff = Math.abs(aAlt - tAlt);
-            if (altDiff >= (distance - altDiff)) {
-                return true;
-            }
+            return altDiff >= (distance - altDiff);
         }
         return false;
     }

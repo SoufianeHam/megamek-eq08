@@ -141,7 +141,7 @@ class StepSprite extends Sprite {
                 // forward movement arrow
                 drawArrowShape(g2D, moveArrow, col);
                 drawMovementCost(step, isLastStep, new Point(0, 0), graph, col, true);
-                drawRemainingVelocity(step, graph, true);
+                drawRemainingVelocity(step, graph);
                 break;
             case GO_PRONE:
             case HULL_DOWN:
@@ -153,7 +153,7 @@ class StepSprite extends Sprite {
                 currentArrow = upDownOffset.createTransformedShape(bv.downArrow);
                 drawArrowShape(g2D, currentArrow, col);
                 drawMovementCost(step, isLastStep, new Point(1, 15), graph, col, false);
-                drawRemainingVelocity(step, graph, true);
+                drawRemainingVelocity(step, graph);
                 break;
             case GET_UP:
             case UP:
@@ -162,7 +162,7 @@ class StepSprite extends Sprite {
                 currentArrow = upDownOffset.createTransformedShape(bv.upArrow);
                 drawArrowShape(g2D, currentArrow, col);
                 drawMovementCost(step, isLastStep, new Point(0, 15), graph, col, false);
-                drawRemainingVelocity(step, graph, true);
+                drawRemainingVelocity(step, graph);
                 break;
             case CLIMB_MODE_ON:
                 String climb;
@@ -281,7 +281,7 @@ class StepSprite extends Sprite {
         }
 
         if (isLastLegalStep) {
-            drawTMMAndRolls(step, jumped, bv.game, new Point(0, 0), graph, col, true);
+            drawTMMAndRolls(step, jumped, bv.game, new Point(0, 0), graph, col);
         }
 
         baseScaleImage = bv.createImage(tempImage.getSource());
@@ -383,7 +383,7 @@ class StepSprite extends Sprite {
         return new Font(fontName, fontStyle, fontSize);
     }
 
-    private void drawRemainingVelocity(MoveStep step, Graphics graph, boolean shiftFlag) {
+    private void drawRemainingVelocity(MoveStep step, Graphics graph) {
         StringBuilder velStringBuf = new StringBuilder();
 
         if (bv.game.useVectorMove()) {
@@ -413,7 +413,7 @@ class StepSprite extends Sprite {
         String velString = velStringBuf.toString();
         graph.setFont(new Font(MMConstants.FONT_SANS_SERIF, Font.PLAIN, 12));
         int costX = 42;
-        if (shiftFlag) {
+        if (true) {
             costX -= (graph.getFontMetrics(graph.getFont()).stringWidth(velString) / 2);
         }
         graph.setColor(Color.darkGray);
@@ -496,7 +496,7 @@ class StepSprite extends Sprite {
     }
 
     private void drawTMMAndRolls(MoveStep step, boolean jumped, Game game,
-                                 Point stepPos, Graphics graph, Color col, boolean shiftFlag) {
+                                 Point stepPos, Graphics graph, Color col) {
 
         StringBuilder subscriptStringBuf = new StringBuilder();
 
@@ -530,7 +530,7 @@ class StepSprite extends Sprite {
             Font subscriptFont = getMovementFont().deriveFont(getMovementFont().getSize() * 0.5f);
             graph.setFont(subscriptFont);
             int subscriptX = stepPos.x + 42;
-            if (shiftFlag) {
+            if (true) {
                 subscriptX -= (graph.getFontMetrics(graph.getFont()).stringWidth(subscriptString) / 2);
             }
             graph.setColor(Color.darkGray);

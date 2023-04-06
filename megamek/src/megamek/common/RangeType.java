@@ -26,11 +26,11 @@ public class RangeType {
     public static final int RANGE_BEARINGS_ONLY_MINIMUM = 51;
     public static final int RANGE_BEARINGS_ONLY_OUT = 5000;
 
-    public int r_min;
-    public int r_short;
-    public int r_med;
-    public int r_long;
-    public int r_extreme;
+    public final int r_min;
+    public final int r_short;
+    public final int r_med;
+    public final int r_long;
+    public final int r_extreme;
 
     public RangeType(int r_min, int r_short, int r_med, int r_long,
                      int r_extreme) {

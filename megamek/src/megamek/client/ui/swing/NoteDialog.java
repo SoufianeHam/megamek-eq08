@@ -50,7 +50,7 @@ public class NoteDialog extends JDialog implements ActionListener {
     
     boolean accepted = false;
     
-    SpecialHexDisplay note;
+    final SpecialHexDisplay note;
 
     NoteDialog(JFrame frame, SpecialHexDisplay note) {
         super(frame, Messages.getString("NoteDialog.title"), true);

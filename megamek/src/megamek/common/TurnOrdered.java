@@ -312,13 +312,10 @@ public abstract class TurnOrdered implements ITurnOrdered {
                 for (ITurnOrdered item : v) {
                     if (!item.equals(winningElement)) {
                         int newBonus = 0;
-                        boolean observer = false;
+                        boolean observer = ((item instanceof Player) && ((Player) item).isObserver())
+                                || ((item instanceof Team) && ((Team) item).isObserverTeam());
                         // Observers don't have initiative, and they don't get initiative compensation
-                        if (((item instanceof Player) && ((Player) item).isObserver())
-                                || ((item instanceof Team) && ((Team) item).isObserverTeam())) {
-                            observer = true;
-                        }
-                        
+
                         if (!item.equals(lastRoundInitWinner) && !observer) {
                             newBonus = item.getInitCompensationBonus() + 1;
                         }

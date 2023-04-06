@@ -57,8 +57,8 @@ class ServerBoardHelper {
      * Scans the given boardDir directory for map boards of the given size and
      * returns them by adding them to the given boards list. Removes the .board extension.
      */
-    static List<String> scanForBoardsInDir(final File boardDir, final String basePath,
-                                            final BoardDimensions dimensions, List<String> boards) {
+    static void scanForBoardsInDir(final File boardDir, final String basePath,
+                                   final BoardDimensions dimensions, List<String> boards) {
         if (boardDir == null) {
             throw new IllegalArgumentException("must provide searchDir");
         } else if (basePath == null) {
@@ -84,6 +84,5 @@ class ServerBoardHelper {
                 }
             }
         }
-        return boards;
     }
 }

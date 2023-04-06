@@ -118,7 +118,7 @@ public abstract class AbstractIconChooserDialog extends AbstractButtonDialog {
         panel.add(new MMButton("btnOk", resources, "Ok.text", "Ok.toolTipText",
                 this::okButtonActionPerformed));
         panel.add(new MMButton("btnCancel", resources, "Cancel.text", "Cancel.toolTipText",
-                this::cancelActionPerformed));
+                evt1 -> cancelActionPerformed()));
         panel.add(new MMButton("btnRefresh", resources, "RefreshDirectory.text",
                 "RefreshDirectory.toolTipText", evt -> getChooser().refreshDirectory()));
 

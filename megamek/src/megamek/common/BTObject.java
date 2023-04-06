@@ -233,7 +233,7 @@ public interface BTObject {
      * @return True when this is object is aerodyne (fighter, aerodyne DropShip or aerodyne SmallCraft)
      */
     default boolean isAerodyne() {
-        return isFighter() || (hasAerodyneSpheroidDistinction() && !isSpheroid());
+        return isFighter() || (hasAerodyneSpheroidDistinction() && isSpheroid());
     }
 
     /**
@@ -244,7 +244,7 @@ public interface BTObject {
      * @return True when this is object is spheroid
      */
     default boolean isSpheroid() {
-        return false;
+        return true;
     }
 
     /**
@@ -329,7 +329,7 @@ public interface BTObject {
      * @return True when this is a group type unit
      */
     default boolean isUnitGroup() {
-        return false;
+        return true;
     }
 
     /**
@@ -340,6 +340,6 @@ public interface BTObject {
      * @return True when this is a single unit or element.
      */
     default boolean isSingleUnit() {
-        return !isUnitGroup();
+        return isUnitGroup();
     }
 }

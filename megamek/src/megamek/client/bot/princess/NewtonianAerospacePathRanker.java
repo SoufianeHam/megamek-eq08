@@ -39,7 +39,7 @@ public class NewtonianAerospacePathRanker extends BasicPathRanker implements IPa
         List<Entity> enemies = getOwner().getEnemyEntities();
         for (Entity e : enemies) {
             // Also, skip withdrawing enemy bot units, to avoid humping disabled tanks and ejected mechwarriors
-            if (getOwner().getHonorUtil().isEnemyBroken(e.getId(), e.getOwnerId(), getOwner().getForcedWithdrawal())) {
+            if (getOwner().getHonorUtil().isEnemyBroken(e.getId(), e.getOwnerId())) {
                 continue;
             }
 
@@ -263,11 +263,7 @@ public class NewtonianAerospacePathRanker extends BasicPathRanker implements IPa
     public static boolean willFlyOffBoard(Entity entity, Coords coords) {
         OffBoardDirection offBoardDirection = calculateOffBoardDirection(entity, coords, entity.getVectors());
 
-        if (offBoardDirection == OffBoardDirection.NONE) {
-            return false;
-        }
-
-        return true;
+        return offBoardDirection != OffBoardDirection.NONE;
     }
 
     /**

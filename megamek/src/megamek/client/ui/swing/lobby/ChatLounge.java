@@ -43,8 +43,6 @@ import megamek.client.ui.swing.util.ScalingPopup;
 import megamek.client.ui.swing.util.UIUtil;
 import megamek.client.ui.swing.widget.SkinSpecification;
 import megamek.common.*;
-import megamek.common.alphaStrike.AlphaStrikeElement;
-import megamek.common.alphaStrike.conversion.ASConverter;
 import megamek.common.annotations.Nullable;
 import megamek.common.event.*;
 import megamek.common.force.Force;
@@ -194,7 +192,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
 
     private final JButton butConditions = new JButton(Messages.getString("ChatLounge.butConditions"));
     private final JButton butRandomMap = new JButton(Messages.getString("BoardSelectionDialog.GeneratedMapSettings"));
-    ArrayList<MapPreviewButton> mapButtons = new ArrayList<>(20);
+    final ArrayList<MapPreviewButton> mapButtons = new ArrayList<>(20);
     MapSettings mapSettings;
     private JPanel panGroundMap;
     @SuppressWarnings("rawtypes")
@@ -232,7 +230,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
     
     /* Team Overview Panel */
     private TeamOverviewPanel panTeamOverview;
-    JButton butDetach = new JButton(Messages.getString("ChatLounge.butDetach"));
+    final JButton butDetach = new JButton(Messages.getString("ChatLounge.butDetach"));
     private final JSplitPane splitPaneMain;
     ClientDialog teamOverviewWindow;
         
@@ -241,11 +239,11 @@ public class ChatLounge extends AbstractPhaseDisplay implements
     
     private final MapListMouseAdapter mapListMouseListener = new MapListMouseAdapter();
     
-    LobbyActions lobbyActions = new LobbyActions(this); 
+    final LobbyActions lobbyActions = new LobbyActions(this);
     
     private final Map<String, String> boardTags = new HashMap<>();
     
-    LobbyKeyDispatcher lobbyKeyDispatcher = new LobbyKeyDispatcher(this);
+    final LobbyKeyDispatcher lobbyKeyDispatcher = new LobbyKeyDispatcher(this);
 
     private static final String CL_KEY_FILEEXTENTION_BOARD = ".board";
     private static final String CL_KEY_FILEEXTENTION_XML = ".xml";
@@ -382,7 +380,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
     }
 
     /** Applies changes to the board and map size when the textfields lose focus. */
-    FocusListener focusListener = new FocusAdapter() {
+    final FocusListener focusListener = new FocusAdapter() {
         
         @Override
         public void focusLost(FocusEvent e) {
@@ -399,7 +397,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
     }; 
     
     /** Shows the camo chooser and sets the selected camo. */
-    ActionListener camoListener = e -> {
+    final ActionListener camoListener = e -> {
         // Show the CamoChooser for the selected player
         if (getSelectedClient() == null) {
             return;
@@ -434,7 +432,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
     }
     
     /** Re-attaches the Team Overview panel to the tab when the detached window is closed. */
-    WindowListener teamOverviewWindowListener = new WindowAdapter() {
+    final WindowListener teamOverviewWindowListener = new WindowAdapter() {
         @Override
         public void windowClosing(WindowEvent e) {
             int i = panTabs.indexOfTab(Messages.getString("ChatLounge.name.teamOverview"));
@@ -494,7 +492,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
         mekForceTree = new JTree(mekForceTreeModel);
         mekForceTree.setRootVisible(false);
         mekForceTree.setDragEnabled(true);
-        mekForceTree.setTransferHandler(new MekForceTreeTransferHandler(this, mekForceTreeModel));
+        mekForceTree.setTransferHandler(new MekForceTreeTransferHandler(this));
         mekForceTree.setCellRenderer(new MekForceTreeRenderer(this));
         mekForceTree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
         mekForceTree.setExpandsSelectedPaths(true);
@@ -1029,7 +1027,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
                 }
                 if (!button.getBoard().equals(boardName) 
                         || oldMapSettings.getMedium() != mapSettings.getMedium()
-                        || (!mapSettings.equalMapGenParameters(oldMapSettings) 
+                        || (mapSettings.equalMapGenParameters(oldMapSettings)
                                 && mapSettings.getMapWidth() == oldMapSettings.getMapWidth()
                                 && mapSettings.getMapHeight() == oldMapSettings.getMapHeight())) {
                     Board buttonBoard;
@@ -1591,7 +1589,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
     // GameListener
     //
     @Override
-    public void gamePlayerChange(GamePlayerChangeEvent e) {
+    public void gamePlayerChange() {
         if (isIgnoringEvents()) {
             return;
         }
@@ -2003,7 +2001,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
     }
     
     // Put a filter on the files that the user can select the proper file.
-    FileFilter XMLFileFilter = new FileFilter() {
+    final FileFilter XMLFileFilter = new FileFilter() {
         @Override
         public boolean accept(File f) {
             return (f.getPath().toLowerCase().endsWith(CL_KEY_FILEEXTENTION_XML) || f.isDirectory());
@@ -2130,7 +2128,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
         
         // enforce exclusive deployment zones in double blind
         for (Player player: client.getGame().getPlayersVector()) {
-            if (!isValidStartPos(game, player)) {
+            if (isValidStartPos(game, player)) {
                 clientgui.doAlertDialog(Messages.getString("ChatLounge.OverlapDeploy.title"),
                         Messages.getString("ChatLounge.OverlapDeploy.msg"));
                 return;
@@ -2467,7 +2465,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
         return result;
     }
 
-    KeyListener mekTableKeyListener = new KeyAdapter() {
+    final KeyListener mekTableKeyListener = new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent evt) {
             if (mekTable.getSelectedRowCount() == 0) {
@@ -2477,7 +2475,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
             int code = evt.getKeyCode();
             if ((code == KeyEvent.VK_DELETE) || (code == KeyEvent.VK_BACK_SPACE)) {
                 evt.consume();
-                lobbyActions.delete(new ArrayList<>(), entities, true);
+                lobbyActions.delete(new ArrayList<>(), entities);
             } else if (code == KeyEvent.VK_SPACE) {
                 evt.consume();
                 LobbyUtility.mechReadoutAction(entities, canSeeAll(entities), false, getClientgui().getFrame());
@@ -2603,7 +2601,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
     }
     
     /** The key listener for the Force Tree. */
-    KeyListener mekTreeKeyListener = new KeyAdapter() {
+    final KeyListener mekTreeKeyListener = new KeyAdapter() {
 
         @Override
         public void keyPressed(KeyEvent e) {
@@ -2630,7 +2628,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
                 
             } else if ((code == KeyEvent.VK_DELETE) || (code == KeyEvent.VK_BACK_SPACE)) {
                 e.consume();
-                lobbyActions.delete(selForces, selEntities, true);
+                lobbyActions.delete(selForces, selEntities);
                 
             } else if (code == KeyEvent.VK_RIGHT && e.getModifiersEx() == InputEvent.CTRL_DOWN_MASK) {
                 e.consume();
@@ -2708,7 +2706,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
             List<String> boards = lisBoardsAvailable.getSelectedValuesList();
             int activeButtons = mapSettings.getMapWidth() * mapSettings.getMapHeight();
             boolean enableRotation = (mapSettings.getBoardWidth() % 2) == 0;
-            popup = MapListPopup.mapListPopup(boards, activeButtons, this, ChatLounge.this, enableRotation);
+            popup = MapListPopup.mapListPopup(boards, activeButtons, this, enableRotation);
             popup.show(e.getComponent(), e.getX() + MAP_POPUP_OFFSET, e.getY() + MAP_POPUP_OFFSET);
         }
     }
@@ -3087,7 +3085,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
      * Saves column widths of the Mek Table when the mouse button is released. 
      * Also switches between table sorting types
      */
-    MouseListener mekTableHeaderMouseListener = new MouseAdapter() {
+    final MouseListener mekTableHeaderMouseListener = new MouseAdapter() {
         private void changeSorter(MouseEvent e) {
             // Save table widths
             for (int i = 0; i < MekTableModel.N_COL; i++) {
@@ -3313,7 +3311,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
         }
     }
 
-    Map<String, ImageIcon> mapIcons = new HashMap<>();
+    final Map<String, ImageIcon> mapIcons = new HashMap<>();
     
     /** A renderer for the list of available boards. */
     public class BoardNameRenderer extends DefaultListCellRenderer  {
@@ -3519,7 +3517,7 @@ public class ChatLounge extends AbstractPhaseDisplay implements
         return result;
     }
     
-    ActionListener mekTableHeaderAListener = e ->  {
+    final ActionListener mekTableHeaderAListener = e ->  {
         MekTableSorter previousSorter = activeSorter;
         for (MekTableSorter sorter: union(unitSorters, bvSorters)) {
             if (e.getActionCommand().equals(sorter.getDisplayName())) {

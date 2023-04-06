@@ -167,7 +167,7 @@ public class PlasmaCannonHandler extends AmmoWeaponHandler {
             vPhaseReport.addAll(buildingReport);
             // Damage any infantry in the building.
             Vector<Report> infantryReport = gameManager.damageInfantryIn(coverBuilding, nDamage,
-                    coverLoc, wtype.getInfantryDamageClass());
+                    coverLoc);
             for (Report report : infantryReport) {
                 report.indent(2);
             }
@@ -279,7 +279,7 @@ public class PlasmaCannonHandler extends AmmoWeaponHandler {
     }
 
     @Override
-    protected void handleIgnitionDamage(Vector<Report> vPhaseReport, Building bldg, int hits) {
+    protected void handleIgnitionDamage(Vector<Report> vPhaseReport) {
         if (!bSalvo) {
             // hits!
             Report r = new Report(2270);

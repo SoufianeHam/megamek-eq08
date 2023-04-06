@@ -60,7 +60,7 @@ public class ModelRecord extends AbstractUnitRecord {
     private boolean mechanizedBA;
     private boolean magClamp;
 
-    public ModelRecord(String chassis, String model) {
+    public ModelRecord(String chassis) {
         super(chassis);
         roles = EnumSet.noneOf(MissionRole.class);
         deployedWith = new ArrayList<>();
@@ -72,7 +72,7 @@ public class ModelRecord extends AbstractUnitRecord {
     }
 
     public ModelRecord(MechSummary ms) {
-        this(ms.getChassis(), ms.getModel());
+        this(ms.getChassis());
         mechSummary = ms;
         unitType = parseUnitType(ms.getUnitType());
         introYear = ms.getYear();
@@ -102,7 +102,7 @@ public class ModelRecord extends AbstractUnitRecord {
             if (eq == null) {
                 continue;
             }
-            if (!eq.isAvailableIn(3000)) {
+            if (eq.isAvailableIn(3000)) {
                 //FIXME: needs to filter out primitive
                 losTech = true;
             }

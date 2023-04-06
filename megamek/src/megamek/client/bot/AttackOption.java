@@ -55,10 +55,10 @@ public class AttackOption extends ToHitData {
         }
     }
 
-    public CEntity target;
+    public final CEntity target;
     public double value;
-    public Mounted weapon;
-    public ToHitData toHit;
+    public final Mounted weapon;
+    public final ToHitData toHit;
     public double odds; // secondary odds
     public double primary_odds; // primary odds
     public int heat;

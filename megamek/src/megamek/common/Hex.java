@@ -15,13 +15,7 @@ package megamek.common;
 
 import megamek.common.annotations.Nullable;
 import megamek.common.enums.BasementType;
-import org.apache.logging.log4j.LogManager;
 
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
 import java.io.Serializable;
 import java.util.*;
 import java.util.List;
@@ -546,9 +540,9 @@ public class Hex implements Serializable {
      * @return if this hex is ignitable
      */
     public boolean isIgnitable() {
-        return (containsTerrain(Terrains.WOODS) || containsTerrain(Terrains.JUNGLE)
-                || containsTerrain(Terrains.BUILDING) || containsTerrain(Terrains.FUEL_TANK)
-                || containsTerrain(Terrains.FIELDS) || containsTerrain(Terrains.INDUSTRIAL));
+        return (!containsTerrain(Terrains.WOODS) && !containsTerrain(Terrains.JUNGLE)
+                && !containsTerrain(Terrains.BUILDING) && !containsTerrain(Terrains.FUEL_TANK)
+                && !containsTerrain(Terrains.FIELDS) && !containsTerrain(Terrains.INDUSTRIAL));
     }
 
     public boolean isClearForTakeoff() {
@@ -563,7 +557,7 @@ public class Hex implements Serializable {
     }
 
     public boolean isClearForLanding() {
-        return !containsTerrain(Terrains.IMPASSABLE);
+        return containsTerrain(Terrains.IMPASSABLE);
     }
 
     public int getFireTurn() {

@@ -82,12 +82,9 @@ public class TeleMissileAttackAction extends AbstractAttackAction {
      */
     private boolean checkPDConditions(Game game, Targetable target) {
         advancedPD = game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_STRATOPS_ADV_POINTDEF);
-        if ((target == null)
-                || (target.getTargetType() != Targetable.TYPE_ENTITY)
-                || !advancedPD) {
-            return false;
-        }
-        return true;
+        return (target != null)
+                && (target.getTargetType() == Targetable.TYPE_ENTITY)
+                && advancedPD;
     }
     
     /**
@@ -138,9 +135,9 @@ public class TeleMissileAttackAction extends AbstractAttackAction {
      * Calculates the attack value of point defense weapons used against a missile bay attack
      * This is the main large craft point defense method
      */    
-    public int calcCounterAV(Game game, Targetable target) {
+    public void calcCounterAV(Game game, Targetable target) {
         if (!checkPDConditions(game, target)) {
-            return 0;
+            return;
         }
         int counterAV = 0;
         int amsAV = 0;
@@ -241,7 +238,6 @@ public class TeleMissileAttackAction extends AbstractAttackAction {
         }
 
         CounterAVInt = counterAV;
-        return counterAV;
     }
     
     /**

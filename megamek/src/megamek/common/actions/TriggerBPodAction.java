@@ -22,8 +22,8 @@ public class TriggerBPodAction extends AbstractEntityAction {
      */
     private static final long serialVersionUID = -9087658958702066030L;
     /** Save the equipment ID of the Anti-BA Pod being triggered. */
-    int podId;
-    int targetId;
+    final int podId;
+    final int targetId;
 
     /**
      * Trigger the indicated AP Pod on the entity with the given entity ID.

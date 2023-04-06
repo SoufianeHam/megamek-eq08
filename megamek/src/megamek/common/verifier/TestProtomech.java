@@ -18,7 +18,6 @@ import megamek.common.*;
 import megamek.common.annotations.Nullable;
 import megamek.common.util.StringUtil;
 
-import javax.swing.text.Utilities;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -276,7 +275,7 @@ public class TestProtomech extends TestEntity {
     }
 
     @Override
-    public StringBuffer printMiscEquip(StringBuffer buff, int posLoc, int posWeight) {
+    public StringBuffer printMiscEquip(StringBuffer buff) {
         for (Mounted m : getEntity().getMisc()) {
             buff.append(StringUtil.makeLength(m.getName(), 20));
             buff.append(
@@ -289,7 +288,7 @@ public class TestProtomech extends TestEntity {
     }
 
     @Override
-    public StringBuffer printWeapon(StringBuffer buff, int posLoc, int posWeight) {
+    public StringBuffer printWeapon(StringBuffer buff) {
         for (Mounted m : getEntity().getWeaponList()) {
             buff.append(StringUtil.makeLength(m.getName(), 20));
             buff.append(
@@ -331,7 +330,7 @@ public class TestProtomech extends TestEntity {
         if (skip()) {
             return true;
         }
-        if (!correctWeight(buff)) {
+        if (correctWeight(buff)) {
             buff.insert(0, printTechLevel() + printShortMovement());
             buff.append(printWeightCalculation());
             correct = false;
@@ -361,12 +360,12 @@ public class TestProtomech extends TestEntity {
     
     @Override
     public boolean correctWeight(StringBuffer buff) {
-        boolean correct = super.correctWeight(buff);
+        boolean correct = !super.correctWeight(buff);
         if (proto.getWeight() > MAX_TONNAGE) {
             buff.append("Exceeds maximum weight of ").append(MAX_TONNAGE).append("\n");
             correct = false;
         }
-        return correct;
+        return !correct;
     }
     
     @Override

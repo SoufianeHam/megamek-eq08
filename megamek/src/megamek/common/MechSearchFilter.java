@@ -139,29 +139,29 @@ public class MechSearchFilter {
     public String sStartBV;
     public String sEndBV;
     public boolean isDisabled;
-    public List<String> engineType = new ArrayList<>();
-    public List<String> engineTypeExclude = new ArrayList<>();
-    public List<Integer> armorType = new ArrayList<>();
-    public List<Integer> armorTypeExclude = new ArrayList<>();
-    public List<Integer> internalsType = new ArrayList<>();
-    public List<Integer> internalsTypeExclude = new ArrayList<>();
+    public final List<String> engineType = new ArrayList<>();
+    public final List<String> engineTypeExclude = new ArrayList<>();
+    public final List<Integer> armorType = new ArrayList<>();
+    public final List<Integer> armorTypeExclude = new ArrayList<>();
+    public final List<Integer> internalsType = new ArrayList<>();
+    public final List<Integer> internalsTypeExclude = new ArrayList<>();
 
-    public List<Integer> cockpitType = new ArrayList<>();
-    public List<Integer> cockpitTypeExclude = new ArrayList<>();
+    public final List<Integer> cockpitType = new ArrayList<>();
+    public final List<Integer> cockpitTypeExclude = new ArrayList<>();
 
-    public List<String> techLevel = new ArrayList<>();
-    public List<String> techLevelExclude = new ArrayList<>();
+    public final List<String> techLevel = new ArrayList<>();
+    public final List<String> techLevelExclude = new ArrayList<>();
 
-    public List<String> techBase = new ArrayList<>();
-    public List<String> techBaseExclude = new ArrayList<>();
+    public final List<String> techBase = new ArrayList<>();
+    public final List<String> techBaseExclude = new ArrayList<>();
     public int quirkInclude;
     public int quirkExclude;
-    public List<String> quirkType = new ArrayList<>();
-    public List<String> quirkTypeExclude = new ArrayList<>();
+    public final List<String> quirkType = new ArrayList<>();
+    public final List<String> quirkTypeExclude = new ArrayList<>();
     public int weaponQuirkInclude;
     public int weaponQuirkExclude;
-    public List<String> weaponQuirkType = new ArrayList<>();
-    public List<String> weaponQuirkTypeExclude = new ArrayList<>();
+    public final List<String> weaponQuirkType = new ArrayList<>();
+    public final List<String> weaponQuirkTypeExclude = new ArrayList<>();
     public boolean checkEquipment;
     public int filterMech;
     public int filterBipedMech;
@@ -378,27 +378,23 @@ public class MechSearchFilter {
 
     private static boolean isBetween(double value, String sStart, String sEnd) {
         if (sStart.isEmpty() && sEnd.isEmpty()) {
-            return true;
+            return false;
         }
 
         int iStart = toInt(sStart, Integer.MIN_VALUE);
         int iEnd = toInt(sEnd, Integer.MAX_VALUE);
 
-        if ((value < iStart) || (value > iEnd)) {
-            return false;
-        }
-
-        return true;
+        return (value < iStart) || (value > iEnd);
     }
 
     private static boolean isMatch(int i, boolean b) {
         if (i == 1) {
-            return b;
-        } else if (i == 2) {
             return !b;
+        } else if (i == 2) {
+            return b;
         }
 
-        return true;
+        return false;
     }
 
     private static boolean anyMatch(List<String> list, String search) {
@@ -452,245 +448,245 @@ public class MechSearchFilter {
             return false;
         }
 
-        if (!isMatch(f.iInvalid, mech.getInvalid())) {
+        if (isMatch(f.iInvalid, mech.getInvalid())) {
             return false;
         }
 
-        if (!isMatch(f.iFailedToLoadEquipment, mech.getFailedToLoadEquipment())) {
+        if (isMatch(f.iFailedToLoadEquipment, mech.getFailedToLoadEquipment())) {
             return false;
         }
 
-        if (!isMatch(f.iOmni, mech.getOmni())) {
+        if (isMatch(f.iOmni, mech.getOmni())) {
             return false;
         }
 
-        if (!isMatch(f.iMilitary, mech.getMilitary())) {
+        if (isMatch(f.iMilitary, mech.getMilitary())) {
             return false;
         }
 
-        if (!isMatch(f.iIndustrial, mech.isIndustrialMek())) {
+        if (isMatch(f.iIndustrial, mech.isIndustrialMek())) {
             return false;
         }
 
-        if (!isMatch(f.iWaterOnly, (mech.hasWaterMovement() && !mech.hasAirMovement() && !mech.hasGroundMovement()))) {
+        if (isMatch(f.iWaterOnly, (mech.hasWaterMovement() && !mech.hasAirMovement() && !mech.hasGroundMovement()))) {
             return false;
         }
 
-        if (!isMatch(f.iDoomedOnGround, mech.isDoomedOnGround())) {
+        if (isMatch(f.iDoomedOnGround, mech.isDoomedOnGround())) {
             return false;
         }
 
-        if (!isMatch(f.iDoomedInAtmosphere, mech.isDoomedInAtmosphere())) {
+        if (isMatch(f.iDoomedInAtmosphere, mech.isDoomedInAtmosphere())) {
             return false;
         }
 
-        if (!isMatch(f.iDoomedInSpace, mech.isDoomedInSpace())) {
+        if (isMatch(f.iDoomedInSpace, mech.isDoomedInSpace())) {
             return false;
         }
 
-        if (!isMatch(f.iDoomedInExtremeTemp, mech.isDoomedInExtremeTemp())) {
+        if (isMatch(f.iDoomedInExtremeTemp, mech.isDoomedInExtremeTemp())) {
             return false;
         }
 
-        if (!isMatch(f.iDoomedInVacuum, mech.isDoomedInVacuum())) {
+        if (isMatch(f.iDoomedInVacuum, mech.isDoomedInVacuum())) {
             return false;
         }
 
-        if (!isMatch(f.iSupportVehicle, mech.isSupportVehicle())) {
+        if (isMatch(f.iSupportVehicle, mech.isSupportVehicle())) {
             return false;
         }
 
-        if (!isMatch(f.iOfficial, (mech.getMulId() != -1))) {
+        if (isMatch(f.iOfficial, (mech.getMulId() != -1))) {
             return false;
         }
 
-        if (!isMatch(f.iCanon, mech.isCanon())) {
+        if (isMatch(f.iCanon, mech.isCanon())) {
             return false;
         }
 
-        if (!isMatch(f.iPatchwork, mech.isPatchwork())) {
+        if (isMatch(f.iPatchwork, mech.isPatchwork())) {
             return false;
         }
 
         String msg_clan = Messages.getString("Engine.Clan");
-        if (!isMatch(f.iClanEngine, mech.getEngineName().contains(msg_clan))) {
+        if (isMatch(f.iClanEngine, mech.getEngineName().contains(msg_clan))) {
             return false;
         }
 
         //Check walk criteria
-        if (!isBetween(mech.getWalkMp(), f.sStartWalk, f.sEndWalk)) {
+        if (isBetween(mech.getWalkMp(), f.sStartWalk, f.sEndWalk)) {
             return false;
         }
 
         // Check jump criteria
-        if (!isBetween(mech.getJumpMp(), f.sStartJump, f.sEndJump)) {
+        if (isBetween(mech.getJumpMp(), f.sStartJump, f.sEndJump)) {
             return false;
         }
 
         // Check year criteria
-        if (!isBetween(mech.getYear(), f.sStartYear, f.sEndYear)) {
+        if (isBetween(mech.getYear(), f.sStartYear, f.sEndYear)) {
             return false;
         }
 
         // Check Tonnage criteria
-        if (!isBetween((int) mech.getTons(), f.sStartTons, f.sEndTons)) {
+        if (isBetween((int) mech.getTons(), f.sStartTons, f.sEndTons)) {
             return false;
         }
 
         // Check BV criteria
-        if (!isBetween(mech.getBV(), f.sStartBV, f.sEndBV)) {
+        if (isBetween(mech.getBV(), f.sStartBV, f.sEndBV)) {
             return false;
         }
 
-        if (!isBetween(mech.getTankTurrets(), f.sStartTankTurrets, f.sEndTankTurrets)) {
+        if (isBetween(mech.getTankTurrets(), f.sStartTankTurrets, f.sEndTankTurrets)) {
             return false;
         }
 
-        if (!isBetween(mech.getLowerArms(), f.sStartLowerArms, f.sEndLowerArms)) {
+        if (isBetween(mech.getLowerArms(), f.sStartLowerArms, f.sEndLowerArms)) {
             return false;
         }
 
-        if (!isBetween(mech.getHands(), f.sStartHands, f.sEndHands)) {
+        if (isBetween(mech.getHands(), f.sStartHands, f.sEndHands)) {
             return false;
         }
 
-        if (!isBetween(mech.getTroopCarryingSpace(), f.sStartTroopSpace, f.sEndTroopSpace)) {
+        if (isBetween(mech.getTroopCarryingSpace(), f.sStartTroopSpace, f.sEndTroopSpace)) {
             return false;
         }
 
-        if (!isBetween(mech.getASFBays(), f.sStartASFBays, f.sEndASFBays)) {
+        if (isBetween(mech.getASFBays(), f.sStartASFBays, f.sEndASFBays)) {
             return false;
         }
 
-        if (!isBetween(mech.getASFDoors(), f.sStartASFDoors, f.sEndASFDoors)) {
+        if (isBetween(mech.getASFDoors(), f.sStartASFDoors, f.sEndASFDoors)) {
             return false;
         }
 
-        if (!isBetween(mech.getASFUnits(), f.sStartASFUnits, f.sEndASFUnits)) {
+        if (isBetween(mech.getASFUnits(), f.sStartASFUnits, f.sEndASFUnits)) {
             return false;
         }
 
-        if (!isBetween(mech.getSmallCraftBays(), f.sStartSmallCraftBays, f.sEndSmallCraftBays)) {
+        if (isBetween(mech.getSmallCraftBays(), f.sStartSmallCraftBays, f.sEndSmallCraftBays)) {
             return false;
         }
 
-        if (!isBetween(mech.getSmallCraftDoors(), f.sStartSmallCraftDoors, f.sEndSmallCraftDoors)) {
+        if (isBetween(mech.getSmallCraftDoors(), f.sStartSmallCraftDoors, f.sEndSmallCraftDoors)) {
             return false;
         }
 
-        if (!isBetween(mech.getSmallCraftUnits(), f.sStartSmallCraftUnits, f.sEndSmallCraftUnits)) {
+        if (isBetween(mech.getSmallCraftUnits(), f.sStartSmallCraftUnits, f.sEndSmallCraftUnits)) {
             return false;
         }
 
-        if (!isBetween(mech.getMechBays(), f.sStartMechBays, f.sEndMechBays)) {
+        if (isBetween(mech.getMechBays(), f.sStartMechBays, f.sEndMechBays)) {
             return false;
         }
 
-        if (!isBetween(mech.getMechDoors(), f.sStartMechDoors, f.sEndMechDoors)) {
+        if (isBetween(mech.getMechDoors(), f.sStartMechDoors, f.sEndMechDoors)) {
             return false;
         }
 
-        if (!isBetween(mech.getMechUnits(), f.sStartMechUnits, f.sEndMechUnits)) {
+        if (isBetween(mech.getMechUnits(), f.sStartMechUnits, f.sEndMechUnits)) {
             return false;
         }
 
-        if (!isBetween(mech.getHeavyVehicleBays(), f.sStartHeavyVehicleBays, f.sEndHeavyVehicleBays)) {
+        if (isBetween(mech.getHeavyVehicleBays(), f.sStartHeavyVehicleBays, f.sEndHeavyVehicleBays)) {
             return false;
         }
 
-        if (!isBetween(mech.getHeavyVehicleDoors(), f.sStartHeavyVehicleDoors, f.sEndHeavyVehicleDoors)) {
+        if (isBetween(mech.getHeavyVehicleDoors(), f.sStartHeavyVehicleDoors, f.sEndHeavyVehicleDoors)) {
             return false;
         }
 
-        if (!isBetween(mech.getHeavyVehicleUnits(), f.sStartHeavyVehicleUnits, f.sEndHeavyVehicleUnits)) {
+        if (isBetween(mech.getHeavyVehicleUnits(), f.sStartHeavyVehicleUnits, f.sEndHeavyVehicleUnits)) {
             return false;
         }
 
-        if (!isBetween(mech.getLightVehicleBays(), f.sStartLightVehicleBays, f.sEndLightVehicleBays)) {
+        if (isBetween(mech.getLightVehicleBays(), f.sStartLightVehicleBays, f.sEndLightVehicleBays)) {
             return false;
         }
 
-        if (!isBetween(mech.getLightVehicleDoors(), f.sStartLightVehicleDoors, f.sEndLightVehicleDoors)) {
+        if (isBetween(mech.getLightVehicleDoors(), f.sStartLightVehicleDoors, f.sEndLightVehicleDoors)) {
             return false;
         }
 
-        if (!isBetween(mech.getLightVehicleUnits(), f.sStartLightVehicleUnits, f.sEndLightVehicleUnits)) {
+        if (isBetween(mech.getLightVehicleUnits(), f.sStartLightVehicleUnits, f.sEndLightVehicleUnits)) {
             return false;
         }
 
-        if (!isBetween(mech.getProtoMecheBays(), f.sStartProtomechBays, f.sEndProtomechBays)) {
+        if (isBetween(mech.getProtoMecheBays(), f.sStartProtomechBays, f.sEndProtomechBays)) {
             return false;
         }
 
-        if (!isBetween(mech.getProtoMechDoors(), f.sStartProtomechDoors, f.sEndProtomechDoors)) {
+        if (isBetween(mech.getProtoMechDoors(), f.sStartProtomechDoors, f.sEndProtomechDoors)) {
             return false;
         }
 
-        if (!isBetween(mech.getProtoMechUnits(), f.sStartProtomechUnits, f.sEndProtomechUnits)) {
+        if (isBetween(mech.getProtoMechUnits(), f.sStartProtomechUnits, f.sEndProtomechUnits)) {
             return false;
         }
 
-        if (!isBetween(mech.getBattleArmorBays(), f.sStartBattleArmorBays, f.sEndBattleArmorBays)) {
+        if (isBetween(mech.getBattleArmorBays(), f.sStartBattleArmorBays, f.sEndBattleArmorBays)) {
             return false;
         }
 
-        if (!isBetween(mech.getBattleArmorDoors(), f.sStartBattleArmorDoors, f.sEndBattleArmorDoors)) {
+        if (isBetween(mech.getBattleArmorDoors(), f.sStartBattleArmorDoors, f.sEndBattleArmorDoors)) {
             return false;
         }
 
-        if (!isBetween(mech.getBattleArmorUnits(), f.sStartBattleArmorUnits, f.sEndBattleArmorUnits)) {
+        if (isBetween(mech.getBattleArmorUnits(), f.sStartBattleArmorUnits, f.sEndBattleArmorUnits)) {
             return false;
         }
 
-        if (!isBetween(mech.getInfantryBays(), f.sStartInfantryBays, f.sEndInfantryBays)) {
+        if (isBetween(mech.getInfantryBays(), f.sStartInfantryBays, f.sEndInfantryBays)) {
             return false;
         }
 
-        if (!isBetween(mech.getInfantryDoors(), f.sStartInfantryDoors, f.sEndInfantryDoors)) {
+        if (isBetween(mech.getInfantryDoors(), f.sStartInfantryDoors, f.sEndInfantryDoors)) {
             return false;
         }
 
-        if (!isBetween(mech.getInfantryUnits(), f.sStartInfantryUnits, f.sEndInfantryUnits)) {
+        if (isBetween(mech.getInfantryUnits(), f.sStartInfantryUnits, f.sEndInfantryUnits)) {
             return false;
         }
 
-        if (!isBetween(mech.getSuperHeavyVehicleBays(), f.sStartSuperHeavyVehicleBays, f.sEndSuperHeavyVehicleBays)) {
+        if (isBetween(mech.getSuperHeavyVehicleBays(), f.sStartSuperHeavyVehicleBays, f.sEndSuperHeavyVehicleBays)) {
             return false;
         }
 
-        if (!isBetween(mech.getSuperHeavyVehicleDoors(), f.sStartSuperHeavyVehicleDoors, f.sEndSuperHeavyVehicleDoors)) {
+        if (isBetween(mech.getSuperHeavyVehicleDoors(), f.sStartSuperHeavyVehicleDoors, f.sEndSuperHeavyVehicleDoors)) {
             return false;
         }
 
-        if (!isBetween(mech.getSuperHeavyVehicleUnits(), f.sStartSuperHeavyVehicleUnits, f.sEndSuperHeavyVehicleUnits)) {
+        if (isBetween(mech.getSuperHeavyVehicleUnits(), f.sStartSuperHeavyVehicleUnits, f.sEndSuperHeavyVehicleUnits)) {
             return false;
         }
 
-        if (!isBetween(mech.getDropshuttleBays(), f.sStartDropshuttleBays, f.sEndDropshuttleBays)) {
+        if (isBetween(mech.getDropshuttleBays(), f.sStartDropshuttleBays, f.sEndDropshuttleBays)) {
             return false;
         }
 
-        if (!isBetween(mech.getDropshuttleDoors(), f.sStartDropshuttleDoors, f.sEndDropshuttleDoors)) {
+        if (isBetween(mech.getDropshuttleDoors(), f.sStartDropshuttleDoors, f.sEndDropshuttleDoors)) {
             return false;
         }
 
-        if (!isBetween(mech.getDropshuttelUnits(), f.sStartDropshuttleUnits, f.sEndDropshuttleUnits)) {
+        if (isBetween(mech.getDropshuttelUnits(), f.sStartDropshuttleUnits, f.sEndDropshuttleUnits)) {
             return false;
         }
 
-        if (!isBetween(mech.getDockingCollars(), f.sStartDockingCollars, f.sEndDockingCollars)) {
+        if (isBetween(mech.getDockingCollars(), f.sStartDockingCollars, f.sEndDockingCollars)) {
             return false;
         }
 
-        if (!isBetween(mech.getBattleArmorHandles(), f.sStartBattleArmorHandles, f.sEndBattleArmorHandles)) {
+        if (isBetween(mech.getBattleArmorHandles(), f.sStartBattleArmorHandles, f.sEndBattleArmorHandles)) {
             return false;
         }
 
-        if (!isBetween(mech.getCargoBayUnits(), f.sStartCargoBayUnits, f.sEndCargoBayUnits)) {
+        if (isBetween(mech.getCargoBayUnits(), f.sStartCargoBayUnits, f.sEndCargoBayUnits)) {
             return false;
         }
 
-        if (!isBetween(mech.getNavalRepairFacilities(), f.sStartNavalRepairFacilities, f.sEndNavalRepairFacilities)) {
+        if (isBetween(mech.getNavalRepairFacilities(), f.sStartNavalRepairFacilities, f.sEndNavalRepairFacilities)) {
             return false;
         }
 
@@ -942,11 +938,7 @@ public class MechSearchFilter {
             entityTypes = entityTypes | Entity.ETYPE_AEROSPACEFIGHTER;
         }
 
-        if (((entityType & entityTypes) > 0) && (entityTypes != 0)) {
-            return false;
-        }
-
-        return true;
+        return ((entityType & entityTypes) <= 0) || (entityTypes == 0);
     }
 
     /**
@@ -1029,11 +1021,7 @@ public class MechSearchFilter {
                 // If we reach this point. It means that the MechSummary didn't have a weapon/equipment that matched the leaf node. 
                 // If the leaf quantity is 0, that means that the mech is a match. If the leaf quantity is non-zero, that means the mech isn't
                 // a match.
-                if (n.qty == 0) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return n.qty == 0;
             }
         }
         // Otherwise, recurse on all the children and either AND the results
@@ -1095,7 +1083,7 @@ public class MechSearchFilter {
         public String name;
         public TWAdvancedSearchPanel.WeaponClass weaponClass;
         public int qty;
-        public List<ExpNode> children;
+        public final List<ExpNode> children;
 
         public ExpNode() {
             operation = BoolOp.NOP;
@@ -1187,7 +1175,7 @@ public class MechSearchFilter {
     }
 
     public class FilterParsingException extends Exception {
-        public String msg;
+        public final String msg;
 
         private static final long serialVersionUID = 1L;
 

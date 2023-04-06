@@ -505,7 +505,7 @@ public class RATGenerator {
                     mAv = interpolate(mAv,
                             mRec.calcAvailability(ar, ratingLevel, numRatingLevels, late),
                             Math.max(early, mRec.getIntroYear()), late, year);
-                    Double adjMAv = MissionRole.adjustAvailabilityByRole(mAv, roles, mRec, year, roleStrictness);
+                    Double adjMAv = MissionRole.adjustAvailabilityByRole(mAv, roles, mRec, roleStrictness);
                     if (adjMAv != null) {
                         double mWt = AvailabilityRating.calcWeight(adjMAv) / totalModelWeight
                                 * AvailabilityRating.calcWeight(cAv);

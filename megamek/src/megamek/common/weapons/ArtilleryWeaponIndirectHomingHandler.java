@@ -198,7 +198,7 @@ public class ArtilleryWeaponIndirectHomingHandler extends ArtilleryWeaponIndirec
 
             // Works out fire setting, AMS shots, and whether continuation is
             // necessary.
-            if (!handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg,
+            if (handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg,
                     vPhaseReport)) {
                 return false;
             }
@@ -409,7 +409,7 @@ public class ArtilleryWeaponIndirectHomingHandler extends ArtilleryWeaponIndirec
     protected boolean handleSpecialMiss(Entity entityTarget,
             boolean bldgDamagedOnMiss, Building bldg,
             Vector<Report> vPhaseReport) {
-        return true;
+        return false;
     }
     
     /**
@@ -419,10 +419,7 @@ public class ArtilleryWeaponIndirectHomingHandler extends ArtilleryWeaponIndirec
     @Override
     protected boolean checkPDConditions() {
         advancedPD = game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_STRATOPS_ADV_POINTDEF);
-        if ((target == null) || !advancedPD || (target.getTargetType() != Targetable.TYPE_ENTITY)) {
-            return false;
-        }
-        return true;
+        return (target != null) && advancedPD && (target.getTargetType() == Targetable.TYPE_ENTITY);
     }
         
     /**

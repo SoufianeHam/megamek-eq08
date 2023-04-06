@@ -45,7 +45,7 @@ public abstract class AbstractDialog extends JDialog implements WindowListener {
 
     protected static final String CLOSE_ACTION = "closeAction";
 
-    protected ResourceBundle resources;
+    protected final ResourceBundle resources;
     //endregion Variable Declarations
 
     //region Constructors
@@ -135,7 +135,7 @@ public abstract class AbstractDialog extends JDialog implements WindowListener {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
-                cancelActionPerformed(evt);
+                cancelActionPerformed();
             }
         });
 
@@ -194,7 +194,7 @@ public abstract class AbstractDialog extends JDialog implements WindowListener {
     /**
      * Note: Cancelling a dialog should always allow one to close the dialog.
      */
-    protected void cancelActionPerformed(final ActionEvent evt) {
+    protected void cancelActionPerformed() {
         try {
             cancelAction();
         } catch (Exception ex) {

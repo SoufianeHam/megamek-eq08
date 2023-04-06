@@ -59,9 +59,9 @@ class ExtraPanel extends PicMap implements ActionListener, ItemListener, IPrefer
     private final int minTopMargin = 8;
     private final int minLeftMargin = 8;
 
-    JButton activateHidden = new JButton(Messages.getString("MechDisplay.ActivateHidden.Label"));
+    final JButton activateHidden = new JButton(Messages.getString("MechDisplay.ActivateHidden.Label"));
 
-    MMComboBox<GamePhase> comboActivateHiddenPhase = new MMComboBox<>("comboActivateHiddenPhase");
+    final MMComboBox<GamePhase> comboActivateHiddenPhase = new MMComboBox<>("comboActivateHiddenPhase");
 
     ExtraPanel(UnitDisplay unitDisplay) {
         this.unitDisplay = unitDisplay;
@@ -606,7 +606,7 @@ class ExtraPanel extends PicMap implements ActionListener, ItemListener, IPrefer
                     Messages.getString("MechDisplay.changeSinks"),
                     Messages.getString("MechDisplay.changeSinks"), sinks,
                     0, ((Mech) clientgui.getClient().getGame().getEntity(myMechId)).getNumberOfSinks());
-            if (!prompt.showDialog()) {
+            if (prompt.showDialog()) {
                 return;
             }
             clientgui.getMenuBar().actionPerformed(ae);

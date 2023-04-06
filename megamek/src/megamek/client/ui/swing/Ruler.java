@@ -394,12 +394,12 @@ public class Ruler extends JDialog implements BoardViewListener, IPreferenceChan
     }
 
     @Override
-    public void hexCursor(BoardViewEvent b) {
+    public void hexCursor() {
         //ignored
     }
 
     @Override
-    public void boardHexHighlighted(BoardViewEvent b) {
+    public void boardHexHighlighted() {
         //ignored
     }
 
@@ -461,7 +461,7 @@ public class Ruler extends JDialog implements BoardViewListener, IPreferenceChan
     }
 
     @Override
-    public void finishedMovingUnits(BoardViewEvent b) {
+    public void finishedMovingUnits() {
         //ignored
     }
 

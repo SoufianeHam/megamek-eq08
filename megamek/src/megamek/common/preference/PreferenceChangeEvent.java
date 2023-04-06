@@ -22,9 +22,9 @@ public class PreferenceChangeEvent extends EventObject {
      * 
      */
     private static final long serialVersionUID = 8514064293889126724L;
-    protected String name;
-    protected Object oldValue;
-    protected Object newValue;
+    protected final String name;
+    protected final Object oldValue;
+    protected final Object newValue;
 
     public PreferenceChangeEvent(Object source, String name, Object oldValue,
             Object newValue) {

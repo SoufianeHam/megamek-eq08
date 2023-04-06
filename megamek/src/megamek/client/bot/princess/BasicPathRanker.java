@@ -90,7 +90,7 @@ public class BasicPathRanker extends PathRanker implements IPathRanker {
     double getMaxDamageAtRange(FireControl fireControl, Entity shooter,
                                int range, boolean useExtremeRange,
                                boolean useLOSRange) {
-        return fireControl.getMaxDamageAtRange(shooter, range, useExtremeRange,
+        return FireControl.getMaxDamageAtRange(shooter, range, useExtremeRange,
                                                useLOSRange);
     }
 
@@ -390,7 +390,7 @@ public class BasicPathRanker extends PathRanker implements IPathRanker {
     private double calculateFacingMod(Entity movingUnit, Game game, final MovePath path,
                                       StringBuilder formula) {
 
-        Targetable closest = findClosestEnemy(movingUnit, movingUnit.getPosition(), game, false);
+        Targetable closest = findClosestEnemy(movingUnit.getPosition(), false);
         Coords toFace = closest == null ?
                         game.getBoard().getCenter() :
                         closest.getPosition();
@@ -469,7 +469,7 @@ public class BasicPathRanker extends PathRanker implements IPathRanker {
      * A path ranking
      */
     @Override
-    protected RankedPath rankPath(MovePath path, Game game, int maxRange, double fallTolerance,
+    protected RankedPath rankPath(MovePath path, Game game,
                                   List<Entity> enemies, Coords friendsCoords) {
         Entity movingUnit = path.getEntity();
         StringBuilder formula = new StringBuilder("Calculation: {");
@@ -503,8 +503,8 @@ public class BasicPathRanker extends PathRanker implements IPathRanker {
             }
 
             // Skip broken enemies
-            if (getOwner().getHonorUtil().isEnemyBroken(enemy.getId(), enemy.getOwnerId(),
-                    getOwner().getForcedWithdrawal())) {
+            if (getOwner().getHonorUtil().isEnemyBroken(enemy.getId(), enemy.getOwnerId()
+            )) {
                 continue;
             }
 
@@ -618,7 +618,7 @@ public class BasicPathRanker extends PathRanker implements IPathRanker {
      * Calculate who all other units would shoot at if I weren't around
      */
     @Override
-    public void initUnitTurn(Entity unit, Game game) {
+    public void initUnitTurn() {
         bestDamageByEnemies.clear();
         List<Entity> enemies = getOwner().getEnemyEntities();
         List<Entity> friends = getOwner().getFriendEntities();
@@ -705,7 +705,7 @@ public class BasicPathRanker extends PathRanker implements IPathRanker {
     /**
      * Gives the distance to the closest edge
      */
-    int distanceToClosestEdge(Coords position, Game game) {
+    void distanceToClosestEdge(Coords position, Game game) {
        int width = game.getBoard().getWidth();
         int height = game.getBoard().getHeight();
         int minimum = position.getX();
@@ -718,7 +718,6 @@ public class BasicPathRanker extends PathRanker implements IPathRanker {
         if ((height - position.getY()) < minimum) {
             minimum = height - position.getY();
         }
-        return minimum;
     }
 
     double checkPathForHazards(MovePath path, Entity movingUnit, Game game) {
@@ -748,7 +747,7 @@ public class BasicPathRanker extends PathRanker implements IPathRanker {
                 Hex endHex = game.getBoard().getHex(endCoords);
                 return checkHexForHazards(endHex, movingUnit, true,
                                           path.getLastStep(), true,
-                                          path, game.getBoard(), logMsg);
+                        game.getBoard(), logMsg);
             }
 
             double totalHazard = 0;
@@ -762,8 +761,8 @@ public class BasicPathRanker extends PathRanker implements IPathRanker {
                 Hex hex = game.getBoard().getHex(coords);
                 totalHazard += checkHexForHazards(hex, movingUnit,
                                                   lastStep.equals(step), step,
-                                                  false, path,
-                                                  game.getBoard(), logMsg);
+                                                  false,
+                        game.getBoard(), logMsg);
                 previousCoords = coords;
             }
 
@@ -774,7 +773,7 @@ public class BasicPathRanker extends PathRanker implements IPathRanker {
     }
 
     private double checkHexForHazards(Hex hex, Entity movingUnit, boolean endHex, MoveStep step,
-                                      boolean jumpLanding, MovePath movePath, Board board,
+                                      boolean jumpLanding, Board board,
                                       StringBuilder logMsg) {
         logMsg.append("\n\tHex ").append(hex.getCoords().toFriendlyString());
 

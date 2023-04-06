@@ -64,12 +64,9 @@ public final class BattleArmorBay extends Bay {
     @Override
     public boolean canLoad(Entity unit) {
         // Assume that we cannot carry the unit.
-        boolean result = false;
+        boolean result = unit instanceof BattleArmor;
 
         // Only Battle Armor squads
-        if (unit instanceof BattleArmor) {
-            result = true;
-        }
 
         // We must have enough space for the new troops.
         // POSSIBLE BUG: we may have to take the Math.ceil() of the weight.

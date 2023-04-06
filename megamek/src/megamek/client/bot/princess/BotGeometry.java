@@ -452,7 +452,7 @@ public class BotGeometry {
     /**
      * runs a series of self tests to make sure geometry is done correctly
      */
-    static void debugSelfTest(Princess owner) {
+    static void debugSelfTest() {
         final String PASSED = "passed";
         final String FAILED = "failed";
 

@@ -75,8 +75,8 @@ public class RandomUnitGenerator implements Serializable {
             return name.compareTo(rtn.name);
         }
 
-        public String name;
-        public Vector<RatTreeNode> children;
+        public final String name;
+        public final Vector<RatTreeNode> children;
     }
 
     /**

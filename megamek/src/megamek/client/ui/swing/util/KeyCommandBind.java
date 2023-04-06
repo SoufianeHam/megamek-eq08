@@ -118,7 +118,7 @@ public enum KeyCommandBind {
     
     
     /** The command associated with this binding. */
-    public String cmd;
+    public final String cmd;
     
     /** Defines the keycode for the command, e.g. KeyEvent.VK_X. */
     public int key;

@@ -28,14 +28,14 @@ package megamek.common;
  */
 
 public enum CrewType {
-    SINGLE (new String[] {"Pilot"}, 0, 0, -1, -1, 1),
-    CREW (new String[] {"Commander"}, 0, 0, -1, -1, 1),
-    VESSEL (new String[] {"Commander"}, 0, 0, -1, -1, -1),
-    TRIPOD (new String[] {"Pilot", "Gunner"}, 0, 1, -1, -1, 3),
-    SUPERHEAVY_TRIPOD (new String[] {"Pilot", "Gunner", "Tech Officer"}, 0, 1, 2, 2, 3),
-    QUADVEE (new String[] {"Pilot", "Gunner"}, 0, 1, -1, -1, 3),
-    DUAL (new String[] {"Pilot", "Gunner"}, 0, 1, -1, -1, 2),
-    COMMAND_CONSOLE (new String[] {"Pilot", "Commander"}, 0, 0, 1, -1, 1);
+    SINGLE (new String[] {"Pilot"}, 0, -1, -1, 1),
+    CREW (new String[] {"Commander"}, 0, -1, -1, 1),
+    VESSEL (new String[] {"Commander"}, 0, -1, -1, -1),
+    TRIPOD (new String[] {"Pilot", "Gunner"}, 1, -1, -1, 3),
+    SUPERHEAVY_TRIPOD (new String[] {"Pilot", "Gunner", "Tech Officer"}, 1, 2, 2, 3),
+    QUADVEE (new String[] {"Pilot", "Gunner"}, 1, -1, -1, 3),
+    DUAL (new String[] {"Pilot", "Gunner"}, 1, -1, -1, 2),
+    COMMAND_CONSOLE (new String[] {"Pilot", "Commander"}, 0, 1, -1, 1);
 
     private final String[] roleNames;
     private final int pilotPos;
@@ -44,10 +44,10 @@ public enum CrewType {
     private final int techPos;
     private final int maxPrimaryTargets;
 
-    CrewType(String[] roleNames, int pilotPos, int gunnerPos, int commanderPos, int techPos,
-            int maxPrimaryTargets) {
+    CrewType(String[] roleNames, int gunnerPos, int commanderPos, int techPos,
+             int maxPrimaryTargets) {
         this.roleNames = roleNames;
-        this.pilotPos = pilotPos;
+        this.pilotPos = 0;
         this.gunnerPos = gunnerPos;
         this.commanderPos = commanderPos;
         this.techPos = techPos;

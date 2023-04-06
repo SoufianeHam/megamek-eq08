@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 public class Chromosome implements Comparable<Chromosome> {
     public double fitness; // absolute fitness value
-    public int[] genes;
+    public final int[] genes;
 
     public Chromosome(int iGenesDim) {
         genes = new int[iGenesDim];

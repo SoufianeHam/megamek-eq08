@@ -405,7 +405,7 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
 
     private static class TriStateItem {
         public String state;
-        public String text;
+        public final String text;
 
         public TriStateItem(String state, String text) {
             this.state = state;
@@ -2417,12 +2417,10 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
 
         @Override
         public boolean isCellEditable(int row, int col) {
-            switch (col) {
-                case COL_QTY:
-                    return true;
-                default:
-                    return false;
+            if (col == COL_QTY) {
+                return true;
             }
+            return false;
         }
 
         // fill table with values
@@ -2457,13 +2455,9 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
 
         @Override
         public void setValueAt(Object value, int row, int col) {
-            switch (col) {
-                case COL_QTY:
-                    qty[row] = Integer.parseInt((String) value);
-                    fireTableCellUpdated(row, col);
-                    break;
-                default:
-                    break;
+            if (col == COL_QTY) {
+                qty[row] = Integer.parseInt((String) value);
+                fireTableCellUpdated(row, col);
             }
         }
 
@@ -2559,12 +2553,10 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
 
         @Override
         public boolean isCellEditable(int row, int col) {
-            switch (col) {
-                case COL_QTY:
-                    return true;
-                default:
-                    return false;
+            if (col == COL_QTY) {
+                return true;
             }
+            return false;
         }
 
         // fill table with values
@@ -2615,13 +2607,9 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
 
         @Override
         public void setValueAt(Object value, int row, int col) {
-            switch (col) {
-                case COL_QTY:
-                    qty[row] = Integer.parseInt((String) value);
-                    fireTableCellUpdated(row, col);
-                    break;
-                default:
-                    break;
+            if (col == COL_QTY) {
+                qty[row] = Integer.parseInt((String) value);
+                fireTableCellUpdated(row, col);
             }
         }
 
@@ -2695,12 +2683,10 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
 
         @Override
         public boolean isCellEditable(int row, int col) {
-            switch (col) {
-                case COL_QTY:
-                    return true;
-                default:
-                    return false;
+            if (col == COL_QTY) {
+                return true;
             }
+            return false;
         }
 
         // fill table with values
@@ -2743,13 +2729,9 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
 
         @Override
         public void setValueAt(Object value, int row, int col) {
-            switch (col) {
-                case COL_QTY:
-                    qty[row] = Integer.parseInt((String) value);
-                    fireTableCellUpdated(row, col);
-                    break;
-                default:
-                    break;
+            if (col == COL_QTY) {
+                qty[row] = Integer.parseInt((String) value);
+                fireTableCellUpdated(row, col);
             }
         }
     }
@@ -2794,7 +2776,7 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
      * @author Arlith
      */
     public static class ParensFT extends FilterTokens {
-        public String parens;
+        public final String parens;
 
         public ParensFT(String p) {
             parens = p;
@@ -2811,9 +2793,9 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
      * @author Arlith
      */
     public static class EquipmentFT extends FilterTokens {
-        public String internalName;
-        public String fullName;
-        public int qty;
+        public final String internalName;
+        public final String fullName;
+        public final int qty;
 
         public EquipmentFT(String in, String fn, int q) {
             internalName = in;
@@ -2832,7 +2814,7 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
      * @author Arlith
      */
     public static class OperationFT extends FilterTokens {
-        public MechSearchFilter.BoolOp op;
+        public final MechSearchFilter.BoolOp op;
 
         public OperationFT(MechSearchFilter.BoolOp o) {
             op = o;
@@ -2851,8 +2833,8 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
     }
 
     public class WeaponClassFT extends FilterTokens {
-        public WeaponClass weaponClass;
-        public int qty;
+        public final WeaponClass weaponClass;
+        public final int qty;
 
         public WeaponClassFT(WeaponClass in_class, int in_qty) {
             weaponClass = in_class;
@@ -2968,77 +2950,58 @@ public class TWAdvancedSearchPanel extends JPanel implements ActionListener, Ite
             if (this == PHYSICAL) {
                 String lName = name.toLowerCase();
 
-                if (lName.contains("backhoe") || 
-                    lName.contains("saw") ||
-                    lName.contains("whip") ||
-                    lName.contains("claw") ||
-                    lName.contains("combine") ||
-                    lName.contains("flail") ||
-                    lName.contains("hatchet") ||
-                    lName.contains("driver") ||
-                    lName.contains("lance") ||
-                    lName.contains("mace") ||
-                    lName.contains("drill") ||
-                    lName.contains("ram") ||
-                    lName.contains("blade") ||
-                    lName.contains("cutter") ||
-                    lName.contains("shield") ||
-                    lName.contains("welder") ||
-                    lName.contains("sword") ||
-                    lName.contains("talons") ||
-                    lName.contains("wrecking")) {
-                    return true;
-                }
+                return lName.contains("backhoe") ||
+                        lName.contains("saw") ||
+                        lName.contains("whip") ||
+                        lName.contains("claw") ||
+                        lName.contains("combine") ||
+                        lName.contains("flail") ||
+                        lName.contains("hatchet") ||
+                        lName.contains("driver") ||
+                        lName.contains("lance") ||
+                        lName.contains("mace") ||
+                        lName.contains("drill") ||
+                        lName.contains("ram") ||
+                        lName.contains("blade") ||
+                        lName.contains("cutter") ||
+                        lName.contains("shield") ||
+                        lName.contains("welder") ||
+                        lName.contains("sword") ||
+                        lName.contains("talons") ||
+                        lName.contains("wrecking");
             } else if (this == PRACTICAL_PHYSICAL) {
                 String lName = name.toLowerCase();
 
-                if (lName.contains("claw") ||
-                    lName.contains("flail") ||
-                    lName.contains("hatchet") ||
-                    lName.contains("lance") ||
-                    lName.contains("mace") ||
-                    lName.contains("blade") ||
-                    lName.contains("shield") ||
-                    lName.contains("sword") ||
-                    lName.contains("talons")) {
-                    return true;
-                }
+                return lName.contains("claw") ||
+                        lName.contains("flail") ||
+                        lName.contains("hatchet") ||
+                        lName.contains("lance") ||
+                        lName.contains("mace") ||
+                        lName.contains("blade") ||
+                        lName.contains("shield") ||
+                        lName.contains("sword") ||
+                        lName.contains("talons");
             } else if (this == MISSILE) {
-                if ((name.toLowerCase().contains("lrm") ||
-                    name.toLowerCase().contains("mrm") || 
-                    name.toLowerCase().contains("srm")) && 
-                    !name.toLowerCase().contains("ammo")) {
-                    return true;
-                }
-            } else if (this == RE_ENGINEERED) { 
-                if (name.toLowerCase().contains("engineered")) {
-                    return true;
-                }
+                return (name.toLowerCase().contains("lrm") ||
+                        name.toLowerCase().contains("mrm") ||
+                        name.toLowerCase().contains("srm")) &&
+                        !name.toLowerCase().contains("ammo");
+            } else if (this == RE_ENGINEERED) {
+                return name.toLowerCase().contains("engineered");
             } else if (this == ENERGY) {
-                if (WeaponClass.LASER.matches(name) || WeaponClass.PPC.matches(name) || WeaponClass.FLAMER.matches(name)) {
-                    return true;
-                }
+                return WeaponClass.LASER.matches(name) || WeaponClass.PPC.matches(name) || WeaponClass.FLAMER.matches(name);
             } else if (this == MACHINE_GUN) {
-                if ((name.toLowerCase().contains("mg") || name.toLowerCase().contains("machine")) && !name.toLowerCase().contains("ammo")) {
-                    return true;
-                }
+                return (name.toLowerCase().contains("mg") || name.toLowerCase().contains("machine")) && !name.toLowerCase().contains("ammo");
             } else if (this == BALLISTIC) {
                 return WeaponClass.AUTOCANNON.matches(name) || 
                     WeaponClass.GAUSS.matches(name) || 
                     WeaponClass.MISSILE.matches(name) || 
                     WeaponClass.MACHINE_GUN.matches(name);
             } else if (this == RAC) {
-                if (name.toLowerCase().contains("rotary")) {
-                    return true;
-                }
+                return name.toLowerCase().contains("rotary");
             } else if (this == ULTRA) {
-                if (name.toLowerCase().contains("ultraa")) {
-                    return true;
-                }
-            } else if (name.toLowerCase().contains(this.name().toLowerCase()) && !name.toLowerCase().contains("ammo")) {
-                return true;
-            }
-            return false;
+                return name.toLowerCase().contains("ultraa");
+            } else return name.toLowerCase().contains(this.name().toLowerCase()) && !name.toLowerCase().contains("ammo");
         }
     }
 

@@ -1254,11 +1254,11 @@ class HMVEngineType extends HMVType {
 class HMVArmorType extends HMVType {
     public static final Hashtable<Integer, HMVArmorType> types = new Hashtable<>();
 
-    public static final HMVArmorType STANDARD = new HMVArmorType(EquipmentType.getArmorTypeName(EquipmentType.T_ARMOR_STANDARD), 0);
+    public static final HMVArmorType STANDARD = new HMVArmorType(EquipmentType.getArmorTypeName(EquipmentType.T_ARMOR_STANDARD));
 
-    private HMVArmorType(String name, int id) {
-        super(name, id);
-        types.put(id, this);
+    private HMVArmorType(String name) {
+        super(name, 0);
+        types.put(0, this);
     }
 
     public static HMVArmorType getType(int i) {

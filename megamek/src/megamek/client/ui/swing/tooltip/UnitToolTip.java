@@ -15,7 +15,6 @@ package megamek.client.ui.swing.tooltip;
 
 import megamek.client.ui.Messages;
 import megamek.client.ui.swing.GUIPreferences;
-import megamek.client.ui.swing.lobby.ChatLounge;
 import megamek.client.ui.swing.util.UIUtil;
 import megamek.common.*;
 import megamek.common.alphaStrike.AlphaStrikeElement;
@@ -98,7 +97,7 @@ public final class UnitToolTip {
         String clanStr = entity.isClan() && !entity.isMixedTech() ? " " + msg_clanbrackets + " " : "";
         String sChassisPlayerInfo = entity.getChassis() + clanStr;
         sChassisPlayerInfo += " (" + (int) entity.getWeight() + "t)";
-        sChassisPlayerInfo += "&nbsp;&nbsp;" + entity.getEntityTypeName(entity.getEntityType());
+        sChassisPlayerInfo += "&nbsp;&nbsp;" + Entity.getEntityTypeName(entity.getEntityType());
         sChassisPlayerInfo += "<BR>" + ownerName;
         String msg_id = MessageFormat.format(" [ID: {0}]", entity.getId());
         sChassisPlayerInfo += UIUtil.guiScaledFontHTML(UIUtil.uiGray()) + msg_id + "</FONT>";
@@ -110,7 +109,7 @@ public final class UnitToolTip {
         String sPilotInfo = "";
 
         if (details && (mapSettings != null)) {
-            sPilotInfo += deploymentWarnings(entity, localPlayer, mapSettings) + "<BR>";
+            sPilotInfo += deploymentWarnings(entity, mapSettings) + "<BR>";
         } else {
             if (pilotInfo) {
                 sPilotInfo += forceEntry(entity, localPlayer);
@@ -204,12 +203,12 @@ public final class UnitToolTip {
         return entity.isConventionalInfantry() ? ((Infantry) entity).getShootingStrength() + " " + msg_activetroopers : entity.getLocationAbbr(location);
     }
 
-    private static StringBuilder sysCrits(Entity entity, int type, int index, int loc, String locAbbr) {
+    private static StringBuilder sysCrits(Entity entity, int index, int loc, String locAbbr) {
         String result = "";
-        int total = entity.getNumberOfCriticals(type, index, loc);
-        int hits = entity.getHitCriticals(type, index, loc);
+        int total = entity.getNumberOfCriticals(CriticalSlot.TYPE_SYSTEM, index, loc);
+        int hits = entity.getHitCriticals(CriticalSlot.TYPE_SYSTEM, index, loc);
         int good = total - hits;
-        boolean bad = (entity.getBadCriticals(type,index, loc) > 0);
+        boolean bad = (entity.getBadCriticals(CriticalSlot.TYPE_SYSTEM,index, loc) > 0);
 
         if ((good + hits) > 0) {
             locAbbr = "&nbsp;&nbsp;" + locAbbr + ":&nbsp;";
@@ -282,38 +281,38 @@ public final class UnitToolTip {
 
             switch (loc) {
                 case 0:
-                    col3 = sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.SYSTEM_SENSORS, loc, msg_abbr_sensors).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.SYSTEM_LIFE_SUPPORT, loc, msg_abbr_lifesupport).toString();
+                    col3 = sysCrits(entity, Mech.SYSTEM_SENSORS, loc, msg_abbr_sensors).toString();
+                    col3 += sysCrits(entity, Mech.SYSTEM_LIFE_SUPPORT, loc, msg_abbr_lifesupport).toString();
                     break;
                 case 1:
-                    col3 = sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.SYSTEM_ENGINE, loc, msg_abbr_engine).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.SYSTEM_GYRO, loc, msg_abbr_gyro).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.SYSTEM_SENSORS, loc, msg_abbr_sensors).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.SYSTEM_LIFE_SUPPORT, loc, msg_abbr_lifesupport).toString();
+                    col3 = sysCrits(entity, Mech.SYSTEM_ENGINE, loc, msg_abbr_engine).toString();
+                    col3 += sysCrits(entity, Mech.SYSTEM_GYRO, loc, msg_abbr_gyro).toString();
+                    col3 += sysCrits(entity, Mech.SYSTEM_SENSORS, loc, msg_abbr_sensors).toString();
+                    col3 += sysCrits(entity, Mech.SYSTEM_LIFE_SUPPORT, loc, msg_abbr_lifesupport).toString();
                     break;
                 case 2:
                 case 3:
-                    col3 = sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.SYSTEM_ENGINE, loc, msg_abbr_engine).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.SYSTEM_LIFE_SUPPORT, loc, msg_abbr_gyro).toString();
+                    col3 = sysCrits(entity, Mech.SYSTEM_ENGINE, loc, msg_abbr_engine).toString();
+                    col3 += sysCrits(entity, Mech.SYSTEM_LIFE_SUPPORT, loc, msg_abbr_gyro).toString();
                     break;
                 case 4:
                 case 5:
-                    col3 = sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_SHOULDER, loc, msg_abbr_shoulder).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_UPPER_ARM, loc, msg_abbr_upperarm).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_LOWER_ARM, loc, msg_abbr_lowerarm).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_HAND, loc, msg_abbr_hand).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_HIP, loc, msg_abbr_hip).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_UPPER_LEG, loc, msg_abbr_upperleg).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_LOWER_LEG, loc, msg_abbr_lowerleg).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_FOOT, loc, msg_abbr_foot).toString();
+                    col3 = sysCrits(entity, Mech.ACTUATOR_SHOULDER, loc, msg_abbr_shoulder).toString();
+                    col3 += sysCrits(entity, Mech.ACTUATOR_UPPER_ARM, loc, msg_abbr_upperarm).toString();
+                    col3 += sysCrits(entity, Mech.ACTUATOR_LOWER_ARM, loc, msg_abbr_lowerarm).toString();
+                    col3 += sysCrits(entity, Mech.ACTUATOR_HAND, loc, msg_abbr_hand).toString();
+                    col3 += sysCrits(entity, Mech.ACTUATOR_HIP, loc, msg_abbr_hip).toString();
+                    col3 += sysCrits(entity, Mech.ACTUATOR_UPPER_LEG, loc, msg_abbr_upperleg).toString();
+                    col3 += sysCrits(entity, Mech.ACTUATOR_LOWER_LEG, loc, msg_abbr_lowerleg).toString();
+                    col3 += sysCrits(entity, Mech.ACTUATOR_FOOT, loc, msg_abbr_foot).toString();
                     break;
                 case 6:
                 case 7:                
                 case 8:
-                    col3 = sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_HIP, loc, msg_abbr_hip).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_UPPER_LEG, loc, msg_abbr_upperleg).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_LOWER_LEG, loc, msg_abbr_lowerleg).toString();
-                    col3 += sysCrits(entity, CriticalSlot.TYPE_SYSTEM, Mech.ACTUATOR_FOOT, loc, msg_abbr_foot).toString();
+                    col3 = sysCrits(entity, Mech.ACTUATOR_HIP, loc, msg_abbr_hip).toString();
+                    col3 += sysCrits(entity, Mech.ACTUATOR_UPPER_LEG, loc, msg_abbr_upperleg).toString();
+                    col3 += sysCrits(entity, Mech.ACTUATOR_LOWER_LEG, loc, msg_abbr_lowerleg).toString();
+                    col3 += sysCrits(entity, Mech.ACTUATOR_FOOT, loc, msg_abbr_foot).toString();
                     break;
             }
 
@@ -448,9 +447,9 @@ public final class UnitToolTip {
         String range = "";
         int count = 1;
         boolean isClan;
-        boolean isHotloaded = false;
+        final boolean isHotloaded = false;
         boolean isRapidFire = false;
-        HashMap<String, Integer> ammos = new HashMap<>();
+        final HashMap<String, Integer> ammos = new HashMap<>();
         int ammoActiveWeaponCount;
     }
     
@@ -616,8 +615,7 @@ public final class UnitToolTip {
                 boolean isDestroyed = false;
                 String nameStr = currentEquip.name;
                 if (nameStr == null) {
-                    String msg_nullweaponname = Messages.getString("BoardView1.Tooltip.NullWeaponName");
-                    nameStr = msg_nullweaponname; // Happens with Vehicle Flamers!
+                    nameStr = Messages.getString("BoardView1.Tooltip.NullWeaponName"); // Happens with Vehicle Flamers!
                 }
                 if (nameStr.startsWith("x ")) {
                     nameStr = nameStr.substring(2);
@@ -1313,7 +1311,7 @@ public final class UnitToolTip {
     }
     
     /** Returns warnings about problems that should be solved before deploying. */
-    private static StringBuilder deploymentWarnings(Entity entity, Player localPlayer,
+    private static StringBuilder deploymentWarnings(Entity entity,
                                                     MapSettings mapSettings) {
         String result = "";
         String sWarnings = "";
@@ -1420,8 +1418,7 @@ public final class UnitToolTip {
                 String msg_nc3 = Messages.getString("BoardView1.Tooltip.NC3");
                 sC3Info = entity.hasC3i() ? msg_c3i : msg_nc3;
             } else {
-                String msg_c3 = Messages.getString("BoardView1.Tooltip.C3");
-                sC3Info = msg_c3;
+                sC3Info = Messages.getString("BoardView1.Tooltip.C3");
             }
             String msg_network = Messages.getString("BoardView1.Tooltip.Network");
             sC3Info += " " + msg_network + ": <BR>&nbsp;&nbsp;";

@@ -28,7 +28,7 @@ public class XTableColumnModel extends DefaultTableColumnModel {
      * Array of TableColumn objects in this model.
      * Holds all column objects, regardless of their visibility
      */
-    protected Vector<TableColumn> allTableColumns = new Vector<>();
+    protected final Vector<TableColumn> allTableColumns = new Vector<>();
 
     /**
      * Creates an extended table column model.
@@ -240,12 +240,9 @@ public class XTableColumnModel extends DefaultTableColumnModel {
      * Returns the <code>TableColumn</code> object for the column at <code>columnIndex</code>.
      *
      * @param columnIndex the index of the column desired
-     * @param onlyVisible if set columnIndex is meant to be relative to all visible columns only
-     *                    else it is the index in all columns
-     *
      * @return the <code>TableColumn</code> object for the column at <code>columnIndex</code>
      */
-    public TableColumn getColumn(int columnIndex, boolean onlyVisible) {
+    public TableColumn getColumn(int columnIndex) {
         return tableColumns.elementAt(columnIndex);
     }
 }

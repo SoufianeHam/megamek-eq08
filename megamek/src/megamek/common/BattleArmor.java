@@ -414,11 +414,11 @@ public class BattleArmor extends Infantry {
     @Override
     public int getWalkMP(boolean gravity, boolean ignoreheat,
             boolean ignoremodulararmor) {
-        return getWalkMP(gravity, ignoreheat, ignoremodulararmor, false, false);
+        return getWalkMP(gravity, false, false);
     }
 
-    public int getWalkMP(boolean gravity, boolean ignoreheat,
-            boolean ignoremodulararmor, boolean ignoreDWP,
+    public int getWalkMP(boolean gravity,
+                         boolean ignoreDWP,
             boolean ignoreMyomerBooster) {
         int j = getOriginalWalkMP();
         if (hasMyomerBooster()) {
@@ -473,10 +473,10 @@ public class BattleArmor extends Infantry {
         boolean fastMove = (game != null) &&
                 game.getOptions().booleanOption(OptionsConstants.ADVGRNDMOV_TACOPS_FAST_INFANTRY_MOVE);
         if (fastMove) {
-            return getWalkMP(gravity, ignoreheat, ignoremodulararmor, false,
+            return getWalkMP(gravity, false,
                     false) + 1;
         }
-        return getWalkMP(gravity, ignoreheat, ignoremodulararmor, false, false);
+        return getWalkMP(gravity, false, false);
     }
 
     /**
@@ -615,7 +615,7 @@ public class BattleArmor extends Infantry {
             return new HitData(1);
         }
 
-        if ((aimedLocation != LOC_NONE) && !aimingMode.isNone()) {
+        if ((aimedLocation != LOC_NONE) && aimingMode.isNone()) {
             int roll = Compute.d6(2);
             if ((5 < roll) && (roll < 9)) {
                 return new HitData(aimedLocation, side == ToHitData.SIDE_REAR, true);

@@ -42,8 +42,8 @@ import java.util.Set;
  */
 public class SkinXMLHandler {
 
-    public static String SKIN_FOOTER = "</skin>";
-    public static String SKIN_HEADER;
+    public static final String SKIN_FOOTER = "</skin>";
+    public static final String SKIN_HEADER;
 
     static {
         StringBuffer sb = new StringBuffer();
@@ -70,11 +70,11 @@ public class SkinXMLHandler {
     /**
      * The file name for the default Skin XML file, found in the config dir.
      */
-    public static String defaultSkinXML = "defaultSkin.xml";
+    public static final String defaultSkinXML = "defaultSkin.xml";
 
     // General XML Tags
-    public static String UI_ELEMENT = "UI_Element";
-    public static String NAME = "name";
+    public static final String UI_ELEMENT = "UI_Element";
+    public static final String NAME = "name";
 
     // Skin Specification XML Tags
     public static final String FONT_COLOR = "font_color";
@@ -152,11 +152,7 @@ public class SkinXMLHandler {
             // Until that's done, just assume anything with UI_ELEMENT tags is
             //  valid
             NodeList listOfComponents = doc.getElementsByTagName(UI_ELEMENT);
-            if (listOfComponents.getLength() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return listOfComponents.getLength() > 0;
         } catch (Exception e) {
             return false;
         }

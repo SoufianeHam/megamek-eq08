@@ -454,7 +454,7 @@ public class ChatProcessor {
             }
 
             String hex = arguments[0];
-            if (hex.length() != 4 || !StringUtil.isPositiveInteger(hex)) {
+            if (hex.length() != 4 || StringUtil.isPositiveInteger(hex)) {
                 msg = "Invalid hex number: " + hex;
                 LogManager.getLogger().warn(msg + "\n" + chatEvent.getMessage());
                 princess.sendChat(msg);
@@ -485,7 +485,7 @@ public class ChatProcessor {
                 return;
             }
             String id = arguments[0];
-            if (!StringUtil.isPositiveInteger(id)) {
+            if (StringUtil.isPositiveInteger(id)) {
                 msg = "Invalid unit id number: " + id;
                 LogManager.getLogger().warn(msg + "\n" + chatEvent.getMessage());
                 princess.sendChat(msg);

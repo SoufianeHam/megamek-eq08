@@ -115,7 +115,7 @@ public abstract class AbstractButtonDialog extends AbstractDialog {
         panel.add(new MMButton("okButton", resources.getString("Ok.text"),
                 resources.getString("Ok.toolTipText"), this::okButtonActionPerformed));
         panel.add(new MMButton("cancelButton", resources.getString("Cancel.text"),
-                resources.getString("Cancel.toolTipText"), this::cancelActionPerformed));
+                resources.getString("Cancel.toolTipText"), evt -> cancelActionPerformed()));
         return panel;
     }
     //endregion Initialization

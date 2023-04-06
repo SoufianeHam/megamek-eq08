@@ -27,8 +27,8 @@ import megamek.common.UnitLocation;
  */
 public class GameEntityChangeEvent extends GameEntityEvent {
     private static final long serialVersionUID = -7241101183271789555L;
-    protected Vector<UnitLocation> movePath;
-    protected Entity oldEntity;
+    protected final Vector<UnitLocation> movePath;
+    protected final Entity oldEntity;
 
     /**
      * Constructs new GameEntityChangeEvent

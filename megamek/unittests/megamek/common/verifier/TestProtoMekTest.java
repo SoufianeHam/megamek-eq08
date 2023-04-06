@@ -279,7 +279,7 @@ public class TestProtoMekTest {
         when(mockProtoMek.getWeight()).thenReturn(engineWeight);
         TestProtomech test = new TestProtomech(mockProtoMek, option, null);
 
-        assertFalse(test.correctWeight(new StringBuffer()));
+        assertFalse(!test.correctWeight(new StringBuffer()));
     }
 
     @Test
@@ -290,7 +290,7 @@ public class TestProtoMekTest {
         when(mockProtoMek.getWeight()).thenReturn(TestProtomech.MAX_TONNAGE + 1);
         TestProtomech test = new TestProtomech(mockProtoMek, option, null);
 
-        assertFalse(test.correctWeight(new StringBuffer()));
+        assertFalse(!test.correctWeight(new StringBuffer()));
     }
 
     @Test

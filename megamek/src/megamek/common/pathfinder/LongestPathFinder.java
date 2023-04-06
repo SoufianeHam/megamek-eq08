@@ -33,7 +33,7 @@ public class LongestPathFinder extends MovePathFinder<Deque<MovePath>> {
     protected LongestPathFinder(EdgeRelaxer<Deque<MovePath>, MovePath> edgeRelaxer,
             AdjacencyMap<MovePath> edgeAdjacencyMap, Comparator<MovePath> comparator,
             Game game) {
-        super(edgeRelaxer, edgeAdjacencyMap, comparator, game);
+        super(edgeRelaxer, edgeAdjacencyMap, comparator);
     }
 
     /**
@@ -249,7 +249,7 @@ public class LongestPathFinder extends MovePathFinder<Deque<MovePath>> {
      * greater than current top of the stack.
      */
     public static class AeroMultiPathRelaxer implements EdgeRelaxer<Deque<MovePath>, MovePath> {
-        boolean inAtmosphere;
+        final boolean inAtmosphere;
 
         private AeroMultiPathRelaxer(boolean inAtmosphere) {
             this.inAtmosphere = inAtmosphere;

@@ -150,8 +150,8 @@ public class GameOptionsDialog extends AbstractButtonDialog implements ActionLis
     @Override
     protected JPanel createButtonPanel() {
         butOkay.addActionListener(this::okButtonActionPerformed);
-        butCancel.addActionListener(this::cancelActionPerformed);
-        butDefaults.addActionListener(this::resetToDefaults);
+        butCancel.addActionListener(evt -> cancelActionPerformed());
+        butDefaults.addActionListener(ev -> resetToDefaults());
         butSave.addActionListener(this);
         butLoad.addActionListener(this);
         butUnofficial.addActionListener(this);
@@ -214,7 +214,7 @@ public class GameOptionsDialog extends AbstractButtonDialog implements ActionLis
         return output;
     }
 
-    private void resetToDefaults(final ActionEvent ev) {
+    private void resetToDefaults() {
         for (List<DialogOptionComponent> comps : optionComps.values()) {
             for (DialogOptionComponent comp : comps) {
                 if (!comp.isDefaultValue()) {

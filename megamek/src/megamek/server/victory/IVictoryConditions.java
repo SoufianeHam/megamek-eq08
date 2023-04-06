@@ -13,8 +13,6 @@
  */
 package megamek.server.victory;
 
-import java.util.Map;
-
 import megamek.common.Game;
 
 /**
@@ -41,13 +39,8 @@ import megamek.common.Game;
 public interface IVictoryConditions {
     /**
      * @param game The current {@link Game}
-     * @param context - a map Strings to simple serializable objects (preferably
-     *            Integers , Strings ,Doubles etc) which are used to store state
-     *            between executions if such feature is absolutely required.. as
-     *            a key you should use something atleast class- specific to
-     *            limit namespace collisions
      * @return a result with true if victory occurred, false if not must not
-     *         return null MUST NOT modify game state!
+     * return null MUST NOT modify game state!
      */
-    VictoryResult victory(Game game, Map<String, Object> context);
+    VictoryResult victory(Game game);
 }

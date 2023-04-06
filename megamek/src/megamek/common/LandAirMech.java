@@ -236,7 +236,7 @@ public class LandAirMech extends BipedMech implements IAero, IBomber {
     public int getWalkMP(boolean gravity, boolean ignoreheat, boolean ignoremodulararmor) {
         int mp;
         if (getConversionMode() == CONV_MODE_FIGHTER) {
-            mp = getFighterModeWalkMP(gravity, ignoremodulararmor);
+            mp = getFighterModeWalkMP();
         } else if (getConversionMode() == CONV_MODE_AIRMECH) {
             mp = getAirMechCruiseMP(gravity, ignoremodulararmor);
         } else {
@@ -367,7 +367,7 @@ public class LandAirMech extends BipedMech implements IAero, IBomber {
         return mp;
     }
 
-    public int getFighterModeWalkMP(boolean gravity, boolean ignoremodulararmor) {
+    public int getFighterModeWalkMP() {
         int thrust = getCurrentThrust();
         if (!isAirborne()) {
             thrust /= 2;
@@ -376,7 +376,7 @@ public class LandAirMech extends BipedMech implements IAero, IBomber {
     }
 
     public int getFighterModeRunMP(boolean gravity, boolean ignoremodulararmor) {
-        int walk = getFighterModeWalkMP(gravity, ignoremodulararmor);
+        int walk = getFighterModeWalkMP();
         if (isAirborne()) {
             return (int) Math.ceil(walk * 1.5);
         } else {
@@ -414,7 +414,7 @@ public class LandAirMech extends BipedMech implements IAero, IBomber {
     }
 
     public int getFighterModeWalkMP() {
-        return getFighterModeWalkMP(true, false);
+        return getFighterModeWalkMP();
     }
 
     public int getFighterModeRunMP() {
@@ -960,7 +960,7 @@ public class LandAirMech extends BipedMech implements IAero, IBomber {
     }
 
     public boolean canConvertTo(EntityMovementMode toMode) {
-        return canConvertTo(getConversionMode(), getConversionModeFor(toMode));
+        return !canConvertTo(getConversionMode(), getConversionModeFor(toMode));
     }
 
     public boolean canConvertTo(int fromMode, EntityMovementMode toMode) {
@@ -1014,9 +1014,7 @@ public class LandAirMech extends BipedMech implements IAero, IBomber {
         }
 
         if (toMode == CONV_MODE_AIRMECH) {
-            if (getLAMType() == LAM_BIMODAL) {
-                return false;
-            }
+            return getLAMType() != LAM_BIMODAL;
         } else if (toMode == CONV_MODE_FIGHTER) {
             // Standard LAMs can convert from mech to fighter mode in a single
             // round on a space map
@@ -1277,7 +1275,7 @@ public class LandAirMech extends BipedMech implements IAero, IBomber {
 
     @Override
     public boolean hasLifeSupport() {
-        return getGoodCriticals(CriticalSlot.TYPE_SYSTEM, SYSTEM_LIFE_SUPPORT, LOC_HEAD) > 0;
+        return getGoodCriticals(CriticalSlot.TYPE_SYSTEM, SYSTEM_LIFE_SUPPORT, LOC_HEAD) <= 0;
     }
 
     /**
@@ -1686,7 +1684,7 @@ public class LandAirMech extends BipedMech implements IAero, IBomber {
 
     @Override
     public boolean isSpheroid() {
-        return false;
+        return true;
     }
 
     @Override

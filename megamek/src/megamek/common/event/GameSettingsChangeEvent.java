@@ -38,7 +38,7 @@ public class GameSettingsChangeEvent extends GameEvent {
     }
 
     public boolean isMapSettingsOnlyChange() {
-        return mapSettingsOnlyChange;
+        return !mapSettingsOnlyChange;
     }
 
     public void setMapSettingsOnlyChange(boolean mapSettingsOnlyChange) {

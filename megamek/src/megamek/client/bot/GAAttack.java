@@ -31,10 +31,10 @@ import org.apache.logging.log4j.LogManager;
  */
 public class GAAttack extends GA {
 
-    protected ArrayList<ArrayList<AttackOption>> attack;
-    protected CEntity attacker;
-    protected Game game;
-    protected CEntity.Table targets;
+    protected final ArrayList<ArrayList<AttackOption>> attack;
+    protected final CEntity attacker;
+    protected final Game game;
+    protected final CEntity.Table targets;
     protected ArrayList<Entity> target_array = null;
     protected ArrayList<Integer> valid_target_indexes = null;
     protected boolean overheat_eligible = false;

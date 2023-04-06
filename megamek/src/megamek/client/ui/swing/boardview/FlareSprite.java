@@ -15,7 +15,7 @@ import megamek.common.Flare;
  */
 class FlareSprite extends Sprite {
 
-    Flare flare;  
+    final Flare flare;
 
     public FlareSprite(BoardView boardView1, final Flare f) {
         super(boardView1);

@@ -29,7 +29,7 @@ import megamek.server.Server;
  */
 public class GameMasterCommand extends ServerCommand {
 
-    public static String SERVER_VOTE_PROMPT_MSG = "All players with an assigned team "
+    public static final String SERVER_VOTE_PROMPT_MSG = "All players with an assigned team "
             + "must allow this change.  Use /allowGM "
             + "to allow this change.";
 

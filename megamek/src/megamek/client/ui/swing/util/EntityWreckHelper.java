@@ -43,17 +43,13 @@ public class EntityWreckHelper {
         //  for mechs/infantry/VTOLs (needs specialized icons) 
         //  for units that were destroyed by ejection rather than unit destruction
         //  for units on top of a bridge (looks kind of stupid)
-        
-        if (entity.getGame().getBoard().inSpace() ||
-                (entity instanceof Mech) ||
-                (entity instanceof Infantry) ||
-                (entity instanceof GunEmplacement) ||
-                !entity.getSecondaryPositions().isEmpty() ||
-                entityOnBridge(entity)) {
-            return false;
-        }
-        
-        return true;
+
+        return !entity.getGame().getBoard().inSpace() &&
+                (!(entity instanceof Mech)) &&
+                (!(entity instanceof Infantry)) &&
+                (!(entity instanceof GunEmplacement)) &&
+                entity.getSecondaryPositions().isEmpty() &&
+                !entityOnBridge(entity);
     }
     
     public static boolean useExplicitWreckImage(Entity entity) {
@@ -136,10 +132,8 @@ public class EntityWreckHelper {
         Hex hex = entity.getGame().getBoard().getHex(entity.getPosition());
         if (hex != null) {
             boolean hexHasBridge = hex.containsTerrain(Terrains.BRIDGE_CF);
-            
-            if (hexHasBridge && entity.getElevation() >= hex.ceiling()) {
-                return true;
-            }
+
+            return hexHasBridge && entity.getElevation() >= hex.ceiling();
         }
         
         return false;

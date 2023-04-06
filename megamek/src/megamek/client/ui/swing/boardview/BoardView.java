@@ -117,7 +117,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     // Set to TRUE to draw hexes with isometric elevation.
     private boolean drawIsometric = GUIPreferences.getInstance().getIsometricEnabled();
 
-    int DROPSHDW_DIST = 20;
+    final int DROPSHDW_DIST = 20;
 
     // the index of zoom factor 1.00f
     static final int BASE_ZOOM_INDEX = 7;
@@ -200,7 +200,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     private final ArrayList<MovementModifierEnvelopeSprite> moveModEnvSprites = new ArrayList<>();
 
     // vector of sprites for all firing lines
-    ArrayList<AttackSprite> attackSprites = new ArrayList<>();
+    final ArrayList<AttackSprite> attackSprites = new ArrayList<>();
 
     // vector of sprites for all movement paths (using vectored movement)
     private final ArrayList<MovementSprite> movementSprites = new ArrayList<>();
@@ -227,7 +227,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     TilesetManager tileManager;
 
     // polygons for a few things
-    static Polygon hexPoly;
+    static final Polygon hexPoly;
     static {
         // hex polygon
         hexPoly = new Polygon();
@@ -278,7 +278,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     private final Set<Integer> animatedImages = new HashSet<>();
 
     // Displayables (Chat box, etc.)
-    ArrayList<IDisplayable> displayables = new ArrayList<>();
+    final ArrayList<IDisplayable> displayables = new ArrayList<>();
 
     // Move units step by step
     private final ArrayList<MovingUnit> movingUnits = new ArrayList<>();
@@ -290,7 +290,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     private HashMap<Integer, MovingEntitySprite> movingEntitySpriteIds = new HashMap<>();
     private final ArrayList<GhostEntitySprite> ghostEntitySprites = new ArrayList<>();
 
-    protected transient ArrayList<BoardViewListener> boardListeners = new ArrayList<>();
+    protected final transient ArrayList<BoardViewListener> boardListeners = new ArrayList<>();
 
     // wreck sprites
     private ArrayList<WreckSprite> wreckSprites = new ArrayList<>();
@@ -330,7 +330,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     BufferedImage scrollPaneBgBuffer = null;
     Image scrollPaneBgImg = null;
 
-    List<Image> boardBackgrounds = new ArrayList<>();
+    final List<Image> boardBackgrounds = new ArrayList<>();
 
     private static final int FRAMES = 24;
     private long totalTime;
@@ -611,7 +611,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         addMouseMotionListener(mouseMotionListener);
 
         if (controller != null) {
-            registerKeyboardCommands(this, controller);
+            registerKeyboardCommands(controller);
         }
 
         updateBoardSize();
@@ -645,14 +645,14 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                 new MegaMekFile(Configuration.miscImagesDir(), FILENAME_RADAR_BLIP_IMAGE).toString());
     }
 
-    private void registerKeyboardCommands(final BoardView bv, final MegaMekController controller) {
+    private void registerKeyboardCommands(final MegaMekController controller) {
         // Register the action for TOGGLE_CHAT
         controller.registerCommandAction(KeyCommandBind.TOGGLE_CHAT.cmd,
                 new CommandAction() {
 
                     @Override
                     public boolean shouldPerformAction() {
-                        return !shouldIgnoreKeyCommands();
+                        return shouldIgnoreKeyCommands();
                     }
 
                     @Override
@@ -676,7 +676,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
                     @Override
                     public boolean shouldPerformAction() {
-                        return !shouldIgnoreKeyCommands();
+                        return shouldIgnoreKeyCommands();
                     }
 
                     @Override
@@ -701,7 +701,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
                     @Override
                     public boolean shouldPerformAction() {
-                        return !shouldIgnoreKeyCommands() && (selectedEntity != null);
+                        return shouldIgnoreKeyCommands() && (selectedEntity != null);
                     }
 
                     @Override
@@ -719,7 +719,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
                     @Override
                     public boolean shouldPerformAction() {
-                        return !shouldIgnoreKeyCommands();
+                        return shouldIgnoreKeyCommands();
                     }
 
                     @Override
@@ -747,7 +747,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
                     @Override
                     public boolean shouldPerformAction() {
-                        return !shouldIgnoreKeyCommands();
+                        return shouldIgnoreKeyCommands();
                     }
 
                     @Override
@@ -775,7 +775,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
                     @Override
                     public boolean shouldPerformAction() {
-                        return !shouldIgnoreKeyCommands();
+                        return shouldIgnoreKeyCommands();
                     }
 
                     @Override
@@ -803,7 +803,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
                     @Override
                     public boolean shouldPerformAction() {
-                        return !shouldIgnoreKeyCommands();
+                        return shouldIgnoreKeyCommands();
                     }
 
                     @Override
@@ -827,16 +827,16 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     }
 
     private boolean shouldIgnoreKeyCommands() {
-        return getChatterBoxActive() || !isVisible()
-               || game.getPhase().isLounge()
-               || game.getPhase().isEndReport()
-               || game.getPhase().isMovementReport()
-               || game.getPhase().isTargetingReport()
-               || game.getPhase().isFiringReport()
-               || game.getPhase().isPhysicalReport()
-               || game.getPhase().isOffboardReport()
-               || game.getPhase().isInitiativeReport()
-               || shouldIgnoreKeys;
+        return !getChatterBoxActive() && isVisible()
+                && !game.getPhase().isLounge()
+                && !game.getPhase().isEndReport()
+                && !game.getPhase().isMovementReport()
+                && !game.getPhase().isTargetingReport()
+                && !game.getPhase().isFiringReport()
+                && !game.getPhase().isPhysicalReport()
+                && !game.getPhase().isOffboardReport()
+                && !game.getPhase().isInitiativeReport()
+                && !shouldIgnoreKeys;
     }
 
     protected final RedrawWorker redrawWorker = new RedrawWorker();
@@ -971,10 +971,10 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                     l.hexMoused(event);
                     break;
                 case BoardViewEvent.BOARD_HEX_CURSOR:
-                    l.hexCursor(event);
+                    l.hexCursor();
                     break;
                 case BoardViewEvent.BOARD_HEX_HIGHLIGHTED:
-                    l.boardHexHighlighted(event);
+                    l.boardHexHighlighted();
                     break;
                 case BoardViewEvent.BOARD_HEX_SELECTED:
                     l.hexSelected(event);
@@ -986,7 +986,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                     l.secondLOSHex(event, getFirstLOS());
                     break;
                 case BoardViewEvent.FINISHED_MOVING_UNITS:
-                    l.finishedMovingUnits(event);
+                    l.finishedMovingUnits();
                     break;
                 case BoardViewEvent.SELECT_UNIT:
                     l.unitSelected(event);
@@ -1030,7 +1030,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
         Rectangle viewRect = scrollpane.getVisibleRect();
 
-        if (!isTileImagesLoaded()) {
+        if (isTileImagesLoaded()) {
             MetalTheme theme = new DefaultMetalTheme();
             g.setColor(theme.getControl());
             g.fillRect(-getX(), -getY(), (int) viewRect.getWidth(),
@@ -1414,7 +1414,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             updateBoardSize();
         }
 
-        if (!isTileImagesLoaded()) {
+        if (isTileImagesLoaded()) {
             return;
         }
         // Map editor? No shadows
@@ -1704,7 +1704,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             Coords cp = sprite.getPosition();
             // This can potentially be an expensive operation
             Rectangle spriteBounds = sprite.getBounds();
-            if (cp.equals(c) && view.intersects(spriteBounds) && !sprite.isHidden()) {
+            if (cp.equals(c) && view.intersects(spriteBounds) && sprite.isHidden()) {
                 if (!sprite.isReady()) {
                     sprite.prepare();
                 }
@@ -1731,7 +1731,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
             Coords cp = sprite.getPosition();
             // This can potentially be an expensive operation
             Rectangle spriteBounds = sprite.getBounds();
-            if (cp.equals(c) && view.intersects(spriteBounds) && !sprite.isHidden()) {
+            if (cp.equals(c) && view.intersects(spriteBounds) && sprite.isHidden()) {
                 if (!sprite.isReady()) {
                     sprite.prepare();
                 }
@@ -1756,7 +1756,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         Rectangle view = g.getClipBounds();
         for (IsometricWreckSprite sprite : spriteArrayList) {
             Coords cp = sprite.getPosition();
-            if (cp.equals(c) && view.intersects(sprite.getBounds()) && !sprite.isHidden()) {
+            if (cp.equals(c) && view.intersects(sprite.getBounds()) && sprite.isHidden()) {
                 if (!sprite.isReady()) {
                     sprite.prepare();
                 }
@@ -1780,7 +1780,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         for (IsometricSprite sprite : spriteArrayList) {
             // This can potentially be an expensive operation
             Rectangle spriteBounds = sprite.getBounds();
-            if (view.intersects(spriteBounds) && !sprite.isHidden()) {
+            if (view.intersects(spriteBounds) && sprite.isHidden()) {
                 if (!sprite.isReady()) {
                     sprite.prepare();
                 }
@@ -1796,7 +1796,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         Rectangle view = g.getClipBounds();
         // This can potentially be an expensive operation
         Rectangle spriteBounds = sprite.getBounds();
-        if (view.intersects(spriteBounds) && !sprite.isHidden()) {
+        if (view.intersects(spriteBounds) && sprite.isHidden()) {
             if (!sprite.isReady()) {
                 sprite.prepare();
             }
@@ -1882,15 +1882,14 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
      * padding by default
      */
     void drawHexLayer(Point p, Graphics g, Color col, boolean outOfFOV) {
-        drawHexLayer(p, g, col, outOfFOV, 0);
+        drawHexLayer(p, g, col, outOfFOV);
     }
 
     /**
      * Draw a layer of a solid color (alpha possible) on the hex at Point p with
      * some padding around the border
      */
-    private void drawHexLayer(Point p, Graphics g, Color col, boolean outOfFOV,
-            double pad) {
+    private void drawHexLayer(Graphics g, Color col, boolean outOfFOV) {
         Graphics2D g2D = (Graphics2D) g;
         g.setColor(col);
 
@@ -1898,14 +1897,13 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         // ranges
         int fogStripes = GUIP.getFovStripes();
         if (outOfFOV && fogStripes > 0) {
-            float lineSpacing = fogStripes;
             // totally transparent here hurts the eyes
             Color c2 = new Color(col.getRed() / 2, col.getGreen() / 2,
                     col.getBlue() / 2, col.getAlpha() / 2);
 
             // the numbers make the lines align across hexes
-            GradientPaint gp = new GradientPaint(42.0f / lineSpacing, 0.0f,
-                    col, 104.0f / lineSpacing, 106.0f / lineSpacing, c2, true);
+            GradientPaint gp = new GradientPaint(42.0f / (float) fogStripes, 0.0f,
+                    col, 104.0f / (float) fogStripes, 106.0f / (float) fogStripes, c2, true);
             g2D.setPaint(gp);
         }
         Composite svComposite = g2D.getComposite();
@@ -1914,8 +1912,8 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         g2D.setComposite(svComposite);
     }
 
-    private void drawHexBorder(Graphics g, Color col, double pad, double linewidth) {
-        drawHexBorder(g, new Point(0, 0), col, pad, linewidth);
+    private void drawHexBorder(Graphics g, Color col) {
+        drawHexBorder(g, new Point(0, 0), col, 5, 10);
     }
 
     public void drawHexBorder(Graphics g, Point p, Color col, double pad, double linewidth) {
@@ -2588,7 +2586,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         if (ecmCenters != null) {
             Color tint = ecmCenters.get(c);
             if (tint != null) {
-                drawHexBorder(g, tint.darker(), 5, 10);
+                drawHexBorder(g, tint.darker());
             }
         }
 
@@ -2596,7 +2594,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         if (eccmCenters != null) {
             Color tint = eccmCenters.get(c);
             if (tint != null) {
-                drawHexBorder(g, tint.darker(), 5, 10);
+                drawHexBorder(g, tint.darker());
             }
         }
 
@@ -2737,7 +2735,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
 
         }
 
-        boolean hasLoS = fovHighlightingAndDarkening.draw(g, c, 0, 0, saveBoardImage);
+        boolean hasLoS = fovHighlightingAndDarkening.draw(g, c, saveBoardImage);
 
         // draw mapsheet borders
         if (GUIP.getShowMapsheets()) {
@@ -3248,7 +3246,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     }
 
     public boolean isMovingUnits() {
-        return !movingUnits.isEmpty();
+        return movingUnits.isEmpty();
     }
 
     /**
@@ -3821,7 +3819,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         refreshMoveVectors();
     }
 
-    public void setFiringSolutions(Entity attacker, Map<Integer, FiringSolution> firingSolutions) {
+    public void setFiringSolutions(Map<Integer, FiringSolution> firingSolutions) {
         clearFiringSolutionData();
         if (firingSolutions == null) {
             return;
@@ -4219,7 +4217,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
                 }
 
                 if (aa instanceof SearchlightAttackAction) {
-                    sprite.addWeapon((SearchlightAttackAction) aa);
+                    sprite.addWeapon();
                 }
                 return;
             }
@@ -4280,8 +4278,8 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         clearAllMoveVectors();
         for (Entity e : game.getEntitiesVector()) {
             if (e.getPosition() != null) {
-                movementSprites.add(new MovementSprite(this, e, e.getVectors(),
-                        Color.GRAY, false));
+                movementSprites.add(new MovementSprite(this, e, e.getVectors()
+                ));
             }
         }
     }
@@ -4293,11 +4291,11 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         for (Entity e : game.getEntitiesVector()) {
             if (e.getPosition() != null) {
                 if ((en != null) && (e.getId() == en.getId())) {
-                    movementSprites.add(new MovementSprite(this, e, md.getFinalVectors(),
-                            col, true));
+                    movementSprites.add(new MovementSprite(this, e, md.getFinalVectors()
+                    ));
                 } else {
-                    movementSprites.add(new MovementSprite(this, e, e.getVectors(),
-                            col, false));
+                    movementSprites.add(new MovementSprite(this, e, e.getVectors()
+                    ));
                 }
             }
         }
@@ -4631,9 +4629,9 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
     }
 
     private static class MovingUnit {
-        public Entity entity;
+        public final Entity entity;
 
-        public ArrayList<UnitLocation> path;
+        public final ArrayList<UnitLocation> path;
 
         MovingUnit(Entity entity, Vector<UnitLocation> path) {
             this.entity = entity;
@@ -4648,7 +4646,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
      * <code>false</code> if more need to be loaded.
      */
     public boolean isTileImagesLoaded() {
-        return tileManager.isLoaded();
+        return !tileManager.isLoaded();
     }
 
     public void setUseLOSTool(boolean use) {
@@ -4888,7 +4886,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
      * megamek.common.BoardListener#boardNewBoard(megamek.common.BoardEvent)
      */
     @Override
-    public void boardNewBoard(BoardEvent b) {
+    public void boardNewBoard() {
         updateBoard();
         game.getBoard().initializeAllAutomaticTerrain(GUIP.getHexInclines());
         clearHexImageCache();
@@ -4920,7 +4918,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
      * megamek.common.BoardListener#boardChangedHex(megamek.common.BoardEvent)
      */
     @Override
-    public synchronized void boardChangedAllHexes(BoardEvent b) {
+    public synchronized void boardChangedAllHexes() {
         clearHexImageCache();
         clearShadowMap();
         repaint();
@@ -5036,7 +5034,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         }
 
         @Override
-        public void gameBoardChanged(GameBoardChangeEvent e) {
+        public void gameBoardChanged() {
             clearHexImageCache();
             boardChanged();
         }
@@ -6029,7 +6027,7 @@ public class BoardView extends JPanel implements Scrollable, BoardListener, Mous
         return scrollpane;
     }
 
-    AbstractAction DoNothing = new AbstractAction() {
+    final AbstractAction DoNothing = new AbstractAction() {
         @Override
         public void actionPerformed(ActionEvent evt) {
 

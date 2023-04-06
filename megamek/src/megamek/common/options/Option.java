@@ -19,7 +19,6 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serializable;
-import java.util.Vector;
 
 @XmlRootElement(name = "gameoption")
 @XmlAccessorType(value = XmlAccessType.NONE)
@@ -51,7 +50,7 @@ public class Option implements IOption, Serializable {
         this(owner, name, FLOAT, defaultValue);
     }
 
-    public Option(AbstractOptions owner, String name, Vector<String> defaultValue) {
+    public Option(AbstractOptions owner, String name) {
         this(owner, name, CHOICE, "");
     }
 

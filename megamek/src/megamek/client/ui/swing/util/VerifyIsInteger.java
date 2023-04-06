@@ -26,7 +26,7 @@ public class VerifyIsInteger implements DataVerifier {
     @Override
     public String verify(Object value) {
         if (value instanceof Integer) {
-            return verify((Integer) value);
+            return verify();
         }
         if (value instanceof String) {
             return verify((String) value);
@@ -34,7 +34,7 @@ public class VerifyIsInteger implements DataVerifier {
         return value + " is wrong object type.  Should be text.";
     }
 
-    public String verify(Integer value) {
+    public String verify() {
         return null;
     }
 

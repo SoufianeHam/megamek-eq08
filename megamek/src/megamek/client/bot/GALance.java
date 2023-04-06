@@ -24,9 +24,9 @@ import java.util.Arrays;
 
 public class GALance extends GA {
 
-    protected ArrayList<MoveOption[]> moves;
-    protected TestBot tb;
-    protected Object[] enemy_array;
+    protected final ArrayList<MoveOption[]> moves;
+    protected final TestBot tb;
+    protected final Object[] enemy_array;
 
     public GALance(TestBot tb, ArrayList<MoveOption[]> moves, int population,
             int generations) {

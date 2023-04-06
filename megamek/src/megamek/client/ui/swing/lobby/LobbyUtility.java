@@ -58,7 +58,7 @@ public class LobbyUtility {
      * <P>See also {@link #startPosOverlap(Player, Player)}
      */
     static boolean isValidStartPos(Game game, Player player) {
-        return isValidStartPos(game, player, player.getStartingPos());
+        return !isValidStartPos(game, player, player.getStartingPos());
     }
 
     /**

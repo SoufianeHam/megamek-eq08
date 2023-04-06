@@ -614,11 +614,11 @@ public class RandomArmyDialog extends JDialog implements ActionListener, TreeSel
         }
     }
 
-    private int calculateTotal(JTable t, int col){
+    private int calculateTotal(JTable t){
         int total = 0;
         for(int i = 0; i < t.getRowCount(); i++) {
             try {
-                total += Integer.parseInt(t.getValueAt(i, col)+"");
+                total += Integer.parseInt(t.getValueAt(i, 1)+"");
             } catch (Exception ignored) {
             }
         }
@@ -712,7 +712,7 @@ public class RandomArmyDialog extends JDialog implements ActionListener, TreeSel
                 armyModel.addUnit(m);
             }
 
-            m_lArmyBVTotal.setText(msg_bvtotal + calculateTotal(m_lArmy, 1));
+            m_lArmyBVTotal.setText(msg_bvtotal + calculateTotal(m_lArmy));
         } else if (ev.getSource().equals(m_bAdd)) {
             for (int sel : m_lUnits.getSelectedRows()) {
                 sel = m_lUnits.convertRowIndexToModel(sel);
@@ -720,7 +720,7 @@ public class RandomArmyDialog extends JDialog implements ActionListener, TreeSel
                 armyModel.addUnit(m);
             }
 
-            m_lArmyBVTotal.setText(msg_bvtotal + calculateTotal(m_lArmy, 1));
+            m_lArmyBVTotal.setText(msg_bvtotal + calculateTotal(m_lArmy));
         } else if (ev.getSource().equals(m_bAdvSearch)) {
             asd.showDialog();
             searchFilter=asd.getTWAdvancedSearch().getMechSearchFilter();
@@ -846,7 +846,7 @@ public class RandomArmyDialog extends JDialog implements ActionListener, TreeSel
                     m_lInfantryCount.setText(String.format(msg_outof + sbInfantry));
                 }
 
-                m_lUnitsBVTotal.setText(msg_bvtotal + calculateTotal(m_lUnits, 1));
+                m_lUnitsBVTotal.setText(msg_bvtotal + calculateTotal(m_lUnits));
             } catch (NumberFormatException ignored) {
 
             } finally {
@@ -864,7 +864,7 @@ public class RandomArmyDialog extends JDialog implements ActionListener, TreeSel
                     }
                 }
 
-                m_lArmyBVTotal.setText(msg_bvtotal + calculateTotal(m_lArmy, 1));
+                m_lArmyBVTotal.setText(msg_bvtotal + calculateTotal(m_lArmy));
             }
         } else if (ev.getSource().equals(rug)) {
             m_ratStatus.setText(Messages.getString("RandomArmyDialog.ratStatusDoneLoading"));
@@ -910,7 +910,7 @@ public class RandomArmyDialog extends JDialog implements ActionListener, TreeSel
         }
     }
 
-    WindowListener windowListener = new WindowAdapter() {
+    final WindowListener windowListener = new WindowAdapter() {
         @Override
         public void windowClosed(WindowEvent evt) {
             saveWindowSettings();
@@ -1160,7 +1160,7 @@ public class RandomArmyDialog extends JDialog implements ActionListener, TreeSel
     private final GameListener gameListener = new GameListenerAdapter() {
         @Override
         public void gameSettingsChange(GameSettingsChangeEvent evt) {
-            if (!evt.isMapSettingsOnlyChange()) {
+            if (evt.isMapSettingsOnlyChange()) {
                 updateRATYear();
             }
         }

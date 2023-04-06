@@ -141,7 +141,7 @@ public class MovePathFinder<C> extends AbstractPathFinder<CoordsWithFacing, C, M
      * Current implementation uses MoveStep.isMovementPossible() to verify legality.
      */
     public static class MovePathLegalityFilter extends Filter<MovePath> {
-        Game game;
+        final Game game;
 
         public MovePathLegalityFilter(Game game) {
             this.game = game;
@@ -321,8 +321,7 @@ public class MovePathFinder<C> extends AbstractPathFinder<CoordsWithFacing, C, M
      */
     public MovePathFinder(EdgeRelaxer<C, MovePath> edgeRelaxer,
                           AdjacencyMap<MovePath> edgeAdjacencyMap,
-                          Comparator<MovePath> comparator,
-                          Game game) {
+                          Comparator<MovePath> comparator) {
         super(new MovePathDestinationMap(),
               edgeRelaxer,
               edgeAdjacencyMap,

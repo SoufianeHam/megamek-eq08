@@ -128,7 +128,7 @@ public abstract class AbstractSplitPane extends JSplitPane {
     protected void setPreferences(final PreferencesNode preferences) throws Exception {
         try {
             preferences.manage(new JSplitPanePreference(this));
-            setCustomPreferences(preferences);
+            setCustomPreferences();
         } catch (Exception ex) {
             LogManager.getLogger().error("Failed to set preferences", ex);
         }
@@ -136,14 +136,14 @@ public abstract class AbstractSplitPane extends JSplitPane {
 
     /**
      * Adds custom preferences to the child pane.
-     *
+     * <p>
      * By default, this pane will track preferences related to the location of the split
      * Other preferences can be added by overriding this method.
-     * @param preferences the preference node for this pane
+     *
      * @throws Exception if there's an issue initializing the preferences. Normally this means
-     * a component has <strong>not</strong> had its name value set.
+     *                   a component has <strong>not</strong> had its name value set.
      */
-    protected void setCustomPreferences(final PreferencesNode preferences) throws Exception {
+    protected void setCustomPreferences() throws Exception {
 
     }
     //endregion Initialization

@@ -42,14 +42,14 @@ public class KeyBindParser {
     /**
      * Default path to the key bindings XML file.
      */
-    public static String DEFAULT_BINDINGS_FILE = "defaultKeyBinds.xml";
+    public static final String DEFAULT_BINDINGS_FILE = "defaultKeyBinds.xml";
 
     //XML tag defines
-    public static String KEY_BIND = "KeyBind";
-    public static String KEY_CODE = "keyCode";
-    public static String KEY_MODIFIER = "modifier";
-    public static String COMMAND = "command";
-    public static String IS_REPEATABLE = "isRepeatable";
+    public static final String KEY_BIND = "KeyBind";
+    public static final String KEY_CODE = "keyCode";
+    public static final String KEY_MODIFIER = "modifier";
+    public static final String COMMAND = "command";
+    public static final String IS_REPEATABLE = "isRepeatable";
     
     // Keybinds change event 
     private static final ArrayList<IPreferenceChangeListener> listeners = new ArrayList<>();

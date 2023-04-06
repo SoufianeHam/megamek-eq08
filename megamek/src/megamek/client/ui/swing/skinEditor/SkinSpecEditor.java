@@ -239,13 +239,9 @@ public class SkinSpecEditor extends JPanel implements ListSelectionListener, Act
         }
         UIComponents selectedComp = skinSpecCompList.getSelectedValue();
 
-        if ((selectedComp == UIComponents.DefaultButton)
-                || (selectedComp == UIComponents.DefaultUIElement)
-                || (selectedComp == UIComponents.UnitDisplay)) {
-            removeCompButton.setEnabled(false);
-        } else {
-            removeCompButton.setEnabled(true);
-        }
+        removeCompButton.setEnabled((selectedComp != UIComponents.DefaultButton)
+                && (selectedComp != UIComponents.DefaultUIElement)
+                && (selectedComp != UIComponents.UnitDisplay));
 
         editPanel.removeAll();
         if (selectedComp == UIComponents.UnitDisplay) {

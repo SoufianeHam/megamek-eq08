@@ -1091,12 +1091,10 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
 
         @Override
         public boolean isCellEditable(int row, int col) {
-            switch (col) {
-                case COL_QTY:
-                    return true;
-                default:
-                    return false;
+            if (col == COL_QTY) {
+                return true;
             }
+            return false;
         }
 
         // fill table with values
@@ -1147,13 +1145,9 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
 
         @Override
         public void setValueAt(Object value, int row, int col) {
-            switch (col) {
-                case COL_QTY:
-                    qty[row] = Integer.parseInt((String) value);
-                    fireTableCellUpdated(row, col);
-                    break;
-                default:
-                    break;
+            if (col == COL_QTY) {
+                qty[row] = Integer.parseInt((String) value);
+                fireTableCellUpdated(row, col);
             }
         }
 
@@ -1232,12 +1226,10 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
 
         @Override
         public boolean isCellEditable(int row, int col) {
-            switch (col) {
-                case COL_QTY:
-                    return true;
-                default:
-                    return false;
+            if (col == COL_QTY) {
+                return true;
             }
+            return false;
         }
 
         // fill table with values
@@ -1280,13 +1272,9 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
 
         @Override
         public void setValueAt(Object value, int row, int col) {
-            switch (col) {
-                case COL_QTY:
-                    qty[row] = Integer.parseInt((String) value);
-                    fireTableCellUpdated(row, col);
-                    break;
-                default:
-                    break;
+            if (col == COL_QTY) {
+                qty[row] = Integer.parseInt((String) value);
+                fireTableCellUpdated(row, col);
             }
         }
     }
@@ -1331,7 +1319,7 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
      * @author Arlith
      */
     public class ParensFT extends FilterTokens {
-        public String parens;
+        public final String parens;
 
         public ParensFT(String p) {
             parens = p;
@@ -1348,9 +1336,9 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
      * @author Arlith
      */
     public class EquipmentFT extends FilterTokens {
-        public String internalName;
-        public String fullName;
-        public int qty;
+        public final String internalName;
+        public final String fullName;
+        public final int qty;
 
         public EquipmentFT(String in, String fn, int q) {
             internalName = in;
@@ -1374,7 +1362,7 @@ public class AdvancedSearchDialog extends JDialog implements ActionListener, Ite
      *
      */
     public class OperationFT extends FilterTokens {
-        public MechSearchFilter.BoolOp op;
+        public final MechSearchFilter.BoolOp op;
 
         public OperationFT(MechSearchFilter.BoolOp o) {
             op = o;

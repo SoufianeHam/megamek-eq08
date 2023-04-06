@@ -69,7 +69,7 @@ public class BuildingBlock {
         readInputStream(is);
     }
 
-    public boolean readInputStream(InputStream is) {
+    public void readInputStream(InputStream is) {
         String data;
         // empty the rawData holder...
         rawData.clear();
@@ -92,10 +92,8 @@ public class BuildingBlock {
             }
         } catch (Exception ignored) {
             LogManager.getLogger().error("An Exception occurred while attempting to read a BuildingBlock stream.");
-            return false;
         }
 
-        return true;
     }
 
     /**
@@ -373,10 +371,8 @@ public class BuildingBlock {
     /**
      * Clears the <CODE>rawData</CODE> Vector and inserts a default comment and
      * <I>BlockVersion</I> information.
-     *
-     * @return Returns true on success.
      */
-    public boolean createNewBlock() {
+    public void createNewBlock() {
         rawData.clear();
 
         writeBlockComment("building block data file");
@@ -385,37 +381,36 @@ public class BuildingBlock {
         writeBlockComment("#Write the version number just in case...");
         this.writeBlockData("Version", "MAM0");
 
-        return true;
     }
 
     /**
      * @see writeBlockData (String, Vector)
      */
-    public boolean writeBlockData(String blockName, String blockData) {
+    public void writeBlockData(String blockName, String blockData) {
         String[] temp = new String[1];
         temp[0] = blockData;
 
-        return writeBlockData(blockName, makeVector(temp));
+        writeBlockData(blockName, makeVector(temp));
     }
 
     /**
      * @see writeBlockData (String, Vector)
      */
-    public boolean writeBlockData(String blockName, int blockData) {
+    public void writeBlockData(String blockName, int blockData) {
         String[] temp = new String[1];
         temp[0] = "" + blockData;
-        return writeBlockData(blockName, makeVector(temp));
+        writeBlockData(blockName, makeVector(temp));
     }
 
     /**
      * @see writeBlockData (String, Vector)
      */
-    public boolean writeBlockData(String blockName, int[] blockData) {
+    public void writeBlockData(String blockName, int[] blockData) {
         String[] temp = new String[blockData.length];
         for (int c = 0; c < blockData.length; c++) {
             temp[c] = "" + blockData[c];
         }
-        return writeBlockData(blockName, makeVector(temp));
+        writeBlockData(blockName, makeVector(temp));
 
     }
 
@@ -431,10 +426,10 @@ public class BuildingBlock {
     /**
      * @see writeBlockData (String, Vector)
      */
-    public boolean writeBlockData(String blockName, double blockData) {
+    public void writeBlockData(String blockName, double blockData) {
         String[] temp = new String[1];
         temp[0] = "" + blockData;
-        return writeBlockData(blockName, makeVector(temp));
+        writeBlockData(blockName, makeVector(temp));
     }
 
 
@@ -452,8 +447,8 @@ public class BuildingBlock {
     /**
      * @see writeBlockData (String, Vector)
      */
-    public boolean writeBlockData(String blockName, String[] blockData) {
-        return writeBlockData(blockName, makeVector(blockData));
+    public void writeBlockData(String blockName, String[] blockData) {
+        writeBlockData(blockName, makeVector(blockData));
     }
 
     /**
@@ -482,26 +477,23 @@ public class BuildingBlock {
      * Writes a comment.
      *
      * @param theComment The comment to be written.
-     * @return Returns true on success.
      */
-    public boolean writeBlockComment(String theComment) {
+    public void writeBlockComment(String theComment) {
         rawData.add(BuildingBlock.comment + theComment);
-        return true;
     }
 
     /**
      * Writes the buildingBlock data to a file.
      *
      * @param fileName File to write. Overwrites existing files.
-     * @return true on success.
      */
-    public boolean writeBlockFile(String fileName) {
+    public void writeBlockFile(String fileName) {
         File file = new File(fileName);
 
         if (file.exists()) {
             if (!file.delete()) {
                 LogManager.getLogger().error("Unable to delete file with name " + fileName);
-                return false;
+                return;
             }
         }
 
@@ -516,10 +508,8 @@ public class BuildingBlock {
             bw.flush();
         } catch (Exception e) {
             LogManager.getLogger().error("Unable to save block file " + fileName, e);
-            return false;
         }
 
-        return true;
     }
 
     /**
@@ -614,9 +604,7 @@ public class BuildingBlock {
      */
     public Vector<String> getAllDataAsVector() {
 
-        Vector<String> theData = rawData; // can I jsut return this?
-
-        return theData;
+        return rawData;
 
     }
 
@@ -701,10 +689,6 @@ public class BuildingBlock {
         if (findStartIndex(blockName) == -1) {
             return false;
         }
-        if (findEndIndex(blockName) == -1) {
-            return false;
-        }
-
-        return true;
+        return findEndIndex(blockName) != -1;
     }
 }

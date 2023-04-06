@@ -480,7 +480,7 @@ public class TestMech extends TestEntity {
     }
 
     public boolean criticalSlotsAllocated(Entity entity, Mounted mounted,
-            Vector<Serializable> allocation, StringBuffer buff) {
+            Vector<Serializable> allocation) {
         int location = mounted.getLocation();
         EquipmentType et = mounted.getType();
         int criticals = 0;
@@ -534,8 +534,8 @@ public class TestMech extends TestEntity {
     }
 
     public boolean checkCriticalSlotsForEquipment(Mech mech,
-            Vector<Mounted> unallocated, Vector<Serializable> allocation,
-            Vector<Integer> heatSinks, StringBuffer buff) {
+            Vector<Mounted> unallocated,
+                                                  Vector<Integer> heatSinks, StringBuffer buff) {
         boolean legal = true;
         int countInternalHeatSinks = 0;
         for (Mounted m : mech.getEquipment()) {
@@ -602,7 +602,7 @@ public class TestMech extends TestEntity {
         Vector<Mounted> unallocated = new Vector<>();
         Vector<Serializable> allocation = new Vector<>();
         Vector<Integer> heatSinks = new Vector<>();
-        boolean correct = checkCriticalSlotsForEquipment(mech, unallocated, allocation, heatSinks, buff);
+        boolean correct = checkCriticalSlotsForEquipment(mech, unallocated, heatSinks, buff);
         if (!unallocated.isEmpty()) {
             buff.append("Unallocated Equipment:\n");
             for (Mounted mount : unallocated) {
@@ -670,7 +670,7 @@ public class TestMech extends TestEntity {
         return true;
     }
 
-    public String printArmorLocProp(int loc, int wert) {
+    public String printArmorLocProp(int wert) {
         return " is greater than " + wert + "!";
     }
 
@@ -680,7 +680,7 @@ public class TestMech extends TestEntity {
             if (loc == Mech.LOC_HEAD) {
                 if (((mech.getOArmor(Mech.LOC_HEAD) > 9) && !mech.isSuperHeavy()) || ((mech.getOArmor(Mech.LOC_HEAD) > 12) && mech.isSuperHeavy())) {
                     buff.append(printArmorLocation(Mech.LOC_HEAD))
-                            .append(printArmorLocProp(Mech.LOC_HEAD, 9))
+                            .append(printArmorLocProp(9))
                             .append("\n");
                     correct = false;
                 }
@@ -688,7 +688,7 @@ public class TestMech extends TestEntity {
             } else if ((mech.getOArmor(loc) + (mech.hasRearArmor(loc) ? mech
                     .getOArmor(loc, true) : 0)) > (2 * mech.getOInternal(loc))) {
                 buff.append(printArmorLocation(loc))
-                        .append(printArmorLocProp(loc,
+                        .append(printArmorLocProp(
                                 2 * mech.getOInternal(loc))).append("\n");
                 correct = false;
             }
@@ -707,15 +707,15 @@ public class TestMech extends TestEntity {
         // Mechanical Jump Boosts can be greater then Running as long as
         // the unit can handle the weight.
         if ((mech.getJumpMP(false) > mech.getOriginalRunMP())
-                && !mech.hasJumpBoosters()
+                && mech.hasJumpBoosters()
                 && !mech.hasWorkingMisc(MiscType.F_PARTIAL_WING)) {
             buff.append("Jump MP exceeds run MP\n");
             return false;
         }
         if ((mech.getJumpMP(false) > mech.getOriginalWalkMP())
                 && (((mech.getJumpType() != Mech.JUMP_IMPROVED) && (mech.getJumpType() != Mech.JUMP_PROTOTYPE_IMPROVED))
-                        && !mech.hasWorkingMisc(MiscType.F_PARTIAL_WING) && !mech
-                            .hasJumpBoosters())) {
+                        && !mech.hasWorkingMisc(MiscType.F_PARTIAL_WING) && mech
+                .hasJumpBoosters())) {
             buff.append("Jump MP exceeds walk MP without IJJs\n");
             return false;
         }
@@ -737,7 +737,7 @@ public class TestMech extends TestEntity {
         if (skip()) {
             return true;
         }
-        if (!correctWeight(buff)) {
+        if (correctWeight(buff)) {
             buff.insert(0, printTechLevel() + printShortMovement());
             buff.append(printWeightCalculation());
             correct = false;

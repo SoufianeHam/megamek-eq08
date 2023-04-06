@@ -29,18 +29,18 @@ import java.util.*;
  */
 public class BoardEdgePathFinder {
     // This is a map that will tell us if a particular coordinate has a move path to a particular edge
-    Map<Integer, Map<Coords, MovePath>> edgePathCache;
+    final Map<Integer, Map<Coords, MovePath>> edgePathCache;
 
     // This is a map that will tell us the longest non-repeating path available to a particular coordinate
     // Useful in situations where a unit has no possible way to get from the deployment zone to the opposite edge
     // It is accumulated over multiple calls to findPathToEdge()
     // It will basically tell us the available "surface area" from a particular set of coordinates
-    Map<Coords, MovePath> longestNonEdgePathCache;
+    final Map<Coords, MovePath> longestNonEdgePathCache;
 
     // This is a map that will tell us all the paths that connect to the path that's the key
     // Useful in a) determining a full path to the edge and
     // b) purging paths that would become invalid for whatever reason (building collapse or terrain destruction usually)
-    Map<MovePath, List<MovePath>> connectedPaths;
+    final Map<MovePath, List<MovePath>> connectedPaths;
 
     /**
      * Constructor - initializes internal caches

@@ -394,11 +394,11 @@ public class MegamekBorder extends EtchedBorder {
         if (noBorder) {
             return new Insets(0, 0, 0, 0);
         } else {
-            return computeInsets(insets);
+            return computeInsets();
         }
     }
     
-    private Insets computeInsets(Insets i) {
+    private Insets computeInsets() {
         return (Insets) (insets.clone());
     }
     

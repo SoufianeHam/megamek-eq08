@@ -61,11 +61,7 @@ public class TargetRollModifier implements Serializable {
             return false;
         } else if (value != that.value) {
             return false;
-        } else if (!desc.equals(that.desc)) {
-            return false;
-        } else {
-            return true;
-        }
+        } else return desc.equals(that.desc);
     }
 
     @Override

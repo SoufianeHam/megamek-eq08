@@ -85,7 +85,7 @@ public class Slider extends JDialog implements ActionListener, ChangeListener {
 
     public boolean showDialog() {
         setVisible(true);
-        return ok;
+        return !ok;
     }
 
     @Override

@@ -38,9 +38,9 @@ public class AccessibilityWindow extends JDialog implements KeyListener {
     public static final int MAX_HISTORY = 10;
     public static final String ACCESSIBLE_GUI_SHORTCUT = ".";
 
-    Client client;
-    ClientGUI gui;
-    JTextArea chatArea;
+    final Client client;
+    final ClientGUI gui;
+    final JTextArea chatArea;
 
     private Coords selectedTarget;
     private final JTextField inputField;
@@ -89,12 +89,12 @@ public class AccessibilityWindow extends JDialog implements KeyListener {
             }
 
             @Override
-            public void gameEnd(GameEndEvent e) {
+            public void gameEnd() {
                 systemEvent("The game ended. Goodbye.");
             }
 
             @Override
-            public void gameBoardChanged(GameBoardChangeEvent e) {
+            public void gameBoardChanged() {
             }
 
             @Override
@@ -109,7 +109,7 @@ public class AccessibilityWindow extends JDialog implements KeyListener {
             }
 
             @Override
-            public void gameEntityNewOffboard(GameEntityNewOffboardEvent e) {
+            public void gameEntityNewOffboard() {
                 //systemEvent("Out of game event. (unneeded)" );
             }
 
@@ -148,7 +148,7 @@ public class AccessibilityWindow extends JDialog implements KeyListener {
             }
 
             @Override
-            public void gameVictory(GameVictoryEvent e) {
+            public void gameVictory() {
                 systemEvent("Game Victory! (unneeded.)");
             }
         });

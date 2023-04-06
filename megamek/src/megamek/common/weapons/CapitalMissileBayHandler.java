@@ -696,7 +696,7 @@ public class CapitalMissileBayHandler extends AmmoBayWeaponHandler {
         // We have to adjust the reports on a miss, so they line up
         if (bMissed) {
             reportMiss(vPhaseReport);
-            if (!handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg, vPhaseReport)) {
+            if (handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg, vPhaseReport)) {
                 return false;
             }
         }

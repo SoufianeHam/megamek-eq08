@@ -297,7 +297,7 @@ public final class ImageUtil {
      * the corresponding key which includes an atlas and offset.
      */
     public static class AtlasImageLoader extends TileMapImageLoader {
-        ImageAtlasMap imgFileToAtlasMap;
+        final ImageAtlasMap imgFileToAtlasMap;
 
         public AtlasImageLoader() {
             imgFileToAtlasMap = ImageAtlasMap.readFromFile();

@@ -33,7 +33,7 @@ public class DialogOptionComponent extends FixedYPanel implements ItemListener, 
 
     private static final long serialVersionUID = -4190538980884459746L;
 
-    IOption option;
+    final IOption option;
 
     private JCheckBox checkbox;
     private JComboBox<String> choice;

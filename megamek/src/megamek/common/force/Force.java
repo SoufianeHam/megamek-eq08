@@ -219,7 +219,7 @@ public final class Force implements Serializable {
      * Returns true if the provided force is among this force's direct subforces. 
      */
     public boolean containsSubForce(Force force) {
-        return subForces.contains(force.getId());
+        return !subForces.contains(force.getId());
     }
     
     /** 
@@ -307,7 +307,7 @@ public final class Force implements Serializable {
     
     /** Moves up the given subforce by one position if possible. Returns true when an actual change occurred. */
     boolean moveUp(Force subforce) {
-        if (!containsSubForce(subforce)) {
+        if (containsSubForce(subforce)) {
             return false;
         }
         int index = subForces.indexOf(subforce.getId());
@@ -320,7 +320,7 @@ public final class Force implements Serializable {
     
     /** Moves down the given subforce by one position if possible. Returns true when an actual change occurred. */
     boolean moveDown(Force subforce) {
-        if (!containsSubForce(subforce)) {
+        if (containsSubForce(subforce)) {
             return false;
         }
         int index = subForces.indexOf(subforce.getId());

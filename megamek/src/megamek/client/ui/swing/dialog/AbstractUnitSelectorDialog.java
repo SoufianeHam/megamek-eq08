@@ -72,18 +72,18 @@ public abstract class AbstractUnitSelectorDialog extends JDialog implements Runn
     private JButton buttonAdvancedSearch;
     private JButton buttonResetSearch;
     private final JToggleButton buttonPvToggle = new JToggleButton(Messages.getString("MechSelectorDialog.TogglePV"));
-    protected JList<String> listTechLevel = new JList<>();
+    protected final JList<String> listTechLevel = new JList<>();
     private JLabel lblCount;
     /**
      * We need to map the selected index of listTechLevel to the actual TL it
      * belongs to
      */
-    protected Map<Integer, Integer> techLevelListToIndex = new HashMap<>();
-    protected JComboBox<String> comboUnitType = new JComboBox<>();
-    protected JComboBox<String> comboWeight = new JComboBox<>();
+    protected final Map<Integer, Integer> techLevelListToIndex = new HashMap<>();
+    protected final JComboBox<String> comboUnitType = new JComboBox<>();
+    protected final JComboBox<String> comboWeight = new JComboBox<>();
     private JScrollPane techLevelScroll;
     private JPanel panelFilterButtons;
-    protected JLabel labelImage = new JLabel(""); //inline to avoid potential null pointer issues
+    protected final JLabel labelImage = new JLabel(""); //inline to avoid potential null pointer issues
     protected JTable tableUnits;
     protected JTextField textFilter;
     protected EntityViewPane panePreview;
@@ -95,7 +95,7 @@ public abstract class AbstractUnitSelectorDialog extends JDialog implements Runn
     // how long after a key is typed does a new search begin
     private static final int KEY_TIMEOUT = 1000;
 
-    protected static MechSummaryCache mscInstance = MechSummaryCache.getInstance();
+    protected static final MechSummaryCache mscInstance = MechSummaryCache.getInstance();
     protected MechSummary[] mechs;
 
     private final MechTableModel unitModel = new MechTableModel();
@@ -104,7 +104,7 @@ public abstract class AbstractUnitSelectorDialog extends JDialog implements Runn
     private TableColumn bvColumn;
     protected MechSearchFilter searchFilter;
 
-    protected JFrame frame;
+    protected final JFrame frame;
     private final UnitLoadingDialog unitLoadingDialog;
     private AdvancedSearchDialog2 advancedSearchDialog2;
 
@@ -117,7 +117,7 @@ public abstract class AbstractUnitSelectorDialog extends JDialog implements Runn
     protected boolean canonOnly = false;
     protected boolean allowInvalid = true;
     protected int gameTechLevel = TechConstants.T_SIMPLE_INTRO;
-    protected int techLevelDisplayType = TECH_LEVEL_DISPLAY_IS_CLAN;
+    protected final int techLevelDisplayType = TECH_LEVEL_DISPLAY_IS_CLAN;
     private static final GUIPreferences GUIP = GUIPreferences.getInstance();
     //endregion Variable Declarations
 

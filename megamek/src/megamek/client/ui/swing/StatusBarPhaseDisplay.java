@@ -84,8 +84,8 @@ public abstract class StatusBarPhaseDisplay extends AbstractPhaseDisplay
     }
     
     private JLabel labStatus;
-    protected JPanel panStatus = new JPanel();
-    protected JPanel panButtons = new JPanel();  
+    protected final JPanel panStatus = new JPanel();
+    protected final JPanel panButtons = new JPanel();
     
     /** The button group that is currently displayed */
     protected int currentButtonGroup = 0;

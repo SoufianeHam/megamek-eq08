@@ -198,7 +198,7 @@ public class MechTROView extends TROView {
     }
 
     @Override
-    protected boolean showFixedSystem(Entity entity, int index, int loc) {
+    protected boolean showFixedSystem(int index, int loc) {
         return ((index != Mech.SYSTEM_COCKPIT) || (loc != Mech.LOC_HEAD))
                 && ((index != Mech.SYSTEM_SENSORS) || (loc != Mech.LOC_HEAD))
                 && ((index != Mech.SYSTEM_LIFE_SUPPORT) || (loc != Mech.LOC_HEAD))

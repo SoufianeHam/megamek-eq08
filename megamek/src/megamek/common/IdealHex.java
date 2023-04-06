@@ -28,10 +28,10 @@ public class IdealHex {
 
     private static final double XCONST = Math.tan(Math.PI / 6.0);
 
-    public double[] x = new double[6];
-    public double[] y = new double[6];
-    public double cx;
-    public double cy;
+    public final double[] x = new double[6];
+    public final double[] y = new double[6];
+    public final double cx;
+    public final double cy;
 
     // cache for hexes
     private static IdealHex[] cache = null;

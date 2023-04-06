@@ -18,7 +18,6 @@ import megamek.common.actions.WeaponAttackAction;
 import megamek.common.enums.GamePhase;
 import megamek.common.options.OptionsConstants;
 import megamek.server.GameManager;
-import megamek.server.Server;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.Vector;
@@ -88,7 +87,7 @@ public class BayWeaponHandler extends WeaponHandler {
             } else {
                 int loc = weapon.getLocation();
                 boolean rearMount = weapon.isRearMounted();
-                if (!ae.hasArcFired(loc, rearMount)) {
+                if (ae.hasArcFired(loc, rearMount)) {
                     ae.heatBuildup += ae.getHeatInArc(loc, rearMount);
                     ae.setArcFired(loc, rearMount);
                 }
@@ -235,7 +234,7 @@ public class BayWeaponHandler extends WeaponHandler {
 
             // Works out fire setting, AMS shots, and whether continuation is
             // necessary.
-            if (!handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg, vPhaseReport)) {
+            if (handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg, vPhaseReport)) {
                 return false;
             }
         }
@@ -247,7 +246,7 @@ public class BayWeaponHandler extends WeaponHandler {
 
         if ((target.getTargetType() == Targetable.TYPE_HEX_IGNITE)
                 || (target.getTargetType() == Targetable.TYPE_BLDG_IGNITE)) {
-            handleIgnitionDamage(vPhaseReport, bldg, 1);
+            handleIgnitionDamage(vPhaseReport);
             return false;
         }
         if (target.getTargetType() == Targetable.TYPE_HEX_CLEAR) {
@@ -495,7 +494,7 @@ public class BayWeaponHandler extends WeaponHandler {
         // We have to adjust the reports on a miss, so they line up
         if (bMissed) {
             reportMiss(vPhaseReport);
-            if (!handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg, vPhaseReport)) {
+            if (handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg, vPhaseReport)) {
                 return false;
             }
         }

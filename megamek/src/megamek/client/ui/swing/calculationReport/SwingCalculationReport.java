@@ -140,7 +140,7 @@ public class SwingCalculationReport implements CalculationReport {
     }
 
     @Override
-    public CalculationReport addSubHeader(String text) {
+    public void addSubHeader(String text) {
         if (tentativeSectionActive) {
             tentativeLines.add(new ReportLine(text, "", "", LineType.SUBHEADER));
         } else {
@@ -149,11 +149,10 @@ public class SwingCalculationReport implements CalculationReport {
             gbc.ipadx = 0;
             report.add(new JLabel(text), gbc);
         }
-        return this;
     }
 
     @Override
-    public CalculationReport addHeader(String text) {
+    public void addHeader(String text) {
         if (tentativeSectionActive) {
             tentativeLines.add(new ReportLine(text, "", "", LineType.HEADER));
         } else {
@@ -162,11 +161,10 @@ public class SwingCalculationReport implements CalculationReport {
             JLabel header = new JLabel("<HTML><U><FONT SIZE=+2>" + text);
             report.add(header, gbc);
         }
-        return this;
     }
 
     @Override
-    public CalculationReport addEmptyLine() {
+    public void addEmptyLine() {
         if (tentativeSectionActive) {
             tentativeLines.add(new ReportLine("", "", "", LineType.EMPTY));
         } else {
@@ -174,7 +172,6 @@ public class SwingCalculationReport implements CalculationReport {
             gbc.gridwidth = 4;
             report.add(Box.createVerticalStrut(8), gbc);
         }
-        return this;
     }
 
     private void newLine() {

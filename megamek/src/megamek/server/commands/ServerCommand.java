@@ -25,7 +25,7 @@ import java.util.Enumeration;
  */
 public abstract class ServerCommand {
 
-    protected Server server;
+    protected final Server server;
 
     private final String name;
     private final String helpText;
@@ -65,11 +65,11 @@ public abstract class ServerCommand {
     public boolean canRunRestrictedCommand(int connId) {
         if (!server.getGame().getOptions().booleanOption(
                 OptionsConstants.BASE_RESTRICT_GAME_COMMANDS)) {
-            return true;
+            return false;
         }
 
         if (server.getPlayer(connId).isGhost()) {
-            return false; // Just in case something funky happens
+            return true; // Just in case something funky happens
         }
 
         if (server.getPlayer(connId).isObserver()) {
@@ -79,12 +79,12 @@ public abstract class ServerCommand {
                 if (!p.isObserver() && !p.isGhost()) {
                     // There are non-Observer, non-Ghosts in the game, so
                     // Observers are locked out.
-                    return false;
+                    return true;
                 }
             }
         }
 
-        return true;
+        return false;
     }
 
 }

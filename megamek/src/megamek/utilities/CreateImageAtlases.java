@@ -42,10 +42,10 @@ public class CreateImageAtlases {
     /**
      * Keeps track of how many images per row we should have in the atlas
      */
-    int imagesPerRow;
+    final int imagesPerRow;
 
-    int hexWidth = HexTileset.HEX_W;
-    int hexHeight = HexTileset.HEX_H;
+    final int hexWidth = HexTileset.HEX_W;
+    final int hexHeight = HexTileset.HEX_H;
 
     /**
      * Keep a map of image paths stored in an atlas (relative to the image
@@ -53,7 +53,7 @@ public class CreateImageAtlases {
      * written to a file which can later be used when loading images to see if a
      * particular image can be loaded from an atlas instead.
      */
-    ImageAtlasMap imgFileToAtlasMap = new ImageAtlasMap();
+    final ImageAtlasMap imgFileToAtlasMap = new ImageAtlasMap();
 
     /**
      * Keep track of what images have been written to an atlas. At the end, this
@@ -68,7 +68,7 @@ public class CreateImageAtlases {
      * that have been stored in an atlas. This can be written to a file for
      * later deletion.
      */
-    ArrayList<String> imagesStored = new ArrayList<>();
+    final ArrayList<String> imagesStored = new ArrayList<>();
 
     int improperImgDimsCount = 0;
 

@@ -873,8 +873,8 @@ class ForceGenerationOptionsPanel extends JPanel implements ActionListener, Focu
     private class FormationUnitTypeOptions extends UnitTypeOptions {
         private static final long serialVersionUID = -6448946137013919069L;
 
-        FormationTypesCard groundCard;
-        FormationTypesCard airCard;
+        final FormationTypesCard groundCard;
+        final FormationTypesCard airCard;
         
         public FormationUnitTypeOptions() {
             setLayout(new CardLayout());

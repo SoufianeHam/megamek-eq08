@@ -45,7 +45,7 @@ public class HonorUtil implements IHonorUtil {
     }
 
     @Override
-    public boolean isEnemyBroken(int entityId, int playerId, boolean forcedWithdrawal) {
+    public boolean isEnemyBroken(int entityId, int playerId) {
         return brokenEnemies.contains(entityId) && !isEnemyDishonored(playerId);
     }
 

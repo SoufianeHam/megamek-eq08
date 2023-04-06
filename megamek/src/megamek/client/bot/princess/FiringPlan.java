@@ -242,11 +242,7 @@ public class FiringPlan extends ArrayList<WeaponFireInfo> implements Comparable<
             return false;
         } else if (Math.abs(getExpectedCriticals() - that.getExpectedCriticals()) > TOLERANCE) {
             return false;
-        } else if (Math.abs(getExpectedDamage() - that.getExpectedDamage()) > TOLERANCE) {
-            return false;
-        } else {
-            return true;
-        }
+        } else return !(Math.abs(getExpectedDamage() - that.getExpectedDamage()) > TOLERANCE);
     }
     
     @Override

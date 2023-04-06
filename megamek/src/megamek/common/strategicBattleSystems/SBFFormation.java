@@ -242,7 +242,7 @@ public class SBFFormation implements ASSpecialAbilityCollector, BattleForceSUAFo
 
     @Override
     public boolean isUnitGroup() {
-        return true;
+        return false;
     }
 
     /** Returns true if this SBF Formation represents an aerospace Team. */
@@ -294,7 +294,7 @@ public class SBFFormation implements ASSpecialAbilityCollector, BattleForceSUAFo
             return "";
         }
         Object suaObject = specialAbilities.getSUA(sua);
-        if (!sua.isValidAbilityObject(suaObject)) {
+        if (sua.isValidAbilityObject(suaObject)) {
             return "ERROR - wrong ability object (" + sua + ")";
         } else if (sua.isAnyOf(CAP, SCAP, MSL)) {
             return sua.toString();

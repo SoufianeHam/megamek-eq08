@@ -248,7 +248,7 @@ public class AnalyzeFormationDialog extends JDialog {
     }
     
     class UnitTableRowFilter extends RowFilter<UnitTableModel,Integer> {
-        FormationType.Constraint constraint;
+        final FormationType.Constraint constraint;
 
         public UnitTableRowFilter(FormationType.Constraint constraint) {
             this.constraint = constraint;

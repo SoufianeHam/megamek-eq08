@@ -22,7 +22,7 @@ import java.util.Properties;
 
 public class BotConfiguration {
 
-    static Properties BotProperties = new Properties();
+    static final Properties BotProperties = new Properties();
 
     static {
         try (InputStream is = new FileInputStream("mmconf/bot.properties")) {

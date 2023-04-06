@@ -98,7 +98,7 @@ public class RandomArmyCreator {
     /**
      * Sorting MechSummary by BV
      */
-    static Comparator<MechSummary> bvComparator = Comparator.comparingInt(MechSummary::getBV);
+    static final Comparator<MechSummary> bvComparator = Comparator.comparingInt(MechSummary::getBV);
 
     private static List<MechSummary> generateArmy(
             List<MechSummary> unitList, int count, int targetBV, int allowedVariance) {

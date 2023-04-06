@@ -32,10 +32,10 @@ public class RamAttackAction extends AbstractAttackAction {
     private static final long serialVersionUID = -3549351664290057785L;
 
     public RamAttackAction(Entity attacker, Targetable target) {
-        this(attacker.getId(), target.getTargetType(), target.getId(), target.getPosition());
+        this(attacker.getId(), target.getTargetType(), target.getId());
     }
 
-    public RamAttackAction(int entityId, int targetType, int targetId, Coords targetPos) {
+    public RamAttackAction(int entityId, int targetType, int targetId) {
         super(entityId, targetType, targetId);
     }
 
@@ -46,14 +46,13 @@ public class RamAttackAction extends AbstractAttackAction {
         final Entity entity = game.getEntity(getEntityId());
         return toHit(game, game.getTarget(getTargetType(), getTargetId()),
                      entity.getPosition(), entity.getElevation(), 
-                     entity.getPriorPosition(), entity.moved);
+                     entity.getPriorPosition());
     }
     
     /**
      * To-hit number for a ram, assuming that movement has been handled
      */
-    public ToHitData toHit(Game game, Targetable target, Coords src, int elevation, Coords priorSrc,
-                           EntityMovementType movement) {
+    public ToHitData toHit(Game game, Targetable target, Coords src, int elevation, Coords priorSrc) {
         final Entity ae = getEntity(game);
 
         // arguments legal?
@@ -230,7 +229,7 @@ public class RamAttackAction extends AbstractAttackAction {
             return new ToHitData(TargetRoll.IMPOSSIBLE, "Could not reach target with movement");
         }
         
-        return toHit(game, target, ramSrc, ramEl, priorSrc, ramStep.getMovementType(true));
+        return toHit(game, target, ramSrc, ramEl, priorSrc);
     }
 
     /**
@@ -259,10 +258,10 @@ public class RamAttackAction extends AbstractAttackAction {
        if (target.isAero()) {
            tvel = ((IAero) target).getCurrentVelocity();
        }
-       return getDamageTakenBy(attacker, target, ((Entity) attacker).getPriorPosition(), avel, tvel);
+       return getDamageTakenBy(target, ((Entity) attacker).getPriorPosition(), avel, tvel);
    }
    
-   public static int getDamageTakenBy(IAero attacker, Entity target, Coords atthex, int avel, int tvel) {
+   public static int getDamageTakenBy(Entity target, Coords atthex, int avel, int tvel) {
        int netv = Compute.getNetVelocity(atthex, target, avel, tvel);
        return (int) Math.ceil((target.getWeight() / 10.0) * netv);
    }

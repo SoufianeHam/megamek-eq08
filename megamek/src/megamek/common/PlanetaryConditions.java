@@ -172,7 +172,7 @@ public class PlanetaryConditions implements Serializable {
     private static final String MSG_NAME_ATMOSPHERE_STANDARD = Messages.getString("PlanetaryConditions.DisplayableName.Atmosphere.Standard");
     private static final String MSG_NAME_ATMOSPHERE_HIGH = Messages.getString("PlanetaryConditions.DisplayableName.Atmosphere.High");
     private static final String MSG_NAME_ATMOSPHERE_VHIGH = Messages.getString("PlanetaryConditions.DisplayableName.Atmosphere.Very High");
-    public static String[] atmoNames = { MSG_NAME_ATMOSPHERE_VACUUM, MSG_NAME_ATMOSPHERE_TRACE, MSG_NAME_ATMOSPHERE_THIN,
+    public static final String[] atmoNames = { MSG_NAME_ATMOSPHERE_VACUUM, MSG_NAME_ATMOSPHERE_TRACE, MSG_NAME_ATMOSPHERE_THIN,
             MSG_NAME_ATMOSPHERE_STANDARD, MSG_NAME_ATMOSPHERE_HIGH, MSG_NAME_ATMOSPHERE_VHIGH };
     public static final int ATMO_SIZE = atmoNames.length;
     private static final String MSG_INDICATOR_ATMOSPHERE_VACUUM = Messages.getString("PlanetaryConditions.Indicator.Atmosphere.Vacuum");

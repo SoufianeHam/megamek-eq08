@@ -23,7 +23,6 @@ import java.util.Vector;
 
 import megamek.common.Building;
 import megamek.common.Entity;
-import megamek.common.EquipmentMode;
 import megamek.common.Game;
 import megamek.common.Report;
 import megamek.common.TagInfo;
@@ -75,7 +74,7 @@ public class TAGHandler extends WeaponHandler {
         // add even misses, as they waste homing missiles.
         TagInfo info = new TagInfo(ae.getId(), target.getTargetType(), target, true);
         game.addTagInfo(info);
-        return false;
+        return true;
     }
 
     @Override

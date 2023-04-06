@@ -88,16 +88,14 @@ public class ImageAtlasMap {
         return imgFileToAtlasMap.get(convertPathToLinux(key));
     }
 
-    public boolean writeToFile() {
+    public void writeToFile() {
         XStream xstream = new XStream();
         try (OutputStream fos = new FileOutputStream(Configuration.imageFileAtlasMapFile());
              Writer writer = new OutputStreamWriter(fos, StandardCharsets.UTF_8)) {
             xstream.toXML(imgFileToAtlasMap, writer);
         } catch (Exception e) {
             LogManager.getLogger().error("", e);
-            return false;
         }
-        return true;
     }
 
     @SuppressWarnings("unchecked")

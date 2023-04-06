@@ -312,8 +312,8 @@ public class CompositeTechLevel implements ITechnology, Serializable {
         
         Integer start = null;
         Integer end = null;
-        boolean startApproximate = false;
-        boolean endApproximate = false;
+        final boolean startApproximate = false;
+        final boolean endApproximate = false;
         
         DateRange(int start, int end) {
             this.start = start;

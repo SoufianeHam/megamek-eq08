@@ -151,7 +151,7 @@ public class SRMInfernoHandler extends SRMHandler {
         if (bMissed && !missReported) {
             reportMiss(vPhaseReport);
             // Works out fire setting, AMS shots, and whether continuation is necessary.
-            if (!handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg, vPhaseReport)) {
+            if (handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg, vPhaseReport)) {
                 return false;
             }
         }

@@ -27,11 +27,11 @@ public class Flare implements Serializable {
     private static final long serialVersionUID = 451911245389504483L;
     public Coords position;
     public int turnsToBurn;
-    public int radius;
+    public final int radius;
     public int flags = 0;
 
-    public static int F_IGNITED = 1;
-    public static int F_DRIFTING = 2;
+    public static final int F_IGNITED = 1;
+    public static final int F_DRIFTING = 2;
 
     public Flare(Coords position, int turnsToBurn, int radius, int flags) {
         this.position = position;

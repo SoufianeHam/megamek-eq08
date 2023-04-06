@@ -47,7 +47,7 @@ class MovementSprite extends Sprite {
 
     private int vel;
 
-    public MovementSprite(BoardView boardView1, Entity e, int[] v, Color col, boolean isCurrent) {
+    public MovementSprite(BoardView boardView1, Entity e, int[] v) {
         // this.mv = en.getMV();
 
         super(boardView1);

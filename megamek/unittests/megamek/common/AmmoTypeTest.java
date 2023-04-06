@@ -33,25 +33,25 @@ import static org.mockito.Mockito.when;
  * @since 9/21/13 8:13 AM
  */
 public class AmmoTypeTest {
-    static WeaponType mockAC5 = mock(WeaponType.class);
-    static AmmoType mockAC5AmmoType = mock(AmmoType.class);
-    static Mounted mockAmmoAC5 = mock(Mounted.class);
-    static Mounted mockAmmoAC5Empty = mock(Mounted.class);
-    static AmmoType mockAC10AmmoType = mock(AmmoType.class);
-    static Mounted mockAmmoAC10 = mock(Mounted.class);
+    static final WeaponType mockAC5 = mock(WeaponType.class);
+    static final AmmoType mockAC5AmmoType = mock(AmmoType.class);
+    static final Mounted mockAmmoAC5 = mock(Mounted.class);
+    static final Mounted mockAmmoAC5Empty = mock(Mounted.class);
+    static final AmmoType mockAC10AmmoType = mock(AmmoType.class);
+    static final Mounted mockAmmoAC10 = mock(Mounted.class);
 
-    static WeaponType mockPPC = mock(WeaponType.class);
+    static final WeaponType mockPPC = mock(WeaponType.class);
 
-    static WeaponType mockSRM4 = mock(WeaponType.class);
-    static AmmoType mockSRM4AmmoType = mock(AmmoType.class);
-    static Mounted mockAmmoSrm4 = mock(Mounted.class);
-    static AmmoType mockSRM6AmmoType = mock(AmmoType.class);
-    static Mounted mockAmmoSrm6 = mock(Mounted.class);
-    static AmmoType mockInferno4AmmoType = mock(AmmoType.class);
-    static Mounted mockAmmoInferno4 = mock(Mounted.class);
+    static final WeaponType mockSRM4 = mock(WeaponType.class);
+    static final AmmoType mockSRM4AmmoType = mock(AmmoType.class);
+    static final Mounted mockAmmoSrm4 = mock(Mounted.class);
+    static final AmmoType mockSRM6AmmoType = mock(AmmoType.class);
+    static final Mounted mockAmmoSrm6 = mock(Mounted.class);
+    static final AmmoType mockInferno4AmmoType = mock(AmmoType.class);
+    static final Mounted mockAmmoInferno4 = mock(Mounted.class);
 
-    static MiscType notAmmoType = mock(MiscType.class);
-    static Mounted mockNotAmmo = mock(Mounted.class);
+    static final MiscType notAmmoType = mock(MiscType.class);
+    static final Mounted mockNotAmmo = mock(Mounted.class);
 
     @BeforeAll
     public static void beforeAll() {

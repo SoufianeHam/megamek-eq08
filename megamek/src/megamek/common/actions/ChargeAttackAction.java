@@ -52,16 +52,16 @@ public class ChargeAttackAction extends DisplacementAttackAction {
         final Entity entity = game.getEntity(getEntityId());
         return toHit(game, game.getTarget(getTargetType(), getTargetId()),
                      entity.getPosition(), entity.getElevation(), entity.moved,
-                     skid, false);
+                     skid);
     }
 
     /**
      * To-hit number for a charge, assuming that movement has been handled
+     *
      * @param game The current {@link Game}
      */
     public ToHitData toHit(Game game, Targetable target, Coords src,
-                           int elevation, EntityMovementType movement, boolean skid,
-                           boolean gotUp) {
+                           int elevation, EntityMovementType movement, boolean skid) {
         final Entity ae = getEntity(game);
 
         // arguments legal?
@@ -422,9 +422,8 @@ public class ChargeAttackAction extends DisplacementAttackAction {
                 chargeSrc,
                 chargeEl,
                 chargeStep.getMovementType(true),
-                false,
-                md.contains(MoveStepType.GET_UP)
-                || md.contains(MoveStepType.CAREFUL_STAND));
+                false
+        );
     }
 
     /**
@@ -466,8 +465,7 @@ public class ChargeAttackAction extends DisplacementAttackAction {
     /**
      * Damage that a mech suffers after a successful charge.
      */
-    public static int getDamageTakenBy(Entity entity, Building bldg,
-                                       Coords coords) {
+    public static int getDamageTakenBy(Entity entity) {
         // Charges against targets that have no tonnage use the attacker's tonnage to compute damage.
         return getDamageTakenBy(entity, entity, false, entity.delta_distance);
     }

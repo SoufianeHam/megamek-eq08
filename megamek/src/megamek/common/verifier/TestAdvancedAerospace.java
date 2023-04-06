@@ -47,12 +47,12 @@ public class TestAdvancedAerospace extends TestAero {
          * The type, corresponding to types defined in 
          * <code>EquipmentType</code>.
          */
-        public int type;
+        public final int type;
                 
         /**
          * Denotes whether this armor is Clan or not.
          */
-        public boolean isClan;
+        public final boolean isClan;
         
         CapitalArmor(int t, boolean c) {
             type = t;
@@ -683,7 +683,7 @@ public class TestAdvancedAerospace extends TestAero {
     }
 
     @Override
-    public String printArmorLocProp(int loc, int wert) {
+    public String printArmorLocProp(int wert) {
         return " is greater than " + wert + "!";
     }
 
@@ -733,7 +733,7 @@ public class TestAdvancedAerospace extends TestAero {
         if (skip()) {
             return true;
         }
-        if (!correctWeight(buff)) {
+        if (correctWeight(buff)) {
             buff.insert(0, printTechLevel() + printShortMovement());
             buff.append(printWeightCalculation());
             correct = false;
@@ -872,7 +872,7 @@ public class TestAdvancedAerospace extends TestAero {
                         rightBroad.merge(m.getType(), 1, Integer::sum);
                         break;
                 }
-                if (!isAeroWeapon(m.getType(), vessel)) {
+                if (isAeroWeapon(m.getType(), vessel)) {
                     buff.append("Cannot mount " + m.getType().getName() + "\n");
                     illegal = true;
                 }
@@ -970,7 +970,7 @@ public class TestAdvancedAerospace extends TestAero {
             bayDoors += bay.getDoors();
             if (bay.getDoors() == 0) {
                 BayData data = BayData.getBayType(bay);
-                if ((data != null) && !data.isCargoBay() && !data.isInfantryBay()) {
+                if ((data != null) && !data.isCargoBay() && data.isInfantryBay()) {
                     buff.append("Transport bays other than cargo and infantry require at least one door.\n");
                     illegal = true;
                 }

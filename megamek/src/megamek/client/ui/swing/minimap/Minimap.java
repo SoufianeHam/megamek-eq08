@@ -1341,7 +1341,7 @@ public final class Minimap extends JPanel implements IPreferenceChangeListener {
 
     private final BoardListener boardListener = new BoardListenerAdapter() {
         @Override
-        public void boardNewBoard(BoardEvent b) {
+        public void boardNewBoard() {
             initializeMap();
         }
 
@@ -1402,7 +1402,7 @@ public final class Minimap extends JPanel implements IPreferenceChangeListener {
         }
 
         @Override
-        public void gameBoardChanged(GameBoardChangeEvent e) {
+        public void gameBoardChanged() {
             refreshMap();
         }
         
@@ -1412,9 +1412,9 @@ public final class Minimap extends JPanel implements IPreferenceChangeListener {
         }
     };
 
-    BoardViewListener boardViewListener = new BoardViewListenerAdapter() {
+    final BoardViewListener boardViewListener = new BoardViewListenerAdapter() {
         @Override
-        public void hexCursor(BoardViewEvent b) {
+        public void hexCursor() {
             update();
         }
         
@@ -1424,7 +1424,7 @@ public final class Minimap extends JPanel implements IPreferenceChangeListener {
         }
 
         @Override
-        public void boardHexHighlighted(BoardViewEvent b) {
+        public void boardHexHighlighted() {
             update();
         }
 
@@ -1454,7 +1454,7 @@ public final class Minimap extends JPanel implements IPreferenceChangeListener {
         }
     };
 
-    MouseListener mouseListener = new MouseAdapter() {
+    final MouseListener mouseListener = new MouseAdapter() {
 
         @Override
         public void mouseReleased(MouseEvent me) {
@@ -1465,7 +1465,7 @@ public final class Minimap extends JPanel implements IPreferenceChangeListener {
         }
     };
 
-    MouseMotionListener mouseMotionListener = new MouseMotionAdapter() {
+    final MouseMotionListener mouseMotionListener = new MouseMotionAdapter() {
 
         @Override
         public void mouseDragged(MouseEvent me) {
@@ -1480,7 +1480,7 @@ public final class Minimap extends JPanel implements IPreferenceChangeListener {
         }
     };
 
-    MouseWheelListener mouseWheelListener = new MouseWheelListener() {
+    final MouseWheelListener mouseWheelListener = new MouseWheelListener() {
         @Override
         public void mouseWheelMoved(MouseWheelEvent we) {
             Point mapPoint = SwingUtilities.convertPoint(dialog, we.getX(), we.getY(), Minimap.this);
@@ -1494,7 +1494,7 @@ public final class Minimap extends JPanel implements IPreferenceChangeListener {
         }
     };
 
-    ComponentListener componentListener = new ComponentAdapter() {
+    final ComponentListener componentListener = new ComponentAdapter() {
         @Override
         public void componentShown(ComponentEvent ce) {
             refreshMap();

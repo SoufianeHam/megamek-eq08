@@ -193,7 +193,7 @@ public class MekTableModel extends AbstractTableModel {
             pilotTooltips.add(HTML_BEGIN + s + HTML_END);
         }
         final boolean rpgSkills = clientGui.getClient().getGame().getOptions().booleanOption(OptionsConstants.RPG_RPG_GUNNERY);
-        unitCells.add(LobbyMekCellFormatter.unitTableEntry(entity, chatLounge, false, chatLounge.isCompact()));
+        unitCells.add(LobbyMekCellFormatter.unitTableEntry(entity, chatLounge, chatLounge.isCompact()));
         pilotCells.add(LobbyMekCellFormatter.pilotTableEntry(entity, chatLounge.isCompact(), hideEntity, rpgSkills));
     }
     

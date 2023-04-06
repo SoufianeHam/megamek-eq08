@@ -64,7 +64,7 @@ public class UnitDisplay extends JPanel implements IPreferenceChangeListener {
     private final SummaryPanel mPan;
     private final PilotPanel pPan;
     private final ArmorPanel aPan;
-    public WeaponPanel wPan;
+    public final WeaponPanel wPan;
     private final SystemPanel sPan;
     private final ExtraPanel ePan;
     private final ClientGUI clientgui;
@@ -407,11 +407,7 @@ public class UnitDisplay extends JPanel implements IPreferenceChangeListener {
 
                     @Override
                     public boolean shouldPerformAction() {
-                        if (ud.isVisible()) {
-                            return true;
-                        } else {
-                            return false;
-                        }
+                        return ud.isVisible();
                     }
 
                     @Override
@@ -431,11 +427,7 @@ public class UnitDisplay extends JPanel implements IPreferenceChangeListener {
 
                     @Override
                     public boolean shouldPerformAction() {
-                        if (ud.isVisible()) {
-                            return true;
-                        } else {
-                            return false;
-                        }
+                        return ud.isVisible();
                     }
 
                     @Override
@@ -455,11 +447,7 @@ public class UnitDisplay extends JPanel implements IPreferenceChangeListener {
 
                     @Override
                     public boolean shouldPerformAction() {
-                        if (ud.isVisible()) {
-                            return true;
-                        } else {
-                            return false;
-                        }
+                        return ud.isVisible();
                     }
 
                     @Override
@@ -479,11 +467,7 @@ public class UnitDisplay extends JPanel implements IPreferenceChangeListener {
 
                     @Override
                     public boolean shouldPerformAction() {
-                        if (ud.isVisible()) {
-                            return true;
-                        } else {
-                            return false;
-                        }
+                        return ud.isVisible();
                     }
 
                     @Override
@@ -503,11 +487,7 @@ public class UnitDisplay extends JPanel implements IPreferenceChangeListener {
 
                     @Override
                     public boolean shouldPerformAction() {
-                        if (ud.isVisible()) {
-                            return true;
-                        } else {
-                            return false;
-                        }
+                        return ud.isVisible();
                     }
 
                     @Override
@@ -527,11 +507,7 @@ public class UnitDisplay extends JPanel implements IPreferenceChangeListener {
 
                     @Override
                     public boolean shouldPerformAction() {
-                        if (ud.isVisible()) {
-                            return true;
-                        } else {
-                            return false;
-                        }
+                        return ud.isVisible();
                     }
 
                     @Override
@@ -656,13 +632,10 @@ public class UnitDisplay extends JPanel implements IPreferenceChangeListener {
     void processMechDisplayEvent(MechDisplayEvent event) {
         for (int i = 0; i < eventListeners.size(); i++) {
             MechDisplayListener lis = eventListeners.get(i);
-            switch (event.getType()) {
-                case MechDisplayEvent.WEAPON_SELECTED:
-                    lis.weaponSelected(event);
-                    break;
-                default:
-                    LogManager.getLogger().error("Received unknown event " + event.getType() + " in processMechDisplayEvent");
-                    break;
+            if (event.getType() == MechDisplayEvent.WEAPON_SELECTED) {
+                lis.weaponSelected(event);
+            } else {
+                LogManager.getLogger().error("Received unknown event " + event.getType() + " in processMechDisplayEvent");
             }
         }
     }

@@ -152,9 +152,9 @@ public class ShortestPathFinder extends MovePathFinder<MovePath> {
      */
     public static class MovePathAStarComparator implements Comparator<MovePath>, Serializable {
         private static final long serialVersionUID = -2116704925028576850L;
-        Coords destination;
-        MoveStepType stepType;
-        Board board;
+        final Coords destination;
+        final MoveStepType stepType;
+        final Board board;
 
         public MovePathAStarComparator(Coords destination, MoveStepType stepType, Board board) {
             this.destination = Objects.requireNonNull(destination);
@@ -213,7 +213,7 @@ public class ShortestPathFinder extends MovePathFinder<MovePath> {
 
     private ShortestPathFinder(EdgeRelaxer<MovePath, MovePath> costRelaxer,
             Comparator<MovePath> comparator, final MoveStepType stepType, Game game) {
-        super(costRelaxer, new NextStepsAdjacencyMap(stepType), comparator, game);
+        super(costRelaxer, new NextStepsAdjacencyMap(stepType), comparator);
     }
 
     /**

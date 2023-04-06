@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * Parent class for options settings
@@ -236,7 +235,7 @@ public abstract class AbstractOptions implements Serializable {
         addOption(group, name, IOption.FLOAT, defaultValue);
     }
 
-    protected void addOption(IBasicOptionGroup group, String name, Vector<String> defaultValue) {
+    protected void addOption(IBasicOptionGroup group, String name) {
         addOption(group, name, IOption.CHOICE, "");
     }
 

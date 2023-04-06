@@ -228,7 +228,7 @@ public class DestructionAwareDestinationPathfinder extends BoardEdgePathFinder {
         
         // let's avoid pathing through buildings containing our immobile units - 
         // they're not going to get out of the way and we can probably do better than killing our own guys
-        if (!child.isJumping() && friendlyFireCheck(child.getEntity(), child.getGame(), child.getFinalCoords(), false)) {
+        if (!child.isJumping() && friendlyFireCheck(child.getEntity(), child.getGame(), child.getFinalCoords())) {
             return;
         }
         
@@ -253,7 +253,7 @@ public class DestructionAwareDestinationPathfinder extends BoardEdgePathFinder {
      * Utility function that returns true if an attack on the building in the given coordinates
      * will result in damage to friendly units. Computation is cached as it is somewhat expensive to perform for each possible path node.
      */
-    private boolean friendlyFireCheck(Entity shooter, Game game, Coords position, boolean includeMobileUnits) {
+    private boolean friendlyFireCheck(Entity shooter, Game game, Coords position) {
         if (friendlyFireCheckResults.containsKey(position)) {
             return friendlyFireCheckResults.get(position);
         }
@@ -270,7 +270,7 @@ public class DestructionAwareDestinationPathfinder extends BoardEdgePathFinder {
         // - is friendly
         // - if we care only about mobile units, has no MP 
         for (Entity entity : game.getEntitiesVector(position, true)) {
-            if (!entity.isEnemyOf(shooter) && (includeMobileUnits || (entity.getWalkMP(true, false) == 0))) {
+            if (!entity.isEnemyOf(shooter) && (false || (entity.getWalkMP(true, false) == 0))) {
                 friendlyFireCheckResults.put(position, true);
                 return true;
             }

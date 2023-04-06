@@ -29,7 +29,7 @@ import java.util.Vector;
  */
 public class CLIATMHandler extends ATMHandler {
     private static final long serialVersionUID = 5476183194060709574L;
-    boolean isAngelECMAffected;
+    final boolean isAngelECMAffected;
 
     public CLIATMHandler(ToHitData t, WeaponAttackAction w, Game g, GameManager m) {
         super(t, w, g, m);
@@ -393,7 +393,7 @@ public class CLIATMHandler extends ATMHandler {
             return super.handleSpecialMiss(entityTarget, bldgDamagedOnMiss,
                     bldg, vPhaseReport);
         }
-        return false;
+        return true;
     }
     
     /**
@@ -512,7 +512,7 @@ public class CLIATMHandler extends ATMHandler {
                 // Works out fire setting, AMS shots, and whether continuation
                 // is
                 // necessary.
-                if (!handleSpecialMiss(entityTarget, bldgDamagedOnMiss,
+                if (handleSpecialMiss(entityTarget, bldgDamagedOnMiss,
                         bldg, vPhaseReport)) {
                     return false;
                 }
@@ -566,7 +566,7 @@ public class CLIATMHandler extends ATMHandler {
             vPhaseReport.addElement(r);
             // check for nemesis
             boolean shotAtNemesisTarget = false;
-            if (bNemesisConfusable && !waa.isNemesisConfused()) {
+            if (bNemesisConfusable && waa.isNemesisConfused()) {
                 // loop through nemesis targets
                 for (Enumeration<Entity> e = game.getNemesisTargets(ae,
                         target.getPosition()); e.hasMoreElements();) {
@@ -688,7 +688,7 @@ public class CLIATMHandler extends ATMHandler {
 
                 // Works out fire setting, AMS shots, and whether continuation
                 // is necessary.
-                if (!handleSpecialMiss(entityTarget, bldgDamagedOnMiss,
+                if (handleSpecialMiss(entityTarget, bldgDamagedOnMiss,
                         bldg, vPhaseReport)) {
                     return false;
                 }
@@ -792,7 +792,7 @@ public class CLIATMHandler extends ATMHandler {
                 // targeting a hex for igniting
                 if ((target.getTargetType() == Targetable.TYPE_HEX_IGNITE)
                     || (target.getTargetType() == Targetable.TYPE_BLDG_IGNITE)) {
-                    handleIgnitionDamage(vPhaseReport, bldg, hits);
+                    handleIgnitionDamage(vPhaseReport);
                     return false;
                 }
                 // targeting a hex for clearing

@@ -154,9 +154,9 @@ public class MMStaticDirectoryManager {
      *
      * @see #getCamouflage()
      */
-    public static @Nullable AbstractDirectory refreshCamouflageDirectory() {
+    public static @Nullable void refreshCamouflageDirectory() {
         parseCamouflageDirectory = true;
-        return getCamouflage();
+        getCamouflage();
     }
 
     /**
@@ -166,9 +166,9 @@ public class MMStaticDirectoryManager {
      *
      * @see #getPortraits()
      */
-    public static @Nullable AbstractDirectory refreshPortraitDirectory() {
+    public static @Nullable void refreshPortraitDirectory() {
         parsePortraitDirectory = true;
-        return getPortraits();
+        getPortraits();
     }
 
     /**

@@ -19,7 +19,6 @@ import megamek.common.Report;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Map;
 
 /**
  * implements "enemy commander destroyed"
@@ -32,7 +31,7 @@ public class EnemyCmdrDestroyedVictory implements IVictoryConditions, Serializab
     }
 
     @Override
-    public VictoryResult victory(Game game, Map<String, Object> ctx) {
+    public VictoryResult victory(Game game) {
         VictoryResult vr = new VictoryResult(true);
         // check all players/teams for killing enemy commanders
         // score is 1.0 when enemy commanders are dead

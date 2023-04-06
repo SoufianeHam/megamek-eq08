@@ -110,40 +110,40 @@ public class FieldofFireSprite extends MovementEnvelopeSprite {
         switch (bTypes[borders]) {
             case 1: // 2 adjacent borders
                 drawBorderXC(graph, getHexCrossArea01(bDir[borders], borderW),
-                        getHexCrossLine01(bDir[borders], borderW));
+                        getHexCrossLine01(bDir[borders]));
                 break;
             case 2: // 3 adjacent borders
                 drawBorderXC(graph, getHexCrossArea012(bDir[borders], borderW),
-                        getHexCrossLine012(bDir[borders], borderW));
+                        getHexCrossLine012(bDir[borders]));
                 break;
             case 3: // 4 adjacent borders
                 drawBorderXC(graph, getHexCrossArea0123(bDir[borders], borderW),
-                        getHexCrossLine0123(bDir[borders], borderW));
+                        getHexCrossLine0123(bDir[borders]));
                 break;
             case 4: // twice two adjacent borders
                 drawBorderXC(graph, getHexCrossArea01(bDir[borders], borderW),
-                        getHexCrossLine01(bDir[borders], borderW));
+                        getHexCrossLine01(bDir[borders]));
                 drawBorderXC(graph, getHexCrossArea01(bDir[borders]+3, borderW),
-                        getHexCrossLine01(bDir[borders]+3, borderW));
+                        getHexCrossLine01(bDir[borders]+3));
                 break;
             case 5: // three adjacent borders and one lone
                 drawBorderXC(graph, getHexCrossArea012(bDir[borders], borderW),
-                        getHexCrossLine012(bDir[borders], borderW));
+                        getHexCrossLine012(bDir[borders]));
                 drawLoneBorder(graph, bDir[borders] + 4);
                 break;
             case 6: // two adjacent borders and one lone
                 drawBorderXC(graph, getHexCrossArea01(bDir[borders], borderW),
-                        getHexCrossLine01(bDir[borders], borderW));
+                        getHexCrossLine01(bDir[borders]));
                 drawLoneBorder(graph, bDir[borders] + 3);
                 break;
             case 7: // two adjacent borders and one lone (other hexface)
                 drawBorderXC(graph, getHexCrossArea01(bDir[borders], borderW),
-                        getHexCrossLine01(bDir[borders], borderW));
+                        getHexCrossLine01(bDir[borders]));
                 drawLoneBorder(graph, bDir[borders] + 4);
                 break;
             case 8:
                 drawBorderXC(graph, getHexCrossArea01234(bDir[borders], borderW),
-                        getHexCrossLine01234(bDir[borders], borderW));
+                        getHexCrossLine01234(bDir[borders]));
                 break;
             default:
                 drawNormalBorders(graph);

@@ -245,7 +245,7 @@ class ArmorPanel extends PicMap {
             ams = aero;
             if (en instanceof SmallCraft) {
                 SmallCraft sc = (SmallCraft) en;
-                if (sc.isSpheroid()) {
+                if (!sc.isSpheroid()) {
                     ams = sphere;
                 }
             }

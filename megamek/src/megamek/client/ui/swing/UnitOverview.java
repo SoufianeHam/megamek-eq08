@@ -260,12 +260,8 @@ public class UnitOverview implements IDisplayable {
         int xOffset = size.width - DIST_SIDE - ICON_WIDTH;
         int yOffset = DIST_TOP;
 
-        if ((x < xOffset) || (x > xOffset + ICON_WIDTH) || (y < yOffset)
-                || (y > yOffset + (unitsPerPage * (ICON_HEIGHT + PADDING)))) {
-            return false;
-        } else {
-            return true;
-        }
+        return (x >= xOffset) && (x <= xOffset + ICON_WIDTH) && (y >= yOffset)
+                && (y <= yOffset + (unitsPerPage * (ICON_HEIGHT + PADDING)));
     }
 
     @Override

@@ -184,13 +184,9 @@ public class MoveStep implements Serializable {
             isJumpingPath = path.isJumping();
             isCarefulPath = path.isCareful();
         }
-        if ((type == MoveStepType.UNLOAD) || (type == MoveStepType.LAUNCH)
+        hasEverUnloaded = (type == MoveStepType.UNLOAD) || (type == MoveStepType.LAUNCH)
                 || (type == MoveStepType.DROP) || (type == MoveStepType.UNDOCK)
-                || (type == MoveStepType.DISCONNECT)) {
-            hasEverUnloaded = true;
-        } else {
-            hasEverUnloaded = false;
-        }
+                || (type == MoveStepType.DISCONNECT);
     }
 
     /**
@@ -208,13 +204,9 @@ public class MoveStep implements Serializable {
         targetId = target.getId();
         targetType = target.getTargetType();
         targetPos = pos;
-        if ((type == MoveStepType.UNLOAD) || (type == MoveStepType.LAUNCH)
+        hasEverUnloaded = (type == MoveStepType.UNLOAD) || (type == MoveStepType.LAUNCH)
                 || (type == MoveStepType.DROP) || (type == MoveStepType.UNDOCK)
-                || (type == MoveStepType.DISCONNECT)) {
-            hasEverUnloaded = true;
-        } else {
-            hasEverUnloaded = false;
-        }
+                || (type == MoveStepType.DISCONNECT);
     }
 
     /**
@@ -229,13 +221,9 @@ public class MoveStep implements Serializable {
         this(path, type);
         targetId = target.getId();
         targetType = target.getTargetType();
-        if ((type == MoveStepType.UNLOAD) || (type == MoveStepType.LAUNCH)
+        hasEverUnloaded = (type == MoveStepType.UNLOAD) || (type == MoveStepType.LAUNCH)
                 || (type == MoveStepType.DROP) || (type == MoveStepType.UNDOCK)
-                || (type == MoveStepType.DISCONNECT)) {
-            hasEverUnloaded = true;
-        } else {
-            hasEverUnloaded = false;
-        }
+                || (type == MoveStepType.DISCONNECT);
     }
 
     /**
@@ -270,13 +258,9 @@ public class MoveStep implements Serializable {
                     TreeMap<Integer, Vector<Integer>> targets) {
         this(path, type);
         launched = targets;
-        if ((type == MoveStepType.UNLOAD) || (type == MoveStepType.LAUNCH)
+        hasEverUnloaded = (type == MoveStepType.UNLOAD) || (type == MoveStepType.LAUNCH)
                 || (type == MoveStepType.DROP) || (type == MoveStepType.UNDOCK)
-                || (type == MoveStepType.DISCONNECT)) {
-            hasEverUnloaded = true;
-        } else {
-            hasEverUnloaded = false;
-        }
+                || (type == MoveStepType.DISCONNECT);
     }
 
     public MoveStep(MovePath path, MoveStepType type, int recovery,
@@ -489,12 +473,12 @@ public class MoveStep implements Serializable {
             setPavementStep(true);
         } else {
             setPavementStep(false);
-            setOnlyPavement(false);
+            setOnlyPavement();
         }
 
         setHasJustStood(false);
         if (prev.isThisStepBackwards() != isThisStepBackwards()) {
-            setDistance(0); // start over after shifting gears
+            setDistance(); // start over after shifting gears
         }
         addDistance(1);
 
@@ -617,9 +601,8 @@ public class MoveStep implements Serializable {
                                     game.getBoard().getHex(prev.getPosition()),
                                     game.getBoard().getHex(getPosition()),
                                     elevation,
-                                    climbMode(),
-                                    (entity.getMovementMode() == EntityMovementMode.WIGE)
-                                            && (prev.getType() == MoveStepType.CLIMB_MODE_OFF)));
+                                    climbMode()
+                            ));
                 }
             } else {
                 setElevation(entity
@@ -627,9 +610,8 @@ public class MoveStep implements Serializable {
                                 game.getBoard().getHex(prev.getPosition()),
                                 game.getBoard().getHex(getPosition()),
                                 elevation,
-                                climbMode(),
-                                (entity.getMovementMode() == EntityMovementMode.WIGE)
-                                        && (prev.getType() == MoveStepType.CLIMB_MODE_OFF)));
+                                climbMode()
+                        ));
             }
         }
 
@@ -663,11 +645,11 @@ public class MoveStep implements Serializable {
                 && (entity.getMovementMode() != EntityMovementMode.VTOL)
                 && (entity.getMovementMode() != EntityMovementMode.WIGE)
                 && !cachedEntityState.hasWorkingMisc(MiscType.F_FULLY_AMPHIBIOUS)) {
-            setRunProhibited(true);
+            setRunProhibited();
         }
         if (entity.getMovedBackwards()
                 && !entity.hasQuirk(OptionsConstants.QUIRK_POS_POWER_REVERSE)) {
-            setRunProhibited(true);
+            setRunProhibited();
         }
 
         int magmaLevel = destHex.terrainLevel(Terrains.MAGMA);
@@ -769,7 +751,7 @@ public class MoveStep implements Serializable {
                     setPavementStep(true);
                 } else {
                     setPavementStep(false);
-                    setOnlyPavement(false);
+                    setOnlyPavement();
                 }
 
                 // Infantry can turn for free, except for field artillery
@@ -799,7 +781,7 @@ public class MoveStep implements Serializable {
                 moveInDir((getFacing() + 3) % 6);
                 setThisStepBackwards(true);
                 if (!entity.hasQuirk(OptionsConstants.QUIRK_POS_POWER_REVERSE)) {
-                    setRunProhibited(true);
+                    setRunProhibited();
                 }
                 compileMove(game, entity, prev, cachedEntityState);
                 break;
@@ -824,7 +806,7 @@ public class MoveStep implements Serializable {
                         MovePath.turnForLateralShift(getType())) + 3) % 6);
                 setThisStepBackwards(true);
                 if (!entity.hasQuirk(OptionsConstants.QUIRK_POS_POWER_REVERSE)) {
-                    setRunProhibited(true);
+                    setRunProhibited();
                 }
                 compileMove(game, entity, prev, cachedEntityState);
                 if (entity.isAirborne()) {
@@ -992,29 +974,25 @@ public class MoveStep implements Serializable {
                 setMp(1);
                 break;
             case EVADE:
-                setEvading(true);
+                setEvading();
                 if (entity.isAirborne()) {
                     setMp(2);
                 }
                 break;
             case SHUTDOWN:
-                setShuttingDown(true);
+                setShuttingDown();
                 // Do something here...
                 break;
             case STARTUP:
-                setStartingUp(true);
+                setStartingUp();
                 // Do something here...
                 break;
             case SELF_DESTRUCT:
-                setSelfDestructing(true);
+                setSelfDestructing();
                 // Do something here...
                 break;
             case ROLL:
-                if (prev.isRolled) {
-                    isRolled = false;
-                } else {
-                    isRolled = true;
-                }
+                isRolled = !prev.isRolled;
                 // doesn't cost anything if previous was a yaw
                 if (prev.getType() != MoveStepType.YAW) {
                     setMp(1);
@@ -1113,7 +1091,7 @@ public class MoveStep implements Serializable {
                 entity, getElevation(), getPosition(), null);
         if ((violation != null) && (getType() != MoveStepType.CHARGE)
                 && (getType() != MoveStepType.DFA)) {
-            setStackingViolation(true);
+            setStackingViolation();
         }
 
         // set moveType, illegal, trouble flags
@@ -1666,8 +1644,8 @@ public class MoveStep implements Serializable {
         danger = b;
     }
 
-    protected void setDistance(int i) {
-        distance = i;
+    protected void setDistance() {
+        distance = 0;
     }
 
     protected void setLeapDistance(int i) {
@@ -1710,43 +1688,43 @@ public class MoveStep implements Serializable {
         isTurning = b;
     }
 
-    protected void setUnloaded(boolean b) {
-        isUnloaded = b;
-        if (b) {
+    protected void setUnloaded() {
+        isUnloaded = true;
+        if (true) {
             hasEverUnloaded = true;
         }
     }
 
-    protected void setUsingMASC(boolean b) {
-        isUsingMASC = b;
+    protected void setUsingMASC() {
+        isUsingMASC = true;
     }
 
-    protected void setUsingSupercharger(boolean b) {
-        isUsingSupercharger = b;
+    protected void setUsingSupercharger() {
+        isUsingSupercharger = true;
     }
 
     public void setMovementType(EntityMovementType i) {
         movementType = i;
     }
 
-    protected void setEvading(boolean b) {
-        isEvading = b;
+    protected void setEvading() {
+        isEvading = true;
     }
 
-    protected void setShuttingDown(boolean b) {
-        isShuttingDown = b;
+    protected void setShuttingDown() {
+        isShuttingDown = true;
     }
 
-    protected void setStartingUp(boolean b) {
-        isStartingUp = b;
+    protected void setStartingUp() {
+        isStartingUp = true;
     }
 
-    protected void setSelfDestructing(boolean b) {
-        isSelfDestructing = b;
+    protected void setSelfDestructing() {
+        isSelfDestructing = true;
     }
 
-    protected void setOnlyPavement(boolean b) {
-        onlyPavement = b;
+    protected void setOnlyPavement() {
+        onlyPavement = false;
     }
 
     protected void setWiGEBonus(int i) {
@@ -1781,16 +1759,16 @@ public class MoveStep implements Serializable {
         mp = i;
     }
 
-    protected void setRunProhibited(boolean isRunProhibited) {
-        this.isRunProhibited = isRunProhibited;
+    protected void setRunProhibited() {
+        this.isRunProhibited = true;
     }
 
     boolean isRunProhibited() {
-        return isRunProhibited;
+        return !isRunProhibited;
     }
 
-    protected void setStackingViolation(boolean isStackingViolation) {
-        this.isStackingViolation = isStackingViolation;
+    protected void setStackingViolation() {
+        this.isStackingViolation = true;
     }
 
     boolean isStackingViolation() {
@@ -2376,7 +2354,7 @@ public class MoveStep implements Serializable {
                 // previous round in order to move faster than a walk
                 movementType = EntityMovementType.MOVE_ILLEGAL;
                 return;
-            } else if (getMpUsed() <= runMPMax && !isRunProhibited()) {
+            } else if (getMpUsed() <= runMPMax && isRunProhibited()) {
                 // RUN - If we got this far, entity is moving farther than a walk
                 // but within run and running is legal
 
@@ -2400,7 +2378,7 @@ public class MoveStep implements Serializable {
                 } else {
                     movementType = EntityMovementType.MOVE_RUN;
                 }
-            } else if ((getMpUsed() <= sprintMPMax) && !isRunProhibited() && !isEvading() && canUseSprint(game)) {
+            } else if ((getMpUsed() <= sprintMPMax) && isRunProhibited() && !isEvading() && canUseSprint(game)) {
                 // SPRINT - If we got this far, entity is moving farther than a run
                 // but within sprint and sprinting must be legal and the option enabled
 
@@ -2759,7 +2737,7 @@ public class MoveStep implements Serializable {
         }
 
         // can't brace when jumping, prone, wrong unit type or no eligible locations
-        if ((stepType == MoveStepType.BRACE) && (this.isJumping() || !entity.canBrace())) {
+        if ((stepType == MoveStepType.BRACE) && (this.isJumping() || entity.canBrace())) {
             movementType = EntityMovementType.MOVE_ILLEGAL;
             return;
         }
@@ -2819,7 +2797,7 @@ public class MoveStep implements Serializable {
             case UNLOAD:
             case DISCONNECT:
                 // Unloading must be the last step.
-                setUnloaded(true);
+                setUnloaded();
                 break;
             default:
                 setTurning(false);
@@ -2873,10 +2851,10 @@ public class MoveStep implements Serializable {
             int scTarget = mpBoosters.hasSupercharger() ? entity.getSuperchargerTarget() : 2000;
             int mascTarget = mpBoosters.hasMASC() ? entity.getMASCTarget() : 2000;
             if (mascTarget < scTarget) {
-                setUsingMASC(true);
+                setUsingMASC();
                 setTargetNumberMASC(entity.getMASCTarget());
             } else {
-                setUsingSupercharger(true);
+                setUsingSupercharger();
                 setTargetNumberSupercharger(entity.getSuperchargerTarget());
             }
         }
@@ -2887,11 +2865,11 @@ public class MoveStep implements Serializable {
      */
     private void UseBothMASCAndSupercharger(boolean hasMASCBeenUsed, boolean hasSuperchargerBeenUsed) {
         if (!hasMASCBeenUsed) {
-            setUsingMASC(true);
+            setUsingMASC();
             setTargetNumberMASC(entity.getMASCTarget());
         }
         if (!hasSuperchargerBeenUsed) {
-            setUsingSupercharger(true);
+            setUsingSupercharger();
             setTargetNumberSupercharger(entity.getSuperchargerTarget());
         }
     }
@@ -2996,7 +2974,7 @@ public class MoveStep implements Serializable {
                         break;
                 }
             } else if (game.getPlanetaryConditions().getLight() > PlanetaryConditions.L_DUSK) {
-                setRunProhibited(true);
+                setRunProhibited();
             }
         }
 
@@ -3959,11 +3937,7 @@ public class MoveStep implements Serializable {
             }
         }
 
-        if (straight >= thresh) {
-            return true;
-        }
-
-        return false;
+        return straight >= thresh;
 
     }
 

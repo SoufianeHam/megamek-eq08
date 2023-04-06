@@ -49,13 +49,9 @@ public class EntityVisibilityUtils {
         boolean hasVisual = entity.hasSeenEntity(localPlayer);
         boolean hasDetected = entity.hasDetectedEntity(localPlayer);
 
-        if (sensors && doubleBlind && !sensorsDetectAll
+        return sensors && doubleBlind && !sensorsDetectAll
                 && !EntityVisibilityUtils.trackThisEntitiesVisibilityInfo(localPlayer, entity)
-                && hasDetected && !hasVisual) {
-            return true;
-        } else {
-            return false;
-        }
+                && hasDetected && !hasVisual;
     }
     
     /**
@@ -66,14 +62,10 @@ public class EntityVisibilityUtils {
         if (localPlayer == null) {
             return false;
         }
-        
-        if (e.getGame().getOptions().booleanOption(OptionsConstants.ADVANCED_DOUBLE_BLIND)
-                && ((e.getOwner().getId() == localPlayer.getId()) || 
-                        (e.getGame().getOptions().booleanOption(OptionsConstants.ADVANCED_TEAM_VISION)
-                && (e.getOwner().getTeam() == localPlayer.getTeam())))) {
-            return true;
-        }
-        
-        return false;
+
+        return e.getGame().getOptions().booleanOption(OptionsConstants.ADVANCED_DOUBLE_BLIND)
+                && ((e.getOwner().getId() == localPlayer.getId()) ||
+                (e.getGame().getOptions().booleanOption(OptionsConstants.ADVANCED_TEAM_VISION)
+                        && (e.getOwner().getTeam() == localPlayer.getTeam())));
     }
 }

@@ -44,7 +44,7 @@ public class MechViewPanel extends JPanel {
 
     private final JTextPane txtMek = new JTextPane();
     private final JLabel lblMek = new JLabel();
-    private JScrollPane scrMek;
+    private final JScrollPane scrMek;
 
     public static final int DEFAULT_WIDTH = 360;
     public static final int DEFAULT_HEIGHT = 600;
@@ -133,8 +133,8 @@ public class MechViewPanel extends JPanel {
         lblMek.setIcon(null);
     }
 
-    /** Forwards a mouse wheel scroll on the fluff image or free space to the TRO entry. */ 
-    MouseWheelListener wheelForwarder = e -> {
+    /** Forwards a mouse wheel scroll on the fluff image or free space to the TRO entry. */
+    final MouseWheelListener wheelForwarder = e -> {
         MouseWheelEvent converted = (MouseWheelEvent) SwingUtilities.convertMouseEvent(MechViewPanel.this, e, scrMek);
         for (MouseWheelListener listener : scrMek.getMouseWheelListeners()) {
             listener.mouseWheelMoved(converted);

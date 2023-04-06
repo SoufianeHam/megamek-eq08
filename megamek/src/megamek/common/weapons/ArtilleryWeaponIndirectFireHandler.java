@@ -138,16 +138,13 @@ public class ArtilleryWeaponIndirectFireHandler extends AmmoWeaponHandler {
                         @Override
                         public boolean accept(Entity entity) {
                             Integer id = entity.getId();
-                            if ((player == entity.getOwnerId())
+                            return (player == entity.getOwnerId())
                                     && spottersBefore.contains(id)
                                     && !LosEffects.calculateLOS(game, entity, targ, true).isBlocked()
                                     && entity.isActive()
                                     // airborne aeros can't spot for arty
                                     && !((entity.isAero()) && entity.isAirborne())
-                                    && !entity.isINarcedWith(INarcPod.HAYWIRE)) {
-                                return true;
-                            }
-                            return false;
+                                    && !entity.isINarcedWith(INarcPod.HAYWIRE);
                         }
                     });
 

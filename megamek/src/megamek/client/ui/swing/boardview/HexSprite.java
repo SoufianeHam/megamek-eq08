@@ -16,7 +16,7 @@ import megamek.common.Coords;
  */
 public abstract class HexSprite extends Sprite {
 
-    protected Coords loc;
+    protected final Coords loc;
 
     public HexSprite(BoardView boardView1, Coords loc) {
         super(boardView1);

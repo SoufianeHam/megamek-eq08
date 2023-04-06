@@ -33,7 +33,6 @@ import megamek.common.weapons.gaussrifles.ISHGaussRifle;
 import megamek.common.weapons.lasers.ISBombastLaser;
 import megamek.common.weapons.lasers.VariableSpeedPulseLaserWeapon;
 import megamek.common.weapons.lrms.LRTWeapon;
-import megamek.common.weapons.mortars.MekMortarWeapon;
 import megamek.common.weapons.srms.SRTWeapon;
 import org.apache.logging.log4j.LogManager;
 
@@ -299,7 +298,6 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
         final WeaponType wtype = (WeaponType) type;
 
         Targetable swarmSecondaryTarget = target;
-        Targetable swarmPrimaryTarget = oldTarget;
         if (exchangeSwarmTarget) {
             // this is a swarm attack against a new target
             // first, exchange original and new targets to get all mods
@@ -552,10 +550,10 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
             } else {
                 // Swarm should draw LoS between targets, not attacker, since
                 // we don't want LoS to be blocked
-                if (swarmPrimaryTarget.getTargetType() == Targetable.TYPE_ENTITY) {
-                    los = LosEffects.calculateLos(game, swarmPrimaryTarget.getId(), swarmSecondaryTarget);
+                if (oldTarget.getTargetType() == Targetable.TYPE_ENTITY) {
+                    los = LosEffects.calculateLos(game, oldTarget.getId(), swarmSecondaryTarget);
                 } else {
-                    los = LosEffects.calculateLos(game, swarmSecondaryTarget.getId(), swarmPrimaryTarget);
+                    los = LosEffects.calculateLos(game, swarmSecondaryTarget.getId(), oldTarget);
                 }
             }
 
@@ -576,10 +574,10 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
             if (exchangeSwarmTarget) {
                 // Swarm should draw LoS between targets, not attacker, since
                 // we don't want LoS to be blocked
-                if (swarmPrimaryTarget.getTargetType() == Targetable.TYPE_ENTITY) {
-                    los = LosEffects.calculateLos(game, swarmPrimaryTarget.getId(), swarmSecondaryTarget);
+                if (oldTarget.getTargetType() == Targetable.TYPE_ENTITY) {
+                    los = LosEffects.calculateLos(game, oldTarget.getId(), swarmSecondaryTarget);
                 } else {
-                    los = LosEffects.calculateLos(game, swarmSecondaryTarget.getId(), swarmPrimaryTarget);
+                    los = LosEffects.calculateLos(game, swarmSecondaryTarget.getId(), oldTarget);
                 }
             } else {
                 // For everything else, set up a plain old LOS
@@ -642,7 +640,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
         }
         
         //Check to see if this attack was made with a weapon that has special to-hit rules
-        toHit = handleSpecialWeaponAttacks(game, ae, target, ttype, los, toHit, wtype, atype, srt);
+        toHit = handleSpecialWeaponAttacks(game, ae, target, ttype, toHit, wtype, atype, srt);
         if (srt.isSpecialResolution()) {
             return toHit;
         }
@@ -707,7 +705,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
                             usesAmmo);
             //Everyone else
             } else {
-                toHit = compileAttackerToHitMods(game, ae, target, los, toHit, toSubtract, aimingAt, aimingMode, wtype,
+                toHit = compileAttackerToHitMods(game, ae, target, los, toHit, aimingAt, aimingMode, wtype,
                         weapon, weaponId, atype, munition, isFlakAttack, isHaywireINarced, isNemesisConfused,
                         isWeaponFieldGuns, usesAmmo);
             }
@@ -730,19 +728,19 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
         }
         
         // Collect the modifiers for the target's condition/actions 
-        toHit = compileTargetToHitMods(game, ae, target, ttype, los, toHit, toSubtract, aimingAt, aimingMode, distance,
-                    wtype, weapon, atype, munition, isArtilleryDirect, isArtilleryIndirect, isAttackerInfantry,
+        toHit = compileTargetToHitMods(game, ae, target, ttype, los, toHit, aimingAt, aimingMode, distance,
+                    wtype, atype, munition, isArtilleryDirect, isArtilleryIndirect, isAttackerInfantry,
                     exchangeSwarmTarget, isIndirect, isPointblankShot, usesAmmo);
         
         // Collect the modifiers for terrain and line-of-sight. This includes any related to-hit table changes
         toHit = compileTerrainAndLosToHitMods(game, ae, target, ttype, aElev, tElev, targEl, distance, los, toHit,
-                    losMods, toSubtract, eistatus, wtype, weapon, weaponId, atype, munition, isAttackerInfantry,
+                    losMods, eistatus, wtype, weapon, weaponId, atype, isAttackerInfantry,
                     inSameBuilding, isIndirect, isPointblankShot, underWater);
         
         // If this is a swarm LRM secondary attack, remove old target movement and terrain mods, then
         // add those for new target.
         if (exchangeSwarmTarget) {
-            toHit = handleSwarmSecondaryAttacks(game, ae, target, swarmPrimaryTarget, swarmSecondaryTarget, toHit,
+            toHit = handleSwarmSecondaryAttacks(game, ae, target, oldTarget, swarmSecondaryTarget, toHit,
                     toSubtract, eistatus, aimingAt, aimingMode, weapon, atype, munition, isECMAffected,
                     inSameBuilding, underWater);
         }
@@ -752,7 +750,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
                     isFlakAttack, isIndirect, narcSpotter);
         
         // Collect the modifiers specific to the ammo the attacker is using
-        toHit = compileAmmoToHitMods(game, ae, target, ttype, toHit, wtype, weapon, atype, munition, bApollo,
+        toHit = compileAmmoToHitMods(game, ae, target, ttype, toHit, atype, munition, bApollo,
                     bArtemisV, bFTL, bHeatSeeking, isECMAffected, isINarcGuided);
         
         // okay!
@@ -828,20 +826,20 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
                     false, false, false, false, false);
         //Everyone else
         } else {
-            toHit = compileAttackerToHitMods(game, ae, target, los, toHit, toSubtract, Entity.LOC_NONE,
+            toHit = compileAttackerToHitMods(game, ae, target, los, toHit, Entity.LOC_NONE,
                     AimingMode.NONE, null, null, weaponId, null, AmmoType.M_STANDARD,
                     false, false, false, false, false);
         }
 
         // Collect the modifiers for the target's condition/actions 
-        toHit = compileTargetToHitMods(game, ae, target, ttype, los, toHit, toSubtract, Entity.LOC_NONE,
-                AimingMode.NONE, distance, null, null, null, AmmoType.M_STANDARD,
+        toHit = compileTargetToHitMods(game, ae, target, ttype, los, toHit, Entity.LOC_NONE,
+                AimingMode.NONE, distance, null, null, AmmoType.M_STANDARD,
                 false, false, isAttackerInfantry, false,
                 false, false, false);
         
         // Collect the modifiers for terrain and line-of-sight. This includes any related to-hit table changes
         toHit = compileTerrainAndLosToHitMods(game, ae, target, ttype, aElev, tElev, targEl, distance, los, toHit,
-                    losMods, toSubtract, eistatus, null, null, weaponId, null, AmmoType.M_STANDARD, isAttackerInfantry,
+                    losMods, eistatus, null, null, weaponId, null, isAttackerInfantry,
                     inSameBuilding, false, false, false);
 
         // okay!
@@ -1145,7 +1143,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
         
         // Only weapons allowed to clear minefields can target a hex for minefield clearance
         if ((target.getTargetType() == Targetable.TYPE_MINEFIELD_CLEAR) && 
-                ((atype == null) || !AmmoType.canClearMinefield(atype))) {
+                (!AmmoType.canClearMinefield(atype))) {
             return Messages.getString("WeaponAttackAction.CantClearMines");
         }
         
@@ -1187,7 +1185,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
         }
         
         // can't target yourself intentionally, but swarm missiles can come back to bite you
-        if (!exchangeSwarmTarget && te != null && ae.equals(te)) {
+        if (!exchangeSwarmTarget && ae.equals(te)) {
             return Messages.getString("WeaponAttackAction.NoSelfTarget");
         }
         
@@ -1237,7 +1235,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
         // direct fire. Note that this is for ground combat with tacops sensors rules
         if (game.getOptions().booleanOption(OptionsConstants.ADVANCED_DOUBLE_BLIND)
                 && !ae.isSpaceborne()
-                && !Compute.inVisualRange(game, ae, target)
+                && Compute.inVisualRange(game, ae, target)
                 && !(Compute.inSensorRange(game, ae, target, null) 
                         // Can shoot at something in sensor range if it has
                         // been spotted by another unit
@@ -1334,7 +1332,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
         // LAMs in fighter mode are restricted to only the ammo types that Aeros can use
         if ((ae instanceof LandAirMech) && (ae.getConversionMode() == LandAirMech.CONV_MODE_FIGHTER)
                 && usesAmmo && ammo != null 
-                && !((AmmoType) ammo.getType()).canAeroUse(game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_AERO_ARTILLERY_MUNITIONS))) {
+                && ((AmmoType) ammo.getType()).canAeroUse(game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_AERO_ARTILLERY_MUNITIONS))) {
             return Messages.getString("WeaponAttackAction.InvalidAmmoForFighter");
         }
         
@@ -1562,11 +1560,8 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
             // Variable setup
             
             // "Cool" mode for vehicle flamer requires coolant ammo
-            boolean vf_cool = false;
-            if (atype != null && ammo != null && (((AmmoType) ammo.getType()).getMunitionType() == AmmoType.M_COOLANT)) {
-                vf_cool = true;
-            }
-            
+            boolean vf_cool = atype != null && ammo != null && (((AmmoType) ammo.getType()).getMunitionType() == AmmoType.M_COOLANT);
+
             // Anti-Infantry weapons can only target infantry
             if (wtype.hasFlag(WeaponType.F_INFANTRY_ONLY)) {
                 if ((te != null) && !(te instanceof Infantry)) {
@@ -2230,7 +2225,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
             
             // only one ground-to-air attack allowed per turn
             // grounded spheroid dropships dont have this limitation
-            if (!ae.isAirborne() && !((ae instanceof Dropship) && ((Aero) ae).isSpheroid())) {
+            if (!ae.isAirborne() && !((ae instanceof Dropship) && !((Aero) ae).isSpheroid())) {
                 for (Enumeration<EntityAction> i = game.getActions(); i.hasMoreElements();) {
                     EntityAction ea = i.nextElement();
                     if (!(ea instanceof WeaponAttackAction)) {
@@ -2301,7 +2296,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
                     return Messages.getString("WeaponAttackAction.OutOfRange");
                 }
                 // Can't combine leg attacks with other attacks
-                if (!WeaponAttackAction.isOnlyAttack(game, ae, Infantry.LEG_ATTACK, te)) {
+                if (WeaponAttackAction.isOnlyAttack(game, ae, Infantry.LEG_ATTACK, te)) {
                     return Messages.getString("WeaponAttackAction.LegAttackOnly");
                 }
             } else if (Infantry.SWARM_MEK.equals(wtype.getInternalName()) && te != null) {
@@ -2316,7 +2311,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
                     return Messages.getString("WeaponAttackAction.OutOfRange");
                 }
                 // Can't combine swarm attacks with other attacks
-                if (!WeaponAttackAction.isOnlyAttack(game, ae, Infantry.SWARM_MEK, te)) {
+                if (WeaponAttackAction.isOnlyAttack(game, ae, Infantry.SWARM_MEK, te)) {
                     return Messages.getString("WeaponAttackAction.SwarmAttackOnly");
                 }
             } else if (Infantry.STOP_SWARM.equals(wtype.getInternalName())) {
@@ -2617,7 +2612,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
                     // If there is an attack by this unit that is not the attack
                     // type, fail.
                     if (!waaAE.getEquipment(waa.getWeaponId()).getType().getInternalName().equals(attackType)) {
-                        return false;
+                        return true;
                     }
                 }
                 Targetable waaTarget = waa.getTarget(game);
@@ -2626,19 +2621,19 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
                     if (!waaAE.equals(attacker)) {
                         // If there is an attack by another unit that has this
                         // attack type against the same target, fail.
-                        return false;
+                        return true;
                     }
                 }
             }
         }
-        return true;
+        return false;
     }
 
     /**
      * @return Returns the nemesisConfused.
      */
     public boolean isNemesisConfused() {
-        return nemesisConfused;
+        return !nemesisConfused;
     }
 
     /**
@@ -3139,28 +3134,24 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
      * Convenience method that compiles the ToHit modifiers applicable to the ammunition being used
      * Using precision AC rounds that get a -1 TH bonus?  You'll find that here.
      * Bonuses related to the attacker's condition?  Using a weapon with a TH penalty?  Those are in other methods.
-     * 
-     * @param game The current {@link Game}
-     * @param ae The Entity making this attack
-     * @param target The Targetable object being attacked
-     * @param ttype  The targetable object type
-     * @param toHit The running total ToHitData for this WeaponAttackAction
-     * 
-     * @param wtype The WeaponType of the weapon being used
-     * @param weapon The Mounted weapon being used
-     * @param atype The AmmoType being used for this attack
-     * @param munition  Long indicating the munition type flag being used, if applicable
-     * 
-     * @param bApollo flag that indicates whether the attacker is using an Apollo FCS for MRMs
-     * @param bArtemisV flag that indicates whether the attacker is using an Artemis V FCS
-     * @param bFTL flag that indicates whether the attacker is using FTL missiles
-     * @param bHeatSeeking flag that indicates whether the attacker is using Heat Seeking missiles
+     *
+     * @param game          The current {@link Game}
+     * @param ae            The Entity making this attack
+     * @param target        The Targetable object being attacked
+     * @param ttype         The targetable object type
+     * @param toHit         The running total ToHitData for this WeaponAttackAction
+     * @param atype         The AmmoType being used for this attack
+     * @param munition      Long indicating the munition type flag being used, if applicable
+     * @param bApollo       flag that indicates whether the attacker is using an Apollo FCS for MRMs
+     * @param bArtemisV     flag that indicates whether the attacker is using an Artemis V FCS
+     * @param bFTL          flag that indicates whether the attacker is using FTL missiles
+     * @param bHeatSeeking  flag that indicates whether the attacker is using Heat Seeking missiles
      * @param isECMAffected flag that indicates whether the target is inside an ECM bubble
      * @param isINarcGuided flag that indicates whether the target is broadcasting an iNarc beacon
      */
     private static ToHitData compileAmmoToHitMods(Game game, Entity ae, Targetable target, int ttype, ToHitData toHit,
-                WeaponType wtype, Mounted weapon, AmmoType atype, long munition, boolean bApollo, boolean bArtemisV,
-                boolean bFTL, boolean bHeatSeeking, boolean isECMAffected, boolean isINarcGuided) {
+                                                  AmmoType atype, long munition, boolean bApollo, boolean bArtemisV,
+                                                  boolean bFTL, boolean bHeatSeeking, boolean isECMAffected, boolean isINarcGuided) {
         if (ae == null || atype == null) {
             // Can't calculate ammo mods without valid ammo and an attacker to fire it
             return toHit;
@@ -3283,32 +3274,28 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
      * Convenience method that compiles the ToHit modifiers applicable to the attacker's condition
      * Attacker has damaged sensors?  You'll find that here.
      * Defender's a superheavy mech?  Using a weapon with a TH penalty?  Those are in other methods.
-     * 
-     * @param game The current {@link Game}
-     * @param ae The Entity making this attack
-     * @param target The Targetable object being attacked
-     * @param los The calculated LOS between attacker and target
-     * @param toHit The running total ToHitData for this WeaponAttackAction
-     * @param toSubtract An int value representing a running total of mods to disregard - used for some special attacks
-     * 
-     * @param aimingAt  An int value representing the location being aimed at
-     * @param aimingMode  An int value that determines the reason aiming is allowed
-     * 
-     * @param wtype The WeaponType of the weapon being used
-     * @param weapon The Mounted weapon being used
-     * @param weaponId  The id number of the weapon being used - used by some external calculations
-     * @param atype The AmmoType being used for this attack
-     * @param munition  Long indicating the munition type flag being used, if applicable
-     * 
-     * @param isFlakAttack  flag that indicates whether the attacker is using Flak against an airborne target
+     *
+     * @param game              The current {@link Game}
+     * @param ae                The Entity making this attack
+     * @param target            The Targetable object being attacked
+     * @param los               The calculated LOS between attacker and target
+     * @param toHit             The running total ToHitData for this WeaponAttackAction
+     * @param aimingAt          An int value representing the location being aimed at
+     * @param aimingMode        An int value that determines the reason aiming is allowed
+     * @param wtype             The WeaponType of the weapon being used
+     * @param weapon            The Mounted weapon being used
+     * @param weaponId          The id number of the weapon being used - used by some external calculations
+     * @param atype             The AmmoType being used for this attack
+     * @param munition          Long indicating the munition type flag being used, if applicable
+     * @param isFlakAttack      flag that indicates whether the attacker is using Flak against an airborne target
      * @param isHaywireINarced  flag that indicates whether the attacker is affected by an iNarc Haywire pod
-     * @param isNemesisConfused  flag that indicates whether the attack is affected by an iNarc Nemesis pod
-     * @param isWeaponFieldGuns  flag that indicates whether the attack is being made with infantry field guns
-     * @param usesAmmo  flag that indicates if the WeaponType being used is ammo-fed
+     * @param isNemesisConfused flag that indicates whether the attack is affected by an iNarc Nemesis pod
+     * @param isWeaponFieldGuns flag that indicates whether the attack is being made with infantry field guns
+     * @param usesAmmo          flag that indicates if the WeaponType being used is ammo-fed
      */
     private static ToHitData compileAttackerToHitMods(Game game, Entity ae, Targetable target,
                                                       LosEffects los, ToHitData toHit,
-                                                      int toSubtract, int aimingAt,
+                                                      int aimingAt,
                                                       AimingMode aimingMode, WeaponType wtype,
                                                       Mounted weapon, int weaponId, AmmoType atype,
                                                       long munition, boolean isFlakAttack,
@@ -3338,7 +3325,7 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
         if (game.getOptions().booleanOption(OptionsConstants.ADVCOMBAT_TACOPS_CALLED_SHOTS)
                 && weapon != null) {
             int call = weapon.getCalledShot().getCall();
-            if ((call > CalledShot.CALLED_NONE) && !aimingMode.isNone()) {
+            if ((call > CalledShot.CALLED_NONE) && aimingMode.isNone()) {
                 return new ToHitData(TargetRoll.IMPOSSIBLE, Messages.getString("WeaponAttackAction.CantAimAndCallShots"));
             }
 
@@ -4088,37 +4075,32 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
      * Convenience method that compiles the ToHit modifiers applicable to the defender's condition and actions
      * -4 for shooting at an immobile target?  You'll find that here.
      * Attacker strafing?  Using a weapon with a TH penalty?  Those are in other methods.
-     * 
-     * @param game The current {@link Game}
-     * @param ae The Entity making this attack
-     * @param target The Targetable object being attacked
-     * @param ttype  The targetable object type
-     * @param los The calculated LOS between attacker and target
-     * @param toHit The running total ToHitData for this WeaponAttackAction
-     * @param toSubtract An int value representing a running total of mods to disregard - used for some special attacks
-     * 
-     * @param aimingAt  An int value representing the location being aimed at - used by immobile target calculations
-     * @param aimingMode  An int value that determines the reason aiming is allowed - used by immobile target calculations
-     * @param distance  The distance in hexes from attacker to target
-     * 
-     * @param wtype The WeaponType of the weapon being used
-     * @param weapon The Mounted weapon being used
-     * @param atype The AmmoType being used for this attack
-     * @param munition  Long indicating the munition type flag being used, if applicable
-     * 
-     * @param isArtilleryDirect  flag that indicates whether this is a direct-fire artillery attack
-     * @param isArtilleryIndirect  flag that indicates whether this is an indirect-fire artillery attack
+     *
+     * @param game                The current {@link Game}
+     * @param ae                  The Entity making this attack
+     * @param target              The Targetable object being attacked
+     * @param ttype               The targetable object type
+     * @param los                 The calculated LOS between attacker and target
+     * @param toHit               The running total ToHitData for this WeaponAttackAction
+     * @param aimingAt            An int value representing the location being aimed at - used by immobile target calculations
+     * @param aimingMode          An int value that determines the reason aiming is allowed - used by immobile target calculations
+     * @param distance            The distance in hexes from attacker to target
+     * @param wtype               The WeaponType of the weapon being used
+     * @param atype               The AmmoType being used for this attack
+     * @param munition            Long indicating the munition type flag being used, if applicable
+     * @param isArtilleryDirect   flag that indicates whether this is a direct-fire artillery attack
+     * @param isArtilleryIndirect flag that indicates whether this is an indirect-fire artillery attack
      * @param isAttackerInfantry  flag that indicates whether the attacker is an infantry/BA unit
-     * @param exchangeSwarmTarget  flag that indicates whether this is the secondary target of Swarm LRMs
-     * @param isIndirect  flag that indicates whether this is an indirect attack (LRM, mortar...)
-     * @param isPointBlankShot  flag that indicates whether or not this is a PBS by a hidden unit
-     * @param usesAmmo  flag that indicates whether or not the WeaponType being used is ammo-fed
+     * @param exchangeSwarmTarget flag that indicates whether this is the secondary target of Swarm LRMs
+     * @param isIndirect          flag that indicates whether this is an indirect attack (LRM, mortar...)
+     * @param isPointBlankShot    flag that indicates whether or not this is a PBS by a hidden unit
+     * @param usesAmmo            flag that indicates whether or not the WeaponType being used is ammo-fed
      */
     private static ToHitData compileTargetToHitMods(Game game, Entity ae, Targetable target,
                                                     int ttype, LosEffects los, ToHitData toHit,
-                                                    int toSubtract, int aimingAt,
+                                                    int aimingAt,
                                                     AimingMode aimingMode, int distance,
-                                                    WeaponType wtype, Mounted weapon, AmmoType atype,
+                                                    WeaponType wtype, AmmoType atype,
                                                     long munition, boolean isArtilleryDirect,
                                                     boolean isArtilleryIndirect,
                                                     boolean isAttackerInfantry,
@@ -4433,37 +4415,32 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
      * Woods along the LOS?  Target Underwater?  Partial cover? You'll find that here.
      * Also, if the to-hit table is changed due to cover/angle/elevation, look here.
      * -4 for shooting at an immobile target?  Using a weapon with a TH penalty? Those are in other methods.
-     * 
-     * @param game The current {@link Game}
-     * @param ae The Entity making this attack
-     * @param target The Targetable object being attacked
-     * @param ttype  The targetable object type
-     * @param aElev An int value representing the attacker's elevation
-     * @param tElev An int value representing the target's elevation
-     * @param targEl An int value representing the target's relative elevation
-     * @param distance The distance in hexes from attacker to target
-     * @param los The calculated LOS between attacker and target
-     * @param toHit The running total ToHitData for this WeaponAttackAction
-     * @param losMods A cached set of LOS-related modifiers
-     * @param toSubtract An int value representing a running total of mods to disregard - used for some special attacks
-     * 
-     * @param eistatus An int value representing the ei cockpit/pilot upgrade status
-     * 
-     * @param wtype The WeaponType of the weapon being used
-     * @param weapon The Mounted weapon being used
-     * @param weaponId  The id number of the weapon being used - used by some external calculations 
-     * @param atype The AmmoType being used for this attack
-     * @param munition  Long indicating the munition type flag being used, if applicable
-     * 
-     * @param inSameBuilding  flag that indicates whether this attack originates from within the same building
-     * @param isIndirect  flag that indicates whether this is an indirect attack (LRM, mortar...)
-     * @param isPointBlankShot  flag that indicates whether or not this is a PBS by a hidden unit
-     * @param underWater  flag that indicates whether the weapon being used is underwater
+     *
+     * @param game             The current {@link Game}
+     * @param ae               The Entity making this attack
+     * @param target           The Targetable object being attacked
+     * @param ttype            The targetable object type
+     * @param aElev            An int value representing the attacker's elevation
+     * @param tElev            An int value representing the target's elevation
+     * @param targEl           An int value representing the target's relative elevation
+     * @param distance         The distance in hexes from attacker to target
+     * @param los              The calculated LOS between attacker and target
+     * @param toHit            The running total ToHitData for this WeaponAttackAction
+     * @param losMods          A cached set of LOS-related modifiers
+     * @param eistatus         An int value representing the ei cockpit/pilot upgrade status
+     * @param wtype            The WeaponType of the weapon being used
+     * @param weapon           The Mounted weapon being used
+     * @param weaponId         The id number of the weapon being used - used by some external calculations
+     * @param atype            The AmmoType being used for this attack
+     * @param inSameBuilding   flag that indicates whether this attack originates from within the same building
+     * @param isIndirect       flag that indicates whether this is an indirect attack (LRM, mortar...)
+     * @param isPointBlankShot flag that indicates whether or not this is a PBS by a hidden unit
+     * @param underWater       flag that indicates whether the weapon being used is underwater
      */
     private static ToHitData compileTerrainAndLosToHitMods(Game game, Entity ae, Targetable target, int ttype, int aElev, int tElev,
-                int targEl, int distance, LosEffects los, ToHitData toHit, ToHitData losMods, int toSubtract, int eistatus,
-                WeaponType wtype, Mounted weapon, int weaponId, AmmoType atype, long munition, boolean isAttackerInfantry,
-                boolean inSameBuilding, boolean isIndirect, boolean isPointBlankShot, boolean underWater) {
+                                                           int targEl, int distance, LosEffects los, ToHitData toHit, ToHitData losMods, int eistatus,
+                                                           WeaponType wtype, Mounted weapon, int weaponId, AmmoType atype, boolean isAttackerInfantry,
+                                                           boolean inSameBuilding, boolean isIndirect, boolean isPointBlankShot, boolean underWater) {
         if (ae == null || target == null) {
             // Can't handle these attacks without a valid attacker and target
             return toHit;
@@ -4669,20 +4646,18 @@ public class WeaponAttackAction extends AbstractAttackAction implements Serializ
     
     /**
      * If you're using a weapon that does something totally special and doesn't apply mods like everything else, look here
-     * 
-     * @param game The current {@link Game}
-     * @param ae The Entity making this attack
+     *
+     * @param game   The current {@link Game}
+     * @param ae     The Entity making this attack
      * @param target The Targetable object being attacked
      * @param ttype  The targetable object type
-     * @param los The calculated LOS between attacker and target
-     * @param toHit The running total ToHitData for this WeaponAttackAction
-     * 
-     * @param wtype The WeaponType of the weapon being used
-     * @param atype The AmmoType being used for this attack
-     * @param srt  Class that stores whether or not this WAA should return a special resolution
+     * @param toHit  The running total ToHitData for this WeaponAttackAction
+     * @param wtype  The WeaponType of the weapon being used
+     * @param atype  The AmmoType being used for this attack
+     * @param srt    Class that stores whether or not this WAA should return a special resolution
      */
     private static ToHitData handleSpecialWeaponAttacks(Game game, Entity ae, Targetable target, int ttype,
-                LosEffects los, ToHitData toHit, WeaponType wtype, AmmoType atype, SpecialResolutionTracker srt) {
+                                                        ToHitData toHit, WeaponType wtype, AmmoType atype, SpecialResolutionTracker srt) {
         if (ae == null) {
             //*Should* be impossible at this point in the process
             return toHit;

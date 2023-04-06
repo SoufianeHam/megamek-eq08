@@ -813,8 +813,8 @@ public class FactionRecord {
     }
 
     private static class DateRange {
-        public Integer start;
-        public Integer end;
+        public final Integer start;
+        public final Integer end;
 
         public DateRange(Integer start, Integer end) {
             this.start = start;

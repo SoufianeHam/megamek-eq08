@@ -19,8 +19,8 @@ public class InfantryPathRanker extends BasicPathRanker implements IPathRanker {
     }
 
     @Override
-    protected RankedPath rankPath(MovePath path, Game game, int maxRange, double fallTolerance,
-            List<Entity> enemies, Coords friendsCoords) {
+    protected RankedPath rankPath(MovePath path, Game game,
+                                  List<Entity> enemies, Coords friendsCoords) {
         Entity movingUnit = path.getEntity();
         StringBuilder formula = new StringBuilder("Calculation: {");
                 
@@ -50,7 +50,7 @@ public class InfantryPathRanker extends BasicPathRanker implements IPathRanker {
             
             //skip broken enemies
             if (getOwner().getHonorUtil().isEnemyBroken(enemy.getId(),
-                 enemy.getOwnerId(), getOwner().getForcedWithdrawal())) {
+                 enemy.getOwnerId())) {
                 continue;
             }
             

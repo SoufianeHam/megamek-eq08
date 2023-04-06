@@ -126,7 +126,7 @@ public class MoveOption extends MovePath {
 
     private final transient CEntity centity;
     transient ArrayList<String> tv = new ArrayList<>();
-    transient HashMap<CEntity, DamageInfo> damageInfos = new HashMap<>();
+    final transient HashMap<CEntity, DamageInfo> damageInfos = new HashMap<>();
     private Coords pos;
     private int facing;
     private boolean prone;

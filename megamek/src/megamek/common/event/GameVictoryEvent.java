@@ -62,7 +62,7 @@ public class GameVictoryEvent extends GameEvent {
 
     @Override
     public void fireEvent(GameListener gl) {
-        gl.gameVictory(this);
+        gl.gameVictory();
     }
 
     @Override

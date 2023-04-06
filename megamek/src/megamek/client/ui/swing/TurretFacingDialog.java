@@ -33,10 +33,10 @@ public class TurretFacingDialog extends JDialog implements ActionListener {
     Mech mech;
     Tank tank;
     Mounted turret;
-    ButtonGroup buttonGroup = new ButtonGroup();
-    ClientGUI clientgui;
+    final ButtonGroup buttonGroup = new ButtonGroup();
+    final ClientGUI clientgui;
 
-    ArrayList<JRadioButton> facings = new ArrayList<>();
+    final ArrayList<JRadioButton> facings = new ArrayList<>();
 
     public TurretFacingDialog(JFrame parent, Mech mech, Mounted turret, ClientGUI clientgui) {
         super(parent, "Turret facing", false);

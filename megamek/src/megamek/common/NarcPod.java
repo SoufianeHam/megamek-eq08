@@ -36,9 +36,6 @@ public class NarcPod implements Serializable {
     }
 
     public boolean equals(NarcPod other) {
-        if (this.location == other.location && this.team == other.team) {
-            return true;
-        }
-        return false;
+        return this.location == other.location && this.team == other.team;
     }
 }

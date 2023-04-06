@@ -115,7 +115,7 @@ public abstract class AbstractValidationButtonDialog extends AbstractButtonDialo
         panel.add(new MMButton("validateButton", resources.getString("Validate.text"),
                 resources.getString("Validate.toolTipText"), this::validateButtonActionPerformed));
         panel.add(new MMButton("cancelButton", resources.getString("Cancel.text"),
-                resources.getString("Cancel.toolTipText"), this::cancelActionPerformed));
+                resources.getString("Cancel.toolTipText"), evt -> cancelActionPerformed()));
         return panel;
     }
     //endregion Initialization

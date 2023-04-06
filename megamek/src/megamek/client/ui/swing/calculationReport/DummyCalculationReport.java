@@ -34,53 +34,43 @@ public class DummyCalculationReport implements CalculationReport {
     }
 
     @Override
-    public CalculationReport addLine(String type, String calculation, String resultPrefix, double result) {
-        return this;
+    public void addLine(String type, String calculation, String resultPrefix, double result) {
     }
 
     @Override
-    public CalculationReport addLine(String type, String resultPrefix, double result) {
-        return this;
+    public void addLine(String type, String resultPrefix, double result) {
     }
 
     @Override
-    public CalculationReport addResultLine(String type, String calculation, String resultPrefix, double result) {
-        return this;
+    public void addResultLine(String type, String calculation, String resultPrefix, double result) {
     }
 
     @Override
-    public CalculationReport addResultLine(String type, String resultPrefix, double result) {
-        return this;
+    public void addResultLine(String type, String resultPrefix, double result) {
     }
 
     @Override
-    public CalculationReport addResultLine(String resultPrefix, double result) {
-        return this;
+    public void addResultLine(String resultPrefix, double result) {
     }
 
     @Override
-    public CalculationReport addEmptyLine() {
-        return this;
+    public void addEmptyLine() {
     }
 
     @Override
-    public CalculationReport addLine(String type, String result) {
-        return this;
+    public void addLine(String type, String result) {
     }
 
     @Override
-    public CalculationReport addLine(String result) {
-        return this;
+    public void addLine(String result) {
     }
 
     @Override
-    public CalculationReport addSubHeader(String text) {
-        return this;
+    public void addSubHeader(String text) {
     }
 
     @Override
-    public CalculationReport addHeader(String text) {
-        return this;
+    public void addHeader(String text) {
     }
 
     @Override

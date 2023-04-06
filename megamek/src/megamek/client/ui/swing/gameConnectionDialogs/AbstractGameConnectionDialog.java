@@ -84,8 +84,8 @@ public abstract class AbstractGameConnectionDialog extends ClientDialog implemen
 
     private final ClientPreferences clientPreferences = PreferenceManager.getClientPreferences();
 
-    protected AbstractGameConnectionDialog(JFrame owner, String title, boolean modal, String playerName) {
-        this(owner, title, modal, playerName, null);
+    protected AbstractGameConnectionDialog(JFrame owner, String title, String playerName) {
+        this(owner, title, true, playerName, null);
     }
 
     protected AbstractGameConnectionDialog(JFrame owner, String title, boolean modal, String playerName, Vector<String> playerNames) {

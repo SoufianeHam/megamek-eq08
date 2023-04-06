@@ -50,7 +50,7 @@ import megamek.common.Configuration;
  */
 public class SkinSpecPanel extends JPanel implements ListSelectionListener, ActionListener {
 
-    JFileChooser fileChooser = new JFileChooser(Configuration.widgetsDir());
+    final JFileChooser fileChooser = new JFileChooser(Configuration.widgetsDir());
 
     /**
      * A UI widget for displaying information related to a border widget (image
@@ -74,19 +74,19 @@ public class SkinSpecPanel extends JPanel implements ListSelectionListener, Acti
          */
         private static final int TEXTFIELD_COLS = 20;
 
-        List<JButton> pathLbl = new ArrayList<>();
+        final List<JButton> pathLbl = new ArrayList<>();
 
-        List<JTextField> path = new ArrayList<>();
+        final List<JTextField> path = new ArrayList<>();
 
-        List<JCheckBox> tiled = new ArrayList<>();
+        final List<JCheckBox> tiled = new ArrayList<>();
 
-        List<JButton> removeButtons = new ArrayList<>();
+        final List<JButton> removeButtons = new ArrayList<>();
 
-        JButton addButton = new JButton(Messages.getString("SkinEditor.Add"));
+        final JButton addButton = new JButton(Messages.getString("SkinEditor.Add"));
 
         boolean displayTiled = false;
 
-        SkinSpecPanel skinPanel;
+        final SkinSpecPanel skinPanel;
 
         /**
          * Constructor for BorderElements that only have one image (like
@@ -403,17 +403,17 @@ public class SkinSpecPanel extends JPanel implements ListSelectionListener, Acti
 
     BackgroundElement background;
 
-    JCheckBox showScrollBars = new JCheckBox(Messages.getString("SkinEditor.ShowScrollBars"));
+    final JCheckBox showScrollBars = new JCheckBox(Messages.getString("SkinEditor.ShowScrollBars"));
 
-    ArrayList<JButton> colorButtons = new ArrayList<>();
+    final ArrayList<JButton> colorButtons = new ArrayList<>();
 
-    JButton addColor = new JButton(Messages.getString("SkinEditor.AddColor.Text"));
+    final JButton addColor = new JButton(Messages.getString("SkinEditor.AddColor.Text"));
 
-    JButton removeColor = new JButton(Messages.getString("SkinEditor.RemoveColor.Text"));
+    final JButton removeColor = new JButton(Messages.getString("SkinEditor.RemoveColor.Text"));
 
-    JLabel colorLbl = new JLabel(Messages.getString("SkinEditor.Color"));
+    final JLabel colorLbl = new JLabel(Messages.getString("SkinEditor.Color"));
 
-    SkinSpecEditor skinEditor;
+    final SkinSpecEditor skinEditor;
 
     public SkinSpecPanel(SkinSpecEditor skinEditor) {
         super(new GridBagLayout());

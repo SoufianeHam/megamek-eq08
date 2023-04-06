@@ -27,7 +27,7 @@ import java.util.Vector;
  */
 public class ArtilleryCannonWeaponHandler extends AmmoWeaponHandler {
     private static final long serialVersionUID = 1L;
-    boolean handledAmmoAndReport = false;
+    final boolean handledAmmoAndReport = false;
 
     /**
      * This constructor can only be used for deserialization.

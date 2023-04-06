@@ -37,7 +37,7 @@ public class ArtilleryAttackAction extends WeaponAttackAction implements Seriali
     private int turnsTilHit;
     private Vector<Integer> spotterIds; // IDs of possible spotters, won't know
     // until it lands.
-    protected int playerId;
+    protected final int playerId;
     private Coords firingCoords;
     private Coords oldTargetCoords;
 

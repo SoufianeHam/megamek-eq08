@@ -47,7 +47,7 @@ public class SearchlightAttackAction extends AbstractAttackAction {
     }
 
     public boolean isPossible(Game game) {
-        return SearchlightAttackAction.isPossible(game, getEntityId(), game
+        return !SearchlightAttackAction.isPossible(game, getEntityId(), game
                 .getTarget(getTargetType(), getTargetId()), this);
     }
 
@@ -102,7 +102,7 @@ public class SearchlightAttackAction extends AbstractAttackAction {
     public Vector<Report> resolveAction(Game game) {
         Vector<Report> reports = new Vector<>();
         Report r;
-        if (!isPossible(game)) {
+        if (isPossible(game)) {
             r = new Report(3445);
             r.subject = getEntityId();
             r.newlines = 1;
@@ -168,7 +168,7 @@ public class SearchlightAttackAction extends AbstractAttackAction {
     }
 
     public boolean willIlluminate(Game game, Entity who) {
-        if (!isPossible(game)) {
+        if (isPossible(game)) {
             return false;
         }
         final Entity attacker = getEntity(game);

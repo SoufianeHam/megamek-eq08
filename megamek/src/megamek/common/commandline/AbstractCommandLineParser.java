@@ -35,7 +35,7 @@ public abstract class AbstractCommandLineParser {
     /**
      * Prefix of the option. Subclasses may overwrite.
      */
-    protected String OPTION_PREFIX = "-";
+    protected final String OPTION_PREFIX = "-";
 
     /**
      * End of input token
@@ -119,11 +119,10 @@ public abstract class AbstractCommandLineParser {
     }
 
     /**
-     * 
-     * @param token to set the current token to
+     *
      */
-    protected void setToken(int token) {
-        this.token = token;
+    protected void setToken() {
+        this.token = AbstractCommandLineParser.TOK_EOF;
     }
 
     /**
@@ -135,11 +134,10 @@ public abstract class AbstractCommandLineParser {
     }
 
     /**
-     * 
-     * @param tokenValue to set the current token to
+     *
      */
-    protected void setTokenValue(String tokenValue) {
-        this.tokenValue = tokenValue;
+    protected void setTokenValue() {
+        this.tokenValue = null;
     }
 
     /**

@@ -36,7 +36,7 @@ public class PMSimpleLabel implements PMLabel {
     Color color;
     // Font and Fontmetrics for the label
     Font f;
-    FontMetrics fm;
+    final FontMetrics fm;
 
     boolean visible = true;
 

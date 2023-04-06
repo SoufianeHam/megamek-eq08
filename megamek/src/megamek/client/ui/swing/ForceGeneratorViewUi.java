@@ -74,8 +74,8 @@ public class ForceGeneratorViewUi implements ActionListener {
     static final String FGV_COST = "FGV_COST";
     static final String FGV_VIEW = "FGV_VIEW";
 
-    ClientGUI clientGui;
-    protected static MechSummaryCache mscInstance = MechSummaryCache.getInstance();
+    final ClientGUI clientGui;
+    protected static final MechSummaryCache mscInstance = MechSummaryCache.getInstance();
 
     public ForceGeneratorViewUi(ClientGUI gui) {
         clientGui = gui;
@@ -674,9 +674,8 @@ public class ForceGeneratorViewUi implements ActionListener {
 
         public MechSummary getUnitAt(int row) {
             Entity e = entities.get(row);
-            MechSummary ms = mscInstance.getMech(e.getShortNameRaw());
 
-            return ms;
+            return mscInstance.getMech(e.getShortNameRaw());
         }
     }
 

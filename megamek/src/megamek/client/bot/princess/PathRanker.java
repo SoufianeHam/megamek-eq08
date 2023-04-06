@@ -52,8 +52,8 @@ public abstract class PathRanker implements IPathRanker {
         owner = princess;
     }
 
-    protected abstract RankedPath rankPath(MovePath path, Game game, int maxRange,
-                                           double fallTolerance, List<Entity> enemies,
+    protected abstract RankedPath rankPath(MovePath path, Game game,
+                                           List<Entity> enemies,
                                            Coords friendsCoords);
 
     @Override
@@ -84,7 +84,7 @@ public abstract class PathRanker implements IPathRanker {
         for (MovePath path : validPaths) {
             count = count.add(BigDecimal.ONE);
             
-            RankedPath rankedPath = rankPath(path, game, maxRange, fallTolerance, enemies, allyCenter);
+            RankedPath rankedPath = rankPath(path, game, enemies, allyCenter);
             
             returnPaths.add(rankedPath);
             
@@ -224,19 +224,19 @@ public abstract class PathRanker implements IPathRanker {
      * Rankers that extend this class should override this function
      */
     @Override
-    public void initUnitTurn(Entity unit, Game game) {
+    public void initUnitTurn() {
     }
 
     @Override
     public Targetable findClosestEnemy(Entity me, Coords position, Game game) {
-        return findClosestEnemy(me, position, game, true);
+        return findClosestEnemy(position, true);
     }
     
     /**
      * Find the closest enemy to a unit with a path
      */
     @Override
-    public Targetable findClosestEnemy(Entity me, Coords position, Game game,
+    public Targetable findClosestEnemy(Coords position,
                                        boolean includeStrategicTargets) {
         int range = 9999;
         Targetable closest = null;
@@ -246,8 +246,8 @@ public abstract class PathRanker implements IPathRanker {
             // Also, skip withdrawing enemy bot units, to avoid humping disabled tanks and ejected
             // MechWarriors
             if (e.isAirborneAeroOnGroundMap() || 
-                    getOwner().getHonorUtil().isEnemyBroken(e.getId(), e.getOwnerId(),
-                            getOwner().getForcedWithdrawal())) {
+                    getOwner().getHonorUtil().isEnemyBroken(e.getId(), e.getOwnerId()
+                    )) {
                 continue;
             }
 

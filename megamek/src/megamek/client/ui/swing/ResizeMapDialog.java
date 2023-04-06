@@ -314,8 +314,7 @@ public class ResizeMapDialog extends JDialog implements ActionListener, KeyListe
         return panel;
     }
 
-    private File fileBrowser(String title, String targetDir, String fileName, final String extension,
-                             final String description, boolean isSave) {
+    private File fileBrowser(String title, String targetDir) {
         // Create a new instance of the file chooser.
         JFileChooser fileChooser = new JFileChooser(targetDir);
 
@@ -326,20 +325,20 @@ public class ResizeMapDialog extends JDialog implements ActionListener, KeyListe
         fileChooser.setDialogTitle(title);
 
         // If we have a file to start with, select it.
-        if (!StringUtility.isNullOrBlank(fileName)) {
-            fileChooser.setSelectedFile(new File(targetDir + fileName));
+        if (!StringUtility.isNullOrBlank(null)) {
+            fileChooser.setSelectedFile(new File(targetDir + null));
         }
 
         // Put a filter on the files that the user can select the proper file.
         fileChooser.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
-                return (f.getPath().toLowerCase().endsWith(extension) || f.isDirectory());
+                return (f.getPath().toLowerCase().endsWith(".xml") || f.isDirectory());
             }
 
             @Override
             public String getDescription() {
-                return description;
+                return "(*.xml)";
             }
         });
 
@@ -348,7 +347,7 @@ public class ResizeMapDialog extends JDialog implements ActionListener, KeyListe
 
         // Show the dialog and store the option clicked (open or cancel).
         int option;
-        if (isSave) {
+        if (false) {
             option = fileChooser.showSaveDialog(null);
         } else {
             option = fileChooser.showOpenDialog(null);
@@ -365,7 +364,7 @@ public class ResizeMapDialog extends JDialog implements ActionListener, KeyListe
     private void doLoad() {
         // Get the user-selected file.
         File selectedFile = fileBrowser(Messages.getString("RandomMapDialog.FileLoadDialog"),
-                "data" + File.separator + "mapgen", null, ".xml", "(*.xml)", false);
+                "data" + File.separator + "mapgen");
         
         // If we don't have a file, there's nothing to load.
         if (selectedFile == null) {
@@ -393,7 +392,7 @@ public class ResizeMapDialog extends JDialog implements ActionListener, KeyListe
 
         // Have the user choose a file to save the new settings to.
         File selectedFile = fileBrowser(Messages.getString("RandomMapDialog.FileLoadDialog"),
-                                        "data" + File.separator + "mapgen", null, ".xml", "(*.xml)", false);
+                                        "data" + File.separator + "mapgen");
 
         // If no file was selected, we're done.
         if (selectedFile == null) {

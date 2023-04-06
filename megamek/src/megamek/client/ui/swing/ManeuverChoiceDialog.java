@@ -63,12 +63,10 @@ public class ManeuverChoiceDialog extends JDialog implements ActionListener {
     /**
      * Create and initialize the dialog.
      *
-     * @param parent - the <code>Frame</code> that is locked by this dialog.
-     * @param question - <code>String</code> displayed above the choices. The
-     *            question string is tokenised on "\n".
+     * @param parent  - the <code>Frame</code> that is locked by this dialog.
      * @param choices - an array of <code>String</code>s to be displayed.
      */
-    private void initialize(JFrame parent, String question, String[] choices) {
+    private void initialize(JFrame parent, String[] choices) {
         super.setResizable(false);
 
         GridBagLayout gridbag = new GridBagLayout();
@@ -192,7 +190,7 @@ public class ManeuverChoiceDialog extends JDialog implements ActionListener {
         for (int type = 0; type < ManeuverType.MAN_SIZE; type++) {
             choices[type] = ManeuverType.getTypeName(type);
         }
-        initialize(parent, question, choices);
+        initialize(parent, choices);
     }
 
     @Override

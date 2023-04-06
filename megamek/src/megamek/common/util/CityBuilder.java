@@ -101,7 +101,7 @@ public class CityBuilder {
 
                 if (cityPlan.contains(coord) || buildingUsed.contains(coord)
                         || !board.contains(coord)
-                        || !isHexBuildable(board.getHex(coord))) {
+                        || isHexBuildable(board.getHex(coord))) {
                     continue;
                 }
 
@@ -124,7 +124,7 @@ public class CityBuilder {
                     Coords next = coord.translated(dir);
                     if (cityPlan.contains(next) || buildingUsed.contains(next)
                             || !board.contains(next)
-                            || !isHexBuildable(board.getHex(next))) {
+                            || isHexBuildable(board.getHex(next))) {
                         break; // oh well, can't expand here
                     }
                     coordList.add(next);
@@ -328,12 +328,9 @@ public class CityBuilder {
                 || hex.containsTerrain(Terrains.IMPASSABLE)
                 || hex.containsTerrain(Terrains.MAGMA)
                 || hex.containsTerrain(Terrains.SWAMP)) {
-            return false; // uneconomic to build here
+            return true; // uneconomic to build here
         }
-        if (hex.getLevel() >= 4) {
-            return false; // don't build on mountaintops (aesthetics)
-        }
-        return true;
+        return hex.getLevel() >= 4; // don't build on mountaintops (aesthetics)
     }
 
     /**
@@ -461,7 +458,7 @@ public class CityBuilder {
 
     private Coords resumeAfterObstacle(Coords coords, int nextDirection) {
         Coords next = selectNextGrid(nextDirection, coords);
-        while (board.contains(next) && !isHexBuildable(board.getHex(next))) {
+        while (board.contains(next) && isHexBuildable(board.getHex(next))) {
             next = selectNextGrid(nextDirection, next);
         }
         return next;

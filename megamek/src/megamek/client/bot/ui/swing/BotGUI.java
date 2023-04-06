@@ -54,7 +54,7 @@ public class BotGUI implements GameListener {
     }
 
     @Override
-    public void gamePlayerChange(GamePlayerChangeEvent e) {
+    public void gamePlayerChange() {
 
     }
 
@@ -74,7 +74,7 @@ public class BotGUI implements GameListener {
     }
 
     @Override
-    public void gameEnd(GameEndEvent e) {
+    public void gameEnd() {
 
     }
 
@@ -84,7 +84,7 @@ public class BotGUI implements GameListener {
     }
 
     @Override
-    public void gameBoardChanged(GameBoardChangeEvent e) {
+    public void gameBoardChanged() {
 
     }
 
@@ -94,7 +94,7 @@ public class BotGUI implements GameListener {
     }
 
     @Override
-    public void gameMapQuery(GameMapQueryEvent e) {
+    public void gameMapQuery() {
 
     }
 
@@ -104,7 +104,7 @@ public class BotGUI implements GameListener {
     }
 
     @Override
-    public void gameEntityNewOffboard(GameEntityNewOffboardEvent e) {
+    public void gameEntityNewOffboard() {
 
     }
 
@@ -129,7 +129,7 @@ public class BotGUI implements GameListener {
     }
 
     @Override
-    public void gameVictory(GameVictoryEvent e) {       
+    public void gameVictory() {
 
     }
 }

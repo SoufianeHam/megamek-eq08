@@ -314,19 +314,19 @@ public class HexTileset implements BoardListener {
     public void loadAllImages(Component comp, MediaTracker tracker) {
         for (HexEntry entry: bases) {
             if (entry.getImage() == null) {
-                entry.loadImage(comp);
+                entry.loadImage();
             }
             tracker.addImage(entry.getImage(), 1);
         }
         for (HexEntry entry: supers) {
             if (entry.getImage() == null) {
-                entry.loadImage(comp);
+                entry.loadImage();
             }
             tracker.addImage(entry.getImage(), 1);
         }
         for (HexEntry entry: orthos) {
             if (entry.getImage() == null) {
-                entry.loadImage(comp);
+                entry.loadImage();
             }
             tracker.addImage(entry.getImage(), 1);
         }
@@ -556,7 +556,7 @@ public class HexTileset implements BoardListener {
 
         public Image getImage(Component comp, int seed) {
             if ((null == images) || images.isEmpty()) {
-                loadImage(comp);
+                loadImage();
             }
             if (images.isEmpty()) {
                 return null;
@@ -568,7 +568,7 @@ public class HexTileset implements BoardListener {
             return images.firstElement();
         }
 
-        public void loadImage(Component c2) {
+        public void loadImage() {
             images = new Vector<>();
             for (String filename: filenames) {
                 File imgFile = new MegaMekFile(Configuration.hexesDir(), filename).getFile();
@@ -603,7 +603,7 @@ public class HexTileset implements BoardListener {
         }
 
         @Override
-        public void gameBoardChanged(GameBoardChangeEvent e) {
+        public void gameBoardChanged() {
             clearAllHexes();
         }
 
@@ -615,7 +615,7 @@ public class HexTileset implements BoardListener {
     }
     
     @Override
-    public void boardNewBoard(BoardEvent b) {
+    public void boardNewBoard() {
         clearAllHexes();
    }
 
@@ -625,7 +625,7 @@ public class HexTileset implements BoardListener {
     }
 
     @Override
-    public void boardChangedAllHexes(BoardEvent b) {
+    public void boardChangedAllHexes() {
         clearAllHexes();
     }
 }

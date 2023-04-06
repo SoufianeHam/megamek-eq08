@@ -119,8 +119,8 @@ public class ArtilleryTargetingControl {
             // ignore routed enemies who haven't resumed fire
             if (entity.isEnemyOf(shooter)) {
                 boolean enemyUnitBroken = owner.getHonorUtil().isEnemyBroken(entity.getId(), 
-                        shooter.getOwnerId(), 
-                        owner.getBehaviorSettings().isForcedWithdrawal());
+                        shooter.getOwnerId()
+                );
                 
                 boolean enemyDishonored = owner.getHonorUtil().isEnemyDishonored(entity.getOwnerId());
                 
@@ -245,9 +245,8 @@ public class ArtilleryTargetingControl {
      * @return Firing plan
      */
     public FiringPlan calculateIndirectArtilleryPlan(Entity shooter, Game game, Princess owner) {
-        FiringPlan bestPlan = calculateIndirectArtilleryPlan(shooter, game, owner, 0);
-        
-        return bestPlan;
+
+        return calculateIndirectArtilleryPlan(shooter, game, owner, 0);
     }
     
     /**
@@ -378,8 +377,8 @@ public class ArtilleryTargetingControl {
     }
 
     private static class HelperAmmo {
-        public int equipmentNum;
-        public long munitionType;
+        public final int equipmentNum;
+        public final long munitionType;
 
         public HelperAmmo(int equipmentNum, long munitionType) {
             this.equipmentNum = equipmentNum;

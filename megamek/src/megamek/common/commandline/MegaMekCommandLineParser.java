@@ -14,7 +14,6 @@
 package megamek.common.commandline;
 
 import megamek.MMConstants;
-import megamek.MegaMek;
 import megamek.client.ui.Messages;
 import megamek.common.*;
 import megamek.common.alphaStrike.conversion.ASConverter;
@@ -445,8 +444,8 @@ public class MegaMekCommandLineParser extends AbstractCommandLineParser {
             v.addElement(getArgValue());
             nextArg();
         }
-        setToken(TOK_EOF);
-        setTokenValue(null);
+        setToken();
+        setTokenValue();
         restArgs = v.toArray(new String[0]);
     }
 }

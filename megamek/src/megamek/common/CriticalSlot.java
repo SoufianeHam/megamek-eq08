@@ -171,7 +171,7 @@ public class CriticalSlot implements Serializable {
         }
         CriticalSlot other = (CriticalSlot) object;
         return ((other.getType() == type) && (other.getIndex() == index) && (((other
-                .getMount() != null) && (mount != null) && other.getMount()
+                .getMount() != null) && other.getMount()
                 .equals(mount)) || ((mount == null) && (other.getMount() == null))));
     }
 

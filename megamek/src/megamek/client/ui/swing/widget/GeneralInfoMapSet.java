@@ -213,7 +213,7 @@ public class GeneralInfoMapSet implements DisplayMapSet {
     public void setEntity(Entity en) {
 
         mechTypeL0.setVisible(false);
-        if (!en.isDesignValid()) {
+        if (en.isDesignValid()) {
             // If this is the case, we will just overwrite the name-overflow
             // area, since this info is more important.
             mechTypeL0.setString(Messages

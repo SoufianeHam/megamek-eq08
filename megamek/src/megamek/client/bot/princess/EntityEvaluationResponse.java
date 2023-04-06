@@ -79,11 +79,7 @@ public class EntityEvaluationResponse {
         if (Double.compare(that.myEstimatedDamage, myEstimatedDamage) != 0) {
             return false;
         }
-        if (Double.compare(that.myEstimatedPhysicalDamage, myEstimatedPhysicalDamage) != 0) {
-            return false;
-        }
-
-        return true;
+        return Double.compare(that.myEstimatedPhysicalDamage, myEstimatedPhysicalDamage) == 0;
     }
 
     @Override

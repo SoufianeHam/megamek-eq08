@@ -27,7 +27,7 @@ public class ImageCache<K, V> {
     /**
      * Default maximum size
      */
-    public static int MAX_SIZE = 30000;
+    public static final int MAX_SIZE = 30000;
     
 
     /**
@@ -49,18 +49,16 @@ public class ImageCache<K, V> {
 
     /**
      * Adds a new key/value pair into the cache.
-     * 
+     *
      * @param key
      * @param value
-     * @return
      */
-    public synchronized @Nullable V put(@Nullable K key, @Nullable V value) {
+    public synchronized @Nullable void put(@Nullable K key, @Nullable V value) {
         if ((key == null) || (value == null)) {
-            return null;
+            return;
         }
       
         cache.put(key, value);
-        return value;
     }
 
     public synchronized @Nullable V get(K key) {

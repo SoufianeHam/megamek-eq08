@@ -169,7 +169,7 @@ public class TeleMissile extends Aero {
      * telemissiles are affected by anything but remaining fuel...).
      */
     @Override
-    public int getWalkMP(boolean gravity, boolean ignoreheat, boolean ignoremodulararmor) {
+    public int getWalkMP(boolean gravity, boolean ignoremodulararmor) {
         return getCurrentFuel();
     }
 

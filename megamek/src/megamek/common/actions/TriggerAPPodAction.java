@@ -20,7 +20,7 @@ public class TriggerAPPodAction extends AbstractEntityAction {
      */
     private static final long serialVersionUID = -5237760568077194506L;
     /** Save the equipment ID of the AP Pod being triggered. */
-    int podId;
+    final int podId;
 
     /**
      * Trigger the indicated AP Pod on the entity with the given entity ID.

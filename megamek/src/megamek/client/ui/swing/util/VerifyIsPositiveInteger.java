@@ -47,7 +47,7 @@ public class VerifyIsPositiveInteger implements DataVerifier {
             return result;
         }
 
-        if (!StringUtil.isPositiveInteger(value)) {
+        if (StringUtil.isPositiveInteger(value)) {
             return value + " is not a positive integer.";
         }
 

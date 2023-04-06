@@ -42,7 +42,7 @@ public class Bay implements Transporter, ITechnology {
     int currentdoors = doors;
     protected int unloadedThisTurn = 0;
     protected int loadedThisTurn = 0;
-    List<Integer> recoverySlots = new ArrayList<>();
+    final List<Integer> recoverySlots = new ArrayList<>();
     int bayNumber = 0;
     transient Game game = null;
     private double damage;

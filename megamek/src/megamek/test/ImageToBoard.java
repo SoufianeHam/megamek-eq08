@@ -42,29 +42,29 @@ import javax.imageio.ImageIO;
 public class ImageToBoard {
     boolean loaded = false;
     
-    int hexCols = 41;
+    final int hexCols = 41;
     
-    int hexRows = 51;
+    final int hexRows = 51;
     
-    int colOffset = 6;
+    final int colOffset = 6;
     
-    int rowOffset = 12;
+    final int rowOffset = 12;
     
     /**
      * Width of a hex in MegaMek.
      */
-    int hexWidth = 84;
+    final int hexWidth = 84;
     
     /**
      * Height of a hex in Megamek.
      */
-    int hexHeight = 72;
+    final int hexHeight = 72;
     
     BufferedImage src, hexTemplate;     
     
     BufferedWriter tilesetOut, boardOut;
     
-    String outputDir;
+    final String outputDir;
     
     public static void main(String[] args) {
         String fileName = "/home/walczak/Downloads/ChYWZZx.jpg";

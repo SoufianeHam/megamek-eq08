@@ -1915,8 +1915,8 @@ public class FormationType {
      * base class for limitations on formation type 
      */
     public static abstract class Constraint {
-        Predicate<MechSummary> criterion;
-        String description;
+        final Predicate<MechSummary> criterion;
+        final String description;
         boolean pairedWithNext;
         boolean pairedWithPrevious;
         
@@ -1958,7 +1958,7 @@ public class FormationType {
     }
     
     public static class CountConstraint extends Constraint {
-        int count;
+        final int count;
         
         public CountConstraint(int min, Predicate<MechSummary> criterion, String description) {
             super(criterion, description);
@@ -1984,7 +1984,7 @@ public class FormationType {
     }
     
     private static class PercentConstraint extends Constraint {
-        double pct;
+        final double pct;
         
         public PercentConstraint(double min, Predicate<MechSummary> criterion, String description) {
             super(criterion, description);
@@ -2006,7 +2006,7 @@ public class FormationType {
         int unitTypes = FLAG_ALL;
         int groupSize = 2;
         int numGroups = 1;
-        BiFunction<MechSummary,MechSummary,Boolean> groupConstraint;
+        final BiFunction<MechSummary,MechSummary,Boolean> groupConstraint;
         String description;
         
         public GroupingConstraint(Predicate<MechSummary> generalConstraint,

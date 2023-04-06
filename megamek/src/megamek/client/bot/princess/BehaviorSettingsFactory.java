@@ -93,12 +93,12 @@ public class BehaviorSettingsFactory {
     }
     
     /**
-     * Removes the behavior setting with the given name from the cache. Returns the BehaviorSettings that was 
-     * removed (or null if there was no such BehaviorSettings). 
+     * Removes the behavior setting with the given name from the cache. Returns the BehaviorSettings that was
+     * removed (or null if there was no such BehaviorSettings).
      */
-    public BehaviorSettings removeBehavior(String settingName) {
+    public void removeBehavior(String settingName) {
         synchronized (behaviorMap) {
-            return behaviorMap.remove(settingName);
+            behaviorMap.remove(settingName);
         }
     }
 
@@ -165,9 +165,8 @@ public class BehaviorSettingsFactory {
      * Saves the contents of the cache to the mmconf/princessBehaviors.xml file.
      *
      * @param includeTargets Set TRUE to include the contents of the Strategic Targets list.
-     * @return TRUE if the save is successful.
      */
-    public boolean saveBehaviorSettings(boolean includeTargets) {
+    public void saveBehaviorSettings(boolean includeTargets) {
         init(false);
 
         try {
@@ -175,12 +174,12 @@ public class BehaviorSettingsFactory {
             if (!behaviorFile.exists()) {
                 if (!behaviorFile.createNewFile()) {
                     LogManager.getLogger().error("Could not create " + PRINCESS_BEHAVIOR_PATH);
-                    return false;
+                    return;
                 }
             }
             if (!behaviorFile.canWrite()) {
                 LogManager.getLogger().error("Could not write to " + PRINCESS_BEHAVIOR_PATH);
-                return false;
+                return;
             }
 
             Document behaviorDoc = MMXMLUtility.newSafeDocumentBuilder().newDocument();
@@ -200,11 +199,9 @@ public class BehaviorSettingsFactory {
             try (Writer writer = new FileWriter(behaviorFile)) {
                 StreamResult result = new StreamResult(writer);
                 transformer.transform(source, result);
-                return true;
             }
         } catch (Exception e) {
             LogManager.getLogger().error("", e);
-            return false;
         }
     }
 

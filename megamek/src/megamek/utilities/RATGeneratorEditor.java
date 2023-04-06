@@ -353,7 +353,7 @@ public class RATGeneratorEditor extends JFrame {
         JButton button = new JButton("Add Row");
         topPanel.add(button);
         button.addActionListener(ev -> {
-            if ((factionChooserForModel.getSelectedItem() != null) && !unitModelEditorModel.addEntry(factionChooserForModel.getSelectedItem().toString())) {
+            if ((factionChooserForModel.getSelectedItem() != null) && unitModelEditorModel.addEntry(factionChooserForModel.getSelectedItem().toString())) {
                 JOptionPane.showMessageDialog(this,
                         "Unable to add model or chassis entry. Please select a unit model. " +
                                 "If adding a model entry, make sure you already have a chassis entry defined.");
@@ -413,7 +413,7 @@ public class RATGeneratorEditor extends JFrame {
         JButton button = new JButton("Add Row");
         topPanel.add(button);
         button.addActionListener(ev -> {
-            if ((factionChooserForChassis.getSelectedItem() != null) && !unitChassisEditorModel.addEntry(factionChooserForChassis.getSelectedItem().toString())) {
+            if ((factionChooserForChassis.getSelectedItem() != null) && unitChassisEditorModel.addEntry(factionChooserForChassis.getSelectedItem().toString())) {
                 JOptionPane.showMessageDialog(this,
                         "Unable to add model or chassis entry. Please select a unit model. " +
                                 "If adding a model entry, make sure you already have a chassis entry defined.");
@@ -776,8 +776,8 @@ public class RATGeneratorEditor extends JFrame {
         public static final int MODE_CHASSIS = 1;
         public static final int MODE_SUMMARY = 2;
 
-        ArrayList<String> factions;
-        HashMap<String, List<String>> data;
+        final ArrayList<String> factions;
+        final HashMap<String, List<String>> data;
         private int mode;
         private AbstractUnitRecord unitRecord;
 
@@ -920,7 +920,7 @@ public class RATGeneratorEditor extends JFrame {
             while (list.size() < ERAS.length) {
                 list.add("");
             }
-            return addEntry(faction, list);
+            return !addEntry(faction, list);
         }
 
         public boolean addEntry(String faction, List<String> factionData) {
@@ -948,7 +948,7 @@ public class RATGeneratorEditor extends JFrame {
             return true;
         }
 
-        public boolean addEntry(RowData rowData) {
+        public void addEntry(RowData rowData) {
             boolean rowAdded = addEntry(rowData.faction, rowData.eraData);
             if (rowAdded) {
                 for (int i = 0; i < ERAS.length; i++) {
@@ -963,7 +963,6 @@ public class RATGeneratorEditor extends JFrame {
                     }
                 }
             }
-            return rowAdded;
         }
 
         public void removeEntry(int row) {
@@ -1012,8 +1011,8 @@ public class RATGeneratorEditor extends JFrame {
     }
 
     private static class RowData {
-        String faction;
-        List<String> eraData;
+        final String faction;
+        final List<String> eraData;
 
         public RowData(String faction, List<String> eraData) {
             this.faction = faction;
@@ -1021,7 +1020,7 @@ public class RATGeneratorEditor extends JFrame {
         }
     }
 
-    TableCellRenderer unitListRenderer = new DefaultTableCellRenderer() {
+    final TableCellRenderer unitListRenderer = new DefaultTableCellRenderer() {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
@@ -1046,7 +1045,7 @@ public class RATGeneratorEditor extends JFrame {
         }
     };
 
-    TableCellRenderer chassisListRenderer = new DefaultTableCellRenderer() {
+    final TableCellRenderer chassisListRenderer = new DefaultTableCellRenderer() {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
@@ -1378,8 +1377,8 @@ public class RATGeneratorEditor extends JFrame {
     }
 
     private static class SalvageEditorTableModel extends DefaultTableModel {
-        ArrayList<String> factions;
-        HashMap<String, ArrayList<String>> data;
+        final ArrayList<String> factions;
+        final HashMap<String, ArrayList<String>> data;
         private FactionRecord factionRec;
         
         public SalvageEditorTableModel() {

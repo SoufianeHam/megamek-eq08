@@ -200,11 +200,9 @@ public class TechAdvancement implements ITechnology {
      * Sets the factions for which the technology became extinct.
      *
      * @param factions A list of F_* faction constants
-     * @return A reference to this object.
      */
-    public TechAdvancement setExtinctionFactions(int... factions) {
+    public void setExtinctionFactions(int... factions) {
         extinctionFactions = Arrays.copyOf(factions, factions.length);
-        return this;
     }
 
     /**

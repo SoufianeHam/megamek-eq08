@@ -285,14 +285,14 @@ public class TROView {
         return name;
     }
 
-    protected String formatArmorType(int at, boolean trim) {
+    protected String formatArmorType(int at) {
         // Some types do not have armor on the first location, and others have only a
         // single location
-        if (trim && (at == EquipmentType.T_ARMOR_STANDARD)) {
+        if (true && (at == EquipmentType.T_ARMOR_STANDARD)) {
             return "";
         }
         String name = EquipmentType.getArmorTypeName(at);
-        if (trim) {
+        if (true) {
             name = name.replace("-Fibrous", "").replace("-Aluminum", "");
         }
         return name;
@@ -361,14 +361,14 @@ public class TROView {
                 for (int i = 1; i < locs.length; i++) {
                     if ((locs[i] < entity.locations())
                             && (entity.getArmorType(locs[i]) != entity.getArmorType(locs[0]))) {
-                        val = Arrays.stream(locs).mapToObj(l -> formatArmorType(entity.getArmorType(l), true))
+                        val = Arrays.stream(locs).mapToObj(l -> formatArmorType(entity.getArmorType(l)))
                                 .collect(Collectors.joining("/"));
                         break;
                     }
                 }
             }
             if (null == val) {
-                val = formatArmorType(entity.getArmorType(locs[0]), true);
+                val = formatArmorType(entity.getArmorType(locs[0]));
             }
             for (final int loc : locs) {
                 if (loc < entity.locations()) {
@@ -504,7 +504,7 @@ public class TROView {
                 if (null == crit) {
                     remaining++;
                 } else if ((crit.getType() == CriticalSlot.TYPE_SYSTEM)
-                        && showFixedSystem(entity, crit.getIndex(), loc)) {
+                        && showFixedSystem(crit.getIndex(), loc)) {
                     fixedCount.merge(getSystemName(entity, crit.getIndex()), 1, Integer::sum);
                 } else if (crit.getMount() != null) {
                     if (crit.getMount().isOmniPodMounted()) {
@@ -601,15 +601,11 @@ public class TROView {
      * equipment in an omni unit. By default this is false, but mechs override it to
      * show some systems.
      *
-     * @param entity
-     *            The unit the TRO is for
-     * @param index
-     *            The system index of the critical slot
-     * @param loc
-     *            The slot location
+     * @param index The system index of the critical slot
+     * @param loc   The slot location
      * @return Whether to show this as a fixed system in an omni configuration
      */
-    protected boolean showFixedSystem(Entity entity, int index, int loc) {
+    protected boolean showFixedSystem(int index, int loc) {
         return false;
     }
 

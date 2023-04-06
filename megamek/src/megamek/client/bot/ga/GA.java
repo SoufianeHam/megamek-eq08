@@ -26,9 +26,9 @@ public abstract class GA {
     final protected int chromosomeDim; // dimension of chromosome (number of genes)
     final protected int populationDim;
     final protected Chromosome[] chromosomes;
-    Chromosome[] chromNextGen;
-    double[] genAvgDeviation; // statistics--average deviation of current
-    double[] genAvgFitness; // statistics--average fitness of current
+    final Chromosome[] chromNextGen;
+    final double[] genAvgDeviation; // statistics--average deviation of current
+    final double[] genAvgFitness; // statistics--average fitness of current
     protected final int best;
 
     abstract protected void initPopulation();
@@ -72,8 +72,8 @@ public abstract class GA {
         return (int) (Math.random() * upperBound);
     }
 
-    double getRandom(double upperBound) {
-        return Math.random() * upperBound;
+    double getRandom() {
+        return Math.random() * 1.0;
     }
 
     protected boolean shouldDoExhaustive() {
@@ -84,12 +84,12 @@ public abstract class GA {
         // TODO : add something here
     }
 
-    public int evolve() {
+    public void evolve() {
         int iGen = 0;
         initPopulation();
         if (this.shouldDoExhaustive()) {
             this.doExhaustiveSearch();
-            return 0;
+            return;
         }
 
         boolean converged = false;
@@ -115,7 +115,6 @@ public abstract class GA {
         }
 
         computeFitnessRankings();
-        return iGen;
     }
 
     protected double getAvgFitness() {
@@ -146,7 +145,7 @@ public abstract class GA {
                 if (index == parents[0]) {
                     continue;
                 }
-                if (randomSelectionChance > getRandom(1.0)
+                if (randomSelectionChance > getRandom()
                         || index + 1 > getRandom(populationDim)) {
                     parents[i] = index;
                     found = true;
@@ -172,7 +171,7 @@ public abstract class GA {
             chromNextGen[i].copyChromGenes(chromosomes[indexes[0]]);
             chromNextGen[i + 1].copyChromGenes(chromosomes[indexes[1]]);
 
-            if (getRandom(1.0) < crossoverProb) {
+            if (getRandom() < crossoverProb) {
                 doUniformCrossover(chromNextGen[i], chromNextGen[i + 1]);
             }
         }
@@ -183,7 +182,7 @@ public abstract class GA {
         for (int i = 0; i < populationDim; i++) {
             this.chromosomes[i].copyChromGenes(this.chromNextGen[i]);
 
-            if (i != best && (i == 0 || getRandom(1.0) < mutationProb)) {
+            if (i != best && (i == 0 || getRandom() < mutationProb)) {
                 doRandomMutation(i);
             }
         }
@@ -191,7 +190,7 @@ public abstract class GA {
 
     void doUniformCrossover(Chromosome c1, Chromosome c2) {
         for (int iGene = 0; iGene < chromosomeDim; iGene++) {
-            if (getRandom(1.0) < .5) {
+            if (getRandom() < .5) {
                 int gene = c1.genes[iGene];
                 c1.genes[iGene] = c2.genes[iGene];
                 c2.genes[iGene] = gene;

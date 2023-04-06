@@ -118,7 +118,7 @@ public abstract class MMRandom {
      * Uses com.sun.java.util.collections.Random
      */
     static class SunRandom extends MMRandom {
-        Random random = new Random();
+        final Random random = new Random();
 
         @Override
         public int randomInt(int maxValue) {
@@ -170,7 +170,7 @@ public abstract class MMRandom {
     static class Pool36Random extends SunRandom {
         public static final int NUM_SHUFFLES = 360;
 
-        MMShuffle[] pool = new MMShuffle[36];
+        final MMShuffle[] pool = new MMShuffle[36];
         int index = 0;
 
         public Pool36Random() {

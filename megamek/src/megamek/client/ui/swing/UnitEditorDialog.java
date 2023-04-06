@@ -129,7 +129,7 @@ public class UnitEditorDialog extends JDialog {
 
         JButton butOK = new JButton(Messages.getString("Okay"));
         butOK.addActionListener(evt -> {
-            btnOkayActionPerformed(evt);
+            btnOkayActionPerformed();
             setVisible(false);
         });
         JButton butCancel = new JButton(Messages.getString("Cancel"));
@@ -903,7 +903,7 @@ public class UnitEditorDialog extends JDialog {
         panSystem.add(new JLabel("<html><b>" + Messages.getString("UnitEditorDialog.lifeSupport")
                 + "</b><br></html>"), gridBagConstraints);
         int lifeHits = 0;
-        if (!aero.hasLifeSupport()) {
+        if (aero.hasLifeSupport()) {
             lifeHits = 1;
         }
         lifeSupportCrit = new CheckCritPanel(1, lifeHits);
@@ -1182,7 +1182,7 @@ public class UnitEditorDialog extends JDialog {
         }
     }
 
-    private void btnOkayActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnOkayActionPerformed() {
         for (int i = 0; i < entity.locations(); i++) {
             if (null != spnInternal[i]) {
                 int internal = (Integer) spnInternal[i].getModel().getValue();

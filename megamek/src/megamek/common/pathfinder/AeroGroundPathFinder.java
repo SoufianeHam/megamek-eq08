@@ -34,7 +34,7 @@ public class AeroGroundPathFinder {
     public static final int NAP_OF_THE_EARTH = 1;
     public static final int OPTIMAL_STRAFE_ALTITUDE = 3; // future use
 
-    protected int getMinimumVelocity(IAero mover) {
+    protected int getMinimumVelocity() {
         return 1;
     }
 
@@ -42,7 +42,7 @@ public class AeroGroundPathFinder {
         return 3;
     }
 
-    protected Game game;
+    protected final Game game;
     private List<MovePath> aeroGroundPaths;
     protected int maxThrust;
 
@@ -75,7 +75,7 @@ public class AeroGroundPathFinder {
             IAero aero = (IAero) startingEdge.getEntity();
             maxThrust = AeroPathUtil.calculateMaxSafeThrust(aero);
             int maxVelocity = Math.min(getMaximumVelocity(aero), aero.getCurrentVelocity() + maxThrust);
-            int minVelocity = Math.max(getMinimumVelocity(aero), aero.getCurrentVelocity() - maxThrust);
+            int minVelocity = Math.max(getMinimumVelocity(), aero.getCurrentVelocity() - maxThrust);
             Collection<MovePath> validAccelerations = AeroPathUtil.generateValidAccelerations(startingEdge, minVelocity, maxVelocity);
 
             for (MovePath acceleratedPath : validAccelerations) {
@@ -177,7 +177,7 @@ public class AeroGroundPathFinder {
             }
 
             // repeat with 1, 3, 7 when we settle things down?
-            MovePath desiredAltitudePath = adjustTowardsDesiredAltitude(start, OPTIMAL_STRIKE_ALTITUDE);
+            MovePath desiredAltitudePath = adjustTowardsDesiredAltitude(start);
 
             if (choppedOffFlyOff) {
                 desiredAltitudePath.addStep(MoveStepType.RETURN);
@@ -191,20 +191,20 @@ public class AeroGroundPathFinder {
 
     /**
      * Moves a given path towards the desired altitude.
+     *
      * @param startingPath The path to adjust
-     * @param desiredAltitude The desired altitude
      * @return New instance of movepath with as much altitude adjustment as possible
      */
-    private MovePath adjustTowardsDesiredAltitude(MovePath startingPath, int desiredAltitude) {
+    private MovePath adjustTowardsDesiredAltitude(MovePath startingPath) {
         MovePath altitudePath = startingPath.clone();
 
         // generate a path that involves making changes that go up or down towards the desired altitude as far as possible
-        while (altitudePath.getFinalAltitude() != desiredAltitude) {
+        while (altitudePath.getFinalAltitude() != AeroGroundPathFinder.OPTIMAL_STRIKE_ALTITUDE) {
             // up steps use thrust. Two points, to be exact
-            if (altitudePath.getFinalAltitude() < desiredAltitude &&
+            if (altitudePath.getFinalAltitude() < AeroGroundPathFinder.OPTIMAL_STRIKE_ALTITUDE &&
                     altitudePath.getMpUsed() < maxThrust - 1) {
                 altitudePath.addStep(MoveStepType.UP);
-            } else if ((altitudePath.getFinalAltitude() > desiredAltitude) &&
+            } else if ((altitudePath.getFinalAltitude() > AeroGroundPathFinder.OPTIMAL_STRIKE_ALTITUDE) &&
                     (altitudePath.getFinalAltitude() >= startingPath.getFinalAltitude() - 1)) {
                 // down steps don't use thrust, but if we take more than one, it changes the velocity,
                 // so just do one for now
@@ -243,7 +243,7 @@ public class AeroGroundPathFinder {
         for (MovePath path : generateSidePaths(mp, MoveStepType.TURN_RIGHT)) {
             // we want to avoid adding paths that don't visit new hexes
             // off-board paths will get thrown out later
-            if (path.fliesOffBoard() || !pathIsRedundant(path)) {
+            if (path.fliesOffBoard() || pathIsRedundant(path)) {
                 retval.add(path);
             }
         }
@@ -251,13 +251,13 @@ public class AeroGroundPathFinder {
         for (MovePath path : generateSidePaths(mp, MoveStepType.TURN_LEFT)) {
             // we want to avoid adding paths that don't visit new hexes
             // off-board paths will get thrown out later
-            if (path.fliesOffBoard() || !pathIsRedundant(path)) {
+            if (path.fliesOffBoard() || pathIsRedundant(path)) {
                 retval.add(path);
             }
         }
 
         ForwardToTheEnd(mp);
-        if (mp.fliesOffBoard() || !pathIsRedundant(mp)) {
+        if (mp.fliesOffBoard() || pathIsRedundant(mp)) {
             retval.add(mp);
         }
 
@@ -389,6 +389,6 @@ public class AeroGroundPathFinder {
             }
         }
 
-        return !newHexVisited;
+        return newHexVisited;
     }
 }

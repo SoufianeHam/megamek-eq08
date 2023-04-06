@@ -47,7 +47,7 @@ public class LobbyMekPopupActions implements ActionListener {
             case LMP_CONFIGURE:
                 if (!entities.isEmpty()) {
                     Entity randomSelected = entities.stream().findAny().get();
-                    singleEntityAction(command, randomSelected, info);
+                    singleEntityAction(command, randomSelected);
                 }
                 break;
 
@@ -183,7 +183,7 @@ public class LobbyMekPopupActions implements ActionListener {
                 break;
 
             case LMP_DELETE:
-                lobby.lobbyActions.delete(LobbyUtility.getForces(lobby.game(), info), entities, true);
+                lobby.lobbyActions.delete(LobbyUtility.getForces(lobby.game(), info), entities);
                 break;
 
             case LMP_SKILLS:
@@ -340,13 +340,9 @@ public class LobbyMekPopupActions implements ActionListener {
     }
 
     /** Calls lobby actions for a single entity. */
-    private void singleEntityAction(String command, Entity entity, String info) {
-        switch (command) {
-            case LMP_CONFIGURE:
-                lobby.lobbyActions.customizeMech(entity);
-                break;
-
-
+    private void singleEntityAction(String command, Entity entity) {
+        if (LMP_CONFIGURE.equals(command)) {
+            lobby.lobbyActions.customizeMech(entity);
         }
     }
 }

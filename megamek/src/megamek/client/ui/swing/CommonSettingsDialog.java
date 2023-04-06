@@ -56,7 +56,7 @@ public class CommonSettingsDialog extends AbstractButtonDialog implements ItemLi
      * @author arlith
      */
     private static class AdvancedOptionData implements Comparable<AdvancedOptionData> {
-        public String option;
+        public final String option;
         public AdvancedOptionData(String option) {
             this.option = option;
         }
@@ -276,7 +276,7 @@ public class CommonSettingsDialog extends AbstractButtonDialog implements ItemLi
     private int savedFovHighlightAlpha;
     private int savedFovDarkenAlpha;
     private int savedNumStripesSlider;
-    HashMap<String, String> savedAdvancedOpt = new HashMap<>();
+    final HashMap<String, String> savedAdvancedOpt = new HashMap<>();
 
     /** Constructs the Client Settings Dialog with a clientgui (used within the client, i.e. in lobby and game). */
     public CommonSettingsDialog(JFrame owner, ClientGUI cg) {

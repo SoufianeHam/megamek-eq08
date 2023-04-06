@@ -196,7 +196,7 @@ public class Tank extends Entity {
     }
 
     public boolean getOverThresh() {
-        return overThresh;
+        return !overThresh;
     }
 
     public void setOverThresh(boolean tf) {
@@ -1035,7 +1035,7 @@ public class Tank extends Entity {
         }
         HitData rv = new HitData(nArmorLoc);
         boolean bHitAimed = false;
-        if ((aimedLocation != LOC_NONE) && !aimingMode.isNone()) {
+        if ((aimedLocation != LOC_NONE) && aimingMode.isNone()) {
             int roll = Compute.d6(2);
 
             if ((5 < roll) && (roll < 9)) {
@@ -1755,15 +1755,15 @@ public class Tank extends Entity {
     public boolean doomedInVacuum() {
         if (hasEngine() && (getEngine().isFusion() || getEngine().getEngineType() == Engine.FISSION
                 || getEngine().getEngineType() == Engine.FUEL_CELL)) {
-            return !hasEnvironmentalSealing();
+            return hasEnvironmentalSealing();
         }
         return true;
     }
 
     @Override
     public boolean hasEnvironmentalSealing() {
-        return getMovementMode().equals(EntityMovementMode.SUBMARINE)
-                || super.hasEnvironmentalSealing();
+        return !getMovementMode().equals(EntityMovementMode.SUBMARINE)
+                && super.hasEnvironmentalSealing();
     }
 
     @Override
@@ -1916,7 +1916,7 @@ public class Tank extends Entity {
         }
         if ((roll < 6)
                 || (game.getOptions().booleanOption(OptionsConstants.ADVCOMBAT_VEHICLES_THRESHOLD)
-                        && !getOverThresh() && !damagedByFire)) {
+                        && getOverThresh() && !damagedByFire)) {
             return CRIT_NONE;
         }
         for (int i = 0; i < 2; i++) {
@@ -1939,7 +1939,7 @@ public class Tank extends Entity {
                         for (Mounted m : getWeaponList()) {
                             if ((m.getLocation() == loc) && !m.isDestroyed()
                                     && !m.isJammed() && !m.isHit()
-                                    && !m.jammedThisPhase()) {
+                                    && m.jammedThisPhase()) {
                                 return CRIT_WEAPON_JAM;
                             }
                         }
@@ -1983,7 +1983,7 @@ public class Tank extends Entity {
                         for (Mounted m : getWeaponList()) {
                             if ((m.getLocation() == loc) && !m.isDestroyed()
                                     && !m.isJammed() && !m.isHit()
-                                    && !m.jammedThisPhase()) {
+                                    && m.jammedThisPhase()) {
                                 return CRIT_WEAPON_JAM;
                             }
                         }
@@ -2046,7 +2046,7 @@ public class Tank extends Entity {
                         for (Mounted m : getWeaponList()) {
                             if ((m.getLocation() == loc) && !m.isDestroyed()
                                     && !m.isJammed() && !m.isHit()
-                                    && !m.jammedThisPhase()) {
+                                    && m.jammedThisPhase()) {
                                 return CRIT_WEAPON_JAM;
                             }
                         }
@@ -2081,7 +2081,7 @@ public class Tank extends Entity {
                         for (Mounted m : getWeaponList()) {
                             if ((m.getLocation() == loc) && !m.isDestroyed()
                                     && !m.isJammed() && !m.isHit()
-                                    && !m.jammedThisPhase()) {
+                                    && m.jammedThisPhase()) {
                                 return CRIT_WEAPON_JAM;
                             }
                         }
@@ -2140,7 +2140,7 @@ public class Tank extends Entity {
         super.setOmni(omni);
 
         // Add BattleArmorHandles to OmniMechs.
-        if (omni && !hasBattleArmorHandles()) {
+        if (omni && hasBattleArmorHandles()) {
             addTransporter(new BattleArmorHandlesTank());
         }
     }
@@ -2958,11 +2958,11 @@ public class Tank extends Entity {
     @Override
     public void setHullDown(boolean down) {
         super.setHullDown(down);
-        if ((getMovedBackwards() == true) && (down == true)) {
+        if ((getMovedBackwards()) && (down)) {
             m_bBackedIntoHullDown = true;
-        } else if ((getMovedBackwards() == false) && (down == true)) {
+        } else if ((!getMovedBackwards()) && (down)) {
             m_bBackedIntoHullDown = false;
-        } else if (down == false) {
+        } else if (!down) {
             m_bBackedIntoHullDown = false;
         }
     }

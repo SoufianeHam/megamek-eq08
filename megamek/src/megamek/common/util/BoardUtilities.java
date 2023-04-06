@@ -197,9 +197,9 @@ public class BoardUtilities {
         }
         count = (int) Math.round(count * sizeScale);
         for (int i = 0; i < count; i++) {
-            placeFoliage(result, Terrains.WOODS,
+            placeFoliage(result,
                     mapSettings.getProbFoliageHeavy(), mapSettings.getMinFoliageSize(),
-                    mapSettings.getMaxFoliageSize(), reverseHex, true);
+                    mapSettings.getMaxFoliageSize(), reverseHex);
         }
         
         // Add the rough
@@ -460,15 +460,13 @@ public class BoardUtilities {
     /**
      * Places randomly some connected Woods.
      *
-     * @param board The board the terrain goes on.
-     * @param terrainType The type of terrain to place {@link Terrains}.
+     * @param board      The board the terrain goes on.
      * @param probMore
-     * @param maxHexes Maximum number of hexes this terrain can cover.
+     * @param maxHexes   Maximum number of hexes this terrain can cover.
      * @param reverseHex
-     * @param exclusive Set TRUE if this terrain cannot be combined with any other terrain types.
      */
-    protected static void placeFoliage(Board board, int terrainType, int probMore, int minHexes,
-                                       int maxHexes, Map<Hex, Point> reverseHex, boolean exclusive) {
+    protected static void placeFoliage(Board board, int probMore, int minHexes,
+                                       int maxHexes, Map<Hex, Point> reverseHex) {
         Point p = new Point(Compute.randomInt(board.getWidth()), Compute.randomInt(board.getHeight()));
         int count = minHexes;
         if ((maxHexes - minHexes) > 0) {
@@ -479,10 +477,10 @@ public class BoardUtilities {
         HashSet<Hex> alreadyUsed = new HashSet<>();
         HashSet<Hex> unUsed = new HashSet<>();
         field = board.getHex(p.x, p.y);
-        if (!field.containsTerrain(terrainType)) {
+        if (!field.containsTerrain(Terrains.WOODS)) {
             unUsed.add(field);
         } else {
-            findAllUnused(board, terrainType, alreadyUsed, unUsed, field, reverseHex);
+            findAllUnused(board, Terrains.WOODS, alreadyUsed, unUsed, field, reverseHex);
         }
 
         for (int i = 0; i < count; i++) {
@@ -495,15 +493,15 @@ public class BoardUtilities {
                 iter.next();
             }
             field = iter.next();
-            if (exclusive) {
+            if (true) {
                 field.removeAllTerrains();
             }
             int tempInt = (Compute.randomInt(100) < probMore) ? 2 : 1;
-            Terrain tempTerrain = new Terrain(terrainType, tempInt);
+            Terrain tempTerrain = new Terrain(Terrains.WOODS, tempInt);
             field.addTerrain(tempTerrain);
             field.addTerrain(new Terrain(Terrains.FOLIAGE_ELEV, 1));
             unUsed.remove(field);
-            findAllUnused(board, terrainType, alreadyUsed, unUsed, field, reverseHex);
+            findAllUnused(board, Terrains.WOODS, alreadyUsed, unUsed, field, reverseHex);
         }
 
         

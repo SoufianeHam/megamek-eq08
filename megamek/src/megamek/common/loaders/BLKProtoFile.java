@@ -79,10 +79,9 @@ public class BLKProtoFile extends BLKFile implements IMechLoader {
         }
         t.setOriginalWalkMP(dataFile.getDataAsInt("cruiseMP")[0]);
 
-        int engineCode = BLKFile.FUSION;
         int engineFlags = Engine.NORMAL_ENGINE;
         int engineRating = TestProtomech.calcEngineRating(t);
-        t.setEngine(new Engine(engineRating, BLKFile.translateEngineCode(engineCode), engineFlags));
+        t.setEngine(new Engine(engineRating, BLKFile.translateEngineCode(BLKFile.FUSION), engineFlags));
 
         if (dataFile.exists("jumpingMP")) {
             t.setOriginalJumpMP(dataFile.getDataAsInt("jumpingMP")[0]);

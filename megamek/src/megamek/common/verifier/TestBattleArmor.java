@@ -32,37 +32,37 @@ public class TestBattleArmor extends TestEntity {
     /**
      * Keeps track of the number of free MP a Bipedal BA gets.
      */
-    public static int BIPED_FREE_MP = 1;
+    public static final int BIPED_FREE_MP = 1;
 
     /**
      * Keeps track of the number of free MP a Quad BA gets.
      */
-    public static int QUAD_FREE_MP = 2;
+    public static final int QUAD_FREE_MP = 2;
     
     /**
      * Base chassis weight by suit weight class for Inner Sphere suits
      */
-    public static double[] CHASSIS_WEIGHT_IS = { 0.08, 0.1, 0.175, 0.3, 0.55 };
+    public static final double[] CHASSIS_WEIGHT_IS = { 0.08, 0.1, 0.175, 0.3, 0.55 };
     /**
      * Base chassis weight by suit weight class for Clan suits
      */
-    public static double[] CHASSIS_WEIGHT_CLAN = { 0.13, 0.15, 0.25, 0.4, 0.7 };
+    public static final double[] CHASSIS_WEIGHT_CLAN = { 0.13, 0.15, 0.25, 0.4, 0.7 };
     /**
      * Weight for additional ground MP by suit weight class
      */
-    public static double[] ADDITIONAL_GROUND_MP_WEIGHT = { 0.025, 0.03, 0.04, 0.08, 0.16 };
+    public static final double[] ADDITIONAL_GROUND_MP_WEIGHT = { 0.025, 0.03, 0.04, 0.08, 0.16 };
 
     /**
      * BattleArmor can have a variable number of shots per slot of ammo, this
      * variable defines the maximum number of shots per slot they can have.
      */
-    public static int NUM_SHOTS_PER_CRIT = 4;
+    public static final int NUM_SHOTS_PER_CRIT = 4;
 
     /**
      * BA Tube Artillery gets to be special and has 8 shots per-crit and comes
      * in 2-shot clips.
      */
-    public static int NUM_SHOTS_PER_CRIT_TA = 8;
+    public static final int NUM_SHOTS_PER_CRIT_TA = 8;
 
     /**
      * An enumeration that keeps track of the legal armors for BattleArmor. Each
@@ -97,17 +97,17 @@ public class TestBattleArmor extends TestEntity {
          * The type, corresponding to types defined in
          * <code>EquipmentType</code>.
          */
-        public int type;
+        public final int type;
 
         /**
          * The number of spaces occupied by the armor type.
          */
-        public int space;
+        public final int space;
 
         /**
          * Denotes whether this armor is Clan or not.
          */
-        public boolean isClan;
+        public final boolean isClan;
 
         BAArmor(int t, int s, boolean c) {
             type = t;
@@ -191,19 +191,19 @@ public class TestBattleArmor extends TestEntity {
          * The type, corresponding to types defined in
          * <code>EquipmentType</code>.
          */
-        public int type;
+        public final int type;
 
         /**
          * The name of this manipulator
          */
-        public String internalName;
+        public final String internalName;
 
-        public String displayName;
+        public final String displayName;
 
         /**
          * Denotes whether this armor is Clan or not.
          */
-        public boolean pairMounted;
+        public final boolean pairMounted;
 
         BAManipulator(int t, boolean p) {
             type = t;
@@ -391,19 +391,11 @@ public class TestBattleArmor extends TestEntity {
         if ((numUsedCrits + newCrits) <= ba.getNumCrits(loc)) {
             // Weapons require extra criticism
             if (newMount.getType() instanceof WeaponType) {
-                if ((numAntiMechWeapons + 1) <= 
-                        ba.getNumAllowedAntiMechWeapons(loc)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return (numAntiMechWeapons + 1) <=
+                        ba.getNumAllowedAntiMechWeapons(loc);
             } else if (newMount.getType().hasFlag(MiscType.F_AP_MOUNT)) {
-                if ((numAntiPersonnelWeapons + 1) <= 
-                        ba.getNumAllowedAntiPersonnelWeapons(loc, trooper)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return (numAntiPersonnelWeapons + 1) <=
+                        ba.getNumAllowedAntiPersonnelWeapons(loc, trooper);
             } else {
                 return true;
             }
@@ -647,7 +639,7 @@ public class TestBattleArmor extends TestEntity {
         for (int loc = 0; loc < ba.locations(); loc++) {
             if (ba.getOArmor(loc) > maxArmorPoints) {
                 buff.append(printArmorLocation(loc))
-                        .append(printArmorLocProp(loc, maxArmorPoints))
+                        .append(printArmorLocProp(maxArmorPoints))
                         .append("\n");
                 correct = false;
             }
@@ -655,7 +647,7 @@ public class TestBattleArmor extends TestEntity {
         return correct;
     }
 
-    public String printArmorLocProp(int loc, int wert) {
+    public String printArmorLocProp(int wert) {
         return " is greater than " + wert + "!";
     }
 
@@ -1129,7 +1121,7 @@ public class TestBattleArmor extends TestEntity {
         if (skip()) {
             return true;
         }
-        if (!correctWeight(buff)) {
+        if (correctWeight(buff)) {
             buff.insert(0, printTechLevel() + printShortMovement());
             buff.append(printWeightCalculation());
             correct = false;

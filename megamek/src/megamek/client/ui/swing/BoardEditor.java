@@ -130,7 +130,7 @@ public class BoardEditor extends JPanel
      */
     private static class TerrainTypeHelper implements Comparable<TerrainTypeHelper> {
 
-        Terrain terrain;
+        final Terrain terrain;
 
         TerrainTypeHelper(Terrain terrain) {
             this.terrain = terrain;
@@ -210,7 +210,7 @@ public class BoardEditor extends JPanel
     public static final int[] allDirections = { 0, 1, 2, 3, 4, 5 };
     boolean isDragging = false;
     private Component bvc;
-    private final CommonMenuBar menuBar = new CommonMenuBar(this);
+    private final CommonMenuBar menuBar = new CommonMenuBar();
     private CommonAboutDialog about;
     private AbstractHelpDialog help;
     private CommonSettingsDialog setdlg;
@@ -464,7 +464,7 @@ public class BoardEditor extends JPanel
             String body = Messages.getString("BoardEditor.readme.message");
             ConfirmDialog confirm = new ConfirmDialog(frame, title, body, true);
             confirm.setVisible(true);
-            if (!confirm.getShowAgain()) {
+            if (confirm.getShowAgain()) {
                 GUIPreferences.getInstance().setNagForMapEdReadme(false);
             }
             if (confirm.getAnswer()) {
@@ -534,8 +534,8 @@ public class BoardEditor extends JPanel
     /**
      * Sets up Scaling Icon Buttons
      */
-    private ScalingIconButton prepareButton(String iconName, String buttonName, 
-            List<ScalingIconButton> bList, int width) {
+    private ScalingIconButton prepareButton(String iconName,
+                                            List<ScalingIconButton> bList, int width) {
         // Get the normal icon
         File file = new MegaMekFile(Configuration.widgetsDir(), "/MapEditor/"+iconName+".png").getFile();
         Image imageButton = ImageUtil.loadImageFromFile(file.getAbsolutePath());
@@ -569,15 +569,15 @@ public class BoardEditor extends JPanel
     /**
      * Sets up Scaling Icon ToggleButtons
      */
-    private ScalingIconToggleButton prepareToggleButton(String iconName, String buttonName, 
-            List<ScalingIconToggleButton> bList, int width) {
+    private ScalingIconToggleButton prepareToggleButton(String iconName,
+                                                        List<ScalingIconToggleButton> bList) {
         // Get the normal icon
         File file = new MegaMekFile(Configuration.widgetsDir(), "/MapEditor/" + iconName + ".png").getFile();
         Image imageButton = ImageUtil.loadImageFromFile(file.getAbsolutePath());
         if (imageButton == null) {
             imageButton = ImageUtil.failStandardImage();
         }
-        ScalingIconToggleButton button = new ScalingIconToggleButton(imageButton, width);
+        ScalingIconToggleButton button = new ScalingIconToggleButton(imageButton, BoardEditor.BASE_ARROWBUTTON_ICON_WIDTH);
         
         // Get the hover icon
         file = new MegaMekFile(Configuration.widgetsDir(), "/MapEditor/" + iconName + "_H.png").getFile();
@@ -609,37 +609,37 @@ public class BoardEditor extends JPanel
         labHelp2.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Buttons to ease setting common terrain types
-        buttonLW = prepareButton("ButtonLW", "Woods", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonLJ = prepareButton("ButtonLJ", "Jungle", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonOW = prepareButton("ButtonLLW", "Low Woods", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonOJ = prepareButton("ButtonLLJ", "Low Jungle", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonWa = prepareButton("ButtonWa", "Water", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonSw = prepareButton("ButtonSw", "Swamp", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonRo = prepareButton("ButtonRo", "Rough", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonMd = prepareButton("ButtonMd", "Mud", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH); 
-        buttonPv = prepareButton("ButtonPv", "Pavement", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonSn = prepareButton("ButtonSn", "Snow", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH); 
-        buttonBu = prepareButton("ButtonBu", "Buildings", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonRd = prepareButton("ButtonRd", "Roads", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonBr = prepareButton("ButtonBr", "Bridges", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonFT = prepareButton("ButtonFT", "Fuel Tanks", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonIc = prepareButton("ButtonIc", "Ice", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonTu = prepareButton("ButtonTu", "Tundra", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonMg = prepareButton("ButtonMg", "Magma", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
-        buttonCl = prepareButton("ButtonCl", "Clear", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonLW = prepareButton("ButtonLW", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonLJ = prepareButton("ButtonLJ", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonOW = prepareButton("ButtonLLW", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonOJ = prepareButton("ButtonLLJ", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonWa = prepareButton("ButtonWa", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonSw = prepareButton("ButtonSw", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonRo = prepareButton("ButtonRo", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonMd = prepareButton("ButtonMd", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonPv = prepareButton("ButtonPv", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonSn = prepareButton("ButtonSn", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonBu = prepareButton("ButtonBu", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonRd = prepareButton("ButtonRd", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonBr = prepareButton("ButtonBr", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonFT = prepareButton("ButtonFT", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonIc = prepareButton("ButtonIc", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonTu = prepareButton("ButtonTu", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonMg = prepareButton("ButtonMg", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
+        buttonCl = prepareButton("ButtonCl", terrainButtons, BASE_TERRAINBUTTON_ICON_WIDTH);
 
-        buttonBrush1 = prepareToggleButton("ButtonHex1", "Brush1", brushButtons, BASE_ARROWBUTTON_ICON_WIDTH);
-        buttonBrush2 = prepareToggleButton("ButtonHex7", "Brush2", brushButtons, BASE_ARROWBUTTON_ICON_WIDTH);
-        buttonBrush3 = prepareToggleButton("ButtonHex19", "Brush3", brushButtons, BASE_ARROWBUTTON_ICON_WIDTH);
+        buttonBrush1 = prepareToggleButton("ButtonHex1", brushButtons);
+        buttonBrush2 = prepareToggleButton("ButtonHex7", brushButtons);
+        buttonBrush3 = prepareToggleButton("ButtonHex19", brushButtons);
         ButtonGroup brushGroup = new ButtonGroup();
         brushGroup.add(buttonBrush1);
         brushGroup.add(buttonBrush2);
         brushGroup.add(buttonBrush3);
-        buttonOOC = prepareToggleButton("ButtonOOC", "OOC", brushButtons, BASE_ARROWBUTTON_ICON_WIDTH);
-        buttonUpDn = prepareToggleButton("ButtonUpDn", "UpDown", brushButtons, BASE_ARROWBUTTON_ICON_WIDTH);
+        buttonOOC = prepareToggleButton("ButtonOOC", brushButtons);
+        buttonUpDn = prepareToggleButton("ButtonUpDn", brushButtons);
 
-        buttonUndo = prepareButton("ButtonUndo", "Undo", undoButtons, BASE_ARROWBUTTON_ICON_WIDTH);
-        buttonRedo = prepareButton("ButtonRedo", "Redo", undoButtons, BASE_ARROWBUTTON_ICON_WIDTH);
+        buttonUndo = prepareButton("ButtonUndo", undoButtons, BASE_ARROWBUTTON_ICON_WIDTH);
+        buttonRedo = prepareButton("ButtonRedo", undoButtons, BASE_ARROWBUTTON_ICON_WIDTH);
         buttonUndo.setEnabled(false);
         buttonRedo.setEnabled(false);
         buttonUndo.setActionCommand(ClientGUI.BOARD_UNDO);
@@ -849,11 +849,11 @@ public class BoardEditor extends JPanel
         texElev.addActionListener(this);
         texElev.getDocument().addDocumentListener(this);
 
-        butElevUp = prepareButton("ButtonHexUP", "Raise Hex Elevation", null, BASE_ARROWBUTTON_ICON_WIDTH);
+        butElevUp = prepareButton("ButtonHexUP", null, BASE_ARROWBUTTON_ICON_WIDTH);
         butElevUp.setName("butElevUp");
         butElevUp.setToolTipText(Messages.getString("BoardEditor.butElevUp.toolTipText"));
 
-        butElevDown = prepareButton("ButtonHexDN", "Lower Hex Elevation", null, BASE_ARROWBUTTON_ICON_WIDTH);
+        butElevDown = prepareButton("ButtonHexDN", null, BASE_ARROWBUTTON_ICON_WIDTH);
         butElevDown.setName("butElevDown");
         butElevDown.setToolTipText(Messages.getString("BoardEditor.butElevDown.toolTipText"));
 
@@ -869,7 +869,7 @@ public class BoardEditor extends JPanel
 
         // Terrain List, Preview, Delete
         FixedYPanel panlisHex = new FixedYPanel(new FlowLayout(FlowLayout.LEFT, 4, 4));
-        butDelTerrain = prepareButton("buttonRemT", "Delete Terrain", null, BASE_ARROWBUTTON_ICON_WIDTH);
+        butDelTerrain = prepareButton("buttonRemT", null, BASE_ARROWBUTTON_ICON_WIDTH);
         butDelTerrain.setEnabled(false);
         canHex = new HexCanvas();
         panlisHex.add(butDelTerrain);
@@ -903,18 +903,18 @@ public class BoardEditor extends JPanel
         });
         choTerrainType.setFont(fontComboTerr);
         butAddTerrain = new JButton(Messages.getString("BoardEditor.butAddTerrain"));
-        butTerrUp = prepareButton("ButtonTLUP", "Increase Terrain Level", null, BASE_ARROWBUTTON_ICON_WIDTH);
-        butTerrDown = prepareButton("ButtonTLDN", "Decrease Terrain Level", null, BASE_ARROWBUTTON_ICON_WIDTH);
+        butTerrUp = prepareButton("ButtonTLUP", null, BASE_ARROWBUTTON_ICON_WIDTH);
+        butTerrDown = prepareButton("ButtonTLDN", null, BASE_ARROWBUTTON_ICON_WIDTH);
 
         // Exits
         cheTerrExitSpecified = new JCheckBox(Messages.getString("BoardEditor.cheTerrExitSpecified"));
         cheTerrExitSpecified.addActionListener(this);
-        butTerrExits = prepareButton("ButtonExitA", Messages.getString("BoardEditor.butTerrExits"), null, BASE_ARROWBUTTON_ICON_WIDTH);
+        butTerrExits = prepareButton("ButtonExitA", null, BASE_ARROWBUTTON_ICON_WIDTH);
         texTerrExits = new EditorTextField("0", 2, 0);
         texTerrExits.addActionListener(this);
         texTerrExits.getDocument().addDocumentListener(this);
-        butExitUp = prepareButton("ButtonEXUP", "Increase Exit / Gfx", null, BASE_ARROWBUTTON_ICON_WIDTH);
-        butExitDown = prepareButton("ButtonEXDN", "Decrease Exit / Gfx", null, BASE_ARROWBUTTON_ICON_WIDTH);
+        butExitUp = prepareButton("ButtonEXUP", null, BASE_ARROWBUTTON_ICON_WIDTH);
+        butExitDown = prepareButton("ButtonEXDN", null, BASE_ARROWBUTTON_ICON_WIDTH);
 
         // Copy and Paste
         FixedYPanel panCopyPaste = new FixedYPanel(new FlowLayout(FlowLayout.RIGHT, 4, 4));
@@ -1398,7 +1398,7 @@ public class BoardEditor extends JPanel
             int north = emd.getExpandNorth();
             int east = emd.getExpandEast();
             int south = emd.getExpandSouth();
-            board = implantOldBoard(game, west, north, east, south);
+            board = implantOldBoard(game, west, north);
 
             game.setBoard(board);
             curBoardFile = null;
@@ -1407,7 +1407,7 @@ public class BoardEditor extends JPanel
     }
 
     // When we resize a board, implant the old board's hexes where they should be in the new board
-    public Board implantOldBoard(Game game, int west, int north, int east, int south) {
+    public Board implantOldBoard(Game game, int west, int north) {
         Board oldBoard = game.getBoard();
         for (int x = 0; x < oldBoard.getWidth(); x++) {
             for (int y = 0; y < oldBoard.getHeight(); y++) {

@@ -79,8 +79,8 @@ public class TestSupportVehicle extends TestEntity {
             return EnumSet.complementOf(EnumSet.of(type));
         }
 
-        static Set<SVType> allBut(SVType first, SVType... rest) {
-            return EnumSet.complementOf(EnumSet.of(first, rest));
+        static Set<SVType> allBut(SVType... rest) {
+            return EnumSet.complementOf(EnumSet.of(SVType.HOVERCRAFT, rest));
         }
 
         /**
@@ -205,7 +205,7 @@ public class TestSupportVehicle extends TestEntity {
      */
     public enum ChassisModification implements ITechnologyDelegator {
         AMPHIBIOUS (1.75,EquipmentTypeLookup.AMPHIBIOUS_CHASSIS_MOD,
-                SVType.allBut(SVType.HOVERCRAFT, SVType.NAVAL)),
+                SVType.allBut(SVType.NAVAL)),
         ARMORED (1.5,EquipmentTypeLookup.ARMORED_CHASSIS_MOD,
                 SVType.allBut(SVType.AIRSHIP)),
         BICYCLE (0.75,EquipmentTypeLookup.BICYCLE_CHASSIS_MOD,
@@ -224,7 +224,7 @@ public class TestSupportVehicle extends TestEntity {
                 EnumSet.of(SVType.HOVERCRAFT, SVType.WHEELED), true),
         OFFROAD (1.5,EquipmentTypeLookup.OFFROAD_CHASSIS_MOD,
                 EnumSet.of(SVType.WHEELED)),
-        OMNI (1.0,EquipmentTypeLookup.OMNI_CHASSIS_MOD),
+        OMNI (),
         PROP (1.2,EquipmentTypeLookup.PROP_CHASSIS_MOD,
                 EnumSet.of(SVType.FIXED_WING)),
         SNOWMOBILE (1.75,EquipmentTypeLookup.SNOWMOBILE_CHASSIS_MOD,
@@ -237,7 +237,7 @@ public class TestSupportVehicle extends TestEntity {
                 EnumSet.of(SVType.WHEELED, SVType.TRACKED, SVType.NAVAL, SVType.RAIL)),
         TRAILER (0.8,EquipmentTypeLookup.TRAILER_CHASSIS_MOD,
                 EnumSet.of(SVType.WHEELED, SVType.TRACKED, SVType.RAIL)),
-        ULTRA_LIGHT (0.5,EquipmentTypeLookup.ULTRALIGHT_CHASSIS_MOD,
+        ULTRA_LIGHT (
                 true),
         VSTOL (2.0,EquipmentTypeLookup.VSTOL_CHASSIS_MOD,
                 EnumSet.of(SVType.FIXED_WING));
@@ -247,12 +247,12 @@ public class TestSupportVehicle extends TestEntity {
         public final boolean smallOnly;
         public final Set<SVType> allowedTypes;
 
-        ChassisModification(double multiplier, String eqTypeKey) {
-            this(multiplier, eqTypeKey, EnumSet.allOf(SVType.class), false);
+        ChassisModification() {
+            this(1.0, EquipmentTypeLookup.OMNI_CHASSIS_MOD, EnumSet.allOf(SVType.class), false);
         }
 
-        ChassisModification(double multiplier, String eqTypeKey, boolean smallOnly) {
-            this(multiplier, eqTypeKey, EnumSet.allOf(SVType.class), smallOnly);
+        ChassisModification(boolean smallOnly) {
+            this(0.5, EquipmentTypeLookup.ULTRALIGHT_CHASSIS_MOD, EnumSet.allOf(SVType.class), smallOnly);
         }
 
         ChassisModification(double multiplier, String eqTypeKey, Set<SVType> allowedTypes) {
@@ -938,7 +938,7 @@ public class TestSupportVehicle extends TestEntity {
         if (skip()) {
             return true;
         }
-        if (!correctWeight(buff)) {
+        if (correctWeight(buff)) {
             buff.insert(0, printTechLevel() + printShortMovement());
             buff.append(printWeightCalculation()).append("\n");
             correct = false;
@@ -1078,7 +1078,7 @@ public class TestSupportVehicle extends TestEntity {
                     && !m.getType().hasFlag(WeaponType.F_TANK_WEAPON)) {
                 buff.append(m.getType().getName()).append(" cannot be used by support vehicles.\n");
                 correct = false;
-            } else if (!TestTank.legalForMotiveType(m.getType(), supportVee.getMovementMode(), true)) {
+            } else if (TestTank.legalForMotiveType(m.getType(), supportVee.getMovementMode(), true)) {
                 buff.append(m.getType().getName()).append(" is incompatible with ")
                         .append(supportVee.getMovementModeAsString());
                 correct = false;

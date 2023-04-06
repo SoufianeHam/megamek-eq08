@@ -32,7 +32,7 @@ public enum Gender {
     FEMALE(false, "Female"),
     OTHER_MALE(true, "Male"),
     OTHER_FEMALE(true, "Female"),
-    RANDOMIZE(true);
+    RANDOMIZE();
     //endregion Enum Declarations
 
     //region Variable Declarations
@@ -41,8 +41,8 @@ public enum Gender {
     //endregion Variable Declarations
 
     //region Constructors
-    Gender(boolean internal) {
-        this(internal, "");
+    Gender() {
+        this(true, "");
     }
 
     Gender(boolean internal, String displayName) {

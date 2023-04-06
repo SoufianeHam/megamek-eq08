@@ -40,7 +40,7 @@ public class JumpshipMapSet implements DisplayMapSet{
     private final Vector<BackGroundDrawer>  bgDrawers = new Vector<>();
     private final PMAreasGroup content = new PMAreasGroup();
     
-    UnitDisplay unitDisplay;
+    final UnitDisplay unitDisplay;
 
     //private static final int INT_STR_OFFSET = 4;
     //Polygons for all areas

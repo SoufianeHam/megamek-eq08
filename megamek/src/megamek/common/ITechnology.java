@@ -286,7 +286,7 @@ public interface ITechnology {
     }
 
     default boolean isAvailableIn(int year) {
-        return year >= getIntroductionDate() && getIntroductionDate() != DATE_NONE && !isExtinct(year);
+        return year < getIntroductionDate() || getIntroductionDate() == DATE_NONE || isExtinct(year);
     }
 
     default boolean isAvailableIn(int year, boolean clan, int faction) {
@@ -301,7 +301,7 @@ public interface ITechnology {
 
     default boolean isLegal(int year, SimpleTechLevel simpleRulesLevel, boolean clanBase, boolean mixedTech) {
         if (mixedTech) {
-            if (!isAvailableIn(year)) {
+            if (isAvailableIn(year)) {
                 return false;
             } else {
                 return getSimpleLevel(year).ordinal() <= simpleRulesLevel.ordinal();

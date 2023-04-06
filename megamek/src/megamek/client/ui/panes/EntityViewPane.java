@@ -41,7 +41,7 @@ public class EntityViewPane extends AbstractTabbedPane {
 
     //region Constructors
     public EntityViewPane(final JFrame frame, final @Nullable Entity entity) {
-        super(frame, "EntityViewPane");
+        super(frame);
         initialize();
         updateDisplayedEntity(entity);
     }

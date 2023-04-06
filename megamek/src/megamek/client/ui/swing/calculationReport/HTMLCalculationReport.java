@@ -153,7 +153,7 @@ public class HTMLCalculationReport implements CalculationReport {
     }
 
     @Override
-    public CalculationReport addSubHeader(String text) {
+    public void addSubHeader(String text) {
         if (tentativeSectionActive) {
             tentativeLines.add(new ReportLine(text, "", "", LineType.SUBHEADER));
         } else {
@@ -161,11 +161,10 @@ public class HTMLCalculationReport implements CalculationReport {
             report.append(COLSPAN_START).append(SUBHEADER_START).append(text).append(SUBHEADER_END).append(COL_END);
             report.append(ROW_END);
         }
-        return this;
     }
 
     @Override
-    public CalculationReport addHeader(String text) {
+    public void addHeader(String text) {
         if (tentativeSectionActive) {
             tentativeLines.add(new ReportLine(text, "", "", LineType.HEADER));
         } else {
@@ -173,7 +172,6 @@ public class HTMLCalculationReport implements CalculationReport {
             report.append(COL_HEADER_START).append(HEADER_START).append(text).append(HEADER_END).append(COL_END);
             report.append(ROW_END);
         }
-        return this;
     }
 
     @Override

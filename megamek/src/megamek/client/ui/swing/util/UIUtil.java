@@ -930,7 +930,7 @@ public final class UIUtil {
             super.setText(t);
         }
         
-        FocusListener l = new FocusListener() {
+        final FocusListener l = new FocusListener() {
             @Override
             public void focusLost(FocusEvent e) {
                 updateHint();

@@ -48,17 +48,17 @@ public class EntityVerifier implements MechSummaryCache.Listener {
     private static MechSummaryCache mechSummaryCache = null;
 
     @XmlElement(name = "mech")
-    public TestXMLOption mechOption = new TestXMLOption();
+    public final TestXMLOption mechOption = new TestXMLOption();
     @XmlElement(name = "protomech")
-    public TestXMLOption protomechOption = new TestXMLOption();
+    public final TestXMLOption protomechOption = new TestXMLOption();
     @XmlElement(name = "tank")
-    public TestXMLOption tankOption = new TestXMLOption();
+    public final TestXMLOption tankOption = new TestXMLOption();
     @XmlElement(name = "aero")
-    public TestXMLOption aeroOption = new TestXMLOption();
+    public final TestXMLOption aeroOption = new TestXMLOption();
     @XmlElement(name = "ba")
-    public TestXMLOption baOption = new TestXMLOption();
+    public final TestXMLOption baOption = new TestXMLOption();
     @XmlElement(name = "infantry")
-    public TestXMLOption infOption = new TestXMLOption();
+    public final TestXMLOption infOption = new TestXMLOption();
     
     private boolean loadingVerbosity = false;
     private boolean failsOnly = false;
@@ -93,8 +93,8 @@ public class EntityVerifier implements MechSummaryCache.Listener {
         return ev;
     }
 
-    public boolean checkEntity(Entity entity, String fileString, boolean verbose) {
-        return checkEntity(entity, fileString, verbose, entity.getTechLevel());
+    public void checkEntity(Entity entity, String fileString, boolean verbose) {
+        checkEntity(entity, fileString, verbose, entity.getTechLevel());
     }
 
     public boolean checkEntity(Entity entity, String fileString,

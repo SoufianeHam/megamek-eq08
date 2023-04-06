@@ -144,11 +144,7 @@ public class ForceDescriptor {
     public boolean matches(ChassisRecord cRec) {
         if (cRec.getUnitType() != unitType) {
             return false;
-        } else if (!chassis.isEmpty() && !chassis.contains(cRec.getChassis())) {
-            return false;
-        } else {
-            return true;
-        }
+        } else return chassis.isEmpty() || chassis.contains(cRec.getChassis());
     }
 
     /**
@@ -163,11 +159,7 @@ public class ForceDescriptor {
             return false;
         } else if (!variants.isEmpty() && !variants.contains(mRec.getModel())) {
             return false;
-        } else if (!models.isEmpty() && !models.contains(mRec.getKey())) {
-            return false;
-        } else {
-            return true;
-        }
+        } else return models.isEmpty() || models.contains(mRec.getKey());
     }
 
     /**
@@ -276,7 +268,7 @@ public class ForceDescriptor {
             } else {
                 List<ModelRecord> list = null;
                 if (augmented) {
-                    list = generateNovaFormation(eligibleSubs.get(true), ModelRecord.NETWORK_NONE, numGroups);
+                    list = generateNovaFormation(eligibleSubs.get(true), numGroups);
                 } else {
                     list = generateFormation(eligibleSubs.get(true), ModelRecord.NETWORK_NONE, numGroups);
                 }
@@ -402,21 +394,20 @@ public class ForceDescriptor {
      * The Nova formation is a composite of base type and battle armor. The formationType only applies to the
      * base unit type (Mek, vehicle, fighter). The BA must be eligible for mechanized and have at least
      * one omni among the base units per BA squad/point, excepting any BA with magnetic clamps.
-     *
+     * <p>
      * Though the rules in Campaign Operations only cover BA novas, the Hell's Horses vehicle/conventional infantry
      * nova formations require an adapted version of the Nova formation rules to work.
-     *
+     * <p>
      * This method generates and assigns infantry elements and returns the list of base elements.
      *
-     * @param subs         A list of <ForceDescriptor</code> nodes.
-     * @param networkMask  The type of C3 network that should be used in generating the formation.
-     * @param numGroups    Overrides the default value for formation grouping constraints (e.g. some
-     *                     Capellan squadrons have two groups of three instead of the standard three groups
-     *                     of two).
-     * @return             The list of units that make up the base formation, or an empty list if a formation
-     *                     could not be generated with the given parameters.
+     * @param subs      A list of <ForceDescriptor</code> nodes.
+     * @param numGroups Overrides the default value for formation grouping constraints (e.g. some
+     *                  Capellan squadrons have two groups of three instead of the standard three groups
+     *                  of two).
+     * @return The list of units that make up the base formation, or an empty list if a formation
+     * could not be generated with the given parameters.
      */
-    private List<ModelRecord> generateNovaFormation(List<ForceDescriptor> subs, int networkMask, int numGroups) {
+    private List<ModelRecord> generateNovaFormation(List<ForceDescriptor> subs, int numGroups) {
         //Split base and infantry units
         List<ForceDescriptor> baseSubs = new ArrayList<>();
         List<ForceDescriptor> baSubs = new ArrayList<>();
@@ -452,7 +443,7 @@ public class ForceDescriptor {
         //Generate the base units according to the formation type.
         List<ModelRecord> baseUnitList = null;
         if (!baseSubs.isEmpty()) {
-            baseUnitList = generateFormation(baseSubs, networkMask, numGroups);
+            baseUnitList = generateFormation(baseSubs, ModelRecord.NETWORK_NONE, numGroups);
         }
         if (null == baseUnitList) {
             generateLance(baseSubs);

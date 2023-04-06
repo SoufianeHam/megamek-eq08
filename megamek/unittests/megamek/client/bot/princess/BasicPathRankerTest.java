@@ -71,7 +71,7 @@ public class BasicPathRankerTest {
         mockFireControl = mock(FireControl.class);
 
         final IHonorUtil mockHonorUtil = mock(IHonorUtil.class);
-        when(mockHonorUtil.isEnemyBroken(anyInt(), anyInt(), anyBoolean())).thenReturn(false);
+        when(mockHonorUtil.isEnemyBroken(anyInt(), anyInt())).thenReturn(false);
 
         final List<Targetable> testAdditionalTargets = new ArrayList<>();
         FireControlState mockFireControlState = mock(FireControlState.class);
@@ -441,7 +441,7 @@ public class BasicPathRankerTest {
                 + LOG_DECIMAL.format(0) + " = max(" + LOG_INT.format(0) + ", "
                 + LOG_INT.format(50) + " * {" + LOG_INT.format(0) + " - "
                 + LOG_INT.format(1) + "})]");
-        RankedPath actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        RankedPath actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
 
         // Change the move path success probability.
@@ -461,7 +461,7 @@ public class BasicPathRankerTest {
                 + LOG_DECIMAL.format(0) + " = max(" + LOG_INT.format(0) + ", "
                 + LOG_INT.format(50) + " * {" + LOG_INT.format(0) + " - "
                 + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         if (baseRank < actual.getRank()) {
             fail("Higher chance to fall should mean lower rank.");
@@ -482,7 +482,7 @@ public class BasicPathRankerTest {
                 + LOG_DECIMAL.format(0) + " = max(" + LOG_INT.format(0) + ", "
                 + LOG_INT.format(50) + " * {" + LOG_INT.format(0)
                 + " - " + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         if (baseRank < actual.getRank()) {
             fail("Higher chance to fall should mean lower rank.");
@@ -511,7 +511,7 @@ public class BasicPathRankerTest {
                 + LOG_DECIMAL.format(1) + "] - facingMod [" + LOG_DECIMAL.format(0)
                 + " = max(" + LOG_INT.format(0) + ", " + LOG_INT.format(50)
                 + " * {" + LOG_INT.format(0) + " - " + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         if (baseRank > actual.getRank()) {
             fail("The more damage I do, the higher the path rank should be.");
@@ -535,7 +535,7 @@ public class BasicPathRankerTest {
                 + LOG_DECIMAL.format(0) + " = max(" + LOG_INT.format(0) + ", "
                 + LOG_INT.format(50) + " * {" + LOG_INT.format(0) + " - "
                 + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         if (baseRank < actual.getRank()) {
             fail("The less damage I do, the lower the path rank should be.");
@@ -568,7 +568,7 @@ public class BasicPathRankerTest {
                 + "] - facingMod [" + LOG_DECIMAL.format(0) + " = max("
                 + LOG_INT.format(0) + ", " + LOG_INT.format(50) + " * {"
                 + LOG_INT.format(0) + " - " + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         if (baseRank < actual.getRank()) {
             fail("The more damage they do, the lower the path rank should be.");
         }
@@ -592,7 +592,7 @@ public class BasicPathRankerTest {
                 + "] - facingMod [" + LOG_DECIMAL.format(0) + " = max("
                 + LOG_INT.format(0) + ", " + LOG_INT.format(50) + " * {"
                 + LOG_INT.format(0) + " - " + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         if (baseRank > actual.getRank()) {
             fail("The less damage they do, the higher the path rank should be.");
@@ -621,7 +621,7 @@ public class BasicPathRankerTest {
                 + "] - facingMod [" + LOG_DECIMAL.format(0) + " = max(" + LOG_INT.format(0)
                 + ", " + "" + LOG_INT.format(50) + " * {" + LOG_INT.format(0) + " - "
                 + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         if (baseRank > actual.getRank()) {
             fail("The closer I am to the enemy, the higher the path rank should be.");
@@ -641,7 +641,7 @@ public class BasicPathRankerTest {
                 + "] - facingMod [" + LOG_DECIMAL.format(0) + " = max(" + LOG_INT.format(0)
                 + ", " + LOG_INT.format(50) + " * {" + LOG_INT.format(0) + " - "
                 + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         if (baseRank < actual.getRank()) {
             fail("The further I am from the enemy, the lower the path rank should be.");
@@ -664,7 +664,7 @@ public class BasicPathRankerTest {
                 + "] - facingMod [" + LOG_DECIMAL.format(0) + " = max("
                 + LOG_INT.format(0) + ", " + LOG_INT.format(50) + " * {"
                 + LOG_INT.format(0) + " - " + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         if (baseRank > actual.getRank()) {
             fail("The closer I am to my friends, the higher the path rank should be.");
@@ -682,7 +682,7 @@ public class BasicPathRankerTest {
                 + "] - facingMod [" + LOG_DECIMAL.format(0) + " = max(" + LOG_INT.format(0)
                 + ", " + LOG_INT.format(50) + " * {" + LOG_INT.format(0) + " - "
                 + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         if (baseRank < actual.getRank()) {
             fail("The further I am from my friends, the lower the path rank should be.");
@@ -698,7 +698,7 @@ public class BasicPathRankerTest {
                 + LOG_DECIMAL.format(0) + " = max(" + LOG_INT.format(0) + ", "
                 + LOG_INT.format(50) + " * {" + LOG_INT.format(0) + " - "
                 + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, null);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, null);
         assertRankedPathEquals(expected, actual);
         friendsCoords = new Coords(10, 10);
 
@@ -717,7 +717,7 @@ public class BasicPathRankerTest {
                 + "] - facingMod [" + LOG_DECIMAL.format(0) + " = max("
                 + LOG_INT.format(0) + ", " + LOG_INT.format(50) + " * {"
                 + LOG_INT.format(0) + " - " + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         doReturn(10)
                .when(testRanker)
@@ -734,7 +734,7 @@ public class BasicPathRankerTest {
                 + "] - facingMod [" + LOG_DECIMAL.format(0) + " = max(" + LOG_INT.format(0)
                 + ", " + LOG_INT.format(50) + " * {" + LOG_INT.format(0) + " - "
                 + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         if (baseFleeingRank > actual.getRank()) {
             fail("The closer I am to my home edge when fleeing, the higher the path rank should be.");
@@ -753,7 +753,7 @@ public class BasicPathRankerTest {
                 + LOG_DECIMAL.format(1) + "] - facingMod [" + LOG_DECIMAL.format(0)
                 + " = max(" + LOG_INT.format(0) + ", " + LOG_INT.format(50) + " * {"
                 + LOG_INT.format(0) + " - " + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         if (baseFleeingRank < actual.getRank()) {
             fail("The further I am from my home edge when fleeing, the lower the path rank should be.");
@@ -778,7 +778,7 @@ public class BasicPathRankerTest {
                 + "] - facingMod [" + LOG_DECIMAL.format(0) + " = max("
                 + LOG_INT.format(0) + ", " + LOG_INT.format(50) + " * {"
                 + LOG_INT.format(1) + " - " + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         if (baseRank != actual.getRank()) {
             fail("Being 1 hex off facing should make no difference in rank.");
@@ -796,7 +796,7 @@ public class BasicPathRankerTest {
                 + "] - facingMod [" + LOG_DECIMAL.format(50) + " = max("
                 + LOG_INT.format(0) + ", " + LOG_INT.format(50) + " * {"
                 + LOG_INT.format(2) + " - " + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         if (baseRank < actual.getRank()) {
             fail("Being 2 or more hexes off facing should lower the path rank.");
@@ -814,7 +814,7 @@ public class BasicPathRankerTest {
                 + "] - facingMod [" + LOG_DECIMAL.format(100) + " = max("
                 + LOG_INT.format(0) + ", " + "" + LOG_INT.format(50) + " * {"
                 + LOG_INT.format(3) + " - " + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         if (baseRank < actual.getRank()) {
             fail("Being 2 or more hexes off facing should lower the path rank.");
@@ -837,7 +837,7 @@ public class BasicPathRankerTest {
                 + "] - facingMod [" + LOG_DECIMAL.format(0) + " = max("
                 + LOG_INT.format(0) + ", " + LOG_INT.format(50) + " * {"
                 + LOG_INT.format(0) + " - " + LOG_INT.format(1) + "})]");
-        actual = testRanker.rankPath(mockPath, mockGame, 18, 0.5, testEnemies, friendsCoords);
+        actual = testRanker.rankPath(mockPath, mockGame, testEnemies, friendsCoords);
         assertRankedPathEquals(expected, actual);
         doReturn(mockEnemyMech1)
                .when(testRanker)
@@ -873,7 +873,7 @@ public class BasicPathRankerTest {
         final BasicPathRanker testRanker = spy(new BasicPathRanker(mockPrincess));
         doReturn(enemyList).when(mockPrincess).getEnemyEntities();
 
-        assertEquals(enemyMech, testRanker.findClosestEnemy(me, position, mockGame, false));
+        assertEquals(enemyMech, testRanker.findClosestEnemy(position, false));
 
         // Add in an unmoved mech.
         final Entity unmovedMech = mock(BipedMech.class);
@@ -985,14 +985,14 @@ public class BasicPathRankerTest {
 
     @Test
     public void testCalculateDamagePotential() {
-        final Entity mockMe = generateMockEntity(10, 10);
+        final Entity mockMe = generateMockEntity(10);
 
         final BasicPathRanker testRanker = spy(new BasicPathRanker(mockPrincess));
         doReturn(mockFireControl).when(testRanker).getFireControl(mockMe);
 
         final Board mockBoard = generateMockBoard();
-        final Entity mockEnemy = generateMockEntity(10, 5);
-        final MovePath mockPath = generateMockPath(10, 5, mockEnemy);
+        final Entity mockEnemy = generateMockEntity(5);
+        final MovePath mockPath = generateMockPath(5, mockEnemy);
         final List<Entity> entities = new ArrayList<>();
         entities.add(mockMe);
         entities.add(mockEnemy);
@@ -1030,14 +1030,14 @@ public class BasicPathRankerTest {
 
     @Test
     public void testCalculateMyDamagePotential() {
-        final Entity mockMe = generateMockEntity(10, 10);
+        final Entity mockMe = generateMockEntity(10);
 
         final BasicPathRanker testRanker = spy(new BasicPathRanker(mockPrincess));
         doReturn(mockFireControl).when(testRanker).getFireControl(mockMe);
 
         final Board mockBoard = generateMockBoard();
-        final MovePath mockPath = generateMockPath(10, 10, mockMe);
-        final Entity mockEnemy = generateMockEntity(10, 15);
+        final MovePath mockPath = generateMockPath(10, mockMe);
+        final Entity mockEnemy = generateMockEntity(15);
         final List<Entity> entities = new ArrayList<>();
         entities.add(mockMe);
         entities.add(mockEnemy);
@@ -1092,7 +1092,7 @@ public class BasicPathRankerTest {
      * Default crew
      * @return
      */
-    private Entity generateMockEntity(int x, int y) {
+    private Entity generateMockEntity(int y) {
         final Entity mockEntity = mock(BipedMech.class);
         when(mockEntity.getMaxWeaponRange()).thenReturn(21);
 
@@ -1103,7 +1103,7 @@ public class BasicPathRankerTest {
         when(mockCrew.getOptions()).thenReturn(mockOptions);
         when(mockOptions.booleanOption(anyString())).thenReturn(false);
 
-        final Coords mockMyCoords = new Coords(x, y);
+        final Coords mockMyCoords = new Coords(10, y);
         when(mockEntity.getPosition()).thenReturn(mockMyCoords);
 
         when(mockEntity.getHeatCapacity()).thenReturn(20);
@@ -1113,11 +1113,11 @@ public class BasicPathRankerTest {
         return mockEntity;
     }
 
-    private MovePath generateMockPath(int x, int y, Entity mockEntity) {
+    private MovePath generateMockPath(int y, Entity mockEntity) {
         final MovePath mockPath = mock(MovePath.class);
         when(mockPath.getEntity()).thenReturn(mockEntity);
 
-        final Coords mockMyCoords = new Coords(x, y);
+        final Coords mockMyCoords = new Coords(10, y);
         when(mockPath.getFinalCoords()).thenReturn(mockMyCoords);
         when(mockPath.getFinalFacing()).thenReturn(0);
 

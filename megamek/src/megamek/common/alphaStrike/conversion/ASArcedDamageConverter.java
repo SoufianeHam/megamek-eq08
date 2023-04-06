@@ -182,7 +182,7 @@ public class ASArcedDamageConverter extends ASAeroDamageConverter {
         for (Mounted weapon : collectedWeapons.keySet()) {
             WeaponType weaponType = (WeaponType) weapon.getType();
             double locationMultiplier = ASLocationMapper.damageLocationMultiplier(entity, location, weapon);
-            if (!countsforSpecial(weapon, dmgType) || (locationMultiplier == 0)) {
+            if (countsforSpecial(weapon, dmgType) || (locationMultiplier == 0)) {
                 continue;
             }
             double dmgS = determineSpecialsDamage(weaponType, weapon.getLinkedBy(), SHORT_RANGE, dmgType);

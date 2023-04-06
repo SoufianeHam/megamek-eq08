@@ -20,7 +20,7 @@ public class NewtonianAerospacePathFinder {
     protected MovePath offBoardPath;
 
     // This is a map containing coordinates-with-facing, and the length of the path it took to get there
-    protected Map<CoordsWithFacing, Integer> visitedCoords = new HashMap<>();
+    protected final Map<CoordsWithFacing, Integer> visitedCoords = new HashMap<>();
     // This is a list of all possible moves
     protected List<MoveStepType> moves;
     
@@ -219,11 +219,7 @@ public class NewtonianAerospacePathFinder {
         }
 
         // turning back and forth in place is no good
-        if ((stepType == MoveStepType.TURN_LEFT && path.getLastStep().getType() == MoveStepType.TURN_RIGHT) ||
-                (stepType == MoveStepType.TURN_RIGHT && path.getLastStep().getType() == MoveStepType.TURN_LEFT)) {
-            return true;
-        }
-        
-        return false;
+        return (stepType == MoveStepType.TURN_LEFT && path.getLastStep().getType() == MoveStepType.TURN_RIGHT) ||
+                (stepType == MoveStepType.TURN_RIGHT && path.getLastStep().getType() == MoveStepType.TURN_LEFT);
     }
 }

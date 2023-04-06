@@ -40,11 +40,11 @@ public class UnitNameTracker {
 
     /**
      * Removes an entity from the name tracker.
+     *
      * @param entity The entity to remove from the name tracker.
-     * @return A value indicating whether or not the entity was removed.
      */
-    public boolean remove(Entity entity) {
-        return remove(entity, null);
+    public void remove(Entity entity) {
+        remove(entity, null);
     }
 
     /**

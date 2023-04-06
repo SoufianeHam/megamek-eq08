@@ -91,7 +91,7 @@ public class AlphaStrikeHelper {
     public static String formatAbility(BattleForceSUA sua, ASSpecialAbilityCollector collection,
                                        @Nullable ASCardDisplayable element, String delimiter) {
         Object suaObject = collection.getSUA(sua);
-        if (!sua.isValidAbilityObject(suaObject)) {
+        if (sua.isValidAbilityObject(suaObject)) {
             return "ERROR - wrong ability object (" + sua + ")";
         }
         if (sua == TUR) {

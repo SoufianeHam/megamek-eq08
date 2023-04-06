@@ -30,8 +30,8 @@ import java.util.*;
 
 public class TestBot extends BotClient {
 
-    public CEntity.Table centities = new CEntity.Table(this);
-    protected ChatProcessor chatp = new ChatProcessor();
+    public final CEntity.Table centities = new CEntity.Table(this);
+    protected final ChatProcessor chatp = new ChatProcessor();
     protected int ignore = 10;
     boolean debug = false;
     private int enemies_moved = 0;
@@ -1073,8 +1073,7 @@ public class TestBot extends BotClient {
         }
     }
 
-    protected ArrayList<AttackOption> calculateWeaponAttacks(Entity en, Mounted mw,
-                                                             boolean best_only) {
+    protected ArrayList<AttackOption> calculateWeaponAttacks(Entity en, Mounted mw) {
         int from = en.getId();
         int weaponID = en.getEquipmentNum(mw);
         int spin_mode = 0;
@@ -1137,7 +1136,7 @@ public class TestBot extends BotClient {
                 a = new AttackOption(enemy, mw, expectedDmg, th, starg_mod,
                                      en.hasAbility(OptionsConstants.PILOT_APTITUDE_GUNNERY));
                 if (a.value > max.value) {
-                    if (best_only) {
+                    if (true) {
                         max = a;
                     } else {
                         result.add(0, a);
@@ -1147,7 +1146,7 @@ public class TestBot extends BotClient {
                 }
             }
         }
-        if (best_only && (max.target != null)) {
+        if (true && (max.target != null)) {
             result.add(max);
         }
         if (result.size() > 0) {
@@ -1185,7 +1184,7 @@ public class TestBot extends BotClient {
 
             // If this weapon is in the same arm as a
             // brush off attack skip to next weapon.
-            c = calculateWeaponAttacks(en, mw, true);
+            c = calculateWeaponAttacks(en, mw);
 
             // Get best physical attack
             best_front_po = PhysicalCalculator.getBestPhysical(en, game);
@@ -1239,7 +1238,7 @@ public class TestBot extends BotClient {
             }
             if (!es.getFinalProne() && en.canChangeSecondaryFacing()) {
                 en.setSecondaryFacing((o_facing + 5) % 6);
-                c = calculateWeaponAttacks(en, mw, true);
+                c = calculateWeaponAttacks(en, mw);
                 if (c.size() > 0) {
                     // Get best physical attack
                     best_left_po = PhysicalCalculator.getBestPhysical(en, game);
@@ -1259,7 +1258,7 @@ public class TestBot extends BotClient {
                     attacks[1] = Math.max(attacks[1], c.size());
                 }
                 en.setSecondaryFacing((o_facing + 1) % 6);
-                c = calculateWeaponAttacks(en, mw, true);
+                c = calculateWeaponAttacks(en, mw);
                 if (c.size() > 0) {
                     // Get best physical attack
                     best_right_po = PhysicalCalculator
@@ -1280,7 +1279,7 @@ public class TestBot extends BotClient {
                     attacks[2] = Math.max(attacks[2], c.size());
                 }
                 en.setSecondaryFacing((o_facing + 3) % 6);
-                c = calculateWeaponAttacks(en, mw, true);
+                c = calculateWeaponAttacks(en, mw);
                 if (c.size() > 0) {
                     rear.add(c);
                     attacks[3] = Math.max(attacks[3], c.size());
@@ -1861,7 +1860,7 @@ public class TestBot extends BotClient {
 
                         test_weapon = (WeaponType) equip.getType();
                         if ((test_weapon.getAmmoType() == AmmoType.T_AC_ROTARY)
-                            && (equip.isJammed() == true)) {
+                            && (equip.isJammed())) {
                             rac_damage = rac_damage
                                          + (4 * (test_weapon.getDamage()));
                         } else {
@@ -2033,7 +2032,7 @@ public class TestBot extends BotClient {
                     // If the target is officially immobile or if the attacker
                     // has a tcomp
 
-                    if ((has_tcomp == true)
+                    if ((has_tcomp)
                         | (game.getEntity(test_target).isImmobile())) {
                         if (!target_id_list.contains(test_target)) {
                             target_id_list.add(test_target);
@@ -2133,11 +2132,8 @@ public class TestBot extends BotClient {
                     // If the weapon is not LBX cannon or LBX cannon loaded with
                     // slug
 
-                    boolean direct_fire = true;
-                    if (((WeaponType) test_weapon.getType())
-                                .hasFlag(WeaponType.F_DIRECT_FIRE) == false) {
-                        direct_fire = false;
-                    }
+                    boolean direct_fire = ((WeaponType) test_weapon.getType())
+                            .hasFlag(WeaponType.F_DIRECT_FIRE) != false;
                     if (test_weapon.getType().hasFlag(WeaponType.F_PULSE)) {
                         direct_fire = false;
                     }
@@ -2155,7 +2151,7 @@ public class TestBot extends BotClient {
 
                     // If the weapon is direct fire
 
-                    if (direct_fire == true) {
+                    if (direct_fire) {
 
                         // Get the expected damage, to-hit number, and odds
                         // (0-1) of hitting

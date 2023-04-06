@@ -526,7 +526,7 @@ public class PlanetaryConditionsDialog extends ClientDialog {
     /** Sets the wind to at least moderate gale if Blowing Sands is activated. */
     private void adaptWindToBlowingSands() {
         if (chkBlowingSands.isSelected()) {
-            setMinimumWind(WI_MOD_GALE);
+            setMinimumWind();
         }
     }
     
@@ -539,10 +539,10 @@ public class PlanetaryConditionsDialog extends ClientDialog {
     }
     
     /** Sets wind strength to Moderate Gale if it is less than that. */
-    private void setMinimumWind(int minWind) {
-        if (comWind.getSelectedIndex() < minWind) {
+    private void setMinimumWind() {
+        if (comWind.getSelectedIndex() < PlanetaryConditions.WI_MOD_GALE) {
             removeListeners();
-            comWind.setSelectedIndex(minWind);
+            comWind.setSelectedIndex(PlanetaryConditions.WI_MOD_GALE);
             addListeners();
         }
     }
@@ -562,7 +562,7 @@ public class PlanetaryConditionsDialog extends ClientDialog {
         }
     }
 
-    ActionListener listener = new ActionListener() {
+    final ActionListener listener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             
@@ -618,7 +618,7 @@ public class PlanetaryConditionsDialog extends ClientDialog {
     }
 
     /** validate the entries whenever something is selected or focus changes. */
-    FocusListener focusListener = new FocusListener() {
+    final FocusListener focusListener = new FocusListener() {
         
         @Override
         public void focusLost(FocusEvent e) {

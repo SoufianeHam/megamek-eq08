@@ -27,7 +27,7 @@ public class ScenarioLoaderTest {
         System.exit(0);
     }
     
-    public List<String> runTests() {
+    public void runTests() {
         List<String> errorAccumulator = new ArrayList<>();
         PrintStream nullPs = new PrintStream(new OutputStream() {
             @Override
@@ -72,7 +72,6 @@ public class ScenarioLoaderTest {
         System.setErr(originalErr);
         cachedPs.close();
         nullPs.close();
-        return errorAccumulator;
     }
     
     private void checkScenarioFile(File file, List<String> errorAccumulator) {

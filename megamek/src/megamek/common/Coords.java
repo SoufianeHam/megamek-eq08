@@ -104,11 +104,11 @@ public class Coords implements Serializable {
 
     /** Returns the x value of the adjacent Coords in the direction dir. */
     public static int xInDir(int x, int y, int dir) {
-        return xInDir(x, y, dir, 1);
+        return xInDir(x, dir, 1);
     }
 
     /** Returns the x value of the Coords the given distance in the direction dir. */
-    public static int xInDir(int x, int y, int dir, int distance) {
+    public static int xInDir(int x, int dir, int distance) {
         switch (dir) {
             case 1:
             case 2:
@@ -144,12 +144,12 @@ public class Coords implements Serializable {
     
     /** Returns the x value of the adjacent Coords in the direction dir. */
     public int xInDir(int dir) {
-        return Coords.xInDir(x, y, dir, 1);
+        return Coords.xInDir(x, dir, 1);
     }
 
     /** Returns the x value of the Coords the given distance in the direction dir. */
     public int xInDir(int dir, int distance) {
-        return Coords.xInDir(x, y, dir, distance);
+        return Coords.xInDir(x, dir, distance);
     }
     
     /** Returns the y value of the adjacent Coords in the direction dir. */

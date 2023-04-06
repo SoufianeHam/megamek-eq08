@@ -27,10 +27,10 @@ import org.w3c.dom.NodeList;
  *
  */
 public class DefaultsNode extends RulesetNode {
-    protected ArrayList<ValueNode> unitTypeNodes;
-    protected ArrayList<ValueNode> eschelonNodes;
-    protected ArrayList<ValueNode> rankSystemNodes;
-    protected ArrayList<ValueNode> ratingNodes;
+    protected final ArrayList<ValueNode> unitTypeNodes;
+    protected final ArrayList<ValueNode> eschelonNodes;
+    protected final ArrayList<ValueNode> rankSystemNodes;
+    protected final ArrayList<ValueNode> ratingNodes;
 
     protected DefaultsNode() {
         unitTypeNodes = new ArrayList<>();

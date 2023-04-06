@@ -34,13 +34,13 @@ import java.util.Vector;
 public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
     private static final long serialVersionUID = -1277549123532227298L;
     boolean handledAmmoAndReport = false;
-    boolean detRangeShort = (weapon.curMode().equals(Weapon.MODE_CAP_MISSILE_BEARING_SHORT)
+    final boolean detRangeShort = (weapon.curMode().equals(Weapon.MODE_CAP_MISSILE_BEARING_SHORT)
             || weapon.curMode().equals(Weapon.MODE_CAP_MISSILE_WAYPOINT_BEARING_SHORT));
-    boolean detRangeMedium = (weapon.curMode().equals(Weapon.MODE_CAP_MISSILE_BEARING_MED)
+    final boolean detRangeMedium = (weapon.curMode().equals(Weapon.MODE_CAP_MISSILE_BEARING_MED)
             || weapon.curMode().equals(Weapon.MODE_CAP_MISSILE_WAYPOINT_BEARING_MED));
-    boolean detRangeLong = (weapon.curMode().equals(Weapon.MODE_CAP_MISSILE_BEARING_LONG)
+    final boolean detRangeLong = (weapon.curMode().equals(Weapon.MODE_CAP_MISSILE_BEARING_LONG)
             || weapon.curMode().equals(Weapon.MODE_CAP_MISSILE_WAYPOINT_BEARING_LONG));
-    boolean detRangeExtreme = (weapon.curMode().equals(Weapon.MODE_CAP_MISSILE_BEARING_EXT)
+    final boolean detRangeExtreme = (weapon.curMode().equals(Weapon.MODE_CAP_MISSILE_BEARING_EXT)
             || weapon.curMode().equals(Weapon.MODE_CAP_MISSILE_WAYPOINT_BEARING_EXT));
 
     // Defined here so we can use it in multiple methods
@@ -130,7 +130,7 @@ public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
         Entity entityTarget = (aaa.getTargetType() == Targetable.TYPE_ENTITY) ? (Entity) aaa
                 .getTarget(game) : null;
         if (game.getPhase().isFiring() && entityTarget == null) {
-            convertHexTargetToEntityTarget(vPhaseReport);
+            convertHexTargetToEntityTarget();
             entityTarget = (aaa.getTargetType() == Targetable.TYPE_ENTITY) ? (Entity) aaa
                     .getTarget(game) : null;
         }
@@ -391,7 +391,7 @@ public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
      * within the preset range band. If none are found, it targets the closest
      * small craft. 
      */
-    public void convertHexTargetToEntityTarget(Vector<Report> vPhaseReport) {
+    public void convertHexTargetToEntityTarget() {
         ArtilleryAttackAction aaa = (ArtilleryAttackAction) waa;
 
         final Coords tc = target.getPosition();
@@ -601,7 +601,7 @@ public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
     
         // is the target at zero velocity
         assert targetship != null;
-        if ((targetship.getCurrentVelocity() == 0) && !(targetship.isSpheroid() && !game.getBoard().inSpace())) {
+        if ((targetship.getCurrentVelocity() == 0) && !(!targetship.isSpheroid() && !game.getBoard().inSpace())) {
             toHit.addModifier(-2, "target is not moving");
         }
     
@@ -647,7 +647,7 @@ public class CapitalMissileBearingsOnlyHandler extends AmmoBayWeaponHandler {
     protected boolean handleSpecialMiss(Entity entityTarget,
             boolean bldgDamagedOnMiss, Building bldg,
             Vector<Report> vPhaseReport) {
-        return true;
+        return false;
     }
         
     /**

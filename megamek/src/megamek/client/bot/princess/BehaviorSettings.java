@@ -273,7 +273,7 @@ public class BehaviorSettings implements Serializable {
      * @param id The ID of the unit to be added.
      */
     public void addPriorityUnit(final String id) {
-        if (!StringUtil.isPositiveInteger(id)) {
+        if (StringUtil.isPositiveInteger(id)) {
             return;
         }
         addPriorityUnit(Integer.parseInt(id));
@@ -294,7 +294,7 @@ public class BehaviorSettings implements Serializable {
      * @param id The ID of the unit to be removed.
      */
     void removePriorityUnit(final String id) {
-        if (!StringUtil.isPositiveInteger(id)) {
+        if (StringUtil.isPositiveInteger(id)) {
             return;
         }
         removePriorityUnit(Integer.parseInt(id));
@@ -870,11 +870,7 @@ public class BehaviorSettings implements Serializable {
             return false;
         } else if (!priorityUnitTargets.equals(that.priorityUnitTargets)) {
             return false;
-        } else if (!ignoredUnitTargets.equals(that.ignoredUnitTargets)) {
-            return false;
-        } else {
-            return true;
-        }
+        } else return ignoredUnitTargets.equals(that.ignoredUnitTargets);
     }
 
     @Override

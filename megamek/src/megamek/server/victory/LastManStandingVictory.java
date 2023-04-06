@@ -17,7 +17,6 @@ import megamek.common.Game;
 import megamek.common.Player;
 
 import java.io.Serializable;
-import java.util.Map;
 
 /**
  * implementation of "last player/team standing"
@@ -30,7 +29,7 @@ public class LastManStandingVictory implements IVictoryConditions, Serializable 
     }
 
     @Override
-    public VictoryResult victory(Game game, Map<String, Object> ctx) {
+    public VictoryResult victory(Game game) {
         // check all players/teams for aliveness
         int playersAlive = 0;
         Player lastPlayer = null;

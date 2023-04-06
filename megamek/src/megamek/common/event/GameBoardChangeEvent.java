@@ -36,7 +36,7 @@ public class GameBoardChangeEvent extends GameEvent {
 
     @Override
     public void fireEvent(GameListener gl) {
-        gl.gameBoardChanged(this);
+        gl.gameBoardChanged();
     }
 
     @Override

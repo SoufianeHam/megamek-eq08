@@ -58,12 +58,12 @@ public class TestSmallCraft extends TestAero {
          * The type, corresponding to types defined in 
          * <code>EquipmentType</code>.
          */
-        public int type;
+        public final int type;
                 
         /**
          * Denotes whether this armor is Clan or not.
          */
-        public boolean isClan;
+        public final boolean isClan;
         
         AerospaceArmor(int t, boolean c) {
             type = t;
@@ -96,7 +96,7 @@ public class TestSmallCraft extends TestAero {
          * @return   The number of points of armor per ton
          */
         public double pointsPerTon(SmallCraft sc) {
-            return SmallCraft.armorPointsPerTon(sc.getWeight(), sc.isSpheroid(), type, isClan);
+            return SmallCraft.armorPointsPerTon(sc.getWeight(), !sc.isSpheroid(), type, isClan);
         }
         
         /**
@@ -141,7 +141,7 @@ public class TestSmallCraft extends TestAero {
      *   
      */
     public static double maxArmorWeight(SmallCraft smallCraft) {
-        if (smallCraft.isSpheroid()) {
+        if (!smallCraft.isSpheroid()) {
             return floor(smallCraft.get0SI() * 3.6, Ceil.HALFTON);
         } else {
             return floor(smallCraft.get0SI() * 4.5, Ceil.HALFTON);
@@ -163,7 +163,7 @@ public class TestSmallCraft extends TestAero {
     public static double[] extraSlotCost(SmallCraft sc) {
         // Arcs/locations include the hull. Spheroids have two arcs in each side location;
         // the indices for the side aft arcs are after the virtual wings location.
-        final int arcs = sc.isSpheroid() ? 8 : 5;
+        final int arcs = !sc.isSpheroid() ? 8 : 5;
         int[] weaponsPerArc = new int[arcs];
         double[] weaponTonnage = new double[arcs];
         boolean hasNC3 = sc.hasWorkingMisc(MiscType.F_NAVAL_C3);
@@ -174,7 +174,7 @@ public class TestSmallCraft extends TestAero {
                 if (arc < 0) {
                     continue;
                 }
-                if (sc.isSpheroid() && m.isRearMounted()) {
+                if (!sc.isSpheroid() && m.isRearMounted()) {
                     arc += REAR_ARC_OFFSET;
                 }
                 weaponsPerArc[arc]++;
@@ -220,7 +220,7 @@ public class TestSmallCraft extends TestAero {
     public static int weightFreeHeatSinks(SmallCraft sc) {
         double engineTonnage = calculateEngineTonnage(sc.isClan(), sc.getWeight(), sc.getWalkMP(),
                 sc.hasETypeFlag(Entity.ETYPE_DROPSHIP), sc.getOriginalBuildYear());
-        if (sc.isSpheroid()) {
+        if (!sc.isSpheroid()) {
             if (sc.isPrimitive()) {
                 return (int) Math.floor(Math.sqrt(engineTonnage * 1.3));
             } else if ((sc.getDesignType() == SmallCraft.MILITARY)
@@ -511,7 +511,7 @@ public class TestSmallCraft extends TestAero {
     }
 
     @Override
-    public String printArmorLocProp(int loc, int wert) {
+    public String printArmorLocProp(int wert) {
         return " is greater than " + wert + "!";
     }
 
@@ -559,7 +559,7 @@ public class TestSmallCraft extends TestAero {
         if (skip()) {
             return true;
         }
-        if (!correctWeight(buff)) {
+        if (correctWeight(buff)) {
             buff.insert(0, printTechLevel() + printShortMovement());
             buff.append(printWeightCalculation());
             correct = false;
@@ -682,7 +682,7 @@ public class TestSmallCraft extends TestAero {
                         rightFwd.merge(m.getType(), 1, Integer::sum);
                     }
                 }
-                if (!isAeroWeapon(m.getType(), smallCraft)) {
+                if (isAeroWeapon(m.getType(), smallCraft)) {
                     buff.append("Cannot mount ").append(m.getType().getName()).append("\n");
                     illegal = true;
                 }
@@ -735,7 +735,7 @@ public class TestSmallCraft extends TestAero {
             bayDoors += bay.getDoors();
             if (bay.getDoors() == 0) {
                 BayData data = BayData.getBayType(bay);
-                if ((data != null) && !data.isCargoBay() && !data.isInfantryBay()) {
+                if ((data != null) && !data.isCargoBay() && data.isInfantryBay()) {
                     buff.append("Transport bays other than cargo and infantry require at least one door.\n");
                     illegal = true;
                 }

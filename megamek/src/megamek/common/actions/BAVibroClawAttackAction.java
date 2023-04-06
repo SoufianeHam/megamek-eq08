@@ -79,7 +79,7 @@ public class BAVibroClawAttackAction extends AbstractAttackAction {
         ToHitData toHit;
 
         // can't target yourself
-        if ((te != null) && ae.equals(te)) {
+        if (ae.equals(te)) {
             return new ToHitData(TargetRoll.IMPOSSIBLE,
                     "You can't target yourself");
         }

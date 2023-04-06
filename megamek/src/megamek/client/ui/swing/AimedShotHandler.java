@@ -33,7 +33,7 @@ class AimedShotHandler implements ActionListener, ItemListener {
             aimingMode = oldAimingMode;
         }
 
-        if (!getAimingMode().isNone()) {
+        if (getAimingMode().isNone()) {
             String[] options;
             boolean[] enabled;
 
@@ -301,7 +301,7 @@ class AimedShotHandler implements ActionListener, ItemListener {
      */
     public String getAimingLocation() {
         if ((this.firingDisplay.target != null) && (aimingAt != Entity.LOC_NONE)
-                && !getAimingMode().isNone()) {
+                && getAimingMode().isNone()) {
             if (this.firingDisplay.target instanceof GunEmplacement) {
                 return GunEmplacement.HIT_LOCATION_NAMES[aimingAt];
             } else if (this.firingDisplay.target instanceof Entity) {

@@ -336,7 +336,7 @@ public class SmallCraft extends Aero {
 
         // special rules for spheroids in atmosphere
         // http://www.classicbattletech.com/forums/index.php/topic,54077.0.html
-        if (isSpheroid() && table != ToHitData.HIT_SPHEROID_CRASH && 
+        if (!isSpheroid() && table != ToHitData.HIT_SPHEROID_CRASH &&
                 !game.getBoard().inSpace()) {
             int preroll = Compute.d6(1);
             if ((table == ToHitData.HIT_ABOVE) && (preroll < 4)) {
@@ -564,7 +564,7 @@ public class SmallCraft extends Aero {
         final Mounted mounted = getEquipment(wn);
 
         int arc = Compute.ARC_NOSE;
-        if (!isSpheroid()) {
+        if (isSpheroid()) {
             switch (mounted.getLocation()) {
                 case LOC_NOSE:
                     if (mounted.isInWaypointLaunchMode()) {
@@ -722,7 +722,7 @@ public class SmallCraft extends Aero {
         } else {
             armorPoints -= freeSI;
         }
-        double armorPerTon = SmallCraft.armorPointsPerTon(getWeight(), isSpheroid(),
+        double armorPerTon = SmallCraft.armorPointsPerTon(getWeight(), !isSpheroid(),
                 getArmorType(0), TechConstants.isClan(getArmorTechLevel(0)));
 
         return RoundWeight.nextHalfTon(armorPoints / armorPerTon);

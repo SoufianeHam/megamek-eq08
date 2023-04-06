@@ -22,7 +22,7 @@ class FovHighlightingAndDarkening {
     private final BoardView boardView1;
     private java.util.List<Color> ringsColors = new ArrayList<>();
     private java.util.List<Integer> ringsRadii = new ArrayList<>();
-    GUIPreferences gs = GUIPreferences.getInstance();
+    final GUIPreferences gs = GUIPreferences.getInstance();
     private final IPreferenceChangeListener ringsChangeListner;
 
     public FovHighlightingAndDarkening(BoardView boardView1) {
@@ -58,20 +58,12 @@ class FovHighlightingAndDarkening {
      * respectively: If there is no LOS from currently selected hex/entity, then
      * darkens hex c. If there is a LOS from the hex c to the selected
      * hex/entity, then hex c is colored according to distance.
-     * 
-     * @param boardGraph
-     *            The board on which we paint.
-     * @param c
-     *            Hex that is being processed.
-     * @param drawX
-     *            The x coordinate of hex <b>c</b> on board image. should be
-     *            equal to getHexLocation(c).x
-     * @param drawY
-     *            The y coordinate of hex <b>c</b> on board image. should be
-     *            equal to getHexLocation(c).x
+     *
+     * @param boardGraph     The board on which we paint.
+     * @param c              Hex that is being processed.
      * @param saveBoardImage
      */
-    boolean draw(Graphics boardGraph, Coords c, int drawX, int drawY, boolean saveBoardImage) {
+    boolean draw(Graphics boardGraph, Coords c, boolean saveBoardImage) {
         Coords src;
         boolean hasLoS = true;
         if (this.boardView1.selected != null) {
@@ -92,7 +84,7 @@ class FovHighlightingAndDarkening {
         }
 
         // Code for LoS darkening/highlighting
-        Point p = new Point(drawX, drawY);
+        Point p = new Point(0, 0);
         boolean highlight = gs.getBoolean(GUIPreferences.FOV_HIGHLIGHT);
         boolean darken = gs.getBoolean(GUIPreferences.FOV_DARKEN);
 
@@ -220,7 +212,7 @@ class FovHighlightingAndDarkening {
         losCache = new HashMap<>();
     }
 
-    GameListener cacheGameListner;
+    final GameListener cacheGameListner;
 
     /**
      * Checks for los effects, preferably from cache, if not getLosEffects

@@ -213,7 +213,7 @@ public class MechView {
             }
         }
         sHead.add(new LabeledElement(Messages.getString("MechView.BaseTechLevel"), techLevel));
-        if (!entity.isDesignValid()) {
+        if (entity.isDesignValid()) {
             sHead.add(new SingleLine(Messages.getString("MechView.DesignInvalid")));
         }
         

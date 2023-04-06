@@ -17,7 +17,7 @@ import megamek.common.Configuration;
  */
 public class MegaMekFile {
     
-    File file;
+    final File file;
     
     public MegaMekFile(File parent, String child) {
         this(new File(parent, child).toString());

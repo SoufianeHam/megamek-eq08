@@ -43,7 +43,7 @@ public class PreferenceManager {
     protected ClientPreferences clientPreferences;
     protected PreferenceStore clientPreferenceStore;
 
-    protected static PreferenceManager instance = new PreferenceManager();
+    protected static final PreferenceManager instance = new PreferenceManager();
 
     protected PreferenceManager() {
         stores = new Hashtable<>();
@@ -142,6 +142,7 @@ public class PreferenceManager {
     private static class Settings {
 
         @XmlElement(name = "store")
+        final
         List<Store> stores = new ArrayList<>();
         
         Settings(final PreferenceStore clientPreferenceStore, final Map<String, IPreferenceStore> stores) {
@@ -175,6 +176,7 @@ public class PreferenceManager {
         String name;
         
         @XmlElement(name = "preference")
+        final
         List<XmlProperty> preferences = new ArrayList<>();
 
         Store(final String name, final PreferenceStore preferenceStore) {

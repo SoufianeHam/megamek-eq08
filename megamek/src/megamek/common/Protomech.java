@@ -308,7 +308,7 @@ public class Protomech extends Entity {
         return count;
     }
 
-    public static int getInnerLocation(int location) {
+    public static int getInnerLocation() {
         return LOC_TORSO;
     }
 
@@ -1524,9 +1524,9 @@ public class Protomech extends Entity {
      */
     @Override
     public boolean canBrace() {
-        return !isProne() &&
-                getCrew().isActive() &&
-                !isLocationBad(Protomech.LOC_MAINGUN);
+        return isProne() ||
+                !getCrew().isActive() ||
+                isLocationBad(Protomech.LOC_MAINGUN);
     }
     
     @Override

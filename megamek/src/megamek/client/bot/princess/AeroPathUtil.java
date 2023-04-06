@@ -14,7 +14,7 @@ import megamek.common.MovePath.MoveStepType;
  * @author NickAragua
  */
 public class AeroPathUtil {
-    public static List<List<MoveStepType>> TURNS;
+    public static final List<List<MoveStepType>> TURNS;
     
     static {
         // put together a pre-defined array of turns. Indexes correspond to the directional values found in Coords.java
@@ -63,14 +63,10 @@ public class AeroPathUtil {
         if ((movePath.getFinalVelocity() == 0) && isAirborne && !isSpheroid) {
             return true;
         }
-        
-        if (isSpheroid && (movePath.getFinalNDown() == 0) 
+
+        return isSpheroid && (movePath.getFinalNDown() == 0)
                 && (movePath.getMpUsed() == 0)
-                && !movePath.contains(MoveStepType.VLAND)) {
-            return true;
-        }
-        
-        return false;
+                && !movePath.contains(MoveStepType.VLAND);
     }
 
     /**
@@ -156,8 +152,7 @@ public class AeroPathUtil {
      * @return The max thrust.
      */
     public static int calculateMaxSafeThrust(IAero aero) {
-        int maxThrust = Math.min(aero.getCurrentThrust(), aero.getSI());    // we should only thrust up to our SI
-        return maxThrust;
+        return Math.min(aero.getCurrentThrust(), aero.getSI());
     }
     
     /**

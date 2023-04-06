@@ -70,7 +70,7 @@ public class PrephaseDisplay extends StatusBarPhaseDisplay implements
         PREPHASE_REVEAL("prephaseReveal"),
         PREPHASE_CANCEL_REVEAL("prephaseCancelReveal");
 
-        String cmd;
+        final String cmd;
 
         /**
          * Priority that determines this buttons order
@@ -180,14 +180,10 @@ public class PrephaseDisplay extends StatusBarPhaseDisplay implements
 
                     @Override
                     public boolean shouldPerformAction() {
-                        if (!clientgui.getClient().isMyTurn()
-                                || clientgui.getBoardView().getChatterBoxActive()
-                                || !display.isVisible()
-                                || display.isIgnoringEvents()) {
-                            return false;
-                        } else {
-                            return true;
-                        }
+                        return clientgui.getClient().isMyTurn()
+                                && !clientgui.getBoardView().getChatterBoxActive()
+                                && display.isVisible()
+                                && !display.isIgnoringEvents();
                     }
 
                     @Override
@@ -202,14 +198,10 @@ public class PrephaseDisplay extends StatusBarPhaseDisplay implements
 
                     @Override
                     public boolean shouldPerformAction() {
-                        if (!clientgui.getClient().isMyTurn()
-                                || clientgui.getBoardView().getChatterBoxActive()
-                                || !display.isVisible()
-                                || display.isIgnoringEvents()) {
-                            return false;
-                        } else {
-                            return true;
-                        }
+                        return clientgui.getClient().isMyTurn()
+                                && !clientgui.getBoardView().getChatterBoxActive()
+                                && display.isVisible()
+                                && !display.isIgnoringEvents();
                     }
 
                     @Override
@@ -296,7 +288,7 @@ public class PrephaseDisplay extends StatusBarPhaseDisplay implements
 
             refreshAll();
 
-            if (!clientgui.getBoardView().isMovingUnits() && !ce().isOffBoard()) {
+            if (clientgui.getBoardView().isMovingUnits() && !ce().isOffBoard()) {
                 clientgui.getBoardView().centerOnHex(ce().getPosition());
             }
         } else {
@@ -345,7 +337,7 @@ public class PrephaseDisplay extends StatusBarPhaseDisplay implements
 
         clientgui.getBoardView().clearFieldofF();
 
-        if (!clientgui.getBoardView().isMovingUnits()) {
+        if (clientgui.getBoardView().isMovingUnits()) {
             clientgui.maybeShowUnitDisplay();
         }
 
@@ -395,7 +387,7 @@ public class PrephaseDisplay extends StatusBarPhaseDisplay implements
     private void disableButtons() {
         setRevealEnabled(false);
         setCancelRevealEnabled(false);
-        setNextEnabled(false);
+        setNextEnabled();
         butDone.setEnabled(false);
     }
 
@@ -563,9 +555,9 @@ public class PrephaseDisplay extends StatusBarPhaseDisplay implements
         clientgui.getMenuBar().setEnabled(PrephaseCommand.PREPHASE_CANCEL_REVEAL.getCmd(), enabled);
     }
 
-    private void setNextEnabled(boolean enabled) {
-        buttons.get(PrephaseCommand.PREPHASE_NEXT).setEnabled(enabled);
-        clientgui.getMenuBar().setEnabled(PrephaseCommand.PREPHASE_NEXT.getCmd(), enabled);
+    private void setNextEnabled() {
+        buttons.get(PrephaseCommand.PREPHASE_NEXT).setEnabled(false);
+        clientgui.getMenuBar().setEnabled(PrephaseCommand.PREPHASE_NEXT.getCmd(), false);
     }
 
 
@@ -590,7 +582,7 @@ public class PrephaseDisplay extends StatusBarPhaseDisplay implements
 
     // board view listener
     @Override
-    public void finishedMovingUnits(BoardViewEvent b) {
+    public void finishedMovingUnits() {
         // Are we ignoring events?
         if (isIgnoringEvents()) {
             return;

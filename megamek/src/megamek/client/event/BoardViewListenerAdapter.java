@@ -42,21 +42,17 @@ public class BoardViewListenerAdapter implements BoardViewListener {
     /**
      * Sent when BoardView 'cursor' is set to Hex. The default behavior is to do
      * nothing.
-     * 
-     * @param b an event
      */
     @Override
-    public void hexCursor(BoardViewEvent b) {
+    public void hexCursor() {
     }
 
     /**
      * Sent when BoardView 'cursor' is set to Hex. The default behavior is to do
      * nothing.
-     * 
-     * @param b an event
      */
     @Override
-    public void boardHexHighlighted(BoardViewEvent b) {
+    public void boardHexHighlighted() {
     }
 
     /**
@@ -89,11 +85,9 @@ public class BoardViewListenerAdapter implements BoardViewListener {
     /**
      * Sent when moving units is finished. The default behavior is to do
      * nothing.
-     * 
-     * @param b an event
      */
     @Override
-    public void finishedMovingUnits(BoardViewEvent b) {
+    public void finishedMovingUnits() {
     }
 
     /**

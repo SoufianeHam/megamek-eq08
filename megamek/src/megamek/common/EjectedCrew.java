@@ -141,10 +141,9 @@ public class EjectedCrew extends Infantry {
             }
             setInternal(crew.getSize() - dead, Infantry.LOC_INFANTRY);
         }
-        Game tmpGame = game;
-        if (tmpGame != null
+        if (game != null
             && (!(this instanceof MechWarrior) 
-                    || tmpGame.getOptions().booleanOption(OptionsConstants.ADVANCED_ARMED_MECHWARRIORS))) {
+                    || game.getOptions().booleanOption(OptionsConstants.ADVANCED_ARMED_MECHWARRIORS))) {
             try {
                 addEquipment(EquipmentType.get(EquipmentTypeLookup.INFANTRY_ASSAULT_RIFLE),
                         Infantry.LOC_INFANTRY);

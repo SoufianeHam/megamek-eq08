@@ -99,7 +99,7 @@ public class FireProcessor extends DynamicTerrainProcessor {
                     //If the woods has been cleared, or the building
                     // has collapsed put non-inferno fires out.
                     if ((currentHex.terrainLevel(Terrains.FIRE) == Terrains.FIRE_LVL_NORMAL)
-                            && !currentHex.isIgnitable()) {
+                            && currentHex.isIgnitable()) {
                         gameManager.removeFire(currentCoords, "lack of fuel");
                         continue;
                     }
@@ -169,7 +169,7 @@ public class FireProcessor extends DynamicTerrainProcessor {
                         smokeList.add(currentCoords.translated((windDirection + 1) % 6));
                         smokeList.add(currentCoords.translated((windDirection + 5) % 6));
 
-                        gameManager.addSmoke(smokeList, windDirection, bInferno);
+                        gameManager.addSmoke(smokeList, bInferno);
                         board.initializeAround(currentXCoord, currentYCoord);
                     }
 

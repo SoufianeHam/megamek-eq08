@@ -40,17 +40,13 @@ public interface BoardViewListener extends java.util.EventListener {
 
     /**
      * Sent when BoardView 'cursor' is set to Hex.
-     * 
-     * @param b an event
      */
-    void hexCursor(BoardViewEvent b);
+    void hexCursor();
 
     /**
      * Sent when Hex is highlighted.
-     * 
-     * @param b an event
      */
-    void boardHexHighlighted(BoardViewEvent b);
+    void boardHexHighlighted();
 
     /**
      * Sent when Hex is selected.
@@ -75,10 +71,8 @@ public interface BoardViewListener extends java.util.EventListener {
 
     /**
      * Sent when moving units is finished.
-     * 
-     * @param b an event
      */
-    void finishedMovingUnits(BoardViewEvent b);
+    void finishedMovingUnits();
 
     /**
      * Sent when Unit is selected.

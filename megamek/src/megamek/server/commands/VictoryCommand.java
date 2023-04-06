@@ -53,7 +53,7 @@ public class VictoryCommand extends ServerCommand {
      */
     @Override
     public void run(int connId, String[] args) {
-        if (!canRunRestrictedCommand(connId)) {
+        if (canRunRestrictedCommand(connId)) {
             server.sendServerChat(connId, restrictedUse);
             return;
         }

@@ -49,7 +49,7 @@ public class AlphaStrikeMassConvert {
             if (!ASConverter.canConvert(entity) || !entity.hasMulId()) {
                 continue;
             }
-            if (filter(entity)) {
+            if (filter()) {
                 System.out.println(entity.getShortName());
                 AlphaStrikeElement ase = ASConverter.convert(entity);
                 table.append(clipboardElementString(ase));
@@ -62,7 +62,7 @@ public class AlphaStrikeMassConvert {
         System.exit(0);
     }
 
-    private static boolean filter(Entity entity) {
+    private static boolean filter() {
         return true;
     }
     

@@ -102,7 +102,7 @@ public class KeyBindingsOverlay implements IDisplayable, IPreferenceChangeListen
             Messages.getString("KeyBindingsDisplay.fixedBindsBoardEd").split("\n"));
 
 
-    ClientGUI clientGui;
+    final ClientGUI clientGui;
     private static final GUIPreferences GUIP = GUIPreferences.getInstance();
 
     /** True when the overlay is displayed or fading in. */
@@ -149,7 +149,7 @@ public class KeyBindingsOverlay implements IDisplayable, IPreferenceChangeListen
             graph.setFont(newFont);
             FontMetrics fm = graph.getFontMetrics(newFont);
             List<String> allLines = assembleTextLines();
-            Rectangle r = getSize(graph, allLines, fm);
+            Rectangle r = getSize(allLines, fm);
             r = new Rectangle(r.width + 2 * PADDING_X, r.height + 2 * PADDING_Y);
 
             displayImage = ImageUtil.createAcceleratedImage(r.width, r.height);
@@ -161,12 +161,11 @@ public class KeyBindingsOverlay implements IDisplayable, IPreferenceChangeListen
             intGraph.fillRoundRect(0, 0, r.width, r.height, PADDING_X, PADDING_X);
             
             // The coordinates to write the texts to
-            int x = PADDING_X;
             int y = PADDING_Y + fm.getAscent();
             
             // write the strings
             for (String line: allLines) {
-                drawShadowedString(intGraph, line, x, y);
+                drawShadowedString(intGraph, line, PADDING_X, y);
                 y += fm.getHeight();
             }
         }
@@ -186,7 +185,7 @@ public class KeyBindingsOverlay implements IDisplayable, IPreferenceChangeListen
     }
 
     /** Calculates the pixel size of the display from the necessary text lines. */ 
-    private Rectangle getSize(Graphics graph, List<String> lines, FontMetrics fm) {
+    private Rectangle getSize(List<String> lines, FontMetrics fm) {
         int width = 0;
         for (String line: lines) {
             if (fm.stringWidth(line) > width) {

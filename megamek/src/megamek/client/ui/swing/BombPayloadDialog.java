@@ -68,25 +68,17 @@ public class BombPayloadDialog extends JDialog implements ActionListener, ItemLi
     /**
      * Create and initialize the dialog.
      *
-     * @param parent
-     *            - the <code>Frame</code> that is locked by this dialog.
-     * @param title
-     *            - the title <code>String</code> for this dialog.
-     * @param b
-     *            The bomb choice list
-     * @param spaceBomb
-     *            Flag for whether or not this is space bombing
+     * @param parent      - the <code>Frame</code> that is locked by this dialog.
+     * @param b           The bomb choice list
+     * @param spaceBomb   Flag for whether or not this is space bombing
      * @param bombDump
-     *
      * @param lim
-     *
-     * @param numFighters
-     *            The number of fighters in a squadron, 0 implies a single
-     *            fighter not in a squadron.
+     * @param numFighters The number of fighters in a squadron, 0 implies a single
+     *                    fighter not in a squadron.
      */
     @SuppressWarnings("unchecked")
-    private void initialize(JFrame parent, String title, int[] b,
-            boolean spaceBomb, boolean bombDump, int lim, int numFighters) {
+    private void initialize(JFrame parent, int[] b,
+                            boolean spaceBomb, boolean bombDump, int lim, int numFighters) {
         super.setResizable(false);
 
         this.numFighters = numFighters;
@@ -242,7 +234,7 @@ public class BombPayloadDialog extends JDialog implements ActionListener, ItemLi
     public BombPayloadDialog(JFrame parent, String title, int[] bombs,
             boolean spaceBomb, boolean bombDump, int limit, int numFighters) {
         super(parent, title, true);
-        initialize(parent, title, bombs, spaceBomb, bombDump, limit, numFighters);
+        initialize(parent, bombs, spaceBomb, bombDump, limit, numFighters);
     }
 
     @Override

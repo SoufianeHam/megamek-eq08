@@ -59,10 +59,10 @@ public class AssignNovaNetworkCommand extends ClientCommand {
                     if (args.length > 2) {
                         // do /nova print ID
                         int id = Integer.parseInt(args[2]);
-                        return strListNetwork(id, true);
+                        return strListNetwork(id);
                     } else {
                         // do /nova print
-                        return strListNetworks(true);
+                        return strListNetworks();
                     }
                 case "link":
                     if (args.length > 4) {
@@ -174,7 +174,7 @@ public class AssignNovaNetworkCommand extends ClientCommand {
     }
     
     
-    private String strListNetworks(boolean planned) {
+    private String strListNetworks() {
         StringBuilder rval = new StringBuilder();
 
         List<Integer> allreadyReported = new LinkedList<>();
@@ -183,7 +183,7 @@ public class AssignNovaNetworkCommand extends ClientCommand {
         
         for (Entity ent : novaUnits) {
             if (!allreadyReported.contains(ent.getId())) {
-                network = listNetwork(ent, planned);
+                network = listNetwork(ent, true);
                 if (network.size() > 1) {// we actually have more than one member in this network
                     rval.append("Network ID '").append(ent.getC3NetId()).append("' contains:\n");
                     for (Entity re : network)
@@ -202,7 +202,7 @@ public class AssignNovaNetworkCommand extends ClientCommand {
             rval = new StringBuilder("No Networks found. Create some with the #nova command\n");
         }
         
-        if (planned) {
+        if (true) {
             rval.insert(0, "Status for next turn networks:\n");
         } else {
             rval.insert(0, "Status for current turn networks:\n");
@@ -210,11 +210,11 @@ public class AssignNovaNetworkCommand extends ClientCommand {
         return rval.toString();
     }
         
-    private String strListNetwork(int id, boolean planned) {
+    private String strListNetwork(int id) {
         StringBuilder rval = new StringBuilder();
         Entity ent = client.getEntity(id);
         if (ent != null) {
-            for (Entity e : listNetwork(ent, planned)) {
+            for (Entity e : listNetwork(ent, true)) {
                 rval.append("+ ").append(e.getId()).append(" ").append(e.getDisplayName()).append("\n");
             }
         }

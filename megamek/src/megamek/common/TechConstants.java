@@ -241,8 +241,7 @@ public class TechConstants {
         if (techLevel == T_TECH_UNKNOWN) {
             return T_TECH_UNKNOWN;
         }
-        int simpleTL = Integer.parseInt(T_SIMPLE_LEVEL[techLevel]) - 1;
-        return simpleTL;
+        return Integer.parseInt(T_SIMPLE_LEVEL[techLevel]) - 1;
     }
 
     /**
@@ -270,10 +269,7 @@ public class TechConstants {
         // If it's unknown, we're not gonna be able to check it one way or the
         // other, so...
         if (equipmentTechlevel == T_TECH_UNKNOWN) {
-            if (ignoreUnknown) {
-                return true;
-            }
-            return false;
+            return ignoreUnknown;
         }
 
         // If they match, we're all good.
@@ -366,11 +362,8 @@ public class TechConstants {
         // clan experimental stuff can be in clan unoffical or all (identical
         // level
         // is caught above
-        if ((equipmentTechlevel == T_CLAN_EXPERIMENTAL)
-                && ((entityTechlevel == T_CLAN_UNOFFICIAL) || (entityTechlevel == T_ALL))) {
-            return true;
-        }
-        return false;
+        return (equipmentTechlevel == T_CLAN_EXPERIMENTAL)
+                && ((entityTechlevel == T_CLAN_UNOFFICIAL) || (entityTechlevel == T_ALL));
     }
 
     public static String getTechName(int level) {

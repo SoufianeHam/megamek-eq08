@@ -19,7 +19,6 @@
  */
 package megamek.client.ui.swing;
 
-import megamek.client.Client;
 import megamek.client.ui.Messages;
 import megamek.client.ui.swing.util.KeyCommandBind;
 import megamek.client.ui.swing.util.UIUtil;
@@ -141,21 +140,21 @@ public class CommonMenuBar extends JMenuBar implements ActionListener, IPreferen
     private final Map<String, JMenuItem> itemMap = new HashMap<>();
 
     /** Creates a MegaMek menu bar for the given client (for the lobby or ingame). */
-    public CommonMenuBar(Client parent) {
+    public CommonMenuBar() {
         this();
         isGame = true;
         updateEnabledStates();
     }
     
     /** Creates a MegaMek menu bar for the board editor. */
-    public CommonMenuBar(BoardEditor be) {
+    public CommonMenuBar() {
         this();
         isBoardEditor = true;
         updateEnabledStates();
     }
     
     /** Creates a MegaMek menu bar for the main menu. */
-    public CommonMenuBar(MegaMekGUI mmg) {
+    public CommonMenuBar() {
         this();
         isMainMenu = true;
         updateEnabledStates();
@@ -396,7 +395,7 @@ public class CommonMenuBar extends JMenuBar implements ActionListener, IPreferen
         boolean isInGame = isGame && phase.isDuringOrAfter(GamePhase.DEPLOYMENT);
         boolean isInGameBoardView = isInGame && phase.isOnMap();
         boolean isBoardView = isInGameBoardView || isBoardEditor;
-        boolean canSave = !phase.isUnknown() && !phase.isSelection() && !phase.isExchange()
+        boolean canSave = !phase.isUnknown() && !phase.isSelection() && phase.isExchange()
                 && !phase.isVictory() && !phase.isStartingScenario();
         boolean isNotVictory = !phase.isVictory();
         

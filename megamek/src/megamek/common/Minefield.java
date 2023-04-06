@@ -54,7 +54,7 @@ public class Minefield implements Serializable, Cloneable {
             //"Thunder", "Thunder-Inferno", "Thunder-Active",
             //"Thunder-Vibrabomb" };
     
-    public static int TYPE_SIZE = names.length;
+    public static final int TYPE_SIZE = names.length;
 
     private Coords coords = null;
     private int playerId = Player.PLAYER_NONE;

@@ -28,7 +28,7 @@ import org.w3c.dom.NodeList;
  * @author Neoancient
  */
 public class OptionGroupNode extends RulesetNode {
-    protected ArrayList<ValueNode> options; 
+    protected final ArrayList<ValueNode> options;
 
     protected OptionGroupNode() {
         options = new ArrayList<>();

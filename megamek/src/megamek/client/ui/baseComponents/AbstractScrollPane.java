@@ -44,7 +44,7 @@ public abstract class AbstractScrollPane extends JScrollPane {
      * scrollbar policies of vertical and horizontal scrollbars as required.
      */
     protected AbstractScrollPane(final JFrame frame, final String name) {
-        this(frame, name, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this(frame, name, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
     }
 
     /**
@@ -52,10 +52,10 @@ public abstract class AbstractScrollPane extends JScrollPane {
      * scrollbar policies.
      */
     protected AbstractScrollPane(final JFrame frame, final String name,
-                                 final int verticalScrollBarPolicy, final int horizontalScrollBarPolicy) {
+                                 final int verticalScrollBarPolicy) {
         this(frame, ResourceBundle.getBundle("megamek.client.messages", 
                 MegaMek.getMMOptions().getLocale()), name,
-                verticalScrollBarPolicy, horizontalScrollBarPolicy);
+                verticalScrollBarPolicy, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     }
 
     /**

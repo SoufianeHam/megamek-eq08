@@ -35,9 +35,9 @@ import static megamek.common.alphaStrike.BattleForceSUA.*;
 
 public class ASSpecialAbilityConverter {
 
-    protected Entity entity;
-    protected AlphaStrikeElement element;
-    protected CalculationReport report;
+    protected final Entity entity;
+    protected final AlphaStrikeElement element;
+    protected final CalculationReport report;
 
     static ASSpecialAbilityConverter getConverter(Entity entity, AlphaStrikeElement element, CalculationReport report) {
         if (element.isLargeAerospace()) { // SC, DS, DA, JS, SS, WS

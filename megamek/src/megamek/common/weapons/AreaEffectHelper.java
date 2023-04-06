@@ -165,7 +165,7 @@ public class AreaEffectHelper {
             damage = (int) Math.ceil(damage / 2.0);
         }
                 
-        checkInfantryDestruction(target, distFromCenter, attacker, entitiesToExclude, vPhaseReport, game, gameManager);
+        checkInfantryDestruction(target, distFromCenter, attacker, entitiesToExclude, vPhaseReport, gameManager);
                 
         artilleryDamageEntity(target, damage, null, 0, false, false, false, 0, center, (AmmoType) ordnanceType, target.getPosition(), true,
                 attacker, null, attacker.getId(), vPhaseReport, gameManager);
@@ -239,7 +239,7 @@ public class AreaEffectHelper {
     public static void checkInfantryDestruction(Coords coords, int distFromCenter, Entity attacker, Vector<Integer> alreadyHit,
             Vector<Report> vPhaseReport, Game game, GameManager gameManager) {
         for (Entity entity : game.getEntitiesVector(coords)) {
-            checkInfantryDestruction(entity, distFromCenter, attacker, alreadyHit, vPhaseReport, game, gameManager);
+            checkInfantryDestruction(entity, distFromCenter, attacker, alreadyHit, vPhaseReport, gameManager);
         }
     }
     
@@ -248,7 +248,7 @@ public class AreaEffectHelper {
      * Single-entity version.
      */
     public static void checkInfantryDestruction(Entity entity, int distFromCenter, Entity attacker, Vector<Integer> alreadyHit,
-            Vector<Report> vPhaseReport, Game game, GameManager gameManager) {
+                                                Vector<Report> vPhaseReport, GameManager gameManager) {
         int rollTarget = -1;
         if (entity instanceof BattleArmor) {
             rollTarget = 7;

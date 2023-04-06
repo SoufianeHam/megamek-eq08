@@ -57,7 +57,7 @@ public class DeploymentDisplay extends StatusBarPhaseDisplay {
         DEPLOY_ASSAULTDROP("assaultDrop"),
         DEPLOY_DOCK("deployDock");  
     
-        public String cmd;
+        public final String cmd;
         
         /**
          * Priority that determines this buttons order
@@ -94,13 +94,9 @@ public class DeploymentDisplay extends StatusBarPhaseDisplay {
             String msg_next= Messages.getString("Next");
             String msg_previous = Messages.getString("Previous");
 
-            switch (this) {
-                case DEPLOY_NEXT:
-                    result += "&nbsp;&nbsp;" + msg_next + ": " + KeyCommandBind.getDesc(KeyCommandBind.NEXT_UNIT);
-                    result += "&nbsp;&nbsp;" + msg_previous + ": " + KeyCommandBind.getDesc(KeyCommandBind.PREV_UNIT);
-                    break;
-                default:
-                    break;
+            if (this == DeployCommand.DEPLOY_NEXT) {
+                result += "&nbsp;&nbsp;" + msg_next + ": " + KeyCommandBind.getDesc(KeyCommandBind.NEXT_UNIT);
+                result += "&nbsp;&nbsp;" + msg_previous + ": " + KeyCommandBind.getDesc(KeyCommandBind.PREV_UNIT);
             }
 
             return result;
@@ -166,7 +162,7 @@ public class DeploymentDisplay extends StatusBarPhaseDisplay {
         // hmm, sometimes this gets called when there's no ready entities?
         if (clientgui.getClient().getGame().getEntity(en) == null) {
             disableButtons();
-            setNextEnabled(true);
+            setNextEnabled();
             LogManager.getLogger().error("DeploymentDisplay: Tried to select non-existent entity: " + en);
             return;
         }
@@ -187,7 +183,7 @@ public class DeploymentDisplay extends StatusBarPhaseDisplay {
         clientgui.getBoardView().cursor(null);
         // RACE : if player clicks fast enough, ce() is null.
         if (null != ce()) {
-            setTurnEnabled(true);
+            setTurnEnabled();
             butDone.setEnabled(false);
             clientgui.getBoardView().markDeploymentHexesFor(ce());
             // set facing according to starting position
@@ -229,14 +225,14 @@ public class DeploymentDisplay extends StatusBarPhaseDisplay {
             setLoadEnabled(!getLoadableEntities().isEmpty());
             setUnloadEnabled(!ce().getLoadedUnits().isEmpty());
             
-            setNextEnabled(true);
-            setRemoveEnabled(true);
+            setNextEnabled();
+            setRemoveEnabled();
 
             clientgui.getUnitDisplay().displayEntity(ce());
             clientgui.getUnitDisplay().showPanel("movement");
         } else {
             disableButtons();
-            setNextEnabled(true);
+            setNextEnabled();
         }
     }
 
@@ -244,8 +240,8 @@ public class DeploymentDisplay extends StatusBarPhaseDisplay {
     private void beginMyTurn() {
         clientgui.maybeShowUnitDisplay();
         selectEntity(clientgui.getClient().getFirstDeployableEntityNum());
-        setNextEnabled(true);
-        setRemoveEnabled(true);
+        setNextEnabled();
+        setRemoveEnabled();
         clientgui.getBoardView().markDeploymentHexesFor(ce());
     }
 
@@ -269,7 +265,7 @@ public class DeploymentDisplay extends StatusBarPhaseDisplay {
     /** Disables all buttons in the interface. */
     private void disableButtons() {
         for (DeployCommand cmd : DeployCommand.values()) {
-            setButtonEnabled(cmd, false);
+            setButtonEnabled(cmd);
         }
         butDone.setEnabled(false);
         setLoadEnabled(false);
@@ -277,10 +273,10 @@ public class DeploymentDisplay extends StatusBarPhaseDisplay {
         setAssaultDropEnabled(false);
     }
     
-    private void setButtonEnabled(DeployCommand cmd, boolean enabled) {
+    private void setButtonEnabled(DeployCommand cmd) {
         MegamekButton button = buttons.get(cmd);
         if (button != null) {
-            button.setEnabled(enabled);
+            button.setEnabled(false);
         }
     }
 
@@ -318,7 +314,7 @@ public class DeploymentDisplay extends StatusBarPhaseDisplay {
             String title = Messages.getString("DeploymentDisplay.ConfirmDoomed.title"); 
             String body = Messages.getString("DeploymentDisplay.ConfirmDoomed.message", new Object[] {reason}); 
             ConfirmDialog response = clientgui.doYesNoBotherDialog(title, body);
-            if (!response.getShowAgain()) {
+            if (response.getShowAgain()) {
                 GUIP.setNagForDoomed(false);
             }
             if (!response.getAnswer()) {
@@ -816,7 +812,7 @@ public class DeploymentDisplay extends StatusBarPhaseDisplay {
     // BoardViewListener
     //
     @Override
-    public void finishedMovingUnits(BoardViewEvent b) {
+    public void finishedMovingUnits() {
         // Are we ignoring events?
         if (isIgnoringEvents()) {
             return;
@@ -869,14 +865,14 @@ public class DeploymentDisplay extends StatusBarPhaseDisplay {
         }
     }
 
-    private void setNextEnabled(boolean enabled) {
-        buttons.get(DeployCommand.DEPLOY_NEXT).setEnabled(enabled);
-        clientgui.getMenuBar().setEnabled(DeployCommand.DEPLOY_NEXT.getCmd(), enabled);
+    private void setNextEnabled() {
+        buttons.get(DeployCommand.DEPLOY_NEXT).setEnabled(true);
+        clientgui.getMenuBar().setEnabled(DeployCommand.DEPLOY_NEXT.getCmd(), true);
     }
 
-    private void setTurnEnabled(boolean enabled) {
-        buttons.get(DeployCommand.DEPLOY_TURN).setEnabled(enabled);
-        clientgui.getMenuBar().setEnabled(DeployCommand.DEPLOY_TURN.getCmd(), enabled);
+    private void setTurnEnabled() {
+        buttons.get(DeployCommand.DEPLOY_TURN).setEnabled(true);
+        clientgui.getMenuBar().setEnabled(DeployCommand.DEPLOY_TURN.getCmd(), true);
     }
 
     private void setLoadEnabled(boolean enabled) {
@@ -889,9 +885,9 @@ public class DeploymentDisplay extends StatusBarPhaseDisplay {
         clientgui.getMenuBar().setEnabled(DeployCommand.DEPLOY_UNLOAD.getCmd(), enabled);
     }
 
-    private void setRemoveEnabled(boolean enabled) {
-        buttons.get(DeployCommand.DEPLOY_REMOVE).setEnabled(enabled);
-        clientgui.getMenuBar().setEnabled(DeployCommand.DEPLOY_REMOVE.getCmd(), enabled);
+    private void setRemoveEnabled() {
+        buttons.get(DeployCommand.DEPLOY_REMOVE).setEnabled(true);
+        clientgui.getMenuBar().setEnabled(DeployCommand.DEPLOY_REMOVE.getCmd(), true);
     }
 
     private void setAssaultDropEnabled(boolean enabled) {

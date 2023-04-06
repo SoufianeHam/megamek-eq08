@@ -17,15 +17,15 @@ class C3Sprite extends Sprite {
 
     private Polygon c3Poly;
 
-    protected int entityId;
+    protected final int entityId;
 
-    protected int masterId;
+    protected final int masterId;
 
-    protected Entity entityE;
+    protected final Entity entityE;
 
-    protected Entity entityM;
+    protected final Entity entityM;
 
-    Color spriteColor;
+    final Color spriteColor;
 
     public C3Sprite(BoardView boardView1, final Entity e, final Entity m) {
         super(boardView1);

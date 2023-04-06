@@ -50,11 +50,11 @@ class LobbyMekCellFormatter {
     private LobbyMekCellFormatter() {
     }
 
-    static String unitTableEntry(InGameObject unit, ChatLounge lobby, boolean forceView, boolean compactView) {
+    static String unitTableEntry(InGameObject unit, ChatLounge lobby, boolean compactView) {
         if (unit instanceof Entity) {
-            return compactView ? formatUnitCompact((Entity) unit, lobby, forceView) : formatUnitFull((Entity) unit, lobby, forceView);
+            return compactView ? formatUnitCompact((Entity) unit, lobby, false) : formatUnitFull((Entity) unit, lobby, false);
         } else if (unit instanceof AlphaStrikeElement) {
-            return MekTableASUnitEntry.fullEntry((AlphaStrikeElement) unit, lobby, forceView, compactView);
+            return MekTableASUnitEntry.fullEntry((AlphaStrikeElement) unit, lobby, false, compactView);
             // TODO : Provide a suitable lobby table entry
         } else {
             return "This type of object has currently no table entry.";
@@ -127,7 +127,7 @@ class LobbyMekCellFormatter {
                 || (entity.doomedInAtmosphere() && mapType == MapSettings.MEDIUM_ATMOSPHERE)
                 || (entity.doomedOnGround() && mapType == MapSettings.MEDIUM_GROUND)
                 || (entity.doomedInSpace() && mapType == MapSettings.MEDIUM_SPACE)
-                || (!entity.isDesignValid())) {
+                || (entity.isDesignValid())) {
             result.append(guiScaledFontHTML(GUIP.getWarningColor()));
             result.append(WARNING_SIGN + "</FONT>");
             hasCritical = true;
@@ -172,7 +172,7 @@ class LobbyMekCellFormatter {
         
         // Invalid Design
         if (!forceView) {
-            if (!entity.isDesignValid()) {
+            if (entity.isDesignValid()) {
                 result.append(DOT_SPACER);
                 result.append(guiScaledFontHTML(GUIP.getWarningColor()));
                 result.append("\u26D4 ").append(Messages.getString("ChatLounge.invalidDesign"));
@@ -278,7 +278,7 @@ class LobbyMekCellFormatter {
 
         // Invalid Design
         if (forceView) {
-            if (!entity.isDesignValid()) {
+            if (entity.isDesignValid()) {
                 firstEntry = dotSpacer(result, firstEntry);
                 result.append(guiScaledFontHTML(GUIP.getWarningColor()));
                 result.append("\u26D4 </FONT>").append(Messages.getString("ChatLounge.invalidDesign"));
@@ -544,7 +544,7 @@ class LobbyMekCellFormatter {
                 || (entity.doomedInAtmosphere() && mapType == MapSettings.MEDIUM_ATMOSPHERE)
                 || (entity.doomedOnGround() && mapType == MapSettings.MEDIUM_GROUND)
                 || (entity.doomedInSpace() && mapType == MapSettings.MEDIUM_SPACE)
-                || (!entity.isDesignValid())) {
+                || (entity.isDesignValid())) {
             result.append(guiScaledFontHTML(GUIP.getWarningColor()));
             result.append(WARNING_SIGN + "</FONT>");
         }
@@ -604,7 +604,7 @@ class LobbyMekCellFormatter {
         }
 
         // Invalid unit design
-        if (!entity.isDesignValid()) {
+        if (entity.isDesignValid()) {
             result.append(DOT_SPACER);
             result.append(guiScaledFontHTML(GUIP.getWarningColor()));
             result.append("\u26D4 </FONT>").append(Messages.getString("ChatLounge.invalidDesign"));

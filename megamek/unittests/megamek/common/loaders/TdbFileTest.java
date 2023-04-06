@@ -316,10 +316,10 @@ public class TdbFileTest {
     @Test
     public void testLocationSorting() {
         List<Location> locations = new ArrayList<>();
-        locations.add(new Location(Mech.LOC_LLEG, 1, 0));
-        locations.add(new Location(Mech.LOC_RT, 1, 1));
-        locations.add(new Location(Mech.LOC_HEAD, 1, 0));
-        locations.add(new Location(Mech.LOC_CLEG, 1, 0));
+        locations.add(new Location(Mech.LOC_LLEG, 0));
+        locations.add(new Location(Mech.LOC_RT, 1));
+        locations.add(new Location(Mech.LOC_HEAD, 0));
+        locations.add(new Location(Mech.LOC_CLEG, 0));
 
         Collections.sort(locations);
 
@@ -331,7 +331,7 @@ public class TdbFileTest {
 
     @Test
     public void testCriticalSorting() {
-        Location location = new Location(Mech.LOC_RLEG, 1, 0);
+        Location location = new Location(Mech.LOC_RLEG, 0);
         location.criticalSlots.add(new CriticalSlot(0, "Empty"));
         location.criticalSlots.add(new CriticalSlot(1, "Hip"));
         location.criticalSlots.add(new CriticalSlot(2, "Empty"));

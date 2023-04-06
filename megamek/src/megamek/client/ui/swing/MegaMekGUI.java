@@ -145,7 +145,7 @@ public class MegaMekGUI implements IPreferenceChangeListener {
                 new MegaMekFile(Configuration.miscImagesDir(), FILENAME_ICON_256X256).toString()));
         frame.setIconImages(iconList);
 
-        CommonMenuBar menuBar = new CommonMenuBar(this);
+        CommonMenuBar menuBar = new CommonMenuBar();
         menuBar.addActionListener(actionListener);
         frame.setJMenuBar(menuBar);
         showMainMenu();
@@ -164,7 +164,7 @@ public class MegaMekGUI implements IPreferenceChangeListener {
                     Messages.getString("MegaMek.welcome.title") + MMConstants.VERSION,
                     Messages.getString("MegaMek.welcome.message"), true);
             confirm.setVisible(true);
-            if (!confirm.getShowAgain()) {
+            if (confirm.getShowAgain()) {
                 GUIPreferences.getInstance().setNagForReadme(false);
             }
             if (confirm.getAnswer()) {
@@ -368,7 +368,7 @@ public class MegaMekGUI implements IPreferenceChangeListener {
     public void startHost(@Nullable String serverPassword, int port, boolean isRegister,
                           @Nullable String metaServer, @Nullable String mailPropertiesFileName,
                           @Nullable File savegame, String playerName) {
-        if (!startServer(serverPassword, port, isRegister, metaServer, mailPropertiesFileName, savegame)) {
+        if (startServer(serverPassword, port, isRegister, metaServer, mailPropertiesFileName, savegame)) {
             return;
         }
 
@@ -384,7 +384,7 @@ public class MegaMekGUI implements IPreferenceChangeListener {
         } catch (Exception ex) {
             LogManager.getLogger().error("Failed to start Server", ex);
             frame.setVisible(true);
-            return false;
+            return true;
         }
 
         EmailService mailer = null;
@@ -402,7 +402,7 @@ public class MegaMekGUI implements IPreferenceChangeListener {
                         Messages.getFormattedString("MegaMek.StartServerError", port, ex.getMessage()),
                         Messages.getString("MegaMek.LoadGameAlert.title"), JOptionPane.ERROR_MESSAGE);
                 frame.setVisible(true);
-                return false;
+                return true;
             }
         }
 
@@ -419,14 +419,14 @@ public class MegaMekGUI implements IPreferenceChangeListener {
                     Messages.getFormattedString("MegaMek.StartServerError", port, ex.getMessage()),
                     Messages.getString("MegaMek.LoadGameAlert.title"), JOptionPane.ERROR_MESSAGE);
             frame.setVisible(true);
-            return false;
+            return true;
         } catch (Exception ex) {
             LogManager.getLogger().error("Could not create server", ex);
             JOptionPane.showMessageDialog(frame,
                     Messages.getFormattedString("MegaMek.StartServerError", port, ex.getMessage()),
                     Messages.getString("MegaMek.LoadGameAlert.title"), JOptionPane.ERROR_MESSAGE);
             frame.setVisible(true);
-            return false;
+            return true;
         }
 
         if (saveGameFile != null) {
@@ -437,11 +437,11 @@ public class MegaMekGUI implements IPreferenceChangeListener {
                 server.die();
                 server = null;
                 frame.setVisible(true);
-                return false;
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     public void startClient(String playerName, String serverAddress, int port) {
@@ -796,7 +796,7 @@ public class MegaMekGUI implements IPreferenceChangeListener {
         Compute.d6();
 
         // start server
-        if (!startServer(serverPW, port, false, null, null, null)) {
+        if (startServer(serverPW, port, false, null, null, null)) {
             return;
         }
         server.setGame(g);
@@ -1155,8 +1155,7 @@ public class MegaMekGUI implements IPreferenceChangeListener {
                 }
             }
         }
-        BaseMultiResolutionImage multiResolutionImage = new BaseMultiResolutionImage(images.toArray(new Image[0]));
 
-        return  multiResolutionImage;
+        return new BaseMultiResolutionImage(images.toArray(new Image[0]));
     }
 }

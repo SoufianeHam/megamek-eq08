@@ -692,9 +692,9 @@ public class ScenarioLoader {
         }
     }
 
-    private int findIndex(String[] sa, String s) {
-        for (int x = 0; x < sa.length; x++) {
-            if (sa[x].equalsIgnoreCase(s)) {
+    private int findIndex(String s) {
+        for (int x = 0; x < IStartingPositions.START_LOCATION_NAMES.length; x++) {
+            if (IStartingPositions.START_LOCATION_NAMES[x].equalsIgnoreCase(s)) {
                 return x;
             }
         }
@@ -727,7 +727,7 @@ public class ScenarioLoader {
             if (loc == null) {
                 loc = "Any";
             }
-            int dir = Math.max(findIndex(IStartingPositions.START_LOCATION_NAMES, loc), 0);
+            int dir = Math.max(findIndex(loc), 0);
             player.setStartingPos(dir);
             
             final Camouflage camouflage = parseCamouflage(p.getString(getFactionParam(faction, PARAM_CAMO)));
@@ -944,13 +944,9 @@ public class ScenarioLoader {
     private boolean parseBoolean(StringMultiMap p, String key, boolean defaultValue) {
         boolean result = defaultValue;
         if (p.containsKey(key)) {
-            if (p.getString(key).equalsIgnoreCase("true") 
+            result = p.getString(key).equalsIgnoreCase("true")
                     || p.getString(key).equalsIgnoreCase("on")
-                    || p.getString(key).equalsIgnoreCase("1")) {
-                result = true;
-            } else {
-                result = false;
-            }
+                    || p.getString(key).equalsIgnoreCase("1");
         }
         return result;
     }
@@ -967,8 +963,8 @@ public class ScenarioLoader {
      * This is used specify the critical hit location
      */
     private static class CritHit {
-        public int loc;
-        public int slot;
+        public final int loc;
+        public final int slot;
 
         public CritHit(int l, int s) {
             loc = l;
@@ -981,8 +977,8 @@ public class ScenarioLoader {
      * loaded from the scenario file. It contains a vector of CritHit.
      */
     private class CritHitPlan {
-        public Entity entity;
-        List<CritHit> critHits = new ArrayList<>();
+        public final Entity entity;
+        final List<CritHit> critHits = new ArrayList<>();
 
         public CritHitPlan(Entity e) {
             entity = e;

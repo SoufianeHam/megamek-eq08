@@ -331,7 +331,7 @@ public class HexDrawUtilities {
         getHexFullBorderLine(0)));
     }
 
-    public static Point2D.Double getHexBorderAreaMid(int hexFace, double thickness, double inset) {
+    public static Point2D.Double getHexBorderAreaMid(int hexFace, double thickness) {
         double xN = 0;
         double yN = -HEX_CTR.y + thickness / 2;
         // rotate the point when necessary
@@ -351,7 +351,7 @@ public class HexDrawUtilities {
                 getHRU(hexFace).createTransformedShape(getHCAU01(thickness)));
     }
     
-    public static Shape getHexCrossLine01(int hexFace, double thickness) {
+    public static Shape getHexCrossLine01(int hexFace) {
         return PerfectHextoHex.createTransformedShape(
                 getHRU(hexFace).createTransformedShape(getHCLU01()));
     }
@@ -361,7 +361,7 @@ public class HexDrawUtilities {
                 getHRU(hexFace).createTransformedShape(getHCAU012(thickness)));
     }
     
-    public static Shape getHexCrossLine012(int hexFace, double thickness) {
+    public static Shape getHexCrossLine012(int hexFace) {
         return PerfectHextoHex.createTransformedShape(
                 getHRU(hexFace).createTransformedShape(getHCLU012()));
     }
@@ -371,7 +371,7 @@ public class HexDrawUtilities {
                 getHRU(hexFace).createTransformedShape(getHCAU0123(thickness)));
     }
     
-    public static Shape getHexCrossLine0123(int hexFace, double thickness) {
+    public static Shape getHexCrossLine0123(int hexFace) {
         return PerfectHextoHex.createTransformedShape(
                 getHRU(hexFace).createTransformedShape(getHCLU0123()));
     }
@@ -381,7 +381,7 @@ public class HexDrawUtilities {
                 getHRU(hexFace).createTransformedShape(getHCAU01234(thickness)));
     }
     
-    public static Shape getHexCrossLine01234(int hexFace, double thickness) {
+    public static Shape getHexCrossLine01234(int hexFace) {
         return PerfectHextoHex.createTransformedShape(
                 getHRU(hexFace).createTransformedShape(getHCLU01234()));
     }

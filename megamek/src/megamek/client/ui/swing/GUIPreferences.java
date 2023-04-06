@@ -293,17 +293,17 @@ public class GUIPreferences extends PreferenceStoreProxy {
     public static final String SBFSHEET_VALUEFONT = "SBFSheetValueFont";
 
     // RAT dialog preferences
-    public static String RAT_TECH_LEVEL = "RATTechLevel";
-    public static String RAT_BV_MIN = "RATBVMin";
-    public static String RAT_BV_MAX = "RATBVMax";
-    public static String RAT_NUM_MECHS = "RATNumMechs";
-    public static String RAT_NUM_VEES = "RATNumVees";
-    public static String RAT_NUM_BA = "RATNumBA";
-    public static String RAT_NUM_INF = "RATNumInf";
-    public static String RAT_YEAR_MIN = "RATYearMin";
-    public static String RAT_YEAR_MAX = "RATYearMax";
-    public static String RAT_PAD_BV = "RATPadBV";
-    public static String RAT_SELECTED_RAT = "RATSelectedRAT";
+    public static final String RAT_TECH_LEVEL = "RATTechLevel";
+    public static final String RAT_BV_MIN = "RATBVMin";
+    public static final String RAT_BV_MAX = "RATBVMax";
+    public static final String RAT_NUM_MECHS = "RATNumMechs";
+    public static final String RAT_NUM_VEES = "RATNumVees";
+    public static final String RAT_NUM_BA = "RATNumBA";
+    public static final String RAT_NUM_INF = "RATNumInf";
+    public static final String RAT_YEAR_MIN = "RATYearMin";
+    public static final String RAT_YEAR_MAX = "RATYearMax";
+    public static final String RAT_PAD_BV = "RATPadBV";
+    public static final String RAT_SELECTED_RAT = "RATSelectedRAT";
 
     // common colors
     public static final Color DEFAULT_WHITE = Color.WHITE;
@@ -348,7 +348,7 @@ public class GUIPreferences extends PreferenceStoreProxy {
     private static final Color DEFAULT_MAP_RED = new Color(200, 40, 40); // red
     private static final Color DEFAULT_MAP_GREEN = new Color(40, 210, 40);  // light green
 
-    protected static GUIPreferences instance = new GUIPreferences();
+    protected static final GUIPreferences instance = new GUIPreferences();
 
     public static final int HIDE = 0;
     public static final int SHOW = 1;
@@ -368,7 +368,7 @@ public class GUIPreferences extends PreferenceStoreProxy {
         store.setDefault(ADVANCED_MECH_DISPLAY_MEDIUM_FONT_SIZE, 10);
         store.setDefault(BOARDEDIT_RNDDIALOG_START, false);
         setDefault(ADVANCED_MOVE_DEFAULT_CLIMB_MODE, true);
-        setDefault(ADVANCED_MOVE_DEFAULT_COLOR, DEFAULT_CYAN.CYAN);
+        setDefault(ADVANCED_MOVE_DEFAULT_COLOR, Color.CYAN);
         setDefault(ADVANCED_MOVE_ILLEGAL_COLOR, DEFAULT_DARK_GRAY);
         setDefault(ADVANCED_MOVE_JUMP_COLOR, DEFAULT_RED);
         setDefault(ADVANCED_MOVE_MASC_COLOR, DEFAULT_ORANGE);

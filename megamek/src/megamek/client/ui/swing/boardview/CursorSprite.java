@@ -2,13 +2,10 @@ package megamek.client.ui.swing.boardview;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
-import megamek.client.ui.swing.GUIPreferences;
 import megamek.client.ui.swing.util.UIUtil;
 import megamek.common.Coords;
 
@@ -87,6 +84,6 @@ class CursorSprite extends Sprite {
     
     @Override
     public boolean isHidden() {
-        return hidden || isOffScreen();
+        return !hidden && !isOffScreen();
     }
 }

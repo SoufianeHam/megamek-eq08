@@ -77,30 +77,30 @@ public class OffBoardTargetOverlay implements IDisplayable {
         boolean visible = clientgui.getClient().isMyTurn() && getCurrentGame().getPhase().isTargeting();
         
         if (!visible) {
-            return false;
+            return true;
         }
         
         Mounted selectedArtilleryWeapon = clientgui.getBoardView().getSelectedArtilleryWeapon();
         
         // only relevant if we've got an artillery weapon selected for one of our own units
         if (selectedArtilleryWeapon == null) {
-            return false;
+            return true;
         }
         
         // the artillery weapon needs to be using non-homing ammo
         Mounted ammo = selectedArtilleryWeapon.getLinked();
         if (ammo.isHomingAmmoInHomingMode()) {
-            return false;
+            return true;
         }
         
         // only show these if there are any actual enemy units eligible for off board targeting
         for (OffBoardDirection direction : OffBoardDirection.values()) {
             if (showDirectionalElement(direction, selectedArtilleryWeapon)) {
-                return true; 
+                return false;
             }
         }
         
-        return false;
+        return true;
     }
     
     /**
@@ -174,7 +174,7 @@ public class OffBoardTargetOverlay implements IDisplayable {
 
     @Override
     public boolean isReleased() {
-        if (!shouldBeVisible()) {
+        if (shouldBeVisible()) {
             return false;
         }
 
@@ -187,7 +187,7 @@ public class OffBoardTargetOverlay implements IDisplayable {
 
     @Override
     public void draw(Graphics graph, Rectangle rect) {
-        if (!shouldBeVisible()) {
+        if (shouldBeVisible()) {
             return;
         }
         

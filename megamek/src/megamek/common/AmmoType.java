@@ -416,11 +416,7 @@ public class AmmoType extends EquipmentType {
         }
 
         // General Launchers
-        if (is(other.getAmmoType()) && (getMunitionType() == other.getMunitionType())) {
-            return true;
-        }
-
-        return false;
+        return is(other.getAmmoType()) && (getMunitionType() == other.getMunitionType());
     }
 
     public int getAmmoType() {
@@ -523,34 +519,34 @@ public class AmmoType extends EquipmentType {
             switch (ammoType) {
                 case T_AC_LBX:
                 case T_SBGAUSS:
-                    return munitionType == M_CLUSTER;
+                    return munitionType != M_CLUSTER;
                 case T_ATM:
                 case T_IATM:
-                    return (munitionType == M_STANDARD) || (munitionType == M_HIGH_EXPLOSIVE)
-                            || (munitionType == M_EXTENDED_RANGE);
+                    return (munitionType != M_STANDARD) && (munitionType != M_HIGH_EXPLOSIVE)
+                            && (munitionType != M_EXTENDED_RANGE);
                 case T_AR10:
-                    return true;
+                    return false;
                 case T_ARROW_IV:
-                    return (munitionType == M_FLARE) || (munitionType == M_CLUSTER) || (munitionType == M_HOMING)
-                            || (munitionType == M_INFERNO_IV) || (munitionType == M_LASER_INHIB)
-                            || (munitionType == M_SMOKE) || (munitionType == M_FASCAM)
-                            || (munitionType == M_DAVY_CROCKETT_M) || (munitionType == M_VIBRABOMB_IV)
-                            || (munitionType == M_STANDARD);
+                    return (munitionType != M_FLARE) && (munitionType != M_CLUSTER) && (munitionType != M_HOMING)
+                            && (munitionType != M_INFERNO_IV) && (munitionType != M_LASER_INHIB)
+                            && (munitionType != M_SMOKE) && (munitionType != M_FASCAM)
+                            && (munitionType != M_DAVY_CROCKETT_M) && (munitionType != M_VIBRABOMB_IV)
+                            && (munitionType != M_STANDARD);
                 case T_LONG_TOM:
-                    return (munitionType == M_FLARE) || (munitionType == M_CLUSTER) || (munitionType == M_HOMING)
-                            || (munitionType == M_FLECHETTE) || (munitionType == M_SMOKE) || (munitionType == M_FASCAM)
-                            || (munitionType == M_DAVY_CROCKETT_M) || (munitionType == M_STANDARD);
+                    return (munitionType != M_FLARE) && (munitionType != M_CLUSTER) && (munitionType != M_HOMING)
+                            && (munitionType != M_FLECHETTE) && (munitionType != M_SMOKE) && (munitionType != M_FASCAM)
+                            && (munitionType != M_DAVY_CROCKETT_M) && (munitionType != M_STANDARD);
                 case T_SNIPER:
                 case T_THUMPER:
-                    return (munitionType == M_FLARE) || (munitionType == M_CLUSTER) || (munitionType == M_HOMING)
-                            || (munitionType == M_FLECHETTE) || (munitionType == M_SMOKE) || (munitionType == M_FASCAM)
-                            || (munitionType == M_STANDARD);
+                    return (munitionType != M_FLARE) && (munitionType != M_CLUSTER) && (munitionType != M_HOMING)
+                            && (munitionType != M_FLECHETTE) && (munitionType != M_SMOKE) && (munitionType != M_FASCAM)
+                            && (munitionType != M_STANDARD);
                 default:
-                    return (munitionType == M_STANDARD) || (munitionType == M_ARTEMIS_CAPABLE)
-                            || (munitionType == M_ARTEMIS_V_CAPABLE);
+                    return (munitionType != M_STANDARD) && (munitionType != M_ARTEMIS_CAPABLE)
+                            && (munitionType != M_ARTEMIS_V_CAPABLE);
             }
         } else {
-            return canAeroUse();
+            return !canAeroUse();
         }
     }
 
@@ -13047,10 +13043,8 @@ public class AmmoType extends EquipmentType {
                 return true;
             }
             // Artillery
-            if (((at.getAmmoType() == T_ARROW_IV) || (at.getAmmoType() == T_LONG_TOM) || (at.getAmmoType() == T_SNIPER)
-                    || (at.getAmmoType() == T_THUMPER)) && (at.getMunitionType() == M_STANDARD)) {
-                return true;
-            }
+            return ((at.getAmmoType() == T_ARROW_IV) || (at.getAmmoType() == T_LONG_TOM) || (at.getAmmoType() == T_SNIPER)
+                    || (at.getAmmoType() == T_THUMPER)) && (at.getMunitionType() == M_STANDARD);
         }
         // TODO: mine clearance munitions
 
@@ -13075,12 +13069,12 @@ public class AmmoType extends EquipmentType {
         }
     }
 
-    private void addBeforeString(AmmoType base, String keyWord, String modifier) {
+    private void addBeforeString(AmmoType base, String modifier) {
         Enumeration<String> n = base.getNames();
         while (n.hasMoreElements()) {
             String s = n.nextElement();
             StringBuilder sb = new StringBuilder(s);
-            sb.insert(s.lastIndexOf(keyWord), modifier);
+            sb.insert(s.lastIndexOf("Ammo"), modifier);
             addLookupName(sb.toString());
         }
     }
@@ -13104,7 +13098,7 @@ public class AmmoType extends EquipmentType {
          */
         private final long type;
 
-        protected String rulesRefs;
+        protected final String rulesRefs;
 
         private final TechAdvancement techAdvancement;
 
@@ -13159,7 +13153,7 @@ public class AmmoType extends EquipmentType {
                     nameBuf.insert(index, name);
                     munition.setInternalName(nameBuf.toString());
                     munition.shortName = munition.name.replace(base.name, base.shortName);
-                    munition.addBeforeString(base, "Ammo", name + " ");
+                    munition.addBeforeString(base, name + " ");
                     break;
                 case AmmoType.T_ARROWIV_PROTO:
                 case AmmoType.T_ARROW_IV:
@@ -13184,7 +13178,7 @@ public class AmmoType extends EquipmentType {
                     munition.setInternalName(nameBuf.toString());
                     munition.shortName = munition.name.replace("Prototype ", "p");
 
-                    munition.addBeforeString(base, "Ammo", name + " ");
+                    munition.addBeforeString(base, name + " ");
                     munition.addToEnd(base, " - " + name);
                     if (name.equals("Homing")) {
                         munition.addToEnd(base, " (HO)"); // mep
@@ -13219,7 +13213,7 @@ public class AmmoType extends EquipmentType {
                     nameBuf.append(' ');
                     nameBuf.append(name.replace("-capable", ""));
                     munition.shortName = nameBuf.toString();
-                    munition.addBeforeString(base, "Ammo", name + " ");
+                    munition.addBeforeString(base, name + " ");
                     break;
                 case AmmoType.T_VGL:
                     // Replace "Fragmentation" with the submunition name
@@ -13228,7 +13222,7 @@ public class AmmoType extends EquipmentType {
                     munition.shortName = base.shortName.replace("Fragmentation", name);
                     internalName = new StringBuilder(base.getInternalName());
                     munition.setInternalName(internalName.insert(internalName.lastIndexOf("Ammo"), name + " ").toString());
-                    munition.addBeforeString(base, "Ammo", name + " ");
+                    munition.addBeforeString(base, name + " ");
                     break;
                 case AmmoType.T_MEK_MORTAR:
                     // Replace "Shaped Charge" with the submunition name
@@ -13269,7 +13263,7 @@ public class AmmoType extends EquipmentType {
 
                     munition.shortName = munition.name;
                     // The munition name appears in the middle of the other names.
-                    munition.addBeforeString(base, "Ammo", name + " ");
+                    munition.addBeforeString(base, name + " ");
                     break;
                 default:
                     throw new IllegalArgumentException("Don't know how to create munitions for " + base.ammoType);
@@ -13574,11 +13568,7 @@ public class AmmoType extends EquipmentType {
             return false;
         } else if (ammoType.getAmmoType() != weaponType.getAmmoType()) {
             return false;
-        } else if (ammoType.getRackSize() != weaponType.getRackSize()) {
-            return false;
-        } else {
-            return true;
-        }
+        } else return ammoType.getRackSize() == weaponType.getRackSize();
     }
 
     /**

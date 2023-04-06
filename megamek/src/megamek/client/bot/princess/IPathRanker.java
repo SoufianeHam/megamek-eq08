@@ -19,7 +19,7 @@ public interface IPathRanker {
      * unit on this turn. Rankers that extend this class should override this
      * function
      */
-    void initUnitTurn(Entity unit, Game game);
+    void initUnitTurn();
 
     double distanceToClosestEnemy(Entity entity, Coords position, Game game);
  
@@ -50,5 +50,5 @@ public interface IPathRanker {
     /**
      * Find the closest enemy to a unit with a path
      */
-    Targetable findClosestEnemy(Entity me, Coords position, Game game, boolean includeStrategicTargets);
+    Targetable findClosestEnemy(Coords position, boolean includeStrategicTargets);
 }

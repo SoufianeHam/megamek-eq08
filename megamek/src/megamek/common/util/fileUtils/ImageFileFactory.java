@@ -147,11 +147,10 @@ public class ImageFileFactory implements ItemFileFactory {
      * The method that must be implemented by any object that filters filenames within a
      * <code>ZipFile</code> (i.e., selects a subset of filenames from a list of filenames in a ZIP archive).
      *
-     * @param zipFile The <code>ZipFile</code> object that contains the named file's entry.
      * @param name The <code>String</code> name of the file.
      */
     @Override
-    public boolean accept(ZipFile zipFile, String name) {
+    public boolean accept(String name) {
         // Convert the file name to upper case, and compare it to image file extensions.
         String ucName = name.toUpperCase(Locale.ROOT);
         return (ucName.endsWith(JPG) || ucName.endsWith(JPEG) || ucName.endsWith(GIF) || ucName.endsWith(PNG));

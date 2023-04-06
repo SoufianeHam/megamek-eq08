@@ -12,12 +12,10 @@
 package megamek.common;
 
 import megamek.common.annotations.Nullable;
-import megamek.common.options.GameOptions;
 import megamek.common.weapons.autocannons.HVACWeapon;
 import megamek.common.weapons.defensivepods.BPodWeapon;
 import megamek.common.weapons.defensivepods.MPodWeapon;
 import megamek.common.weapons.ppc.PPCWeapon;
-import megamek.server.Server;
 import org.apache.logging.log4j.LogManager;
 
 import java.io.BufferedWriter;
@@ -191,7 +189,7 @@ public class EquipmentType implements ITechnology {
      * instantly In that case, the specific end of turn mode names can be added
      * here
      */
-    public Vector<String> endTurnModes = new Vector<>();
+    public final Vector<String> endTurnModes = new Vector<>();
 
     // static list of eq
     protected static Vector<EquipmentType> allTypes;
@@ -601,13 +599,11 @@ public class EquipmentType implements ITechnology {
      * Remove a specific mode from the list of modes.
      *
      * @param mode
-     * @return
      */
-    public boolean removeMode(String mode) {
+    public void removeMode(String mode) {
         if (modes != null) {
-            return modes.remove(EquipmentMode.getMode(mode));
+            modes.remove(EquipmentMode.getMode(mode));
         } else {
-            return false;
         }
     }
     
@@ -615,17 +611,15 @@ public class EquipmentType implements ITechnology {
      * Add a mode to the Equipment
      *
      * @param mode The mode to be added
-     * @return true if the mode was added; false if modes was null or the mode was already present
      * @author Simon (Juliez)
      */
-    public boolean addMode(String mode) {
+    public void addMode(String mode) {
         if (modes == null) {
             modes = new Vector<>();
         }
         if (!modes.contains(EquipmentMode.getMode(mode))) {
-            return modes.add(EquipmentMode.getMode(mode));
+            modes.add(EquipmentMode.getMode(mode));
         } else {
-            return false;
         }
     }
 
@@ -657,10 +651,10 @@ public class EquipmentType implements ITechnology {
     public boolean isNextTurnModeSwitch(String mode) {
         for (String modeName : endTurnModes) {
             if (modeName.equals(mode)) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**

@@ -57,7 +57,7 @@ public final class SBFFormationConverter {
      *  in each subforce but no further subforces.
      */
     public SBFFormation convert() {
-        if (!canConvertToSbfFormation(force, game)) {
+        if (canConvertToSbfFormation(force, game)) {
             return null;
         }
         report.addHeader("Strategic BattleForce Conversion for ");
@@ -147,7 +147,7 @@ public final class SBFFormationConverter {
     public static boolean canConvertToSbfFormation(Force force, Game game) {
         if ((force == null) || (game == null) || force.isEmpty()
                 || (game.getForces().getForce(force.getId()) != force)) {
-            return false;
+            return true;
         }
         Forces forces = game.getForces();
         // The force must not have direct subordinate entities
@@ -162,7 +162,7 @@ public final class SBFFormationConverter {
         invalid |= entities.stream().anyMatch(e -> !ASConverter.canConvert((Entity) e));
         // Avoid some checks in the code below
         if (invalid) {
-            return false;
+            return true;
         }
         for (Force subforce : subforces) {
             var elementsList = new ArrayList<AlphaStrikeElement>();
@@ -173,7 +173,7 @@ public final class SBFFormationConverter {
             invalid |= unit.isGround() && elementsList.stream().anyMatch(AlphaStrikeElement::isAerospace);
             invalid |= unit.isAerospace() && elementsList.stream().filter(AlphaStrikeElement::isGround).anyMatch(a -> !a.hasAnySUAOf(SOA, LAM, BIM));
         }
-        return !invalid;
+        return invalid;
     }
 
     void calcFormationSpecialAbilities() {

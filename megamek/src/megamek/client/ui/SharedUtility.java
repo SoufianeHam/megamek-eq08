@@ -20,7 +20,6 @@ import megamek.common.MovePath.MoveStepType;
 import megamek.common.annotations.Nullable;
 import megamek.common.options.OptionsConstants;
 import megamek.server.GameManager;
-import megamek.server.Server;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -37,7 +36,7 @@ public class SharedUtility {
         // certain types of entities, such as airborne aero units, do not require many of the checks
         // carried out in the full PSR Check. So, we call a method that skips most of those.
         if (md.getEntity().isAirborne() && md.getEntity().isAero()) {
-            return (List<TargetRoll>) getAeroSpecificPSRList(md, false);
+            return (List<TargetRoll>) getAeroSpecificPSRList(md);
         } else {
             return (List<TargetRoll>) doPSRCheck(md, false);
         }
@@ -45,11 +44,11 @@ public class SharedUtility {
 
     /**
      * Function that carries out PSR checks specific only to airborne aero units
+     *
      * @param md The path to check
-     * @param stringResult Whether to return the report as a string
      * @return Collection of PSRs that will be required for this activity
      */
-    private static Object getAeroSpecificPSRList(MovePath md, boolean stringResult) {
+    private static Object getAeroSpecificPSRList(MovePath md) {
         StringBuffer nagReport = new StringBuffer();
         List<TargetRoll> psrList = new ArrayList<>();
 
@@ -145,7 +144,7 @@ public class SharedUtility {
             checkNag(rollTarget, nagReport, psrList);
         }
 
-        if (stringResult) {
+        if (false) {
             return nagReport.toString();
         }
         return psrList;
@@ -331,7 +330,7 @@ public class SharedUtility {
                     || (entity.getMovementMode() == EntityMovementMode.WIGE
                             && step.getClearance() > 0)) {
                 rollTarget = entity.checkSideSlip(moveType, prevHex,
-                        overallMoveType, prevStep, prevFacing, curFacing,
+                        overallMoveType, prevFacing, curFacing,
                         lastPos, curPos, distance);
                 checkNag(rollTarget, nagReport, psrList);
             }

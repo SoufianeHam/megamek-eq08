@@ -15,7 +15,6 @@
 package megamek.common;
 
 import megamek.client.bot.princess.Princess;
-import megamek.common.MovePath.MoveStepType;
 import megamek.common.annotations.Nullable;
 import megamek.common.options.OptionsConstants;
 import megamek.common.pathfinder.AbstractPathFinder;
@@ -182,40 +181,40 @@ public class MovePath implements Cloneable, Serializable {
      * @param target the <code>Targetable</code> object that is the target of this
      *               step. For example, the enemy being charged.
      */
-    public MovePath addStep(final MoveStepType type, final Targetable target) {
-        return addStep(new MoveStep(this, type, target));
+    public void addStep(final MoveStepType type, final Targetable target) {
+        addStep(new MoveStep(this, type, target));
     }
 
-    public MovePath addStep(final MoveStepType type, final Targetable target, final Coords pos) {
-        return addStep(new MoveStep(this, type, target, pos));
+    public void addStep(final MoveStepType type, final Targetable target, final Coords pos) {
+        addStep(new MoveStep(this, type, target, pos));
     }
 
-    public MovePath addStep(final MoveStepType type, final int additionalIntData) {
-        return addStep(new MoveStep(this, type, additionalIntData));
+    public void addStep(final MoveStepType type, final int additionalIntData) {
+        addStep(new MoveStep(this, type, additionalIntData));
     }
 
-    public MovePath addStep(final MoveStepType type, final int recover, final int mineToLay) {
-        return addStep(new MoveStep(this, type, recover, mineToLay));
+    public void addStep(final MoveStepType type, final int recover, final int mineToLay) {
+        addStep(new MoveStep(this, type, recover, mineToLay));
     }
 
-    public MovePath addStep(MoveStepType type, TreeMap<Integer, Vector<Integer>> targets) {
-        return addStep(new MoveStep(this, type, targets));
+    public void addStep(MoveStepType type, TreeMap<Integer, Vector<Integer>> targets) {
+        addStep(new MoveStep(this, type, targets));
     }
 
-    public MovePath addStep(final MoveStepType type, final boolean noCost) {
-        return addStep(new MoveStep(this, type, noCost));
+    public void addStep(final MoveStepType type, final boolean noCost) {
+        addStep(new MoveStep(this, type, noCost));
     }
 
-    public MovePath addStep(final MoveStepType type, final boolean noCost, final boolean isManeuver) {
-        return addStep(new MoveStep(this, type, noCost, isManeuver));
+    public void addStep(final MoveStepType type, final boolean noCost, final boolean isManeuver) {
+        addStep(new MoveStep(this, type, noCost, isManeuver));
     }
 
-    public MovePath addStep(final MoveStepType type, final Minefield mf) {
-        return addStep(new MoveStep(this, type, mf));
+    public void addStep(final MoveStepType type, final Minefield mf) {
+        addStep(new MoveStep(this, type, mf));
     }
 
-    public MovePath addManeuver(final int manType) {
-        return addStep(new MoveStep(this, MoveStepType.MANEUVER, -1, -1, manType));
+    public void addManeuver(final int manType) {
+        addStep(new MoveStep(this, MoveStepType.MANEUVER, -1, -1, manType));
     }
 
     public boolean canShift() {
@@ -623,7 +622,7 @@ public class MovePath implements Cloneable, Serializable {
         }
 
         if (getEntity() instanceof LandAirMech
-                && !((LandAirMech) getEntity()).canConvertTo(getFinalConversionMode())) {
+                && ((LandAirMech) getEntity()).canConvertTo(getFinalConversionMode())) {
             steps.forEach(s -> {
                 if (s.getType() == MoveStepType.CONVERT_MODE) {
                     s.setMovementType(EntityMovementType.MOVE_ILLEGAL);
@@ -702,7 +701,7 @@ public class MovePath implements Cloneable, Serializable {
      */
     public boolean isValidPositionForBrace(Coords coords, int facing) {
         // situation: can't brace off of jumps; can't brace if you're not a mek with arms/protomech
-        if (isJumping() || contains(MoveStepType.GO_PRONE) || !getEntity().canBrace()) {
+        if (isJumping() || contains(MoveStepType.GO_PRONE) || getEntity().canBrace()) {
             return false;
         }
 
@@ -1181,8 +1180,7 @@ public class MovePath implements Cloneable, Serializable {
      */
     public void findSimplePathTo(final Coords dest, final MoveStepType type,
                                  int direction, int facing) {
-        Coords src = getFinalCoords();
-        Coords currStep = src;
+        Coords currStep = getFinalCoords();
         Coords nextStep = currStep.translated(direction);
         while (dest.distance(nextStep) < dest.distance(currStep)) {
             addStep(type);
@@ -1569,11 +1567,8 @@ public class MovePath implements Cloneable, Serializable {
      * @return
      */
     public boolean shouldMechanicalJumpCauseFallDamage() {
-        if (isJumping() && (getEntity().getJumpType() == Mech.JUMP_BOOSTER) &&
-            (getJumpMaxElevationChange() > getEntity().getJumpMP())) {
-            return true;
-        }
-        return false;
+        return isJumping() && (getEntity().getJumpType() == Mech.JUMP_BOOSTER) &&
+                (getJumpMaxElevationChange() > getEntity().getJumpMP());
     }
 
     /**
@@ -1666,7 +1661,7 @@ public class MovePath implements Cloneable, Serializable {
 
     protected static class MovePathComparator implements Comparator<MovePath> {
         private final Coords destination;
-        boolean backward;
+        final boolean backward;
 
         public MovePathComparator(final Coords destination, final boolean backward) {
             this.destination = destination;
@@ -1779,15 +1774,14 @@ public class MovePath implements Cloneable, Serializable {
      * part of the path nothing is changed.
      *
      * @param pos The <code>Coords</code> of the hex to be bombed.
-     * @return Whether the position was found in the movement path
      */
-    public boolean setVTOLBombStep(Coords pos) {
+    public void setVTOLBombStep(Coords pos) {
         boolean foundPos = false;
         MoveStep prevBombing = null;
         for (MoveStep step : steps) {
             if (step.getPosition().equals(pos)) {
                 if (step.isVTOLBombingStep()) {
-                    return true;
+                    return;
                 } else {
                     step.setVTOLBombing(true);
                     foundPos = true;
@@ -1799,7 +1793,6 @@ public class MovePath implements Cloneable, Serializable {
         if (foundPos && prevBombing != null) {
             prevBombing.setVTOLBombing(false);
         }
-        return foundPos;
     }
 
     /**
@@ -1807,27 +1800,24 @@ public class MovePath implements Cloneable, Serializable {
      * as a strafing step. In cases where there are multiple steps with the same coordinates, we want the
      * first one because it is the one that enters the hex. In the rare case where the path crosses
      * itself, select the one closest to the end of the path.
-     *
+     * <p>
      * FIXME: this does not deal with paths that cross themselves
      *
      * @param pos The <code>Coords</code> of the hex to be strafed
-     * @return Whether the position was found in the path
      */
-    public boolean setStrafingStep(Coords pos) {
+    public void setStrafingStep(Coords pos) {
         MoveStep found = null;
         for (int i = steps.size() - 1; i >= 0; i--) {
             if (steps.get(i).getPosition().equals(pos)) {
                 found = steps.get(i);
             } else if (found != null) {
                 found.setStrafing(true);
-                return true;
+                return;
             }
         }
         if (found != null) {
             found.setStrafing(true);
-            return true;
         }
-        return false;
     }
 
     /**

@@ -30,7 +30,6 @@ import megamek.common.options.OptionsConstants;
 import megamek.common.weapons.flamers.CLHeavyFlamer;
 import megamek.common.weapons.flamers.ISHeavyFlamer;
 import megamek.server.GameManager;
-import megamek.server.Server;
 
 /**
  * @author Sebastian Brocks
@@ -131,7 +130,7 @@ public class VehicleFlamerHandler extends AmmoWeaponHandler {
     }
 
     @Override
-    protected void handleIgnitionDamage(Vector<Report> vPhaseReport, Building bldg, int hits) {
+    protected void handleIgnitionDamage(Vector<Report> vPhaseReport) {
         if (!bSalvo) {
             // hits!
             Report r = new Report(2270);

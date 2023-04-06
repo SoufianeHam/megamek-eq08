@@ -47,117 +47,117 @@ public class ASAdvancedSearchPanel extends JPanel {
 
     private UiValues savedUiValues = new UiValues();
 
-    JCheckBox useUnitType = new JCheckBox("Unit Type");
-    JToggleButton unitTypeBM = new JToggleButton("BM");
-    JToggleButton unitTypeCV = new JToggleButton("CV");
-    JToggleButton unitTypeCI = new JToggleButton("CI");
-    JToggleButton unitTypeBA = new JToggleButton("BA");
-    JToggleButton unitTypeIM = new JToggleButton("IM");
-    JToggleButton unitTypePM = new JToggleButton("PM");
-    JToggleButton unitTypeSV = new JToggleButton("SV");
-    JToggleButton unitTypeAF = new JToggleButton("AF");
-    JToggleButton unitTypeCF = new JToggleButton("CF");
+    final JCheckBox useUnitType = new JCheckBox("Unit Type");
+    final JToggleButton unitTypeBM = new JToggleButton("BM");
+    final JToggleButton unitTypeCV = new JToggleButton("CV");
+    final JToggleButton unitTypeCI = new JToggleButton("CI");
+    final JToggleButton unitTypeBA = new JToggleButton("BA");
+    final JToggleButton unitTypeIM = new JToggleButton("IM");
+    final JToggleButton unitTypePM = new JToggleButton("PM");
+    final JToggleButton unitTypeSV = new JToggleButton("SV");
+    final JToggleButton unitTypeAF = new JToggleButton("AF");
+    final JToggleButton unitTypeCF = new JToggleButton("CF");
 
-    JCheckBox useSize = new JCheckBox("Size");
-    JToggleButton size1 = new JToggleButton(" 1 ");
-    JToggleButton size2 = new JToggleButton(" 2 ");
-    JToggleButton size3 = new JToggleButton(" 3 ");
-    JToggleButton size4 = new JToggleButton(" 4 ");
-    JToggleButton size5 = new JToggleButton(" 5 ");
+    final JCheckBox useSize = new JCheckBox("Size");
+    final JToggleButton size1 = new JToggleButton(" 1 ");
+    final JToggleButton size2 = new JToggleButton(" 2 ");
+    final JToggleButton size3 = new JToggleButton(" 3 ");
+    final JToggleButton size4 = new JToggleButton(" 4 ");
+    final JToggleButton size5 = new JToggleButton(" 5 ");
 
-    JCheckBox useTMM = new JCheckBox("TMM");
-    JToggleButton tmm0 = new JToggleButton(" 0 ");
-    JToggleButton tmm1 = new JToggleButton(" 1 ");
-    JToggleButton tmm2 = new JToggleButton(" 2 ");
-    JToggleButton tmm3 = new JToggleButton(" 3 ");
-    JToggleButton tmm4 = new JToggleButton(" 4 ");
-    JToggleButton tmm5 = new JToggleButton(" 5 ");
+    final JCheckBox useTMM = new JCheckBox("TMM");
+    final JToggleButton tmm0 = new JToggleButton(" 0 ");
+    final JToggleButton tmm1 = new JToggleButton(" 1 ");
+    final JToggleButton tmm2 = new JToggleButton(" 2 ");
+    final JToggleButton tmm3 = new JToggleButton(" 3 ");
+    final JToggleButton tmm4 = new JToggleButton(" 4 ");
+    final JToggleButton tmm5 = new JToggleButton(" 5 ");
 
-    JCheckBox useOV = new JCheckBox("OV");
-    JToggleButton ov0 = new JToggleButton(" 0 ");
-    JToggleButton ov1 = new JToggleButton(" 1 ");
-    JToggleButton ov2 = new JToggleButton(" 2 ");
-    JToggleButton ov3 = new JToggleButton(" 3 ");
-    JToggleButton ov4 = new JToggleButton(" 4 ");
+    final JCheckBox useOV = new JCheckBox("OV");
+    final JToggleButton ov0 = new JToggleButton(" 0 ");
+    final JToggleButton ov1 = new JToggleButton(" 1 ");
+    final JToggleButton ov2 = new JToggleButton(" 2 ");
+    final JToggleButton ov3 = new JToggleButton(" 3 ");
+    final JToggleButton ov4 = new JToggleButton(" 4 ");
 
-    JCheckBox useArmor = new JCheckBox("Armor");
-    JLabel armorBetween = new JLabel(BETWEEN);
-    IntRangeTextField armorFrom = new IntRangeTextField();
-    JLabel armorAnd = new JLabel(AND);
-    IntRangeTextField armorTo = new IntRangeTextField();
+    final JCheckBox useArmor = new JCheckBox("Armor");
+    final JLabel armorBetween = new JLabel(BETWEEN);
+    final IntRangeTextField armorFrom = new IntRangeTextField();
+    final JLabel armorAnd = new JLabel(AND);
+    final IntRangeTextField armorTo = new IntRangeTextField();
 
-    JCheckBox useStructure = new JCheckBox("Structure");
-    JLabel structureBetween = new JLabel(BETWEEN);
-    IntRangeTextField structureFrom = new IntRangeTextField();
-    JLabel structureAnd = new JLabel(AND);
-    IntRangeTextField structureTo = new IntRangeTextField();
+    final JCheckBox useStructure = new JCheckBox("Structure");
+    final JLabel structureBetween = new JLabel(BETWEEN);
+    final IntRangeTextField structureFrom = new IntRangeTextField();
+    final JLabel structureAnd = new JLabel(AND);
+    final IntRangeTextField structureTo = new IntRangeTextField();
 
-    JCheckBox useThreshold = new JCheckBox("Threshold");
-    JLabel thresholdBetween = new JLabel(BETWEEN);
-    IntRangeTextField thresholdFrom = new IntRangeTextField();
-    JLabel thresholdAnd = new JLabel(AND);
-    IntRangeTextField thresholdTo = new IntRangeTextField();
+    final JCheckBox useThreshold = new JCheckBox("Threshold");
+    final JLabel thresholdBetween = new JLabel(BETWEEN);
+    final IntRangeTextField thresholdFrom = new IntRangeTextField();
+    final JLabel thresholdAnd = new JLabel(AND);
+    final IntRangeTextField thresholdTo = new IntRangeTextField();
 
-    JCheckBox useDamageS = new JCheckBox("Damage S");
-    JLabel damageSBetween = new JLabel(BETWEEN);
-    MMComboBox<ASDamage> damageSFrom = new MMComboBox<>("Damage S From");
-    JLabel damageSAnd = new JLabel(AND);
-    MMComboBox<ASDamage> damageSTo = new MMComboBox<>("Damage S To");
+    final JCheckBox useDamageS = new JCheckBox("Damage S");
+    final JLabel damageSBetween = new JLabel(BETWEEN);
+    final MMComboBox<ASDamage> damageSFrom = new MMComboBox<>("Damage S From");
+    final JLabel damageSAnd = new JLabel(AND);
+    final MMComboBox<ASDamage> damageSTo = new MMComboBox<>("Damage S To");
 
-    JCheckBox useDamageM = new JCheckBox("Damage M");
-    JLabel damageMBetween = new JLabel(BETWEEN);
-    MMComboBox<ASDamage> damageMFrom = new MMComboBox<>("Damage M From");
-    JLabel damageMAnd = new JLabel(AND);
-    MMComboBox<ASDamage> damageMTo = new MMComboBox<>("Damage M To");
+    final JCheckBox useDamageM = new JCheckBox("Damage M");
+    final JLabel damageMBetween = new JLabel(BETWEEN);
+    final MMComboBox<ASDamage> damageMFrom = new MMComboBox<>("Damage M From");
+    final JLabel damageMAnd = new JLabel(AND);
+    final MMComboBox<ASDamage> damageMTo = new MMComboBox<>("Damage M To");
 
-    JCheckBox useDamageL = new JCheckBox("Damage L");
-    JLabel damageLBetween = new JLabel(BETWEEN);
-    MMComboBox<ASDamage> damageLFrom = new MMComboBox<>("Damage L From");
-    JLabel damageLAnd = new JLabel(AND);
-    MMComboBox<ASDamage> damageLTo = new MMComboBox<>("Damage L To");
+    final JCheckBox useDamageL = new JCheckBox("Damage L");
+    final JLabel damageLBetween = new JLabel(BETWEEN);
+    final MMComboBox<ASDamage> damageLFrom = new MMComboBox<>("Damage L From");
+    final JLabel damageLAnd = new JLabel(AND);
+    final MMComboBox<ASDamage> damageLTo = new MMComboBox<>("Damage L To");
 
-    JCheckBox useDamageE = new JCheckBox("Damage E");
-    JLabel damageEBetween = new JLabel(BETWEEN);
-    MMComboBox<ASDamage> damageEFrom = new MMComboBox<>("Damage E From");
-    JLabel damageEAnd = new JLabel(AND);
-    MMComboBox<ASDamage> damageETo = new MMComboBox<>("Damage E To");
+    final JCheckBox useDamageE = new JCheckBox("Damage E");
+    final JLabel damageEBetween = new JLabel(BETWEEN);
+    final MMComboBox<ASDamage> damageEFrom = new MMComboBox<>("Damage E From");
+    final JLabel damageEAnd = new JLabel(AND);
+    final MMComboBox<ASDamage> damageETo = new MMComboBox<>("Damage E To");
 
-    JCheckBox usePV = new JCheckBox("Point Value");
-    JLabel pvBetween = new JLabel(BETWEEN);
-    IntRangeTextField pvFrom = new IntRangeTextField();
-    JLabel pvAnd = new JLabel(AND);
-    IntRangeTextField pvTo = new IntRangeTextField();
+    final JCheckBox usePV = new JCheckBox("Point Value");
+    final JLabel pvBetween = new JLabel(BETWEEN);
+    final IntRangeTextField pvFrom = new IntRangeTextField();
+    final JLabel pvAnd = new JLabel(AND);
+    final IntRangeTextField pvTo = new IntRangeTextField();
 
-    JCheckBox useMV = new JCheckBox("Movement");
-    MMComboBox<String> mvMode = new MMComboBox<>("Movement Mode");
-    JLabel mvBetween = new JLabel(BETWEEN);
-    IntRangeTextField mvFrom = new IntRangeTextField();
-    JLabel mvAnd = new JLabel(AND);
-    IntRangeTextField mvTo = new IntRangeTextField();
+    final JCheckBox useMV = new JCheckBox("Movement");
+    final MMComboBox<String> mvMode = new MMComboBox<>("Movement Mode");
+    final JLabel mvBetween = new JLabel(BETWEEN);
+    final IntRangeTextField mvFrom = new IntRangeTextField();
+    final JLabel mvAnd = new JLabel(AND);
+    final IntRangeTextField mvTo = new IntRangeTextField();
 
-    JCheckBox useAbility1 = new JCheckBox("Special Ability");
-    MMComboBox<BattleForceSUA> ability1 = new MMComboBox<>("Ability1", BattleForceSUA.values());
+    final JCheckBox useAbility1 = new JCheckBox("Special Ability");
+    final MMComboBox<BattleForceSUA> ability1 = new MMComboBox<>("Ability1", BattleForceSUA.values());
 
-    JCheckBox useAbility2 = new JCheckBox("Special Ability");
-    MMComboBox<BattleForceSUA> ability2 = new MMComboBox<>("Ability2", BattleForceSUA.values());
+    final JCheckBox useAbility2 = new JCheckBox("Special Ability");
+    final MMComboBox<BattleForceSUA> ability2 = new MMComboBox<>("Ability2", BattleForceSUA.values());
 
-    JCheckBox useUnitRole = new JCheckBox("Unit Role");
-    JToggleButton unitRoleUndetermined = new JToggleButton(UnitRole.UNDETERMINED.toString());
-    JToggleButton unitRoleAmbusher = new JToggleButton(UnitRole.AMBUSHER.toString());
-    JToggleButton unitRoleBrawler = new JToggleButton(UnitRole.BRAWLER.toString());
-    JToggleButton unitRoleJuggernaut = new JToggleButton(UnitRole.JUGGERNAUT.toString());
-    JToggleButton unitRoleMissileBoat = new JToggleButton(UnitRole.MISSILE_BOAT.toString());
-    JToggleButton unitRoleScout = new JToggleButton(UnitRole.SCOUT.toString());
-    JToggleButton unitRoleSkirmisher = new JToggleButton(UnitRole.SKIRMISHER.toString());
-    JToggleButton unitRoleSniper = new JToggleButton(UnitRole.SNIPER.toString());
-    JToggleButton unitRoleStriker = new JToggleButton(UnitRole.STRIKER.toString());
-    JToggleButton unitRoleAttackFighter = new JToggleButton(UnitRole.ATTACK_FIGHTER.toString());
-    JToggleButton unitRoleDogfighter = new JToggleButton(UnitRole.DOGFIGHTER.toString());
-    JToggleButton unitRoleFastDogfighter = new JToggleButton(UnitRole.FAST_DOGFIGHTER.toString());
-    JToggleButton unitRoleFireSupport = new JToggleButton(UnitRole.FIRE_SUPPORT.toString());
-    JToggleButton unitRoleInterceptor = new JToggleButton(UnitRole.INTERCEPTOR.toString());
-    JToggleButton unitRoleTransport = new JToggleButton(UnitRole.TRANSPORT.toString());
-    JToggleButton unitRoleNone = new JToggleButton(UnitRole.NONE.toString());
+    final JCheckBox useUnitRole = new JCheckBox("Unit Role");
+    final JToggleButton unitRoleUndetermined = new JToggleButton(UnitRole.UNDETERMINED.toString());
+    final JToggleButton unitRoleAmbusher = new JToggleButton(UnitRole.AMBUSHER.toString());
+    final JToggleButton unitRoleBrawler = new JToggleButton(UnitRole.BRAWLER.toString());
+    final JToggleButton unitRoleJuggernaut = new JToggleButton(UnitRole.JUGGERNAUT.toString());
+    final JToggleButton unitRoleMissileBoat = new JToggleButton(UnitRole.MISSILE_BOAT.toString());
+    final JToggleButton unitRoleScout = new JToggleButton(UnitRole.SCOUT.toString());
+    final JToggleButton unitRoleSkirmisher = new JToggleButton(UnitRole.SKIRMISHER.toString());
+    final JToggleButton unitRoleSniper = new JToggleButton(UnitRole.SNIPER.toString());
+    final JToggleButton unitRoleStriker = new JToggleButton(UnitRole.STRIKER.toString());
+    final JToggleButton unitRoleAttackFighter = new JToggleButton(UnitRole.ATTACK_FIGHTER.toString());
+    final JToggleButton unitRoleDogfighter = new JToggleButton(UnitRole.DOGFIGHTER.toString());
+    final JToggleButton unitRoleFastDogfighter = new JToggleButton(UnitRole.FAST_DOGFIGHTER.toString());
+    final JToggleButton unitRoleFireSupport = new JToggleButton(UnitRole.FIRE_SUPPORT.toString());
+    final JToggleButton unitRoleInterceptor = new JToggleButton(UnitRole.INTERCEPTOR.toString());
+    final JToggleButton unitRoleTransport = new JToggleButton(UnitRole.TRANSPORT.toString());
+    final JToggleButton unitRoleNone = new JToggleButton(UnitRole.NONE.toString());
 
     private final JButton btnClear = new JButton(Messages.getString("MechSelectorDialog.ClearTab"));
 
@@ -253,12 +253,8 @@ public class ASAdvancedSearchPanel extends JPanel {
         } else if (useAbility1.isSelected() &&
                 !mechSummary.getSpecialAbilities().hasSUA(ability1.getSelectedItem())) {
             return false;
-        } else if (useAbility2.isSelected() &&
-                !mechSummary.getSpecialAbilities().hasSUA(ability2.getSelectedItem())) {
-            return false;
-        } else {
-            return true;
-        }
+        } else return !useAbility2.isSelected() ||
+                mechSummary.getSpecialAbilities().hasSUA(ability2.getSelectedItem());
     }
 
     private JComponent unitTypePanel() {

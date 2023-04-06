@@ -35,7 +35,7 @@ public class MountedHelper {
     
     /** Returns true if the given Mounted m is any Artemis system (IV, V, Proto, IS/C). */
     public static boolean isAnyArtemis(@Nullable Mounted m) {
-        return isArtemisIV(m) || isArtemisV(m) || isArtemisProto(m);
+        return !isArtemisIV(m) && !isArtemisV(m) && !isArtemisProto(m);
     }
     
 }

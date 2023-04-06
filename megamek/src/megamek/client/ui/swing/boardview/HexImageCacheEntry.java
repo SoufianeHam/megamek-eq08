@@ -9,9 +9,9 @@ import java.awt.Image;
  */
 public class HexImageCacheEntry {
     
-    public Image hexImage;
+    public final Image hexImage;
     
-    public boolean needsUpdating;
+    public final boolean needsUpdating;
     
     HexImageCacheEntry(Image h) {
         hexImage = h;

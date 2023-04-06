@@ -83,12 +83,9 @@ public class MissileWeaponHandler extends AmmoWeaponHandler {
         AmmoType atype = (AmmoType) ammo.getType();
         
         // is any hex in the flight path of the missile ECM affected?
-        boolean bECMAffected = false;
+        boolean bECMAffected = ComputeECM.isAffectedByECM(ae, ae.getPosition(), target.getPosition());
         // if the attacker is affected by ECM or the target is protected by ECM
         // then act as if affected.
-        if (ComputeECM.isAffectedByECM(ae, ae.getPosition(), target.getPosition())) {
-            bECMAffected = true;
-        }
 
         if (((mLinker != null) && (mLinker.getType() instanceof MiscType)
                 && !mLinker.isDestroyed() && !mLinker.isMissing()
@@ -405,12 +402,8 @@ public class MissileWeaponHandler extends AmmoWeaponHandler {
 
         // TW, pg. 171 - shots that miss a target in a building don't damage the
         // building, unless the attacker is adjacent
-        if (!bldgDamagedOnMiss
-                || (toHit.getValue() == TargetRoll.AUTOMATIC_FAIL)) {
-            return false;
-        }
-
-        return true;
+        return !bldgDamagedOnMiss
+                || (toHit.getValue() == TargetRoll.AUTOMATIC_FAIL);
     }
     
     // Aero sanity reduces effectiveness of AMS bays with default cluster mods.
@@ -637,7 +630,7 @@ public class MissileWeaponHandler extends AmmoWeaponHandler {
         vPhaseReport.addElement(r);
         // check for nemesis
         boolean shotAtNemesisTarget = false;
-        if (bNemesisConfusable && !waa.isNemesisConfused()) {
+        if (bNemesisConfusable && waa.isNemesisConfused()) {
             // loop through nemesis targets
             for (Enumeration<Entity> e = game.getNemesisTargets(ae, target.getPosition());
                  e.hasMoreElements(); ) {
@@ -794,7 +787,7 @@ public class MissileWeaponHandler extends AmmoWeaponHandler {
             reportMiss(vPhaseReport);
 
             // Works out fire setting, AMS shots, and whether continuation is necessary.
-            if (!handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg, vPhaseReport)) {
+            if (handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg, vPhaseReport)) {
                 return false;
             }
         }
@@ -941,7 +934,7 @@ public class MissileWeaponHandler extends AmmoWeaponHandler {
                 // targeting a hex for igniting
                 if ((target.getTargetType() == Targetable.TYPE_HEX_IGNITE)
                         || (target.getTargetType() == Targetable.TYPE_BLDG_IGNITE)) {
-                    handleIgnitionDamage(vPhaseReport, bldg, hits);
+                    handleIgnitionDamage(vPhaseReport);
                     return false;
                 }
                 // targeting a hex for clearing

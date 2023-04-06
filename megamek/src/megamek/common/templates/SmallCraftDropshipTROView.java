@@ -47,7 +47,7 @@ public class SmallCraftDropshipTROView extends AeroTROView {
                 new Justification[] { Justification.LEFT, Justification.LEFT, Justification.LEFT }));
         setModelData("usesWeaponBays", aero.usesWeaponBays());
         if (aero.usesWeaponBays()) {
-            final int nameWidth = addWeaponBays(aero.isSpheroid() ? SPHEROID_ARCS : AERODYNE_ARCS);
+            final int nameWidth = addWeaponBays(!aero.isSpheroid() ? SPHEROID_ARCS : AERODYNE_ARCS);
             setModelData("formatWeaponBayRow",
                     new FormatTableRowMethod(new int[] { nameWidth, 5, 8, 8, 8, 8, 12 },
                             new Justification[] { Justification.LEFT, Justification.CENTER, Justification.CENTER,
@@ -112,7 +112,7 @@ public class SmallCraftDropshipTROView extends AeroTROView {
     private String formatVesselType() {
         return ((aero.getDesignType() == Aero.CIVILIAN) ? Messages.getString("TROView.Civilian")
                 : Messages.getString("TROView.Military")) + " "
-                + (aero.isSpheroid() ? Messages.getString("TROView.Spheroid") : Messages.getString("TROView.Aerodyne"));
+                + (!aero.isSpheroid() ? Messages.getString("TROView.Spheroid") : Messages.getString("TROView.Aerodyne"));
     }
 
     private static final String[][] SPHEROID_ARCS = { { "Nose" }, { "RS Fwd", "LS Fwd" }, { "RS Aft", "LS Aft" }, { "Aft" } };
@@ -121,7 +121,7 @@ public class SmallCraftDropshipTROView extends AeroTROView {
 
     @Override
     protected String getArcAbbr(Mounted m) {
-        final String[][] arcs = aero.isSpheroid() ? SPHEROID_ARCS : AERODYNE_ARCS;
+        final String[][] arcs = !aero.isSpheroid() ? SPHEROID_ARCS : AERODYNE_ARCS;
         switch (m.getLocation()) {
             case Aero.LOC_NOSE:
                 return arcs[0][0];
@@ -153,7 +153,7 @@ public class SmallCraftDropshipTROView extends AeroTROView {
         } else {
             return aero.getLocationName(mounted.getLocation());
         }
-        if (!aero.isSpheroid()) {
+        if (aero.isSpheroid()) {
             str += "Wing";
         }
         if (mounted.isRearMounted()) {

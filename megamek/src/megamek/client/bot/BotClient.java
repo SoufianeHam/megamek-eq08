@@ -16,7 +16,6 @@ package megamek.client.bot;
 import megamek.client.Client;
 import megamek.client.bot.princess.CardinalEdge;
 import megamek.client.ui.swing.ClientGUI;
-import megamek.client.ui.swing.ReportDisplay;
 import megamek.common.*;
 import megamek.common.actions.EntityAction;
 import megamek.common.actions.WeaponAttackAction;
@@ -177,7 +176,7 @@ public abstract class BotClient extends Client {
         return true;
     }
 
-    BotConfiguration config = new BotConfiguration();
+    final BotConfiguration config = new BotConfiguration();
 
     protected BoardClusterTracker boardClusterTracker;
 
@@ -629,7 +628,7 @@ public abstract class BotClient extends Client {
                 Coords c = new Coords(x, y);
                 if (board.isLegalDeployment(c, deployed_ent)
                     && !deployed_ent.isLocationProhibited(c)) {
-                    validCoords.add(new RankedCoords(c, 0));
+                    validCoords.add(new RankedCoords(c));
                 }
             }
         }
@@ -887,7 +886,7 @@ public abstract class BotClient extends Client {
             }
 
             // Make sure I'm not stuck in a dead-end.
-            coord.fitness += calculateEdgeAccessFitness(deployed_ent, board);
+            coord.fitness += calculateEdgeAccessFitness(deployed_ent);
             
             if (coord.fitness > highestFitness) {
                 highestFitness = coord.fitness;
@@ -921,7 +920,7 @@ public abstract class BotClient extends Client {
      * -50 if this can be accomplished but terrain must be destroyed,
      * -100 if this cannot be accomplished at all
      */
-    private int calculateEdgeAccessFitness(Entity entity, Board board) {
+    private int calculateEdgeAccessFitness(Entity entity) {
         // Flying units can always get anywhere
         if (entity.isAirborne() || entity instanceof VTOL) {
             return 0;
@@ -1203,12 +1202,12 @@ public abstract class BotClient extends Client {
         private Coords coords;
         private double fitness;
 
-        RankedCoords(Coords coords, double fitness) {
+        RankedCoords(Coords coords) {
             if (coords == null) {
                 throw new IllegalArgumentException("Coords cannot be null.");
             }
             this.coords = coords;
-            this.fitness = fitness;
+            this.fitness = 0;
         }
 
         public Coords getCoords() {

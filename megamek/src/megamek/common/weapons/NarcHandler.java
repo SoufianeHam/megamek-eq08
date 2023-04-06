@@ -173,7 +173,7 @@ public class NarcHandler extends MissileWeaponHandler {
         // If our narc pod "hits" an already-missing head, reroll until we hit
         // somewhere else as per the errata for torso-mounted cockpits.
         if (entityTarget instanceof Mech
-            && !narcCanAttachTo(entityTarget, Mech.LOC_HEAD)) {
+            && narcCanAttachTo(entityTarget, Mech.LOC_HEAD)) {
             while (hit.getLocation() == Mech.LOC_HEAD) {
                 hit = entityTarget.rollHitLocation(toHit.getHitTable(),
                 toHit.getSideTable(), waa.getAimedLocation(),
@@ -205,7 +205,7 @@ public class NarcHandler extends MissileWeaponHandler {
         // If the pod would attach to a destroyed location, have it transfer
         // inwards.
         if (entityTarget instanceof Mech) {
-            while (!narcCanAttachTo(entityTarget, hit.getLocation())
+            while (narcCanAttachTo(entityTarget, hit.getLocation())
                 && (hit.getLocation() != Mech.LOC_CT)) {
                 hit = entityTarget.getTransferLocation(hit);
             }
@@ -214,7 +214,7 @@ public class NarcHandler extends MissileWeaponHandler {
         // Now the same check for ProtoMechs. We've already covered near-misses
         // above, so here we only have to worry about the actual hits left over.
         if (entityTarget instanceof Protomech) {
-            while (!narcCanAttachTo(entityTarget, hit.getLocation())
+            while (narcCanAttachTo(entityTarget, hit.getLocation())
                 && (hit.getLocation() != Protomech.LOC_TORSO)) {
                 hit = entityTarget.getTransferLocation(hit);
             }
@@ -272,8 +272,8 @@ public class NarcHandler extends MissileWeaponHandler {
     }
     
     private boolean narcCanAttachTo(Entity entity, int location) {
-        return (entity.getInternal(location) > 0)
-            && !entity.isLocationBlownOff(location)
-            && !entity.isLocationBlownOffThisPhase(location);
+        return (entity.getInternal(location) <= 0)
+                || entity.isLocationBlownOff(location)
+                || entity.isLocationBlownOffThisPhase(location);
     }
 }

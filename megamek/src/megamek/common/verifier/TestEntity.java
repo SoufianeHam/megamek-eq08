@@ -543,11 +543,10 @@ public abstract class TestEntity implements TestEntityOption {
     }
 
     public StringBuffer printMiscEquip(StringBuffer buff) {
-        return printMiscEquip(buff, 20, getPrintSize());
+        return printMiscEquip(buff);
     }
 
-    public StringBuffer printMiscEquip(StringBuffer buff, int posLoc,
-            int posWeight) {
+    public StringBuffer printMiscEquip(StringBuffer buff) {
         for (Mounted m : getEntity().getMisc()) {
             MiscType mt = (MiscType) m.getType();
 
@@ -599,10 +598,10 @@ public abstract class TestEntity implements TestEntityOption {
     }
 
     public StringBuffer printWeapon(StringBuffer buff) {
-        return printWeapon(buff, 20, getPrintSize());
+        return printWeapon(buff);
     }
 
-    public StringBuffer printWeapon(StringBuffer buff, int posLoc, int posWeight) {
+    public StringBuffer printWeapon(StringBuffer buff) {
         for (Mounted m : getEntity().getWeaponList()) {
             WeaponType mt = (WeaponType) m.getType();
 
@@ -896,7 +895,7 @@ public abstract class TestEntity implements TestEntityOption {
     }
 
     public boolean correctWeight(StringBuffer buff) {
-        return correctWeight(buff, showOverweightedEntity(),
+        return !correctWeight(buff, showOverweightedEntity(),
                 showUnderweightedEntity());
     }
 
@@ -1564,14 +1563,13 @@ public abstract class TestEntity implements TestEntityOption {
         return true;
     }
 
-    public StringBuffer printFailedEquipment(StringBuffer buff) {
+    public void printFailedEquipment(StringBuffer buff) {
         if (getEntity().getFailedEquipment().hasNext()) {
             buff.append("Equipment that Failed to Load:\n");
         }
         for (Iterator<String> e = getEntity().getFailedEquipment(); e.hasNext();) {
             buff.append(e.next()).append("\n");
         }
-        return buff;
     }
 
     public double getWeightCarryingSpace() {

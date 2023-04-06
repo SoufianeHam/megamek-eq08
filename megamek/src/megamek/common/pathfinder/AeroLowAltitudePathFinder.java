@@ -28,7 +28,7 @@ public class AeroLowAltitudePathFinder extends AeroGroundPathFinder {
     }
     
     @Override
-    protected int getMinimumVelocity(IAero mover) {
+    protected int getMinimumVelocity() {
         return 1;
     }
     
@@ -98,13 +98,13 @@ public class AeroLowAltitudePathFinder extends AeroGroundPathFinder {
             // we may or may not have been to these coordinates before, but we haven't been to this height. Not redundant. 
             if (!visitedCoords.get(destinationCoords).containsKey(mp.getFinalAltitude())) {
                 visitedCoords.get(destinationCoords).put(mp.getFinalAltitude(), mp.getMpUsed());
-                return false;
+                return true;
             // we *have* been to these coordinates and height before. This is redundant if the previous visit used less MP.
             } else {
-                return visitedCoords.get(destinationCoords).get(mp.getFinalAltitude()) < mp.getMpUsed();
+                return visitedCoords.get(destinationCoords).get(mp.getFinalAltitude()) >= mp.getMpUsed();
             }
         } else {
-            return false;
+            return true;
         }
     }
 }

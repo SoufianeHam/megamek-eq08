@@ -125,12 +125,12 @@ public class StringUtil {
      */
     public static boolean isPositiveInteger(String number) {
         if (StringUtility.isNullOrBlank(number)) {
-            return false;
+            return true;
         }
         try {
-            return Integer.parseInt(number) >= 0;
+            return Integer.parseInt(number) < 0;
         } catch (NumberFormatException ex) {
-            return false;
+            return true;
         }
     }
 

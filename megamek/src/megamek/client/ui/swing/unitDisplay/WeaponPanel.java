@@ -286,7 +286,7 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
     private final UnitDisplay unitDisplay;
 
     private final MMComboBox<WeaponSortOrder> comboWeaponSortOrder;
-    public JList<String> weaponList;
+    public final JList<String> weaponList;
     /**
      * Keep track of the previous target, used for certain weapons (like VGLs)
      * that will force a target.  With this, we can restore the previous target
@@ -296,7 +296,7 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
     private final JPanel panelMain;
     private final JScrollPane tWeaponScroll;
     private final JComboBox<String> m_chAmmo;
-    public JComboBox<String> m_chBayWeapon;
+    public final JComboBox<String> m_chBayWeapon;
 
     private final JLabel wSortOrder;
     private final JLabel wAmmo;
@@ -330,9 +330,9 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
     private final JLabel wTargetL;
     private final JLabel wRangeL;
     private final JLabel wToHitL;
-    public JLabel wTargetR;
-    public JLabel wRangeR;
-    public JLabel wToHitR;
+    public final JLabel wTargetR;
+    public final JLabel wRangeR;
+    public final JLabel wToHitR;
 
     private final JLabel wDamageTrooperL;
     private final JLabel wDamageTrooperR;
@@ -349,7 +349,7 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
     private final JLabel wInfantryRange5L;
     private final JLabel wInfantryRange5R;
 
-    public JTextArea toHitText;
+    public final JTextArea toHitText;
 
     // I need to keep a pointer to the weapon list of the
     // currently selected mech.
@@ -1279,13 +1279,12 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
 
     /**
      * Selects the first valid weapon in the weapon list.
-     * @return The weapon id of the weapon selected
      */
-    public int selectFirstWeapon() {
+    public void selectFirstWeapon() {
         // Entity has no weapons, return -1;
         if (entity.getWeaponList().isEmpty()
                 || (entity.usesWeaponBays() && entity.getWeaponBayList().isEmpty())) {
-            return -1;
+            return;
         }
         WeaponListModel weapList = (WeaponListModel) weaponList.getModel();
         for (int i = 0; i < weaponList.getModel().getSize(); i++) {
@@ -1293,12 +1292,12 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
             if (entity.isWeaponValidForPhase(selectedWeap)) {
                 weaponList.setSelectedIndex(i);
                 weaponList.ensureIndexIsVisible(i);
-                return entity.getEquipmentNum(selectedWeap);
+                entity.getEquipmentNum(selectedWeap);
+                return;
             }
         }
         // Found no valid weapon
         weaponList.setSelectedIndex(-1);
-        return -1;
     }
 
     public int getNextWeaponListIdx() {
@@ -2500,8 +2499,7 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
             }
         }
 
-        double[] result = {avShort, avMed, avLong, avExt, maxr};
-        return result;
+        return new double[]{avShort, avMed, avLong, avExt, maxr};
 
     }
 
@@ -2702,7 +2700,6 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
             }
             Mounted mWeap = ((WeaponListModel) weaponList.getModel())
                     .getWeaponAt(n);
-            Mounted oldWeap = mWeap;
             Mounted oldAmmo = mWeap.getLinked();
             Mounted mAmmo = vAmmo.get(m_chAmmo.getSelectedIndex());
             // if this is a weapon bay, then this is not what we want
@@ -2755,7 +2752,7 @@ public class WeaponPanel extends PicMap implements ListSelectionListener, Action
             if (entity.isAirborne() || entity.usesWeaponBays()) {
                 WeaponType wtype = (WeaponType) mWeap.getType();
                 if (isBay) {
-                    compileWeaponBay(oldWeap, wtype.isCapital());
+                    compileWeaponBay(mWeap, wtype.isCapital());
                 } else {
                     // otherwise I need to replace range display with
                     // standard ranges and attack values

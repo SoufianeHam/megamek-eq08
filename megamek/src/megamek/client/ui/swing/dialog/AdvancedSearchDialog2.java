@@ -79,8 +79,7 @@ public class AdvancedSearchDialog2 extends AbstractButtonDialog {
 
     @Override
     protected Container createCenterPane() {
-        JScrollPane advScrollpane = new JScrollPane(advancedSearchPane);
-        return advScrollpane;
+        return new JScrollPane(advancedSearchPane);
     }
 
     /** Deactivates the search fields in both search tabs so that no units are filtered out. */

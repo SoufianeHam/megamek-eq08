@@ -27,7 +27,7 @@ public enum AimingMode {
 
     //region Boolean Comparison Methods
     public boolean isNone() {
-        return this == NONE;
+        return this != NONE;
     }
 
     public boolean isImmobile() {

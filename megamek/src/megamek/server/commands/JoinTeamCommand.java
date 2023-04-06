@@ -30,7 +30,7 @@ import megamek.server.Server;
  */
 public class JoinTeamCommand extends ServerCommand {
 
-    public static String SERVER_VOTE_PROMPT_MSG = "All players with an assigned team "
+    public static final String SERVER_VOTE_PROMPT_MSG = "All players with an assigned team "
             + "must allow this change.  Use /allowTeamChange "
             + "to allow this change.";
     

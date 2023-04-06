@@ -86,24 +86,21 @@ public class MGAWeaponHandler extends MGHandler {
         int shotsHit;
         int nMod = getClusterModifiers(true);
 
-        switch (howManyShots) {
-            case 1:
-                shotsHit = 1;
-                break;
-            default:
-                shotsHit = allShotsHit() ? howManyShots : Compute.missilesHit(
-                        howManyShots, nMod);
-                Report r = new Report(3325);
-                r.subject = subjectId;
-                r.add(shotsHit);
-                r.add(" shot(s) ");
-                r.add(toHit.getTableDesc());
-                r.newlines = 0;
-                vPhaseReport.addElement(r);
-                r = new Report(3345);
-                r.subject = subjectId;
-                vPhaseReport.addElement(r);
-                break;
+        if (howManyShots == 1) {
+            shotsHit = 1;
+        } else {
+            shotsHit = allShotsHit() ? howManyShots : Compute.missilesHit(
+                    howManyShots, nMod);
+            Report r = new Report(3325);
+            r.subject = subjectId;
+            r.add(shotsHit);
+            r.add(" shot(s) ");
+            r.add(toHit.getTableDesc());
+            r.newlines = 0;
+            vPhaseReport.addElement(r);
+            r = new Report(3345);
+            r.subject = subjectId;
+            vPhaseReport.addElement(r);
         }
         bSalvo = true;
         return shotsHit;

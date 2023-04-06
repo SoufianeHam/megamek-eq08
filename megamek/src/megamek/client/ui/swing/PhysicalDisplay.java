@@ -62,7 +62,7 @@ public class PhysicalDisplay extends StatusBarPhaseDisplay {
         PHYSICAL_VIBRO("vibro"),
         PHYSICAL_MORE("more");
 
-        String cmd;
+        final String cmd;
 
         /**
          * Priority that determines this buttons order
@@ -337,7 +337,7 @@ public class PhysicalDisplay extends StatusBarPhaseDisplay {
             ConfirmDialog response = clientgui.doYesNoBotherDialog(
                     Messages.getString("PhysicalDisplay.DontPhysicalAttackDialog.title"),
                     Messages.getString("PhysicalDisplay.DontPhysicalAttackDialog.message"));
-            if (!response.getShowAgain()) {
+            if (response.getShowAgain()) {
                 GUIP.setNagForNoAction(false);
             }
             if (!response.getAnswer()) {
@@ -1540,7 +1540,7 @@ public class PhysicalDisplay extends StatusBarPhaseDisplay {
     // BoardViewListener
     //
     @Override
-    public void finishedMovingUnits(BoardViewEvent b) {
+    public void finishedMovingUnits() {
         // no action
     }
 

@@ -81,7 +81,7 @@ public final class PilotToolTip {
         if (!detailed) {
             result += "<HR STYLE=WIDTH:90% />";
         } else {
-            result += scaledHTMLSpacer(3);
+            result += scaledHTMLSpacer();
         }
 
         return new StringBuilder().append(result);
@@ -90,7 +90,7 @@ public final class PilotToolTip {
     /** The crew advantages and MD */
     public static StringBuilder getCrewAdvs(Entity entity, boolean detailed) {
         String sCrewAdvs = crewAdvs(entity, detailed).toString();
-        String result = scaledHTMLSpacer(3) + sCrewAdvs +  "</FONT>";
+        String result = scaledHTMLSpacer() + sCrewAdvs +  "</FONT>";
 
         return new StringBuilder().append(result);
     }

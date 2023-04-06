@@ -230,7 +230,7 @@ public class MechMapSet implements DisplayMapSet {
         areas[INT_STRUCTURE_OFFSET + Mech.LOC_RLEG] = new PMSimplePolygonArea(inStRightLeg, unitDisplay, Mech.LOC_RLEG);
         areas[INT_STRUCTURE_OFFSET + Mech.LOC_LLEG] = new PMSimplePolygonArea(inStLeftLeg, unitDisplay, Mech.LOC_LLEG);
         heatImage = comp.createImage(10, 120);
-        drawHeatControl(0);
+        drawHeatControl();
         heatHotArea = new PMPicPolygonalArea(heatControl, heatImage);
     }
 
@@ -373,8 +373,8 @@ public class MechMapSet implements DisplayMapSet {
         bgDrawers.addElement(bgd);
     }
 
-    private void drawHeatControl(int t) {
-        drawHeatControl(t, false);
+    private void drawHeatControl() {
+        drawHeatControl(0, false);
     }
 
     private void drawHeatControl(int t, boolean mtHeat) {

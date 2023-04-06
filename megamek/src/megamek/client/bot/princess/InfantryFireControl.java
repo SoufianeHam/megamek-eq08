@@ -65,8 +65,7 @@ public class InfantryFireControl extends FireControl {
         boolean shooterIsActualInfantry = shooter.hasETypeFlag(Entity.ETYPE_INFANTRY)
                 && !shooter.hasETypeFlag(Entity.ETYPE_BATTLEARMOR);
         // field guns can't fire if the unit in question moved
-        boolean fieldGunsDoDamage = (shooterIsActualInfantry && shooterPath.getMpUsed() == 0)
-                || !shooterIsActualInfantry;
+        boolean fieldGunsDoDamage = !shooterIsActualInfantry || shooterPath.getMpUsed() == 0;
         boolean inBuilding = Compute.isInBuilding(target.getGame(), targetPath.getFinalElevation(),
                 targetPath.getFinalCoords());
         boolean inOpen = ServerHelper.infantryInOpen(target, targetHex, target.getGame(), targetIsPlatoon, false,

@@ -36,7 +36,7 @@ public class GameListenerAdapter implements GameListener {
     }
 
     @Override
-    public void gamePlayerChange(GamePlayerChangeEvent e) {
+    public void gamePlayerChange() {
     }
 
     @Override
@@ -56,7 +56,7 @@ public class GameListenerAdapter implements GameListener {
     }
 
     @Override
-    public void gameEnd(GameEndEvent e) {
+    public void gameEnd() {
     }
 
     @Override
@@ -64,7 +64,7 @@ public class GameListenerAdapter implements GameListener {
     }
 
     @Override
-    public void gameBoardChanged(GameBoardChangeEvent e) {
+    public void gameBoardChanged() {
     }
 
     @Override
@@ -72,7 +72,7 @@ public class GameListenerAdapter implements GameListener {
     }
 
     @Override
-    public void gameMapQuery(GameMapQueryEvent e) {
+    public void gameMapQuery() {
     }
 
     @Override
@@ -80,7 +80,7 @@ public class GameListenerAdapter implements GameListener {
     }
 
     @Override
-    public void gameEntityNewOffboard(GameEntityNewOffboardEvent e) {
+    public void gameEntityNewOffboard() {
     }
 
     @Override
@@ -100,7 +100,7 @@ public class GameListenerAdapter implements GameListener {
     }
 
     @Override
-    public void gameVictory(GameVictoryEvent e) {        
+    public void gameVictory() {
     }    
 
 }

@@ -139,7 +139,7 @@ public class CEntity {
     MoveOption last; // set only after movement
 
     private MoveOption.Table moves;
-    MoveOption.Table pass = new MoveOption.Table();
+    final MoveOption.Table pass = new MoveOption.Table();
     public int runMP;
     public int jumpMP;
     // For MASC/supercharger useage. Set to true if failure is bad.
@@ -152,7 +152,7 @@ public class CEntity {
     // Weapons heat for ideal range bracket
     int heat_at_range = 0;
     // Heat for each range bracket
-    int[] heat_estimates = new int[4];
+    final int[] heat_estimates = new int[4];
 
     // Index of the ideal engagement range from range_damages
     int range = RANGE_ALL;
@@ -164,12 +164,12 @@ public class CEntity {
     double base_psr_odds = 1.0;
 
     boolean hasTakenDamage = false;
-    public Strategy strategy = new Strategy();
+    public final Strategy strategy = new Strategy();
 
     // A subjective measure of the armor quality indexed by ToHitData
     // location static variables (front, rear, left, right)
-    double[] armor_health = { 0, 0, 0, 0, 0, 0, 0, 0 };
-    double[] armor_percent = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    final double[] armor_health = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    final double[] armor_percent = { 0, 0, 0, 0, 0, 0, 0, 0 };
     // Armor averaged over all locations
     // TODO: replace with array, one element per arc
     double avg_armor = 0;
@@ -178,13 +178,13 @@ public class CEntity {
     double avg_iarmor = 0;
 
     // used to determine the utility of combining attacks
-    double[] expected_damage = { 0, 0, 0, 0, 0, 0, 0, 0 };
-    double[] possible_damage = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    final double[] expected_damage = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    final double[] possible_damage = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
     double[] leg_health = { 0, 0 };
 
     double overall_armor_percent = 0.0;
-    double[][] damages = new double[6][MAX_RANGE];
+    final double[][] damages = new double[6][MAX_RANGE];
 
     // the battle value of the unit
     int bv;
@@ -196,12 +196,12 @@ public class CEntity {
 
     boolean engaged = false; // am i fighting
     boolean moved = false;
-    boolean justMoved = false;
+    final boolean justMoved = false;
 
     // TSM equipped Mechs work better at 9+ heat, so flag if mounted
     boolean tsm_offset = false;
 
-    int[] minRangeMods = new int[MIN_BRACKET + 1];
+    final int[] minRangeMods = new int[MIN_BRACKET + 1];
 
     public CEntity(Entity en, TestBot tb) {
         entity = en;
@@ -281,7 +281,7 @@ public class CEntity {
                     }
                 }
 
-                if ((masc_threat == false) && mpBoosters.hasSupercharger()) {
+                if ((!masc_threat) && mpBoosters.hasSupercharger()) {
                     //we passed masc, but test for supercharger
                     if (entity.getSuperchargerTarget() <= (5 + Compute.randomInt(6))) {
                         masc_threat = false;
@@ -624,7 +624,7 @@ public class CEntity {
         // Change the damage from a per-hex array to a single "weapon"
         // with short/medium/long ranges. For now, just do the forward
         // arc.
-        computeRange(Compute.ARC_FORWARD, overall_heat);
+        computeRange(overall_heat);
 
         // Overheating will be based on the optimum firing range
         heat = (heat + heat_at_range) - heat_capacity;
@@ -799,12 +799,9 @@ public class CEntity {
      * Fills the CEntity damage and range brackets, plus the preferred range and
      * the heat for that range.
      *
-     * @param arc
-     *            Compute.ARC index for main damage array
-     * @param est_heat
-     *            Estimated heat of unit for each hex of range
+     * @param est_heat Estimated heat of unit for each hex of range
      */
-    private void computeRange(int arc, int[][] est_heat) {
+    private void computeRange(int[][] est_heat) {
 
         double[] damage_by_bracket = { 0.0, 0.0, 0.0, 0.0 };
         double[] heat_by_bracket = { 0, 0, 0, 0 };
@@ -816,7 +813,7 @@ public class CEntity {
         // bracket. Extreme range is used when estimating damage but only
         // the official "long" range is kept.
         // TODO: add some math to account for non-linear brackets
-        while ((damages[arc][long_range] == 0.0) && (long_range >= 4)) {
+        while ((damages[Compute.ARC_FORWARD][long_range] == 0.0) && (long_range >= 4)) {
             long_range--;
         }
 
@@ -848,11 +845,11 @@ public class CEntity {
             for (int cur_range = bracket_start; cur_range <= bracket_end; cur_range++) {
 
                 // Add up the damage and heat estimates
-                damage_by_bracket[cur_bracket] += damages[arc][cur_range];
-                damage_by_bracket[RANGE_ALL] += damages[arc][cur_range];
+                damage_by_bracket[cur_bracket] += damages[Compute.ARC_FORWARD][cur_range];
+                damage_by_bracket[RANGE_ALL] += damages[Compute.ARC_FORWARD][cur_range];
 
-                heat_by_bracket[cur_bracket] += est_heat[arc][cur_range];
-                heat_by_bracket[RANGE_ALL] += est_heat[arc][cur_range];
+                heat_by_bracket[cur_bracket] += est_heat[Compute.ARC_FORWARD][cur_range];
+                heat_by_bracket[RANGE_ALL] += est_heat[Compute.ARC_FORWARD][cur_range];
 
                 // Next hex
             }
@@ -863,7 +860,7 @@ public class CEntity {
         // Average out the damage and heat value totals over the number of
         // hexes for the range bracket
         for (int cur_range = RANGE_SHORT; cur_range <= RANGE_LONG; cur_range++) {
-            if ((damages[arc][0] != 0.0) && (cur_range == RANGE_SHORT)) {
+            if ((damages[Compute.ARC_FORWARD][0] != 0.0) && (cur_range == RANGE_SHORT)) {
                 damage_by_bracket[cur_range] /= (rd_bracket + 1);
                 heat_by_bracket[cur_range] /= (rd_bracket + 1);
             } else {
@@ -1050,7 +1047,7 @@ public class CEntity {
 
     public MoveOption.Table getAllMoves(Client client) {
         if (moves == null) {
-            moves = calculateMoveOptions(current, client);
+            moves = calculateMoveOptions(current);
         }
         return moves;
     }
@@ -1059,7 +1056,7 @@ public class CEntity {
      * From the current state, explore based upon an implementation of
      * Dijkstra's algorithm.
      */
-    protected MoveOption.Table calculateMoveOptions(MoveOption base, Client client) {
+    protected MoveOption.Table calculateMoveOptions(MoveOption base) {
         // New array of movement options
         ArrayList<MoveOption> possible = new ArrayList<>();
         MoveOption.Table discovered = new MoveOption.Table();

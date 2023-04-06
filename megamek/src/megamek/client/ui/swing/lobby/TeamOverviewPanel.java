@@ -102,7 +102,7 @@ public class TeamOverviewPanel extends JPanel {
         }
     }
     
-    MouseListener headerListener = new MouseAdapter() {
+    final MouseListener headerListener = new MouseAdapter() {
         @Override
         public void mouseReleased(MouseEvent e) {
             if (isDetached) {
@@ -219,7 +219,7 @@ public class TeamOverviewPanel extends JPanel {
                                 || (entity.doomedInAtmosphere() && mapType == MapSettings.MEDIUM_ATMOSPHERE)
                                 || (entity.doomedOnGround() && mapType == MapSettings.MEDIUM_GROUND)
                                 || (entity.doomedInSpace() && mapType == MapSettings.MEDIUM_SPACE)
-                                || (!entity.isDesignValid())) {
+                                || (entity.isDesignValid())) {
                             unitCritical[classIndex(entity)] = true;
                         }
                         if (((entity.hasC3i() || entity.hasNavalC3()) && (entity.calculateFreeC3Nodes() == 5))

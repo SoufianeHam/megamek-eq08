@@ -550,7 +550,7 @@ public class CustomMechDialog extends AbstractButtonDialog implements ActionList
                     Messages.getString("CustomMechDialog.offboardDistanceTitle"),
                     Messages.getString("CustomMechDialog.offboardDistanceQuestion"),
                     Math.min(Math.max(entities.get(0).getOffBoardDistance(), 17), maxDistance), 17, maxDistance);
-            if (!sl.showDialog()) {
+            if (sl.showDialog()) {
                 return;
             }
             distance = sl.getValue();
@@ -1300,7 +1300,7 @@ public class CustomMechDialog extends AbstractButtonDialog implements ActionList
     @Override
     protected JPanel createButtonPanel() {
         butOkay.addActionListener(this);
-        butCancel.addActionListener(this::cancelActionPerformed);
+        butCancel.addActionListener(evt -> cancelActionPerformed());
         butNext.addActionListener(this);
         butPrev.addActionListener(this);
         butNext.setEnabled(getNextEntity(true) != null);

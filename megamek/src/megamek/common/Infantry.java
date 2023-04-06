@@ -46,21 +46,21 @@ public class Infantry extends Entity {
     private static final long serialVersionUID = -8706716079307721282L;
 
     // Infantry Specializations
-    public static int BRIDGE_ENGINEERS  = 1;
-    public static int DEMO_ENGINEERS    = 1 << 1;
-    public static int FIRE_ENGINEERS    = 1 << 2;
-    public static int MINE_ENGINEERS    = 1 << 3;
-    public static int SENSOR_ENGINEERS  = 1 << 4;
-    public static int TRENCH_ENGINEERS  = 1 << 5;
-    public static int MARINES           = 1 << 6;
-    public static int MOUNTAIN_TROOPS   = 1 << 7;
-    public static int PARAMEDICS        = 1 << 8;
-    public static int PARATROOPS        = 1 << 9;
-    public static int TAG_TROOPS        = 1 << 10;
-    public static int XCT               = 1 << 11;
-    public static int SCUBA             = 1 << 12;
-    public static int NUM_SPECIALIZATIONS = 13;
-    public static int COMBAT_ENGINEERS = BRIDGE_ENGINEERS | DEMO_ENGINEERS | FIRE_ENGINEERS | MINE_ENGINEERS
+    public static final int BRIDGE_ENGINEERS  = 1;
+    public static final int DEMO_ENGINEERS    = 1 << 1;
+    public static final int FIRE_ENGINEERS    = 1 << 2;
+    public static final int MINE_ENGINEERS    = 1 << 3;
+    public static final int SENSOR_ENGINEERS  = 1 << 4;
+    public static final int TRENCH_ENGINEERS  = 1 << 5;
+    public static final int MARINES           = 1 << 6;
+    public static final int MOUNTAIN_TROOPS   = 1 << 7;
+    public static final int PARAMEDICS        = 1 << 8;
+    public static final int PARATROOPS        = 1 << 9;
+    public static final int TAG_TROOPS        = 1 << 10;
+    public static final int XCT               = 1 << 11;
+    public static final int SCUBA             = 1 << 12;
+    public static final int NUM_SPECIALIZATIONS = 13;
+    public static final int COMBAT_ENGINEERS = BRIDGE_ENGINEERS | DEMO_ENGINEERS | FIRE_ENGINEERS | MINE_ENGINEERS
             | SENSOR_ENGINEERS | TRENCH_ENGINEERS;
 
     protected int squadCount = 1;
@@ -1028,16 +1028,9 @@ public class Infantry extends Entity {
                 return false;
             } else if (getArmorKit().hasSubType(MiscType.S_COLD_WEATHER) && (game.getPlanetaryConditions().getTemperature() < -30)) {
                 return false;
-            } else if (getArmorKit().hasSubType(MiscType.S_HOT_WEATHER) && (game.getPlanetaryConditions().getTemperature() > 50)) {
-                return false;
-            } else {
-                return true;
-            }
+            } else return !getArmorKit().hasSubType(MiscType.S_HOT_WEATHER) || (game.getPlanetaryConditions().getTemperature() <= 50);
         }
-        if (hasSpaceSuit() || isMechanized()) {
-            return false;
-        }
-        return true;
+        return !hasSpaceSuit() && !isMechanized();
     }
 
     @Override

@@ -21,7 +21,7 @@ import megamek.common.preference.PreferenceStoreProxy;
 public class UnitDisplayOrderPreferences extends PreferenceStoreProxy {
 
 
-    protected static UnitDisplayOrderPreferences instance =
+    protected static final UnitDisplayOrderPreferences instance =
             new UnitDisplayOrderPreferences();
 
     public static UnitDisplayOrderPreferences getInstance() {

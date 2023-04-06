@@ -29,10 +29,10 @@ import java.util.Map;
  */
 public class VictoryResult {
     protected boolean victory;
-    protected Throwable tr;
-    protected List<Report> reports = new ArrayList<>();
-    protected Map<Integer, Double> playerScore = new HashMap<>();
-    protected Map<Integer, Double> teamScore = new HashMap<>();
+    protected final Throwable tr;
+    protected final List<Report> reports = new ArrayList<>();
+    protected final Map<Integer, Double> playerScore = new HashMap<>();
+    protected final Map<Integer, Double> teamScore = new HashMap<>();
     protected double hiScore = 0;
 
     protected VictoryResult(boolean win) {

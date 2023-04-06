@@ -59,15 +59,14 @@ public interface CalculationReport {
      * Adds a single line to the CalculationReport. This method performs rounding to
      * a single decimal digit on the result and writes resultPrefix in front of it.
      *
-     * @param type The first element of this line, such as "Damage: "
-     * @param calculation A calculation or other info, displayed after the type
+     * @param type         The first element of this line, such as "Damage: "
+     * @param calculation  A calculation or other info, displayed after the type
      * @param resultPrefix A text to be display immediately in front of the result, such as "= "
-     * @param result A numerical result which will be rounded to a single decimal, e.g. 25.1
-     * @return The CalculationReport itself. Enables multiple stringed addLine calls
+     * @param result       A numerical result which will be rounded to a single decimal, e.g. 25.1
      */
-    default CalculationReport addLine(@Nullable String type, @Nullable String calculation,
-                              @Nullable String resultPrefix, double result) {
-        return addLine(type, calculation, getRoundedResultString(resultPrefix, result));
+    default void addLine(@Nullable String type, @Nullable String calculation,
+                         @Nullable String resultPrefix, double result) {
+        addLine(type, calculation, getRoundedResultString(resultPrefix, result));
     }
 
     /**
@@ -76,14 +75,13 @@ public interface CalculationReport {
      * This line has only two elements, the type ("Damage: ") and the result displayed
      * on the right side.
      *
-     * @param type The first element of this line, such as "Damage: "
+     * @param type         The first element of this line, such as "Damage: "
      * @param resultPrefix A text to be display immediately in front of the result, such as "= "
-     * @param result A numerical result which will be rounded to a single decimal, e.g. 25.1
-     * @return The CalculationReport itself. Enables multiple stringed addLine calls
+     * @param result       A numerical result which will be rounded to a single decimal, e.g. 25.1
      */
-    default CalculationReport addLine(@Nullable String type,
-                                      @Nullable String resultPrefix, double result) {
-        return addLine(type, "", getRoundedResultString(resultPrefix, result));
+    default void addLine(@Nullable String type,
+                         @Nullable String resultPrefix, double result) {
+        addLine(type, "", getRoundedResultString(resultPrefix, result));
     }
 
     /**
@@ -92,15 +90,14 @@ public interface CalculationReport {
      * This method performs rounding to a single decimal digit on the result and
      * writes resultPrefix in front of it.
      *
-     * @param type The first element of this line, such as "Damage: "
-     * @param calculation A calculation or other info, displayed after the type
+     * @param type         The first element of this line, such as "Damage: "
+     * @param calculation  A calculation or other info, displayed after the type
      * @param resultPrefix A text to be display immediately in front of the result, such as "= "
-     * @param result A numerical result which will be rounded to a single decimal, e.g. 25.1
-     * @return The CalculationReport itself. Enables multiple stringed addLine calls
+     * @param result       A numerical result which will be rounded to a single decimal, e.g. 25.1
      */
-    default CalculationReport addResultLine(@Nullable String type, @Nullable String calculation,
-                                      @Nullable String resultPrefix, double result) {
-        return addResultLine(type, calculation, getRoundedResultString(resultPrefix, result));
+    default void addResultLine(@Nullable String type, @Nullable String calculation,
+                               @Nullable String resultPrefix, double result) {
+        addResultLine(type, calculation, getRoundedResultString(resultPrefix, result));
     }
 
     /**
@@ -110,14 +107,13 @@ public interface CalculationReport {
      * on the right side. This method performs rounding to a single decimal digit on the
      * result and writes resultPrefix in front of it.
      *
-     * @param type The first element of this line, such as "Damage: "
+     * @param type         The first element of this line, such as "Damage: "
      * @param resultPrefix A text to be display immediately in front of the result, such as "= "
-     * @param result A numerical result which will be rounded to a single decimal, e.g. 25.1
-     * @return The CalculationReport itself. Enables multiple stringed addLine calls
+     * @param result       A numerical result which will be rounded to a single decimal, e.g. 25.1
      */
-    default CalculationReport addResultLine(@Nullable String type,
-                                            @Nullable String resultPrefix, double result) {
-        return addResultLine(type, "", getRoundedResultString(resultPrefix, result));
+    default void addResultLine(@Nullable String type,
+                               @Nullable String resultPrefix, double result) {
+        addResultLine(type, "", getRoundedResultString(resultPrefix, result));
     }
 
     /**
@@ -128,32 +124,28 @@ public interface CalculationReport {
      * in front of it.
      *
      * @param resultPrefix A text to be display immediately in front of the result, such as "= "
-     * @param result A numerical result which will be rounded to a single decimal, e.g. 25.1
-     * @return The CalculationReport itself. Enables multiple stringed addLine calls
+     * @param result       A numerical result which will be rounded to a single decimal, e.g. 25.1
      */
-    default CalculationReport addResultLine(@Nullable String resultPrefix, double result) {
-        return addResultLine("", "", getRoundedResultString(resultPrefix, result));
+    default void addResultLine(@Nullable String resultPrefix, double result) {
+        addResultLine("", "", getRoundedResultString(resultPrefix, result));
     }
 
     /**
      * Adds an empty line to the CalculationReport.
-     *
-     * @return The CalculationReport itself. Enables multiple stringed addLine calls
      */
-    default CalculationReport addEmptyLine() {
-        return addLine("", "", "");
+    default void addEmptyLine() {
+        addLine("", "", "");
     }
 
     /**
      * Adds a single line to the CalculationReport. This line has only two elements, the type
      * ("Damage: ") and a result displayed on the right side.
      *
-     * @param type The first element of this line, such as "Damage: "
+     * @param type   The first element of this line, such as "Damage: "
      * @param result A result or other info, displayed on the right side
-     * @return The CalculationReport itself. Enables multiple stringed addLine calls
      */
-    default CalculationReport addLine(@Nullable String type, @Nullable String result) {
-        return addLine(type, "", result);
+    default void addLine(@Nullable String type, @Nullable String result) {
+        addLine(type, "", result);
     }
 
     /**
@@ -161,19 +153,17 @@ public interface CalculationReport {
      * on the right side.
      *
      * @param result A result or other info, displayed on the right side
-     * @return The CalculationReport itself. Enables multiple stringed addLine calls
      */
-    default CalculationReport addLine(@Nullable String result) {
-        return addLine("", "", result);
+    default void addLine(@Nullable String result) {
+        addLine("", "", result);
     }
 
     /**
      * Adds a single line to the CalculationReport containing a sub-header.
      *
      * @param text The header text
-     * @return The CalculationReport itself. Enables multiple stringed addLine calls
      */
-    CalculationReport addSubHeader(String text);
+    void addSubHeader(String text);
 
     /**
      * Adds a single line to the CalculationReport containing the header for the CalculationReport.
@@ -181,9 +171,8 @@ public interface CalculationReport {
      * and multiple times.
      *
      * @param text The header text
-     * @return The CalculationReport itself. Enables multiple stringed addLine calls
      */
-    CalculationReport addHeader(String text);
+    void addHeader(String text);
 
     /**
      * Adds a single line to the CalculationReport in the way addLine() does, except

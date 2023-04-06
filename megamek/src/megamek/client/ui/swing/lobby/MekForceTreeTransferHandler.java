@@ -46,7 +46,7 @@ public class MekForceTreeTransferHandler extends TransferHandler {
     
     private final ChatLounge lobby;
 
-    public MekForceTreeTransferHandler(ChatLounge cl, MekTreeForceModel model) {
+    public MekForceTreeTransferHandler(ChatLounge cl) {
         lobby = cl;
     }
 

@@ -58,7 +58,7 @@ public final class Forces implements Serializable {
      * created.  
      */
     public synchronized int addTopLevelForce(final Force force, final @Nullable Player owner) {
-        if (!verifyForceName(force.getName()) || (owner == null)) {
+        if (verifyForceName(force.getName()) || (owner == null)) {
             return NO_FORCE;
         }
 
@@ -73,7 +73,7 @@ public final class Forces implements Serializable {
      * @return the id of the newly created Force or Force.NO_FORCE if no new subforce was created.
      */
     public synchronized int addSubForce(final Force force, final Force parent) {
-        if (!contains(parent) || !verifyForceName(force.getName())) {
+        if (!contains(parent) || verifyForceName(force.getName())) {
             return NO_FORCE;
         }
 
@@ -222,7 +222,7 @@ public final class Forces implements Serializable {
      * be passed. Duplicate names may be given; forces are identified via id.
      */
     public void renameForce(String name, int forceId) {
-        if (!forces.containsKey(forceId) || !verifyForceName(name)) {
+        if (!forces.containsKey(forceId) || verifyForceName(name)) {
             return;
         }
         Force force = forces.get(forceId);
@@ -234,7 +234,7 @@ public final class Forces implements Serializable {
      * be empty or contain "|" or "\".
      */
     public boolean verifyForceName(String name) {
-        return name != null && !name.isBlank() && !name.contains("|") && !name.contains("\\");
+        return name == null || name.isBlank() || name.contains("|") || name.contains("\\");
     }
 
     /** 
@@ -500,10 +500,7 @@ public final class Forces implements Serializable {
             }
             forceIds.remove(toplevel.getId());
         }
-        if (!forceIds.isEmpty()) {
-            return false;
-        }
-        return true;
+        return forceIds.isEmpty();
     }
     
     /** 
@@ -596,13 +593,13 @@ public final class Forces implements Serializable {
         return result;
     }
     
-    /** 
+    /**
      * Removes the given forces and all their subforces from these Forces. Returns a list
      * of affected surviving forces. This method does not check if the forces are empty.
      * <P>NOTE: Any entities in the removed forces are NOT updated by this method!
-     * It is necessary to update any entities' forceId unless these are deleted as well. 
+     * It is necessary to update any entities' forceId unless these are deleted as well.
      */
-    public ArrayList<Force> deleteForces(Collection<Force> delForces) {
+    public void deleteForces(Collection<Force> delForces) {
         ArrayList<Force> result = new ArrayList<>();
         Set<Force> allForces = new HashSet<>(delForces);
         delForces.stream().map(this::getFullSubForces).forEach(allForces::addAll);
@@ -618,7 +615,6 @@ public final class Forces implements Serializable {
                 forces.remove(force.getId());
             }
         }
-        return result;
     }
 
     /** Returns a list of all forces and subforces in no particular order. */
@@ -696,12 +692,12 @@ public final class Forces implements Serializable {
         return result;
     }
    
-    /** 
-     * Changes the owner of the given force and all subforces to the given newOwner. 
-     * Promotes the force to top-level if the parent force is now an enemy force.  
+    /**
+     * Changes the owner of the given force and all subforces to the given newOwner.
+     * Promotes the force to top-level if the parent force is now an enemy force.
      * Returns a list of affected forces.
      */
-    public Set<Force> assignFullForces(Force force, Player newOwner) {
+    public void assignFullForces(Force force, Player newOwner) {
         Set<Force> result = new HashSet<>();
 
         // gather up this whole force tree
@@ -725,7 +721,6 @@ public final class Forces implements Serializable {
                 }
             }
         }
-        return result; 
     }
     
     @Override

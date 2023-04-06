@@ -74,7 +74,7 @@ public class QuirksPanel extends JPanel {
             for (Enumeration<IOption> j = group.getSortedOptions(); j.hasMoreElements(); ) {
                 IOption option = j.nextElement();
 
-                if (!Quirks.isQuirkLegalFor(option, entity)) {
+                if (Quirks.isQuirkLegalFor(option, entity)) {
                     continue;
                 }
 

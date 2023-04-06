@@ -35,11 +35,10 @@ public abstract class AbstractNagDialog extends AbstractButtonDialog {
     //endregion Variable Declarations
 
     //region Constructors
-    protected AbstractNagDialog(final JFrame frame, final String name, final String title,
-                                final String description, final String key) {
-        super(frame, name, title);
-        this.key = key;
-        setDescription(description.isBlank() ? description : resources.getString(description));
+    protected AbstractNagDialog(final JFrame frame) {
+        super(frame, "BotReadmeNagDialog", "BotReadmeNagDialog.title");
+        this.key = megamek.MMConstants.NAG_BOT_README;
+        setDescription("BotReadmeNagDialog.text".isBlank() ? "BotReadmeNagDialog.text" : resources.getString("BotReadmeNagDialog.text"));
         setShow(checkNag());
         if (isShow()) {
             initialize();

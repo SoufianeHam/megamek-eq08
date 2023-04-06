@@ -664,7 +664,7 @@ public class Report implements Serializable {
     }
 
     // debugReport method
-    private static StringBuffer mark(StringBuffer sb) {
+    private static void mark(StringBuffer sb) {
         sb.insert(0, "<hidden>");
         int i = sb.length() - 1;
         while (sb.charAt(i) == '\n') {
@@ -674,7 +674,6 @@ public class Report implements Serializable {
             }
         }
         sb.insert(i + 1, "</hidden>");
-        return sb;
     }
 
     public static void indentAll(Vector<Report> vDesc, int amount) {

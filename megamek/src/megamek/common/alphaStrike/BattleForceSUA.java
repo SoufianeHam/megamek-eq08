@@ -146,12 +146,12 @@ public enum BattleForceSUA {
 
     /** @return True when the given abilityObject is a valid value for this SUA. E.g. an ASDamageVector is valid for LRM. */
     public boolean isValidAbilityObject(Object abilityObject) {
-        return (((abilityObject instanceof ASDamage) && usesASDamageObject())
-                || ((abilityObject instanceof ASDamageVector) && usesASDamageVectorObject())
-                || (((abilityObject instanceof Double) || (abilityObject instanceof Integer)) && usesDoubleOrIntegerObject())
-                || (abilityObject instanceof Integer) && usesIntegerObject())
-                || (this == TUR && abilityObject instanceof ASSpecialAbilityCollection)
-                || ((abilityObject == null) && usesNoObject())
-                || ((abilityObject instanceof Map) && usesMapObject());
+        return (((!(abilityObject instanceof ASDamage)) || !usesASDamageObject())
+                && ((!(abilityObject instanceof ASDamageVector)) || !usesASDamageVectorObject())
+                && (((!(abilityObject instanceof Double)) && (!(abilityObject instanceof Integer))) || !usesDoubleOrIntegerObject())
+                && ((!(abilityObject instanceof Integer)) || !usesIntegerObject()))
+                && (this != TUR || !(abilityObject instanceof ASSpecialAbilityCollection))
+                && ((abilityObject != null) || !usesNoObject())
+                && ((!(abilityObject instanceof Map)) || !usesMapObject());
     }
 }

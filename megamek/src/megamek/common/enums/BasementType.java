@@ -89,7 +89,7 @@ public enum BasementType {
     }
 
     public boolean isUnknownOrNone() {
-        return isUnknown() || isNone();
+        return !isUnknown() && !isNone();
     }
     //endregion Boolean Comparison Methods
 

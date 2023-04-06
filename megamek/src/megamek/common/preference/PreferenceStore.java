@@ -20,10 +20,10 @@ import java.util.Vector;
 class PreferenceStore implements IPreferenceStore {
     protected boolean dirty = false;
 
-    protected Properties properties;
-    protected Properties defaultProperties;
+    protected final Properties properties;
+    protected final Properties defaultProperties;
 
-    protected Vector<IPreferenceChangeListener> listeners = new Vector<>();
+    protected final Vector<IPreferenceChangeListener> listeners = new Vector<>();
 
     public PreferenceStore() {
         defaultProperties = new Properties();

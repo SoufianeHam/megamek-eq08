@@ -31,7 +31,7 @@ public class GamePlayerChangeEvent extends GamePlayerEvent {
 
     @Override
     public void fireEvent(GameListener gl) {
-        gl.gamePlayerChange(this);    
+        gl.gamePlayerChange();
     }
 
     @Override

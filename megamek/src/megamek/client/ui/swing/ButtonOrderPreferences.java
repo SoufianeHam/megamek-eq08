@@ -20,7 +20,7 @@ import megamek.common.preference.PreferenceStoreProxy;
 public class ButtonOrderPreferences extends PreferenceStoreProxy {
 
 
-    protected static ButtonOrderPreferences instance = 
+    protected static final ButtonOrderPreferences instance =
             new ButtonOrderPreferences();
 
     public static ButtonOrderPreferences getInstance() {

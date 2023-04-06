@@ -95,7 +95,7 @@ public class ASCard {
     protected int armorBoxY = 410;
     protected int armorBoxHeight = 94;
     protected int armorBoxWidth = BOX_WIDTH_WIDE;
-    protected int specialBoxX = 36;
+    protected final int specialBoxX = 36;
     protected int specialBoxY = 522;
     protected int specialBoxWidth = armorBoxWidth;
     protected int specialBoxHeight = 99;

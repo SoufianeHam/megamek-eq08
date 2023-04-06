@@ -19,7 +19,6 @@
  */
 package megamek.client.bot.princess;
 
-import megamek.client.bot.princess.PathRanker.PathRankerType;
 import megamek.codeUtilities.StringUtility;
 import megamek.common.*;
 import megamek.common.options.GameOptions;
@@ -145,7 +144,7 @@ public class FireControlTest {
         when(mockPrincess.getBehaviorSettings()).thenReturn(mockBehavior);
 
         final BasicPathRanker mockPathRanker = mock(BasicPathRanker.class);
-        when(mockPrincess.getPathRanker(PathRankerType.Basic)).thenReturn(mockPathRanker);
+        when(mockPrincess.getPathRanker()).thenReturn(mockPathRanker);
 
         final IHonorUtil mockHonorUtil = mock(IHonorUtil.class);
         when(mockPrincess.getHonorUtil()).thenReturn(mockHonorUtil);

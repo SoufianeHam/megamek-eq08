@@ -20,7 +20,6 @@
 package megamek.common.net.listeners;
 
 import megamek.common.net.events.AbstractConnectionEvent;
-import megamek.common.net.events.ConnectedEvent;
 import megamek.common.net.events.DisconnectedEvent;
 import megamek.common.net.events.PacketReceivedEvent;
 
@@ -44,9 +43,8 @@ import java.util.EventListener;
 public class ConnectionListener implements EventListener {
     /**
      * Called when connection is established. The default behavior is to do nothing.
-     * @param evt connection event
      */
-    public void connected(ConnectedEvent evt) {
+    public void connected() {
 
     }
 

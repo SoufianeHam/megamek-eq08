@@ -30,7 +30,7 @@ public interface IHonorUtil {
      * @param playerId The ID of the player owning the target.
      * @return TRUE if the unit is on the broken units list without being on the honorless enemies list.
      */
-    boolean isEnemyBroken(int targetid, int playerId, boolean forcedWithdrawal);
+    boolean isEnemyBroken(int targetid, int playerId);
 
     /**
      * Indicates whether or not the identified player is on the dishonored enemies list.

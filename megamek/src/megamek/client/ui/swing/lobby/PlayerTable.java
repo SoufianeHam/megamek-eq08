@@ -46,7 +46,7 @@ class PlayerTable extends JTable {
     private static final int PLAYERTABLE_ROWHEIGHT = 45;
 
     PlayerTableModel model = new PlayerTableModel();
-    ChatLounge lobby;
+    final ChatLounge lobby;
 
     public PlayerTable(PlayerTableModel pm, ChatLounge cl) {
         super(pm);
@@ -209,7 +209,7 @@ class PlayerTable extends JTable {
             }
             result.append("</FONT>");
             
-            if (!LobbyUtility.isValidStartPos(lobby.game(), player)) {
+            if (LobbyUtility.isValidStartPos(lobby.game(), player)) {
                 result.append(guiScaledFontHTML(uiYellow())); 
                 result.append(WARNING_SIGN + "</FONT>");
             }

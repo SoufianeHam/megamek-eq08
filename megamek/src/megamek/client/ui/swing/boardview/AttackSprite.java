@@ -7,7 +7,6 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ListIterator;
 
 import megamek.client.ui.Messages;
@@ -56,7 +55,7 @@ class AttackSprite extends Sprite {
 
     private final String targetDesc;
 
-    ArrayList<String> weaponDescs = new ArrayList<>();
+    final ArrayList<String> weaponDescs = new ArrayList<>();
 
     private final Entity ae;
 
@@ -131,7 +130,7 @@ class AttackSprite extends Sprite {
             addWeapon((ProtomechPhysicalAttackAction) attack);
         }
         if (attack instanceof SearchlightAttackAction) {
-            addWeapon((SearchlightAttackAction) attack);
+            addWeapon();
         }
 
         // nullify image
@@ -400,7 +399,7 @@ class AttackSprite extends Sprite {
         weaponDescs.add(Messages.getString("BoardView1.proto", roll));
     }
 
-    public void addWeapon(SearchlightAttackAction attack) {
+    public void addWeapon() {
         weaponDescs.add(Messages.getString("BoardView1.Searchlight"));
     }
 

@@ -479,12 +479,10 @@ public class Terrains implements Serializable {
     public static int getTerrainElevation(int terrainType, int terrainLevel, boolean inAtmosphere) {
         if (inAtmosphere) {
             // Handle altitudes
-            switch (terrainType) {
-                case FOLIAGE_ELEV:
-                    return 1;
-                default:
-                    return 0;
+            if (terrainType == FOLIAGE_ELEV) {
+                return 1;
             }
+            return 0;
         } else {
             // Handle elevations
             switch (terrainType) {

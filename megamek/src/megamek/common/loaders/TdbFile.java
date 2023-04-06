@@ -63,9 +63,8 @@ public class TdbFile implements IMechLoader {
             JAXBContext jc = JAXBContext.newInstance(TdbFile.class);
             
             Unmarshaller um = jc.createUnmarshaller();
-            TdbFile tdbFile = (TdbFile) um.unmarshal(MMXMLUtility.createSafeXmlSource(is));
-            
-            return tdbFile;
+
+            return (TdbFile) um.unmarshal(MMXMLUtility.createSafeXmlSource(is));
         } catch (Exception e) {
             throw new EntityLoadingException("   Failure to parse XML ("
                     + e.getLocalizedMessage() + ")", e);
@@ -451,9 +450,11 @@ public class TdbFile implements IMechLoader {
     private static class Creator {
 
         @XmlElement(name = "name")
+        final
         String creatorName = "Unknown";
 
         @XmlElement(name = "version")
+        final
         String creatorVersion = "Unknown";
 
         /**
@@ -475,6 +476,7 @@ public class TdbFile implements IMechLoader {
         String model;
 
         @XmlElement(name = "isomni")
+        final
         Boolean omni = Boolean.FALSE;
 
         @XmlElement
@@ -516,9 +518,11 @@ public class TdbFile implements IMechLoader {
         Engine engine;
 
         @XmlElement(name = "gyro")
+        final
         String gyroType = "Standard";
 
         @XmlElement(name = "cockpit")
+        final
         String cockpitType = "Standard";
 
         @XmlElement(name = "targsys")
@@ -633,6 +637,7 @@ public class TdbFile implements IMechLoader {
     static class MountedItems {
     
         @XmlElement(name = "mounteditem")
+        final
         List<MountedItem> items = new ArrayList<>();
 
         MountedItems() {
@@ -650,6 +655,7 @@ public class TdbFile implements IMechLoader {
 
         @XmlAttribute(name = "rearmounted")
         @XmlJavaTypeAdapter(BooleanAdapter.class)
+        final
         Boolean rearMounted = Boolean.FALSE;
 
         @XmlAttribute
@@ -670,6 +676,7 @@ public class TdbFile implements IMechLoader {
     private static class CriticalDefinitions {
         
         @XmlElement(name = "location")
+        final
         List<Location> locations = new ArrayList<>();
 
         /**
@@ -696,11 +703,12 @@ public class TdbFile implements IMechLoader {
         Integer bodyPart;
         
         @XmlElement(name = "criticalslot")
+        final
         List<CriticalSlot> criticalSlots = new ArrayList<>();
 
-        Location(final Integer bodyPart, final Integer armor, final Integer rearArmor) {
+        Location(final Integer bodyPart, final Integer rearArmor) {
             this.bodyPart = bodyPart;
-            this.armor = armor;
+            this.armor = 1;
             this.rearArmor = rearArmor;
         }
 

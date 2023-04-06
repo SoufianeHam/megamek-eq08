@@ -27,7 +27,7 @@ import java.util.Vector;
  */
 public class StreakHandler extends MissileWeaponHandler {
     private static final long serialVersionUID = 4122111574368642492L;
-    boolean isAngelECMAffected = ComputeECM.isAffectedByAngelECM(ae, ae.getPosition(), target.getPosition());
+    final boolean isAngelECMAffected = ComputeECM.isAffectedByAngelECM(ae, ae.getPosition(), target.getPosition());
 
     /**
      * @param t
@@ -165,6 +165,6 @@ public class StreakHandler extends MissileWeaponHandler {
     @Override
     protected boolean handleSpecialMiss(Entity entityTarget, boolean bldgDamagedOnMiss,
                                         Building bldg, Vector<Report> vPhaseReport) {
-        return false;
+        return true;
     }
 }

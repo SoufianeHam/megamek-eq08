@@ -208,7 +208,7 @@ public class BayMunitionsChoicePanel extends JPanel {
         }
         
         private boolean includeMunition(AmmoType atype) {
-            if (!atype.canAeroUse(game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_AERO_ARTILLERY_MUNITIONS))
+            if (atype.canAeroUse(game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_AERO_ARTILLERY_MUNITIONS))
                     || (atype.getAmmoType() != at)
                     || (atype.getRackSize() != rackSize)
                     || ((atype.getTechBase() != techBase)

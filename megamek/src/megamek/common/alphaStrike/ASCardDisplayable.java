@@ -264,7 +264,7 @@ public interface ASCardDisplayable extends BattleForceSUAFormatter, BTObject {
 
     @Override
     default boolean isSpheroid() {
-        return isType(ASUnitType.DS) || (isType(ASUnitType.SC) && !getSpecialAbilities().hasSUA(BattleForceSUA.AERODYNESC));
+        return !isType(ASUnitType.DS) && (!isType(ASUnitType.SC) || getSpecialAbilities().hasSUA(BattleForceSUA.AERODYNESC));
     }
 
     /**

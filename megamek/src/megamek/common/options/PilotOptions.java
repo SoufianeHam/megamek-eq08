@@ -14,8 +14,6 @@
 
 package megamek.common.options;
 
-import java.util.Vector;
-
 /**
  * Contains the options determining abilities of the pilot
  *
@@ -71,26 +69,26 @@ public class PilotOptions extends AbstractOptions {
         // addOption(adv, OptionsConstants.GUNNERY_FIST_FIRE, false);
         addOption(adv, OptionsConstants.GUNNERY_GOLDEN_GOOSE, false);
         // addOption(adv, OptionsConstants.GUNNERY_GROUND_HUGGER, false);
-        addOption(adv, OptionsConstants.GUNNERY_SPECIALIST, new Vector<>());
+        addOption(adv, OptionsConstants.GUNNERY_SPECIALIST);
         // addOption(adv, OptionsConstants.GUNNERY_MARKSMAN, false);
         addOption(adv, OptionsConstants.GUNNERY_MULTI_TASKER, false);
         addOption(adv, OptionsConstants.PILOT_APTITUDE_GUNNERY, false);
         addOption(adv, OptionsConstants.GUNNERY_OBLIQUE_ARTILLERY, false);
         addOption(adv, OptionsConstants.GUNNERY_OBLIQUE_ATTACKER, false);
-        addOption(adv, OptionsConstants.GUNNERY_RANGE_MASTER, new Vector<>());
-        addOption(adv, OptionsConstants.GUNNERY_SANDBLASTER, new Vector<>());
+        addOption(adv, OptionsConstants.GUNNERY_RANGE_MASTER);
+        addOption(adv, OptionsConstants.GUNNERY_SANDBLASTER);
         // addOption(adv, OptionsConstants.GUNNERY_SHARPSHOOTER, false);
         addOption(adv, OptionsConstants.GUNNERY_SNIPER, false);
-        addOption(adv, OptionsConstants.GUNNERY_WEAPON_SPECIALIST, new Vector<>());
+        addOption(adv, OptionsConstants.GUNNERY_WEAPON_SPECIALIST);
 
          // Misc Abilities
          // addOption(adv, OptionsConstants.MISC_ANTAGONIZER, false);
          // addOption(adv, OptionsConstants.MISC_COMBAT_INTUITION, false);
          // addOption(adv, OptionsConstants.MISC_DEMORALIZER, false);
          addOption(adv, OptionsConstants.MISC_EAGLE_EYES, false);
-         addOption(adv, OptionsConstants.MISC_ENV_SPECIALIST, new Vector<>());
+         addOption(adv, OptionsConstants.MISC_ENV_SPECIALIST);
          addOption(adv, OptionsConstants.MISC_FORWARD_OBSERVER, false);
-         addOption(adv, OptionsConstants.MISC_HUMAN_TRO, new Vector<>());
+         addOption(adv, OptionsConstants.MISC_HUMAN_TRO);
          addOption(adv, OptionsConstants.MISC_IRON_MAN, false);
          addOption(adv, OptionsConstants.MISC_PAIN_RESISTANCE, false);
          addOption(adv, OptionsConstants.MISC_TACTICAL_GENIUS, false);

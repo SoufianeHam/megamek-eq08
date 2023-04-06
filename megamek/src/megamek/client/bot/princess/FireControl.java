@@ -1070,7 +1070,7 @@ public class FireControl {
         }
 
         final PhysicalInfo guessInfo = new PhysicalInfo(shooter, null, target, null, attackType, game, owner, true);
-        final PhysicalInfo accurateInfo = new PhysicalInfo(shooter, target, attackType, game, owner, false);
+        final PhysicalInfo accurateInfo = new PhysicalInfo(shooter, target, attackType, game, owner);
         if (guessInfo.getHitData().getValue() != accurateInfo.getHitData().getValue()) {
             ret += "Incorrect To Hit prediction, physical attack " + attackType.name() + ":\n";
             ret += " Guess: " + guessInfo.getHitData().getValue() + " " + guessInfo.getHitData().getDesc() + "\n";
@@ -2298,8 +2298,8 @@ public class FireControl {
 
             // Skip retreating enemies so long as they haven't fired on me while retreating.
             final int playerId = (enemy instanceof Entity) ? ((Entity) enemy).getOwnerId() : -1;
-            if (!priorityTarget && honorUtil.isEnemyBroken(enemy.getId(), playerId,
-                                                           owner.getForcedWithdrawal())) {
+            if (!priorityTarget && honorUtil.isEnemyBroken(enemy.getId(), playerId
+            )) {
                 LogManager.getLogger().info(enemy.getDisplayName() + " is broken - ignoring");
                 continue;
             }
@@ -3095,8 +3095,7 @@ public class FireControl {
     @Nullable
     public FindClubAction getFindClubAction(Entity shooter) {
         if (FindClubAction.canMechFindClub(shooter.getGame(), shooter.getId())) {
-            FindClubAction findClubAction = new FindClubAction(shooter.getId());
-            return findClubAction;
+            return new FindClubAction(shooter.getId());
         }
         
         return null;
@@ -3183,8 +3182,7 @@ public class FireControl {
         }
         
         if (bestTarget != null) {
-            SearchlightAttackAction slaa = new SearchlightAttackAction(shooter.getId(), bestTarget.getTargetType(), bestTarget.getId());
-            return slaa;
+            return new SearchlightAttackAction(shooter.getId(), bestTarget.getTargetType(), bestTarget.getId());
         }
         
         return null;

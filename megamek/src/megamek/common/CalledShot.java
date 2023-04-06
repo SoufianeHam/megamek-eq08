@@ -32,13 +32,12 @@ public class CalledShot implements Serializable {
         return calledLocNames[current];
     }
     
-    public int switchCalledShot() {
+    public void switchCalledShot() {
         current = current + 1;
         if (current >= CALLED_NUM) {
             current = CALLED_NONE;
         }
-        return current;   
-     }
+    }
     
     public int getCall() {
         return current;

@@ -330,9 +330,8 @@ public class ChatterBox2 implements KeyListener, IDisplayable, IPreferenceChange
         int yMin = ((size.height) - height - DIST_BOTTOM) + slideOffset;
         int yMax = yMin + height;
 
-        boolean mouseOver = (p.x > xMin) && (p.x < xMax) && (p.y > yMin)
+        return (p.x > xMin) && (p.x < xMax) && (p.y > yMin)
                 && (p.y < yMax);
-        return mouseOver;
     }
 
     @Override
@@ -908,15 +907,12 @@ public class ChatterBox2 implements KeyListener, IDisplayable, IPreferenceChange
 
     @Override
     public void preferenceChange(PreferenceChangeEvent e) {
-        switch (e.getName()) {
-            case GUIPreferences.GUI_SCALE:
-                if (isDown()) {
-                    slideUp();
-                }
+        if (GUIPreferences.GUI_SCALE.equals(e.getName())) {
+            if (isDown()) {
+                slideUp();
+            }
 
-                adaptToGUIScale();
-                break;
-
+            adaptToGUIScale();
         }
     }
 }

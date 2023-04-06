@@ -124,7 +124,7 @@ public class FighterSquadron extends Aero {
     }
 
     @Override
-    public int getWalkMP(boolean gravity, boolean ignoreheat, boolean ignoremodulararmor) {
+    public int getWalkMP(boolean gravity, boolean ignoremodulararmor) {
         return getActiveSubEntities().stream()
                 .mapToInt(ent -> ent.getWalkMP(gravity, ignoreheat))
                 .min()
@@ -230,7 +230,7 @@ public class FighterSquadron extends Aero {
                 }
 
                 // life support (only applicable to non-ASFs)
-                if (!ent.hasLifeSupport()) {
+                if (ent.hasLifeSupport()) {
                     prd.addModifier(2, "No life support");
                 }
 
@@ -646,15 +646,11 @@ public class FighterSquadron extends Aero {
         // fighter squadrons can also load other fighter squadrons provided
         // there is enough space
         // and the loadee is not empty
-        if ((unit instanceof FighterSquadron)
+        return (unit instanceof FighterSquadron)
                 && !unit.isEnemyOf(this)
                 && (getId() != unit.getId())
                 && !((FighterSquadron) unit).fighters.isEmpty()
-                && ((fighters.size() + ((FighterSquadron) unit).fighters.size()) <= getMaxSize())) {
-            return true;
-        }
-
-        return false;
+                && ((fighters.size() + ((FighterSquadron) unit).fighters.size()) <= getMaxSize());
     }
 
     /**
@@ -870,6 +866,6 @@ public class FighterSquadron extends Aero {
 
     @Override
     public boolean isUnitGroup() {
-        return true;
+        return false;
     }
 }

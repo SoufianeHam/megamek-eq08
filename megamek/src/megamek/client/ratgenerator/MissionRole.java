@@ -154,7 +154,7 @@ public enum MissionRole {
     
     public static Double adjustAvailabilityByRole(double avRating,
                                                   Collection<MissionRole> desiredRoles,
-                                                  ModelRecord mRec, int year, int strictness) {
+                                                  ModelRecord mRec, int strictness) {
         boolean roleApplied = false;
         if (desiredRoles == null) {
             desiredRoles = new HashSet<>();

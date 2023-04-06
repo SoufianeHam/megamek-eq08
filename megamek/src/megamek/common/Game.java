@@ -1209,10 +1209,10 @@ public class Game extends AbstractGame implements Serializable {
         }
 
         // Add magnetic clamp mounts
-        if ((entity instanceof Mech) && !entity.isOmni() && !entity.hasBattleArmorHandles()) {
+        if ((entity instanceof Mech) && !entity.isOmni() && entity.hasBattleArmorHandles()) {
             entity.addTransporter(new ClampMountMech());
         } else if ((entity instanceof Tank) && !entity.isOmni()
-                && !entity.hasBattleArmorHandles()) {
+                && entity.hasBattleArmorHandles()) {
             entity.addTransporter(new ClampMountTank());
         }
 
@@ -1660,7 +1660,7 @@ public class Game extends AbstractGame implements Serializable {
      * <code>false</code> otherwise.
      */
     public boolean isOutOfGame(Entity entity) {
-        return isOutOfGame(entity.getId());
+        return !isOutOfGame(entity.getId());
     }
 
     /**
@@ -1731,7 +1731,7 @@ public class Game extends AbstractGame implements Serializable {
         boolean hasLooped = false;
         int i = (sortedEntities.indexOf(getEntity(start)) + 1) % sortedEntities.size();
         int startingIndex = i;
-        while (!((hasLooped == true) && (i == startingIndex))) {
+        while (!((hasLooped) && (i == startingIndex))) {
             final Entity entity = sortedEntities.get(i);
             if (turn.isValidEntity(entity, this)) {
                 return entity.getId();
@@ -1765,7 +1765,7 @@ public class Game extends AbstractGame implements Serializable {
             i = sortedEntities.size() - 1;
         }
         int startingIndex = i;
-        while (!((hasLooped == true) && (i == startingIndex))) {
+        while (!((hasLooped) && (i == startingIndex))) {
             final Entity entity = sortedEntities.get(i);
             if (turn.isValidEntity(entity, this)) {
                 return entity.getId();
@@ -1875,9 +1875,7 @@ public class Game extends AbstractGame implements Serializable {
             }
 
             // Can that transport unload the unit?
-            if (transport.isImmobile() || (0 == transport.getWalkMP())) {
-                return true;
-            }
+            return transport.isImmobile() || (0 == transport.getWalkMP());
         }
         return false;
     }
@@ -2072,17 +2070,14 @@ public class Game extends AbstractGame implements Serializable {
         }
 
 
-        boolean useInfantryMoveLaterCheck = true;
+        boolean useInfantryMoveLaterCheck = (!getOptions().booleanOption(OptionsConstants.INIT_INF_MOVE_LATER) ||
+                (!(entity instanceof Infantry))) &&
+                (!getOptions().booleanOption(OptionsConstants.INIT_PROTOS_MOVE_LATER) ||
+                        (!(entity instanceof Protomech)));
         // If we have the "infantry move later" or "ProtoMeks move later" optional
         //  rules, then we may be removing an infantry unit that would be
         //  considered invalid unless we don't consider the extra validity
         //  checks.
-        if ((getOptions().booleanOption(OptionsConstants.INIT_INF_MOVE_LATER) &&
-             (entity instanceof Infantry)) ||
-            (getOptions().booleanOption(OptionsConstants.INIT_PROTOS_MOVE_LATER) &&
-             (entity instanceof Protomech))) {
-            useInfantryMoveLaterCheck = false;
-        }
 
         for (int i = turnVector.size() - 1; i >= turnIndex; i--) {
             GameTurn turn = turnVector.elementAt(i);
@@ -3308,7 +3303,7 @@ public class Game extends AbstractGame implements Serializable {
         Collections.sort(entitiesInCache);
         Collections.sort(entitiesInVector);
         if ((entitiesInCacheCount != entityVectorSize) && !getPhase().isDeployment()
-                && !getPhase().isExchange() && !getPhase().isLounge()
+                && getPhase().isExchange() && !getPhase().isLounge()
                 && !getPhase().isInitiativeReport() && !getPhase().isInitiative()) {
             LogManager.getLogger().warn("Entities vector has " + inGameTWEntities().size()
                     + " but pos lookup cache has " + entitiesInCache.size() + "entities!");

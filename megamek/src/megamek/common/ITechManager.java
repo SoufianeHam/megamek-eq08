@@ -116,7 +116,7 @@ public interface ITechManager {
         }
         if (useMixedTech()) {
             if ((!introducedIS && !introducedClan) 
-                    || (!showExtinct()
+                    || (showExtinct()
                             && (tech.isExtinct(getTechIntroYear())))) {
                 return false;
             } else if (useVariableTechLevel()) {
@@ -128,9 +128,9 @@ public interface ITechManager {
             if (tech.getTechBase() != ITechnology.TECH_BASE_ALL
                     && clanTech != tech.isClan()) {
                 return false;
-            } else if (clanTech && (!introducedClan || (!showExtinct() && extinctClan))) {
+            } else if (clanTech && (!introducedClan || (showExtinct() && extinctClan))) {
                 return false;
-            } else if (!clanTech && (!introducedIS || (!showExtinct() && extinctIS))) {
+            } else if (!clanTech && (!introducedIS || (showExtinct() && extinctIS))) {
                 return false;
             } else if (useVariableTechLevel()) {
                 return tech.getSimpleLevel(getGameYear(), clanTech, faction).compareTo(getTechLevel()) <= 0;

@@ -54,11 +54,11 @@ public class PhysicalOption {
     public static final int BRUSH_BOTH = 12;
     public static final int THRASH_INF = 13;
 
-    Entity attacker;
+    final Entity attacker;
     Targetable target;
     INarcPod i_target;
     double expectedDmg;
-    int type;
+    final int type;
     Mounted club;
 
     public PhysicalOption(Entity attacker) {

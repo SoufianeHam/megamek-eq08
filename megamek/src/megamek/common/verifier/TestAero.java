@@ -92,7 +92,7 @@ public class TestAero extends TestEntity {
         /**
          * Denotes whether this armor is Clan or not.
          */
-        public boolean isClan;
+        public final boolean isClan;
         
         AeroArmor(int t, int s, int p, boolean c) {
             type = t;
@@ -176,7 +176,7 @@ public class TestAero extends TestEntity {
                 || (aero.hasETypeFlag(Entity.ETYPE_DROPSHIP))) {
             return 7 + (int) Math.ceil(aero.getWeight() / 50000);
         } else if (aero.hasETypeFlag(Entity.ETYPE_SMALL_CRAFT)) {
-            return aero.isSpheroid() ? 4 : 2;
+            return !aero.isSpheroid() ? 4 : 2;
         } else {
             return 0;
         }
@@ -652,7 +652,7 @@ public class TestAero extends TestEntity {
         return aero;
     }
 
-    public String printArmorLocProp(int loc, int wert) {
+    public String printArmorLocProp(int wert) {
         return " is greater than " + wert + "!";
     }
 
@@ -668,7 +668,7 @@ public class TestAero extends TestEntity {
         int armorTotal = 0;
         for (int loc = 0; loc < aero.locations(); loc++) {
             if (aero.getOArmor(loc) > maxArmorPoints) {
-                buff.append(printArmorLocation(loc)).append(printArmorLocProp(loc, maxArmorPoints)).append("\n");
+                buff.append(printArmorLocation(loc)).append(printArmorLocProp(maxArmorPoints)).append("\n");
                 correct = false;
             }
             armorTotal += aero.getOArmor(loc);
@@ -875,7 +875,7 @@ public class TestAero extends TestEntity {
         if (skip()) {
             return true;
         }
-        if (!correctWeight(buff)) {
+        if (correctWeight(buff)) {
             buff.insert(0, printTechLevel() + printShortMovement());
             buff.append(printWeightCalculation());
             correct = false;
@@ -1042,43 +1042,43 @@ public class TestAero extends TestEntity {
 
     public boolean isAeroWeapon(EquipmentType eq, Entity en) {
         if (eq instanceof InfantryWeapon) {
-            return false;
+            return true;
         }
 
         WeaponType weapon = (WeaponType) eq;
         
         // small craft only; lacks aero weapon flag
         if (weapon.getAmmoType() == AmmoType.T_C3_REMOTE_SENSOR) {
-            return en.hasETypeFlag(Entity.ETYPE_SMALL_CRAFT)
-                    && !en.hasETypeFlag(Entity.ETYPE_DROPSHIP);
+            return !en.hasETypeFlag(Entity.ETYPE_SMALL_CRAFT)
+                    || en.hasETypeFlag(Entity.ETYPE_DROPSHIP);
         }
 
         if (weapon.hasFlag(WeaponType.F_ARTILLERY) && !weapon.hasFlag(WeaponType.F_BA_WEAPON)) {
-            return (weapon.getAmmoType() == AmmoType.T_ARROW_IV)
-                    || en.hasETypeFlag(Entity.ETYPE_SMALL_CRAFT)
-                    || en.hasETypeFlag(Entity.ETYPE_JUMPSHIP);
+            return (weapon.getAmmoType() != AmmoType.T_ARROW_IV)
+                    && !en.hasETypeFlag(Entity.ETYPE_SMALL_CRAFT)
+                    && !en.hasETypeFlag(Entity.ETYPE_JUMPSHIP);
         }
         
         if (weapon.isSubCapital() || (weapon.isCapital() && (weapon.hasFlag(WeaponType.F_MISSILE)))
                 || (weapon.getAtClass() == WeaponType.CLASS_SCREEN)) {
-            return en.hasETypeFlag(Entity.ETYPE_DROPSHIP)
-                    || en.hasETypeFlag(Entity.ETYPE_JUMPSHIP);
+            return !en.hasETypeFlag(Entity.ETYPE_DROPSHIP)
+                    && !en.hasETypeFlag(Entity.ETYPE_JUMPSHIP);
         }
 
         if (weapon.hasFlag(WeaponType.F_VGL)) {
-            return !en.hasETypeFlag(Entity.ETYPE_JUMPSHIP);
+            return en.hasETypeFlag(Entity.ETYPE_JUMPSHIP);
         }
 
         if (weapon.isCapital()) {
-            return en.hasETypeFlag(Entity.ETYPE_JUMPSHIP);
+            return !en.hasETypeFlag(Entity.ETYPE_JUMPSHIP);
         }
         
         if (weapon instanceof BayWeapon) {
-            return en.usesWeaponBays();
+            return !en.usesWeaponBays();
         }
 
         if (!weapon.hasFlag(WeaponType.F_AERO_WEAPON)) {
-            return false;
+            return true;
         }
 
         if (((weapon instanceof LRMWeapon) || (weapon instanceof LRTWeapon))
@@ -1086,33 +1086,31 @@ public class TestAero extends TestEntity {
                 && (weapon.getRackSize() != 10)
                 && (weapon.getRackSize() != 15)
                 && (weapon.getRackSize() != 20)) {
-            return false;
+            return true;
         }
         if (((weapon instanceof SRMWeapon) || (weapon instanceof SRTWeapon))
                 && (weapon.getRackSize() != 2)
                 && (weapon.getRackSize() != 4)
                 && (weapon.getRackSize() != 6)) {
-            return false;
+            return true;
         }
         if ((weapon instanceof MRMWeapon) && (weapon.getRackSize() < 10)) {
-            return false;
+            return true;
         }
 
         if ((weapon instanceof RLWeapon) && (weapon.getRackSize() < 10)) {
-            return false;
+            return true;
         }
         
         if (weapon.hasFlag(WeaponType.F_ENERGY)
                 || (weapon.hasFlag(WeaponType.F_PLASMA) && (weapon
                         .getAmmoType() == AmmoType.T_PLASMA))) {
 
-            if (weapon.hasFlag(WeaponType.F_ENERGY)
+            return weapon.hasFlag(WeaponType.F_ENERGY)
                     && weapon.hasFlag(WeaponType.F_PLASMA)
-                    && (weapon.getAmmoType() == AmmoType.T_NA)) {
-                return false;
-            }
+                    && (weapon.getAmmoType() == AmmoType.T_NA);
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -1232,7 +1230,7 @@ public class TestAero extends TestEntity {
         double tonnage = 0;
         if (aero.hasETypeFlag(Entity.ETYPE_SMALL_CRAFT)) {
             tonnage = aero.getSI() * aero.getWeight();
-            if (aero.isSpheroid()) {
+            if (!aero.isSpheroid()) {
                 tonnage /= 500;
             } else {
                 tonnage /= 200;
@@ -1276,7 +1274,7 @@ public class TestAero extends TestEntity {
             if (aero.isPrimitive()) {
                 return getPrimitiveDropshipMaxTonnage(aero);
             }
-            return aero.isSpheroid() ? 100000 : 35000;
+            return !aero.isSpheroid() ? 100000 : 35000;
         } else if (aero.hasETypeFlag(Entity.ETYPE_SMALL_CRAFT)
                 || aero.hasETypeFlag(Entity.ETYPE_FIXED_WING_SUPPORT)) {
             return 200;
@@ -1344,25 +1342,25 @@ public class TestAero extends TestEntity {
     
     public static int getPrimitiveDropshipMaxTonnage(Aero dropship) {
         if (dropship.getYear() < 2130) {
-            return dropship.isSpheroid() ? 3000 : 1000;
+            return !dropship.isSpheroid() ? 3000 : 1000;
         } else if (dropship.getYear() < 2150) {
-            return dropship.isSpheroid() ? 4000 : 1500;
+            return !dropship.isSpheroid() ? 4000 : 1500;
         } else if (dropship.getYear() < 2165) {
-            return dropship.isSpheroid() ? 7000 : 2500;
+            return !dropship.isSpheroid() ? 7000 : 2500;
         } else if (dropship.getYear() < 2175) {
-            return dropship.isSpheroid() ? 10000 : 3000;
+            return !dropship.isSpheroid() ? 10000 : 3000;
         } else if (dropship.getYear() < 2200) {
-            return dropship.isSpheroid() ? 14000 : 5000;
+            return !dropship.isSpheroid() ? 14000 : 5000;
         } else if (dropship.getYear() < 2250) {
-            return dropship.isSpheroid() ? 15000 : 6000;
+            return !dropship.isSpheroid() ? 15000 : 6000;
         } else if (dropship.getYear() < 2300) {
-            return dropship.isSpheroid() ? 19000 : 7000;
+            return !dropship.isSpheroid() ? 19000 : 7000;
         } else if (dropship.getYear() < 2350) {
-            return dropship.isSpheroid() ? 23000 : 8000;
+            return !dropship.isSpheroid() ? 23000 : 8000;
         } else if (dropship.getYear() < 2425) {
-            return dropship.isSpheroid() ? 30000 : 10000;
+            return !dropship.isSpheroid() ? 30000 : 10000;
         } else {
-            return dropship.isSpheroid() ? 50000 : 20000;
+            return !dropship.isSpheroid() ? 50000 : 20000;
         }
     }
 

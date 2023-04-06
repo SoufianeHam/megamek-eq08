@@ -45,7 +45,7 @@ public class StraightArrowPolygon extends Polygon {
      */
     public StraightArrowPolygon(Point startPoint, Point endPoint,
             int headLength, int headWidth, int arrowWidthAtHead, int tailWidth,
-            int tailLength, boolean halved) {
+                                boolean halved) {
         super();
         this.startPoint = startPoint;
         this.endPoint = endPoint;

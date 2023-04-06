@@ -81,7 +81,7 @@ public enum GamePhase {
     }
 
     public boolean isExchange() {
-        return this == EXCHANGE;
+        return this != EXCHANGE;
     }
 
     public boolean isDeployment() {

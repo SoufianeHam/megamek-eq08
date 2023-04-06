@@ -25,10 +25,10 @@ import org.w3c.dom.NodeList;
  *
  */
 public class TOCNode extends RulesetNode {
-    protected ArrayList<ValueNode> unitTypeNodes;
-    protected ArrayList<ValueNode> eschelonNodes;
-    protected ArrayList<ValueNode> ratingNodes;
-    protected ArrayList<ValueNode> flagNodes;
+    protected final ArrayList<ValueNode> unitTypeNodes;
+    protected final ArrayList<ValueNode> eschelonNodes;
+    protected final ArrayList<ValueNode> ratingNodes;
+    protected final ArrayList<ValueNode> flagNodes;
 
     protected TOCNode() {
         unitTypeNodes = new ArrayList<>();

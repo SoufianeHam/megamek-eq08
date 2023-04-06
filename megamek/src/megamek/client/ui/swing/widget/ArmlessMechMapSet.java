@@ -149,10 +149,7 @@ public class ArmlessMechMapSet implements DisplayMapSet {
     @Override
     public void setEntity(Entity e) {
         Mech m = (Mech) e;
-        boolean mtHeat = false;
-        if (e.getGame() != null && e.getGame().getOptions().booleanOption(OptionsConstants.ADVCOMBAT_TACOPS_HEAT)) {
-            mtHeat = true;
-        }
+        boolean mtHeat = e.getGame() != null && e.getGame().getOptions().booleanOption(OptionsConstants.ADVCOMBAT_TACOPS_HEAT);
         int a = 1;
         int a0 = 1;
         for (int i = 0; i < m.locations(); i++) {
@@ -210,7 +207,7 @@ public class ArmlessMechMapSet implements DisplayMapSet {
         areas[INT_STRUCTURE_OFFSET + Mech.LOC_LLEG] = new PMSimplePolygonArea(
                 inStLeftLeg, unitDisplay, Mech.LOC_LLEG);
         heatImage = comp.createImage(10, 120);
-        drawHeatControl(0);
+        drawHeatControl();
         heatHotArea = new PMPicPolygonalArea(heatControl, heatImage);
     }
 
@@ -347,8 +344,8 @@ public class ArmlessMechMapSet implements DisplayMapSet {
         bgDrawers.addElement(bgd);
     }
 
-    private void drawHeatControl(int t) {
-        drawHeatControl(t, false);
+    private void drawHeatControl() {
+        drawHeatControl(0, false);
     }
 
     private void drawHeatControl(int t, boolean mtHeat) {

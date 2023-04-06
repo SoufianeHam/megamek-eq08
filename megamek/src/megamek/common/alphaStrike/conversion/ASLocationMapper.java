@@ -60,7 +60,7 @@ public class ASLocationMapper {
         } else if (en instanceof Warship) {
             return getWarShipLocationMultiplier(loc, mount.getLocation());
         } else if (en instanceof Jumpship) {
-            return getJumpShipLocationMultiplier((Jumpship) en, loc, mount.getLocation(), mount.isRearMounted());
+            return getJumpShipLocationMultiplier(loc, mount.getLocation());
         } else if (en instanceof SmallCraft) {
             return getSmallCraftLocationMultiplier((SmallCraft) en, loc, mount.getLocation(), mount.isRearMounted());
         } else if ((en instanceof SupportTank) && !(en instanceof LargeSupportTank)) {
@@ -157,7 +157,7 @@ public class ASLocationMapper {
         }
     }
 
-    private static double getJumpShipLocationMultiplier(Jumpship en, int index, int location, boolean rearMounted) {
+    private static double getJumpShipLocationMultiplier(int index, int location) {
         switch (index) {
             case 0:
                 if (location == Jumpship.LOC_NOSE) {
@@ -185,7 +185,7 @@ public class ASLocationMapper {
                 if (location == SmallCraft.LOC_NOSE) {
                     return 1;
                 }
-                if (en.isSpheroid() && (location == SmallCraft.LOC_LWING || location == SmallCraft.LOC_RWING)
+                if (!en.isSpheroid() && (location == SmallCraft.LOC_LWING || location == SmallCraft.LOC_RWING)
                         && !rearMounted) {
                     return 0.5;
                 }
@@ -193,7 +193,7 @@ public class ASLocationMapper {
             case 1:
             case 2:
                 if (index == location) {
-                    if (en.isSpheroid()) {
+                    if (!en.isSpheroid()) {
                         return 0.5;
                     }
                     if (!rearMounted) {
@@ -206,7 +206,7 @@ public class ASLocationMapper {
                     return 1;
                 }
                 if (rearMounted && (location == SmallCraft.LOC_LWING || location == SmallCraft.LOC_RWING)) {
-                    return en.isSpheroid() ? 0.5 : 1.0;
+                    return !en.isSpheroid() ? 0.5 : 1.0;
                 }
                 break;
         }

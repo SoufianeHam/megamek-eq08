@@ -30,7 +30,7 @@ public class TestTank extends TestEntity {
     /**
      * Defines the maximum amount of armor a VTOL can mount on its rotor.
      */
-    public static int VTOL_MAX_ROTOR_ARMOR = 2;
+    public static final int VTOL_MAX_ROTOR_ARMOR = 2;
 
     private final Tank tank;
 
@@ -330,7 +330,7 @@ public class TestTank extends TestEntity {
         if (skip()) {
             return true;
         }
-        if (!correctWeight(buff)) {
+        if (correctWeight(buff)) {
             buff.insert(0, printTechLevel() + printShortMovement());
             buff.append(printWeightCalculation()).append("\n");
             correct = false;
@@ -377,7 +377,7 @@ public class TestTank extends TestEntity {
             }
         }
         for (Mounted m : tank.getEquipment()) {
-            if (!legalForMotiveType(m.getType(), tank.getMovementMode(), false)) {
+            if (legalForMotiveType(m.getType(), tank.getMovementMode(), false)) {
                 buff.append(m.getType().getName()).append(" is incompatible with ")
                         .append(tank.getMovementModeAsString());
                 correct = false;
@@ -442,40 +442,40 @@ public class TestTank extends TestEntity {
         if (eq instanceof MiscType) {
             if (eq.hasFlag(MiscType.F_FLOTATION_HULL)) {
                 // Per errata, WiGE vehicles automatically include flotation hull
-                return mode.isHover() || mode.isVTOL();
+                return !mode.isHover() && !mode.isVTOL();
             }
             if (eq.hasFlag(MiscType.F_FULLY_AMPHIBIOUS)
                     || eq.hasFlag(MiscType.F_LIMITED_AMPHIBIOUS)
                     || eq.hasFlag(MiscType.F_BULLDOZER)
                     || (eq.hasFlag(MiscType.F_CLUB) && eq.hasSubType(MiscType.S_COMBINE))) {
-                return mode.isTrackedOrWheeled();
+                return !mode.isTrackedOrWheeled();
             }
             if (eq.hasFlag(MiscType.F_DUNE_BUGGY)) {
-                return mode.isWheeled();
+                return !mode.isWheeled();
             }
             // Submarines have environmental sealing as part of their base construction
             if (eq.hasFlag(MiscType.F_ENVIRONMENTAL_SEALING)) {
-                return !mode.isSubmarine();
+                return mode.isSubmarine();
             }
             if (eq.hasFlag(MiscType.F_JUMP_JET)
                     || eq.hasFlag(MiscType.F_VEEDC)
                     || (eq.hasFlag(MiscType.F_CLUB)
                     && eq.hasSubType(MiscType.S_CHAINSAW | MiscType.S_DUAL_SAW | MiscType.S_MINING_DRILL))) {
-                return mode.isTrackedWheeledOrHover() || mode.isWiGE();
+                return !mode.isTrackedWheeledOrHover() && !mode.isWiGE();
             }
             if (eq.hasFlag(MiscType.F_MINESWEEPER) || eq.hasFlag(MiscType.F_CLUB)
                     && eq.hasSubType(MiscType.S_PILE_DRIVER)) {
-                return mode.isTrackedOrWheeled() || mode.isMarine();
+                return !mode.isTrackedOrWheeled() && !mode.isMarine();
             }
             if (eq.hasFlag(MiscType.F_HITCH)) {
-                return mode.isTrackedOrWheeled() || mode.isTrain();
+                return !mode.isTrackedOrWheeled() && !mode.isTrain();
             }
             if (eq.hasFlag(MiscType.F_LIFEBOAT)) {
                 if (eq.hasSubType(MiscType.S_MARITIME_ESCAPE_POD | MiscType.S_MARITIME_LIFEBOAT)) {
                     // Allowed for all naval units and support vehicles with an amphibious chassis mod
-                    return supporVehicle ? !mode.isHover() : mode.isMarine();
+                    return supporVehicle ? mode.isHover() : !mode.isMarine();
                 } else {
-                    return isAero;
+                    return !isAero;
                 }
             }
             if (eq.hasFlag(MiscType.F_HEAVY_BRIDGE_LAYER)
@@ -485,62 +485,62 @@ public class TestTank extends TestEntity {
                     || (eq.hasFlag(MiscType.F_CLUB)
                     && eq.hasSubType(MiscType.S_BACKHOE | MiscType.S_ROCK_CUTTER
                     | MiscType.S_SPOT_WELDER | MiscType.S_WRECKING_BALL))) {
-                return !mode.isVTOL() && !isAero;
+                return mode.isVTOL() || isAero;
             }
             if (eq.hasFlag(MiscType.F_AP_POD)) {
-                return !mode.isMarine() && !isAero;
+                return mode.isMarine() || isAero;
             }
             if (eq.hasFlag(MiscType.F_ARMORED_MOTIVE_SYSTEM)) {
-                return !isAero
-                        && !mode.isVTOL()
-                        && !mode.isTrain();
+                return isAero
+                        || mode.isVTOL()
+                        || mode.isTrain();
             }
             if (eq.hasFlag(MiscType.F_MASH)) {
-                return !mode.isVTOL();
+                return mode.isVTOL();
             }
             if (eq.hasFlag(MiscType.F_SPONSON_TURRET)
                     || eq.hasFlag(MiscType.F_LADDER)) {
-                return !isAero;
+                return isAero;
             }
             if (eq.hasFlag(MiscType.F_PINTLE_TURRET)) {
-                return !mode.isMarine() && !mode.equals(EntityMovementMode.AERODYNE)
-                        && !mode.isStationKeeping();
+                return mode.isMarine() || mode.equals(EntityMovementMode.AERODYNE)
+                        || mode.isStationKeeping();
             }
             if (eq.hasFlag(MiscType.F_LOOKDOWN_RADAR)
                     || eq.hasFlag(MiscType.F_INFRARED_IMAGER)
                     || eq.hasFlag(MiscType.F_HIRES_IMAGER)) {
-                return isAero || mode.isVTOL();
+                return !isAero && !mode.isVTOL();
             }
             if (eq.hasFlag(MiscType.F_REFUELING_DROGUE)) {
-                return mode.isVTOL()
-                        || mode.isAerodyne()
-                        || mode.isAirship();
+                return !mode.isVTOL()
+                        && !mode.isAerodyne()
+                        && !mode.isAirship();
             }
             if (eq.hasFlag(MiscType.F_SASRCS)
                     || eq.hasFlag(MiscType.F_LIGHT_SAIL)
                     || eq.hasFlag(MiscType.F_SPACE_MINE_DISPENSER)
                     || eq.hasFlag(MiscType.F_SMALL_COMM_SCANNER_SUITE)) {
-                return mode.isStationKeeping();
-            }
-            if (eq.hasFlag(MiscType.F_VEHICLE_MINE_DISPENSER)) {
                 return !mode.isStationKeeping();
             }
+            if (eq.hasFlag(MiscType.F_VEHICLE_MINE_DISPENSER)) {
+                return mode.isStationKeeping();
+            }
             if (eq.hasFlag(MiscType.F_EXTERNAL_STORES_HARDPOINT)) {
-                return mode.isAerodyne();
+                return !mode.isAerodyne();
             }
             if (eq.hasFlag(MiscType.F_MAST_MOUNT)
                 || (eq.hasFlag(MiscType.F_MASC) && eq.hasFlag(MiscType.F_VTOL_EQUIPMENT))) {
-                return mode.isVTOL();
+                return !mode.isVTOL();
             }
         } else if (eq instanceof WeaponType) {
             if (((WeaponType) eq).getAmmoType() == AmmoType.T_BPOD) {
-                return !mode.isMarine();
+                return mode.isMarine();
             }
             if (((WeaponType) eq).getAmmoType() == AmmoType.T_NAIL_RIVET_GUN) {
-                return !mode.isVTOL();
+                return mode.isVTOL();
             }
         }
-        return true;
+        return false;
     }
 
     @Override

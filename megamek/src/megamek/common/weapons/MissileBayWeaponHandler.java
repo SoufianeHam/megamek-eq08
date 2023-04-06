@@ -407,7 +407,7 @@ public class MissileBayWeaponHandler extends AmmoBayWeaponHandler {
 
             // Works out fire setting, AMS shots, and whether continuation is
             // necessary.
-            if (!handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg,
+            if (handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg,
                     vPhaseReport)) {
                 return false;
             }
@@ -420,7 +420,7 @@ public class MissileBayWeaponHandler extends AmmoBayWeaponHandler {
 
         if ((target.getTargetType() == Targetable.TYPE_HEX_IGNITE)
                 || (target.getTargetType() == Targetable.TYPE_BLDG_IGNITE)) {
-            handleIgnitionDamage(vPhaseReport, bldg, 1);
+            handleIgnitionDamage(vPhaseReport);
             return false;
         }
         if (target.getTargetType() == Targetable.TYPE_HEX_CLEAR) {

@@ -43,16 +43,16 @@ public class ASDamageConverter {
     protected static final String rdUp = "rt, ru";
     protected static final String rdNm = "rt, rn";
 
-    protected Entity entity;
-    protected AlphaStrikeElement element;
-    protected CalculationReport report;
+    protected final Entity entity;
+    protected final AlphaStrikeElement element;
+    protected final CalculationReport report;
 
     // The locations where damage and special abilities are going to end up in. [0] contains the unit's standard
     // damage and central abilities, the others can be turrets, arcs or rear.
     protected ASSpecialAbilityCollection[] locations;
-    protected String[] locationNames;
-    protected int rearLocation;
-    protected int turretLocation;
+    protected final String[] locationNames;
+    protected final int rearLocation;
+    protected final int turretLocation;
 
     private final Map<WeaponType, Double> ammoModifier = new HashMap<>();
     protected final boolean hasTargetingComputer;
@@ -692,7 +692,7 @@ public class ASDamageConverter {
         for (Mounted weapon : weaponsList) {
             WeaponType weaponType = (WeaponType) weapon.getType();
             double locationMultiplier = ASLocationMapper.damageLocationMultiplier(entity, location, weapon);
-            if (!countsforSpecial(weapon, dmgType) || (locationMultiplier == 0)) {
+            if (countsforSpecial(weapon, dmgType) || (locationMultiplier == 0)) {
                 continue;
             }
             // STD means a turret's standard damage, this may use Artemis, TOR also, all other specials don't
@@ -787,42 +787,42 @@ public class ASDamageConverter {
         switch (dmgType) {
             case LRM:
                 return !MountedHelper.isAnyArtemis(weapon.getLinkedBy())
-                        && ((weaponType.getBattleForceClass() == WeaponType.BFCLASS_LRM)
-                        || (weaponType.getBattleForceClass() == WeaponType.BFCLASS_MML));
+                        || ((weaponType.getBattleForceClass() != WeaponType.BFCLASS_LRM)
+                        && (weaponType.getBattleForceClass() != WeaponType.BFCLASS_MML));
             case SRM:
                 return !MountedHelper.isAnyArtemis(weapon.getLinkedBy())
-                        && ((weaponType.getBattleForceClass() == WeaponType.BFCLASS_SRM)
-                        || (weaponType.getBattleForceClass() == WeaponType.BFCLASS_MML));
+                        || ((weaponType.getBattleForceClass() != WeaponType.BFCLASS_SRM)
+                        && (weaponType.getBattleForceClass() != WeaponType.BFCLASS_MML));
             case FLK:
-                return weaponType.getBattleForceClass() == WeaponType.BFCLASS_FLAK;
+                return weaponType.getBattleForceClass() != WeaponType.BFCLASS_FLAK;
             case AC:
-                return weaponType.getBattleForceClass() == WeaponType.BFCLASS_AC;
+                return weaponType.getBattleForceClass() != WeaponType.BFCLASS_AC;
             case TOR:
-                return weaponType.getBattleForceClass() == WeaponType.BFCLASS_TORP;
+                return weaponType.getBattleForceClass() != WeaponType.BFCLASS_TORP;
             case IATM:
-                return weaponType.getBattleForceClass() == WeaponType.BFCLASS_IATM;
+                return weaponType.getBattleForceClass() != WeaponType.BFCLASS_IATM;
             case IF:
-                return weaponType.isAlphaStrikeIndirectFire();
+                return !weaponType.isAlphaStrikeIndirectFire();
             case REL:
-                return weaponType.getBattleForceClass() == WeaponType.BFCLASS_REL;
+                return weaponType.getBattleForceClass() != WeaponType.BFCLASS_REL;
             case REAR:
             case TUR:
-                return true;
-            case PNT:
-                return weaponType.isAlphaStrikePointDefense();
-            case MSL:
-                return weaponType.getBattleForceClass() == WeaponType.BFCLASS_CAPITAL_MISSILE;
-            case CAP:
-                return weaponType.getBattleForceClass() == WeaponType.BFCLASS_CAPITAL;
-            case SCAP:
-                return weaponType.getBattleForceClass() == WeaponType.BFCLASS_SUBCAPITAL;
-            case STD:
-                return (weaponType.getBattleForceClass() != WeaponType.BFCLASS_CAPITAL_MISSILE)
-                        && (weaponType.getBattleForceClass() != WeaponType.BFCLASS_CAPITAL)
-                        && (weaponType.getBattleForceClass() != WeaponType.BFCLASS_SUBCAPITAL)
-                        && (weaponType.getBattleForceClass() != WeaponType.BFCLASS_TORP);
-            default:
                 return false;
+            case PNT:
+                return !weaponType.isAlphaStrikePointDefense();
+            case MSL:
+                return weaponType.getBattleForceClass() != WeaponType.BFCLASS_CAPITAL_MISSILE;
+            case CAP:
+                return weaponType.getBattleForceClass() != WeaponType.BFCLASS_CAPITAL;
+            case SCAP:
+                return weaponType.getBattleForceClass() != WeaponType.BFCLASS_SUBCAPITAL;
+            case STD:
+                return (weaponType.getBattleForceClass() == WeaponType.BFCLASS_CAPITAL_MISSILE)
+                        || (weaponType.getBattleForceClass() == WeaponType.BFCLASS_CAPITAL)
+                        || (weaponType.getBattleForceClass() == WeaponType.BFCLASS_SUBCAPITAL)
+                        || (weaponType.getBattleForceClass() == WeaponType.BFCLASS_TORP);
+            default:
+                return true;
         }
     }
 

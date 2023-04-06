@@ -232,7 +232,7 @@ public class LRMSwarmHandler extends LRMHandler {
             // targeting a hex for igniting
             if ((target.getTargetType() == Targetable.TYPE_HEX_IGNITE)
                     || (target.getTargetType() == Targetable.TYPE_BLDG_IGNITE)) {
-                handleIgnitionDamage(vPhaseReport, bldg, hits);
+                handleIgnitionDamage(vPhaseReport);
                 hits = 0;
             }
             // targeting a hex for clearing

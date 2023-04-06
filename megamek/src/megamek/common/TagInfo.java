@@ -17,10 +17,10 @@ import java.io.Serializable;
 
 public class TagInfo implements Serializable {
     private static final long serialVersionUID = -8428068101269842100L;
-    public int attackerId; // who fired the TAG
-    public int targetType; // keeps track of the target's type
-    public Targetable target; // entity the tag was fired at
-    public boolean missed; // did the TAG hit?
+    public final int attackerId; // who fired the TAG
+    public final int targetType; // keeps track of the target's type
+    public final Targetable target; // entity the tag was fired at
+    public final boolean missed; // did the TAG hit?
 
     public TagInfo(int attackerId, int targetType, Targetable target, boolean missed) {
         this.attackerId = attackerId;

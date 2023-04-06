@@ -410,7 +410,7 @@ public final class Player extends TurnOrdered {
     }
 
     public boolean admitsDefeat() {
-        return admitsDefeat;
+        return !admitsDefeat;
     }
 
     public void setVotedToAllowTeamChange(boolean allowChange) {
@@ -464,7 +464,7 @@ public final class Player extends TurnOrdered {
 
     public int getEntityCount() {
         return Math.toIntExact(game.getPlayerEntities(this, false).stream()
-                .filter(entity -> !entity.isDestroyed() && !entity.isTrapped()).count());
+                .filter(entity -> !entity.isDestroyed() && entity.isTrapped()).count());
     }
 
     public int getInitialEntityCount() {
@@ -484,7 +484,7 @@ public final class Player extends TurnOrdered {
      */
     public int getBV() {
         return game.getPlayerEntities(this, true).stream()
-                .filter(entity -> !entity.isDestroyed() && !entity.isTrapped())
+                .filter(entity -> !entity.isDestroyed() && entity.isTrapped())
                 .mapToInt(Entity::calculateBattleValue).sum();
     }
 

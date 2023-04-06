@@ -36,7 +36,7 @@ public class ReportDisplay extends StatusBarPhaseDisplay  {
         REPORT_PLAYERLIST("reportPlayerList"),
         REPORT_REROLLINITIATIVE("reportRerollInitiative");
 
-        String cmd;
+        final String cmd;
 
         /**
          * Priority that determines this buttons order
@@ -156,7 +156,7 @@ public class ReportDisplay extends StatusBarPhaseDisplay  {
      */
     @Override
     public void ready() {
-        if (!clientgui.getBoardView().isTileImagesLoaded()) {
+        if (clientgui.getBoardView().isTileImagesLoaded()) {
             return;
         }
 

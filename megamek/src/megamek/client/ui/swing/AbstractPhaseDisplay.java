@@ -37,9 +37,9 @@ public abstract class AbstractPhaseDisplay extends SkinnedJPanel implements
     
     public static final int DONE_BUTTON_WIDTH = 125;
     // Distraction implementation.
-    protected DistractableAdapter distracted = new DistractableAdapter();
+    protected final DistractableAdapter distracted = new DistractableAdapter();
 
-    protected MegamekButton butDone;
+    protected final MegamekButton butDone;
 
     protected ClientGUI clientgui;
     
@@ -102,17 +102,13 @@ public abstract class AbstractPhaseDisplay extends SkinnedJPanel implements
 
                         @Override
                         public boolean shouldPerformAction() {
-                            if (((!clientgui.getClient().isMyTurn()
-                                    && (clientgui.getClient().getGame().getTurn() != null)
-                                    && (!clientgui.getClient().getGame().getPhase().isReport())))
-                                    || clientgui.getBoardView().getChatterBoxActive()
-                                    || display.isIgnoringEvents()
-                                    || !display.isVisible()
-                                    || !butDone.isEnabled()) {
-                                return false;
-                            } else {
-                                return true;
-                            }
+                            return ((clientgui.getClient().isMyTurn()
+                                    || (clientgui.getClient().getGame().getTurn() == null)
+                                    || (clientgui.getClient().getGame().getPhase().isReport())))
+                                    && !clientgui.getBoardView().getChatterBoxActive()
+                                    && !display.isIgnoringEvents()
+                                    && display.isVisible()
+                                    && butDone.isEnabled();
                         }
 
                         @Override
@@ -161,12 +157,12 @@ public abstract class AbstractPhaseDisplay extends SkinnedJPanel implements
     }
 
     @Override
-    public void hexCursor(BoardViewEvent b) {
+    public void hexCursor() {
         //noaction default
     }
 
     @Override
-    public void boardHexHighlighted(BoardViewEvent b) {
+    public void boardHexHighlighted() {
         //noaction default
     }
 
@@ -181,7 +177,7 @@ public abstract class AbstractPhaseDisplay extends SkinnedJPanel implements
     }
 
     @Override
-    public void finishedMovingUnits(BoardViewEvent b) {
+    public void finishedMovingUnits() {
         //noaction default
     }
 
@@ -204,7 +200,7 @@ public abstract class AbstractPhaseDisplay extends SkinnedJPanel implements
     }
 
     @Override
-    public void gamePlayerChange(GamePlayerChangeEvent e) {
+    public void gamePlayerChange() {
         //noaction default
     }
 
@@ -229,7 +225,7 @@ public abstract class AbstractPhaseDisplay extends SkinnedJPanel implements
     }
 
     @Override
-    public void gameEnd(GameEndEvent e) {
+    public void gameEnd() {
         //noaction default
     }
 
@@ -239,7 +235,7 @@ public abstract class AbstractPhaseDisplay extends SkinnedJPanel implements
     }
 
     @Override
-    public void gameBoardChanged(GameBoardChangeEvent e) {
+    public void gameBoardChanged() {
         //noaction default
     }
 
@@ -249,7 +245,7 @@ public abstract class AbstractPhaseDisplay extends SkinnedJPanel implements
     }
 
     @Override
-    public void gameMapQuery(GameMapQueryEvent e) {
+    public void gameMapQuery() {
         //noaction default
     }
 
@@ -259,7 +255,7 @@ public abstract class AbstractPhaseDisplay extends SkinnedJPanel implements
     }
 
     @Override
-    public void gameEntityNewOffboard(GameEntityNewOffboardEvent e) {
+    public void gameEntityNewOffboard() {
         //noaction default
     }
 
@@ -284,7 +280,7 @@ public abstract class AbstractPhaseDisplay extends SkinnedJPanel implements
     }
     
     @Override
-    public void gameVictory(GameVictoryEvent e) {
+    public void gameVictory() {
         //noaction default
     }
 

@@ -46,13 +46,13 @@ public class UnitDisplaySpecPanel extends JPanel {
          */
         private static final int TEXTFIELD_COLS = 20;
 
-        JButton pathLbl;
+        final JButton pathLbl;
 
-       JTextField path;
+       final JTextField path;
 
-        JFileChooser fileChooser = new JFileChooser(Configuration.widgetsDir());
+        final JFileChooser fileChooser = new JFileChooser(Configuration.widgetsDir());
 
-        UnitDisplaySpecPanel udPanel;
+        final UnitDisplaySpecPanel udPanel;
 
         /**
          * Constructor for BorderElements that only have one image (like
@@ -181,7 +181,7 @@ public class UnitDisplaySpecPanel extends JPanel {
 
     private BorderElement mechOutline;
 
-    SkinSpecEditor skinEditor;
+    final SkinSpecEditor skinEditor;
 
     public UnitDisplaySpecPanel(SkinSpecEditor skinEditor) {
         super(new GridBagLayout());

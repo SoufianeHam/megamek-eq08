@@ -34,7 +34,7 @@ public final class TroopSpace implements Transporter {
     /**
      * The total amount of space available for troops.
      */
-    double totalSpace;
+    final double totalSpace;
 
     /**
      * The current amount of space available for troops.

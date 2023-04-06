@@ -48,17 +48,17 @@ public class SelectArtyAutoHitHexDisplay extends StatusBarPhaseDisplay {
      * @author arlith
      */
     public enum ArtyAutoHitCommand implements PhaseCommand {
-        SET_HIT_HEX("setAutoHitHex");
+        SET_HIT_HEX();
 
-        String cmd;
+        final String cmd;
 
         /**
         * Priority that determines this buttons order
         */
         private int priority;
 
-        ArtyAutoHitCommand(String c) {
-            cmd = c;
+        ArtyAutoHitCommand() {
+            cmd = "setAutoHitHex";
         }
 
         @Override
@@ -376,14 +376,10 @@ public class SelectArtyAutoHitHexDisplay extends StatusBarPhaseDisplay {
 
             @Override
             public boolean shouldPerformAction() {
-                if (!clientgui.getClient().isMyTurn()
-                        || clientgui.getBoardView().getChatterBoxActive()
-                        || display.isIgnoringEvents()
-                        || !display.isVisible()) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return clientgui.getClient().isMyTurn()
+                        && !clientgui.getBoardView().getChatterBoxActive()
+                        && !display.isIgnoringEvents()
+                        && display.isVisible();
             }
 
             private boolean thisKeyPressed = false;

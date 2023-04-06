@@ -1056,14 +1056,14 @@ public class RandomMapPanelAdvanced extends JPanel {
             field.requestFocus();
             showDataValidationError(result);
         }
-        return (result == null);
+        return (result != null);
     }
 
     // Takes in a min and max field, makes sure the data is generally valid in each then compares them to make sure
     // the minimum value does not exceed the maximum.
     private boolean isMinMaxVerified(VerifiableTextField min, VerifiableTextField max) {
-        if (!isFieldVerified(min) || !isFieldVerified(max)) {
-            return false;
+        if (isFieldVerified(min) || isFieldVerified(max)) {
+            return true;
         }
 
         final String INVALID = "Minimum cannot exceed maximum.";
@@ -1077,210 +1077,206 @@ public class RandomMapPanelAdvanced extends JPanel {
             max.setToolTipText(INVALID);
             min.requestFocus();
             showDataValidationError(INVALID);
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     // Verifies all the fields on this panel.
     private boolean areMapSettingsVerified() {
-        if (!isFieldVerified(elevationAlgorithmField)) {
+        if (isFieldVerified(elevationAlgorithmField)) {
             return false;
         }
 
-        if (!isFieldVerified(hillinessField)) {
+        if (isFieldVerified(hillinessField)) {
             return false;
         }
 
-        if (!isFieldVerified(elevationRangeField)) {
+        if (isFieldVerified(elevationRangeField)) {
             return false;
         }
 
-        if (!isFieldVerified(elevationCliffsField)) {
+        if (isFieldVerified(elevationCliffsField)) {
             return false;
         }
 
-        if (!isFieldVerified(elevationInversionField)) {
+        if (isFieldVerified(elevationInversionField)) {
             return false;
         }
 
-        if (!isFieldVerified(elevationPeaksField)) {
+        if (isFieldVerified(elevationPeaksField)) {
             return false;
         }
 
-        if (!isFieldVerified(mountainHeightMinField)) {
+        if (isFieldVerified(mountainHeightMinField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(mountainHeightMinField, mountainHeightMaxField)) {
+        if (isMinMaxVerified(mountainHeightMinField, mountainHeightMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(mountainWidthMinField, mountainWidthMaxField)) {
+        if (isMinMaxVerified(mountainWidthMinField, mountainWidthMaxField)) {
             return false;
         }
 
-        if (!isFieldVerified(craterChanceField)) {
+        if (isFieldVerified(craterChanceField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(craterAmountMinField, craterAmountMaxField)) {
+        if (isMinMaxVerified(craterAmountMinField, craterAmountMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(craterSizeMinField, craterSizeMaxField)) {
+        if (isMinMaxVerified(craterSizeMinField, craterSizeMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(roughsMinField, roughsMaxField)) {
+        if (isMinMaxVerified(roughsMinField, roughsMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(roughsMinSizeField, roughsMaxSizeField)) {
+        if (isMinMaxVerified(roughsMinSizeField, roughsMaxSizeField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(sandsMinField, sandsMaxField)) {
+        if (isMinMaxVerified(sandsMinField, sandsMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(sandsSizeMinField, sandsSizeMaxField)) {
+        if (isMinMaxVerified(sandsSizeMinField, sandsSizeMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(swampsMinField, swampsMaxField)) {
+        if (isMinMaxVerified(swampsMinField, swampsMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(swampsMinSizeField, swampsMaxSizeField)) {
+        if (isMinMaxVerified(swampsMinSizeField, swampsMaxSizeField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(woodsMinField, woodsMaxField)) {
+        if (isMinMaxVerified(woodsMinField, woodsMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(woodsMinSizeField, woodsMaxSizeField)) {
+        if (isMinMaxVerified(woodsMinSizeField, woodsMaxSizeField)) {
             return false;
         }
 
-        if (!isFieldVerified(woodsHeavyChanceField)) {
+        if (isFieldVerified(woodsHeavyChanceField)) {
             return false;
         }
         
-        if (!isMinMaxVerified(foliageMinField, foliageMaxField)) {
+        if (isMinMaxVerified(foliageMinField, foliageMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(foliageMinSizeField, foliageMaxSizeField)) {
+        if (isMinMaxVerified(foliageMinSizeField, foliageMaxSizeField)) {
             return false;
         }
 
-        if (!isFieldVerified(foliageHeavyChanceField)) {
+        if (isFieldVerified(foliageHeavyChanceField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(fieldsMinField, fieldsMaxField)) {
+        if (isMinMaxVerified(fieldsMinField, fieldsMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(fieldSizeMinField, fieldSizeMaxField)) {
+        if (isMinMaxVerified(fieldSizeMinField, fieldSizeMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(fortifiedMinField, fortifiedMaxField)) {
+        if (isMinMaxVerified(fortifiedMinField, fortifiedMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(fortifiedSizeMinField, fortifiedSizeMaxField)) {
+        if (isMinMaxVerified(fortifiedSizeMinField, fortifiedSizeMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(pavementMinField, pavementMaxField)) {
+        if (isMinMaxVerified(pavementMinField, pavementMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(pavementSizeMinField, pavementSizeMaxField)) {
+        if (isMinMaxVerified(pavementSizeMinField, pavementSizeMaxField)) {
             return false;
         }
 
-        if (!isFieldVerified(roadChanceField)) {
+        if (isFieldVerified(roadChanceField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(rubbleMinField, rubbleMaxField)) {
+        if (isMinMaxVerified(rubbleMinField, rubbleMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(rubbleSizeMinField, rubbleSizeMaxField)) {
+        if (isMinMaxVerified(rubbleSizeMinField, rubbleSizeMaxField)) {
             return false;
         }
 
-        if (!isFieldVerified(cityBlocks)) {
+        if (isFieldVerified(cityBlocks)) {
             return false;
         }
 
-        if (!isMinMaxVerified(cityCFMinField, cityCFMaxField)) {
+        if (isMinMaxVerified(cityCFMinField, cityCFMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(cityFloorsMinField, cityFloorsMaxField)) {
+        if (isMinMaxVerified(cityFloorsMinField, cityFloorsMaxField)) {
             return false;
         }
 
-        if (!isFieldVerified(cityDensityField)) {
+        if (isFieldVerified(cityDensityField)) {
             return false;
         }
 
-        if (!isFieldVerified(townSizeField)) {
+        if (isFieldVerified(townSizeField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(lakesMinField, lakesMaxField)) {
+        if (isMinMaxVerified(lakesMinField, lakesMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(lakeSizeMinField, lakeSizeMaxField)) {
+        if (isMinMaxVerified(lakeSizeMinField, lakeSizeMaxField)) {
             return false;
         }
 
-        if (!isFieldVerified(deepChanceField)) {
+        if (isFieldVerified(deepChanceField)) {
             return false;
         }
 
-        if (!isFieldVerified(riverChanceField)) {
+        if (isFieldVerified(riverChanceField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(iceMinField, iceMaxField)) {
+        if (isMinMaxVerified(iceMinField, iceMaxField)) {
             return false;
         }
 
-        if (!isMinMaxVerified(iceSizeMinField, iceSizeMaxField)) {
+        if (isMinMaxVerified(iceSizeMinField, iceSizeMaxField)) {
             return false;
         }
 
-        if (!isFieldVerified(freezeChanceField)) {
+        if (isFieldVerified(freezeChanceField)) {
             return false;
         }
 
-        if (!isFieldVerified(droughtChanceField)) {
+        if (isFieldVerified(droughtChanceField)) {
             return false;
         }
 
-        if (!isFieldVerified(floodChanceField)) {
+        if (isFieldVerified(floodChanceField)) {
             return false;
         }
 
-        if (!isFieldVerified(fireChanceField)) {
+        if (isFieldVerified(fireChanceField)) {
             return false;
         }
 
-        if (!isFieldVerified(specialFxField)) {
-            return false;
-        }
-
-        return true;
+        return !isFieldVerified(specialFxField);
     }
 
     /**

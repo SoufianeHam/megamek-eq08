@@ -25,7 +25,7 @@ public class GameMapQueryEvent extends GameEvent {
      * 
      */
     private static final long serialVersionUID = -2525971548410030612L;
-    protected MapSettings settings;
+    protected final MapSettings settings;
 
     /**
      * @param source
@@ -45,7 +45,7 @@ public class GameMapQueryEvent extends GameEvent {
 
     @Override
     public void fireEvent(GameListener gl) {
-        gl.gameMapQuery(this);
+        gl.gameMapQuery();
     }
 
     @Override

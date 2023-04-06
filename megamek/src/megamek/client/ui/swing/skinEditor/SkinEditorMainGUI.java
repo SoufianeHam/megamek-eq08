@@ -103,7 +103,7 @@ public class SkinEditorMainGUI extends JPanel implements WindowListener, BoardVi
     /**
      * Map phase component names to phase component objects.
      */
-    HashMap<String, JComponent> phaseComponents = new HashMap<>();
+    final HashMap<String, JComponent> phaseComponents = new HashMap<>();
 
     public SkinEditorMainGUI() {
         super(new BorderLayout());
@@ -460,7 +460,7 @@ public class SkinEditorMainGUI extends JPanel implements WindowListener, BoardVi
         }
     }
 
-    public void updateButtonPanel(GamePhase phase) {
+    public void updateButtonPanel() {
         if ((currPhaseDisplay != null)) {
             currPhaseDisplay.setupButtonPanel();
         }
@@ -781,12 +781,12 @@ public class SkinEditorMainGUI extends JPanel implements WindowListener, BoardVi
     }
 
     @Override
-    public void hexCursor(BoardViewEvent evt) {
+    public void hexCursor() {
 
     }
 
     @Override
-    public void boardHexHighlighted(BoardViewEvent evt) {
+    public void boardHexHighlighted() {
 
     }
 
@@ -806,7 +806,7 @@ public class SkinEditorMainGUI extends JPanel implements WindowListener, BoardVi
     }
 
     @Override
-    public void finishedMovingUnits(BoardViewEvent evt) {
+    public void finishedMovingUnits() {
 
     }
 

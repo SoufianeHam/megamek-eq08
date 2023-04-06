@@ -29,11 +29,9 @@ public class BoardListenerAdapter implements BoardListener {
 
     /**
      * Sent when Board completely changed The default behavior is to do nothing.
-     *
-     * @param b an event containing information about the change
      */
     @Override
-    public void boardNewBoard(BoardEvent b) {
+    public void boardNewBoard() {
     }
 
     /**
@@ -47,11 +45,9 @@ public class BoardListenerAdapter implements BoardListener {
 
     /**
      * Sent when all Hexes on the Board changed The default behavior is to do nothing.
-     *
-     * @param b an event containing information about the change
      */
     @Override
-    public void boardChangedAllHexes(BoardEvent b) {
+    public void boardChangedAllHexes() {
     }
 
 }

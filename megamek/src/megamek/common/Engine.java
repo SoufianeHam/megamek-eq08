@@ -153,7 +153,7 @@ public class Engine implements Serializable, ITechnology {
     private int engineType;
     private int engineFlags;
     private int baseChassisHeatSinks = -1;
-    public StringBuffer problem = new StringBuffer("Illegal engine: ");
+    public final StringBuffer problem = new StringBuffer("Illegal engine: ");
 
     /**
      * The constructor takes the rating of the engine, the type of engine and

@@ -38,13 +38,13 @@ public class EquipmentMode {
     /**
      * Hash of all modes
      */
-    protected static Hashtable<String, EquipmentMode> modesHash = new Hashtable<>();
+    protected static final Hashtable<String, EquipmentMode> modesHash = new Hashtable<>();
 
     /**
      * Unique internal mode identifier. Used as the part of the key to look for
      * the displayable name presented to user.
      */
-    protected String name;
+    protected final String name;
 
     /**
      * <p>

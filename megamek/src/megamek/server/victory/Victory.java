@@ -70,7 +70,7 @@ public class Victory implements Serializable {
         // Check for ForceVictory
         // Always check for forced victory, so games without victory conditions
         // can be completed
-        reVal = force.victory(game, context);
+        reVal = force.victory(game);
         if (reVal.victory()) {
             return reVal;
         }
@@ -88,7 +88,7 @@ public class Victory implements Serializable {
         }
 
         // Check for LastManStandingVictory
-        VictoryResult lastManResult = lastMan.victory(game, context);
+        VictoryResult lastManResult = lastMan.victory(game);
         if (checkForVictory && !reVal.victory() && lastManResult.victory()) {
             return lastManResult;
         }
@@ -101,7 +101,7 @@ public class Victory implements Serializable {
 
         // combine scores
         for (IVictoryConditions v : VCs) {
-            VictoryResult res = v.victory(game, context);
+            VictoryResult res = v.victory(game);
             for (Report r : res.getReports()) {
                 vr.addReport(r);
             }

@@ -366,8 +366,8 @@ public class UnitTable {
     /* A tuple that contains either a salvage or a faction entry along with its relative weight.
      * in the table. */
     public static class TableEntry implements Comparable<TableEntry> {
-        int weight;
-        Object entry;
+        final int weight;
+        final Object entry;
 
         public TableEntry(int weight, Object entry) {
             this.weight = weight;
@@ -529,10 +529,7 @@ public class UnitTable {
             } else if (!weightClasses.equals(other.weightClasses)) {
                 return false;
             }
-            if (year != other.year) {
-                return false;
-            }
-            return true;
+            return year == other.year;
         }
 
         public FactionRecord getFaction() {

@@ -92,11 +92,7 @@ class RankedPath implements Comparable<RankedPath> {
         if (!path.equals(that.path)) {
             return false;
         }
-        if (reason != null ? !reason.equals(that.reason) : that.reason != null) {
-            return false;
-        }
-
-        return true;
+        return reason != null ? reason.equals(that.reason) : that.reason == null;
     }
 
     @Override

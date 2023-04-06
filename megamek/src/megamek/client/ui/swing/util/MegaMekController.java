@@ -56,19 +56,19 @@ public class MegaMekController implements KeyEventDispatcher {
     public ClientGUI clientgui = null;
 
     /** Maps a key code to a command string. */
-    protected Set<KeyCommandBind> keyCmdSet;
+    protected final Set<KeyCommandBind> keyCmdSet;
 
     /** Maps command strings to CommandAction objects. */
-    protected Map<String, ArrayList<CommandAction>> cmdActionMap;
+    protected final Map<String, ArrayList<CommandAction>> cmdActionMap;
 
     /**
      * Timer for repeating commands for key presses. This is necessary to
      * override the default key repeat delay.
      */
-    protected Timer keyRepeatTimer;
+    protected final Timer keyRepeatTimer;
 
     /** Keeps track of the tasks that are currently repeating. */
-    protected Map<KeyCommandBind, TimerTask> repeatingTasks;
+    protected final Map<KeyCommandBind, TimerTask> repeatingTasks;
 
     /** Should we ignore key presses? */
     protected boolean ignoreKeyPresses = false;

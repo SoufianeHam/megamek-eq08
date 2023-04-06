@@ -50,7 +50,7 @@ public class DeployMinefieldDisplay extends StatusBarPhaseDisplay {
          * Priority that determines this buttons order
          */
         public int priority;
-        String cmd;
+        final String cmd;
 
         DeployMinefieldCommand(String c) {
             cmd = c;

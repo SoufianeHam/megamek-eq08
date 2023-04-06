@@ -13,7 +13,6 @@
  */
 package megamek.server.commands;
 
-import megamek.common.Game;
 import megamek.server.GameManager;
 import megamek.server.Server;
 
@@ -39,7 +38,7 @@ public class SkipCommand extends ServerCommand {
      */
     @Override
     public void run(int connId, String[] args) {
-        if (!canRunRestrictedCommand(connId)) {
+        if (canRunRestrictedCommand(connId)) {
             server.sendServerChat(connId,
                     "Observers are restricted from skipping turns.");
             return;

@@ -70,7 +70,7 @@ public class WeaponHandler implements AttackHandler, Serializable {
     protected boolean missed = false;
     protected DamageType damageType;
     protected int generalDamageType = HitData.DAMAGE_NONE;
-    protected Vector<Integer> insertedAttacks = new Vector<>();
+    protected final Vector<Integer> insertedAttacks = new Vector<>();
     protected int nweapons; // for capital fighters/fighter squadrons
     protected int nweaponsHit; // for capital fighters/fighter squadrons
     protected boolean secondShot = false;
@@ -168,14 +168,11 @@ public class WeaponHandler implements AttackHandler, Serializable {
                 || (waa.isGroundToAir(game) && (!(wtype.isSubCapital() || wtype.isCapital())))) {
             return false;
         }
-        if (target instanceof Dropship 
-                && waa.isAirToGround(game)
-                && !ae.usesWeaponBays()) {
-            //Prevents a grounded dropship using individual weapons from engaging with AMSBays unless attacked by a dropship or capital fighter
-            //You can get some blank missile weapons fire reports due to the attackvalue / ndamageperhit conversion if this isn't done
-            return false;
-        }
-        return true;
+        //Prevents a grounded dropship using individual weapons from engaging with AMSBays unless attacked by a dropship or capital fighter
+        //You can get some blank missile weapons fire reports due to the attackvalue / ndamageperhit conversion if this isn't done
+        return !(target instanceof Dropship)
+                || !waa.isAirToGround(game)
+                || ae.usesWeaponBays();
     }
     
     /**
@@ -379,7 +376,7 @@ public class WeaponHandler implements AttackHandler, Serializable {
      * is necessary because the method is called before the report needs to be
      * added.
      */
-    protected Vector<Report> calcDmgPerHitReport = new Vector<>();
+    protected final Vector<Report> calcDmgPerHitReport = new Vector<>();
 
     /**
      * return the <code>int</code> Id of the attacking <code>Entity</code>
@@ -455,11 +452,8 @@ public class WeaponHandler implements AttackHandler, Serializable {
 
         // TW, pg. 171 - shots that miss a target in a building don't damage the
         // building, unless the attacker is adjacent
-        if (!bldgDamagedOnMiss
-                || (toHit.getValue() == TargetRoll.AUTOMATIC_FAIL)) {
-            return false;
-        }
-        return true;
+        return !bldgDamagedOnMiss
+                || (toHit.getValue() == TargetRoll.AUTOMATIC_FAIL);
     }
 
     /**
@@ -997,7 +991,7 @@ public class WeaponHandler implements AttackHandler, Serializable {
 
                 // Works out fire setting, AMS shots, and whether continuation
                 // is necessary.
-                if (!handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg,
+                if (handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg,
                         vPhaseReport) && (i < 2)) {
                     returnedReports.addAll(vPhaseReport);
                     return false;
@@ -1093,7 +1087,7 @@ public class WeaponHandler implements AttackHandler, Serializable {
                     // targeting a hex for igniting    
                     } else if ((target.getTargetType() == Targetable.TYPE_HEX_IGNITE)
                             || (target.getTargetType() == Targetable.TYPE_BLDG_IGNITE)) {
-                        handleIgnitionDamage(vPhaseReport, bldg, hits);
+                        handleIgnitionDamage(vPhaseReport);
                         hits = 0;
                     // targeting a hex for clearing
                     } else if (target.getTargetType() == Targetable.TYPE_HEX_CLEAR) {
@@ -1413,7 +1407,7 @@ public class WeaponHandler implements AttackHandler, Serializable {
             vPhaseReport.addAll(buildingReport);
             // Damage any infantry in the building.
             Vector<Report> infantryReport = gameManager.damageInfantryIn(coverBuilding, nDamage,
-                    coverLoc, wtype.getInfantryDamageClass());
+                    coverLoc);
             for (Report report : infantryReport) {
                 report.indent(2);
             }
@@ -1617,7 +1611,7 @@ public class WeaponHandler implements AttackHandler, Serializable {
         return nDamage;
     }
 
-    protected void handleIgnitionDamage(Vector<Report> vPhaseReport, Building bldg, int hits) {
+    protected void handleIgnitionDamage(Vector<Report> vPhaseReport) {
         if (!bSalvo) {
             // hits!
             Report r = new Report(2270);
@@ -1687,8 +1681,8 @@ public class WeaponHandler implements AttackHandler, Serializable {
 
         // Damage any infantry in hex, unless attack between units in same bldg
         if (toHit.getThruBldg() == null) {
-            vPhaseReport.addAll(gameManager.damageInfantryIn(bldg, nDamage, coords,
-                    wtype.getInfantryDamageClass()));
+            vPhaseReport.addAll(gameManager.damageInfantryIn(bldg, nDamage, coords
+            ));
         }
     }
 
@@ -1699,14 +1693,11 @@ public class WeaponHandler implements AttackHandler, Serializable {
             return true;
         }
 
-        if (game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_AERO_SANITY)
+        return game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_AERO_SANITY)
                 && target.getTargetType() == Targetable.TYPE_ENTITY
                 && ((Entity) target).isCapitalScale()
                 && !((Entity) target).isCapitalFighter()
-                && !ae.isCapitalFighter()) {
-            return true;
-        }
-        return false;
+                && !ae.isCapitalFighter();
     }
 
     protected void reportMiss(Vector<Report> vPhaseReport) {
@@ -1744,7 +1735,7 @@ public class WeaponHandler implements AttackHandler, Serializable {
         subjectId = getAttackerId();
         nRange = Compute.effectiveDistance(game, ae, target);
         if (target instanceof Mech) {
-            throughFront = Compute.isThroughFrontHex(game, ae.getPosition(), (Entity) target);
+            throughFront = Compute.isThroughFrontHex(ae.getPosition(), (Entity) target);
         } else {
             throughFront = true;
         }
@@ -1827,7 +1818,7 @@ public class WeaponHandler implements AttackHandler, Serializable {
             if (ae.usesWeaponBays() && !game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_HEAT_BY_BAY)) {
                 int loc = weapon.getLocation();
                 boolean rearMount = weapon.isRearMounted();
-                if (!ae.hasArcFired(loc, rearMount)) {
+                if (ae.hasArcFired(loc, rearMount)) {
                     ae.heatBuildup += ae.getHeatInArc(loc, rearMount);
                     ae.setArcFired(loc, rearMount);
                 }
@@ -1859,7 +1850,7 @@ public class WeaponHandler implements AttackHandler, Serializable {
 
     @Override
     public boolean announcedEntityFiring() {
-        return announcedEntityFiring;
+        return !announcedEntityFiring;
     }
 
     @Override
@@ -2134,11 +2125,7 @@ public class WeaponHandler implements AttackHandler, Serializable {
     protected void setGlancingBlowFlags(Entity entityTarget) {
         // are we a glancing hit?  Check for this here, report it later
         if (game.getOptions().booleanOption(OptionsConstants.ADVCOMBAT_TACOPS_GLANCING_BLOWS)) {
-            if (roll == toHit.getValue()) {
-                bGlancing = true;
-            } else {
-                bGlancing = false;
-            }
+            bGlancing = roll == toHit.getValue();
         }
         
         // low profile glancing blows are triggered on roll = toHit or toHit - 1

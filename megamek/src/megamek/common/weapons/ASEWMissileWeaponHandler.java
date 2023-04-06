@@ -148,8 +148,7 @@ public class ASEWMissileWeaponHandler extends ThunderBoltWeaponHandler {
     @Override
     protected int calcAttackValue() {
         calcCounterAV();
-        int av = 0;
-        return av;
+        return 0;
     }
 
 }

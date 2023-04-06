@@ -84,7 +84,7 @@ public class FlamerHandler extends WeaponHandler {
     }
 
     @Override
-    protected void handleIgnitionDamage(Vector<Report> vPhaseReport, Building bldg, int hits) {
+    protected void handleIgnitionDamage(Vector<Report> vPhaseReport) {
         if (!bSalvo) {
             // hits!
             Report r = new Report(2270);

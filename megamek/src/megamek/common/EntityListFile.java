@@ -568,7 +568,7 @@ public class EntityListFile {
             if (entity.getOwner().getId() == client.getLocalPlayer().getId()) {
                 living.add(entity);
             } else if (entity.getOwner().isEnemyOf(client.getLocalPlayer())) {
-                 if (!entity.canEscape()) {
+                 if (entity.canEscape()) {
                      kills.put(entity.getDisplayName(), "None");
                  }
                  salvage.add(entity);
@@ -1296,7 +1296,7 @@ public class EntityListFile {
             critVal = critVal.concat(Integer.toString(a.getRightThrustHits()));
             critVal = critVal.concat("\"");
         }
-        if (!a.hasLifeSupport()) {
+        if (a.hasLifeSupport()) {
             critVal = critVal.concat(" lifeSupport=\"none\"");
         }
         if (a.isGearHit()) {

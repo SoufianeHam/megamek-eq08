@@ -19,7 +19,6 @@
 package megamek.common.net.enums;
 
 import megamek.common.net.events.AbstractConnectionEvent;
-import megamek.common.net.events.ConnectedEvent;
 import megamek.common.net.events.DisconnectedEvent;
 import megamek.common.net.events.PacketReceivedEvent;
 import megamek.common.net.listeners.ConnectionListener;
@@ -36,7 +35,7 @@ public enum ConnectionEventType {
                                 final ConnectionListener listener) {
         switch (this) {
             case CONNECTED:
-                listener.connected((ConnectedEvent) event);
+                listener.connected();
                 break;
             case PACKET_RECEIVED:
                 listener.packetReceived((PacketReceivedEvent) event);

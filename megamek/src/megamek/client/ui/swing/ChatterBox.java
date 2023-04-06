@@ -33,17 +33,17 @@ import java.util.LinkedList;
  */
 public class ChatterBox implements KeyListener, IPreferenceChangeListener {
     public static final int MAX_HISTORY = 10;
-    Client client;
+    final Client client;
 
     private final JPanel chatPanel;
     JTextArea chatArea;
     JList<String> playerList;
-    JScrollPane scrPlayers;
+    final JScrollPane scrPlayers;
     private final JTextField inputField;
     private JButton butDone;
     private final JSplitPane playerChatSplit;
 
-    public LinkedList<String> history;
+    public final LinkedList<String> history;
     public int historyBookmark = -1;
     protected static final GUIPreferences GUIP = GUIPreferences.getInstance();
     private ChatterBox2 cb2;
@@ -64,7 +64,7 @@ public class ChatterBox implements KeyListener, IPreferenceChangeListener {
             }
 
             @Override
-            public void gamePlayerChange(GamePlayerChangeEvent e) {
+            public void gamePlayerChange() {
                 PlayerListDialog pld = clientgui.getPlayerListDialog();
                 if (pld != null) {
                     pld.refreshPlayerList(playerList, client);
@@ -276,11 +276,8 @@ public class ChatterBox implements KeyListener, IPreferenceChangeListener {
 
     @Override
     public void preferenceChange(PreferenceChangeEvent e) {
-        switch (e.getName()) {
-            case GUIPreferences.GUI_SCALE:
-                adaptToGUIScale();
-                break;
-
+        if (GUIPreferences.GUI_SCALE.equals(e.getName())) {
+            adaptToGUIScale();
         }
     }
 }

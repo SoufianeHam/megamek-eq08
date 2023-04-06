@@ -244,33 +244,43 @@ public class TestXMLOption implements TestEntityOption {
     @XmlType
     private static class WeightCeiling {
         @XmlElement
+        final
         TestEntity.Ceil engine = TestEntity.Ceil.HALFTON;
 
         @XmlElement
+        final
         TestEntity.Ceil structure = TestEntity.Ceil.HALFTON;
 
         @XmlElement
+        final
         TestEntity.Ceil armor = TestEntity.Ceil.HALFTON;
 
         @XmlElement
+        final
         TestEntity.Ceil controls = TestEntity.Ceil.HALFTON;
 
         @XmlElement
+        final
         TestEntity.Ceil weapons = TestEntity.Ceil.TON;
 
         @XmlElement(name = "targcomp")
+        final
         TestEntity.Ceil targComp = TestEntity.Ceil.TON;
 
         @XmlElement
+        final
         TestEntity.Ceil turret = TestEntity.Ceil.HALFTON;
 
         @XmlElement
+        final
         TestEntity.Ceil lifting = TestEntity.Ceil.HALFTON;
 
         @XmlElement(name = "poweramp")
+        final
         TestEntity.Ceil powerAmp = TestEntity.Ceil.HALFTON;
 
         @XmlElement
+        final
         TestEntity.Ceil gyro = TestEntity.Ceil.HALFTON;
 
         WeightCeiling() {

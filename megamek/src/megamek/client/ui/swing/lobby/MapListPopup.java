@@ -16,21 +16,19 @@ package megamek.client.ui.swing.lobby;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
-import java.util.Set;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import megamek.client.ui.swing.util.ScalingPopup;
-import org.apache.logging.log4j.core.util.FileUtils;
 
 class MapListPopup {
     
     static final String MLP_BOARD = "BOARD";
     static final String MLP_SURPRISE = "SURPRISE";
 
-    static ScalingPopup mapListPopup(List<String> boards, int numButtons, ActionListener listener, 
-            ChatLounge lobby, boolean enableRotation) {
+    static ScalingPopup mapListPopup(List<String> boards, int numButtons, ActionListener listener,
+                                     boolean enableRotation) {
         
         if (boards.isEmpty()) {
             return new ScalingPopup();

@@ -69,8 +69,8 @@ public abstract class PicMap extends JComponent {
     private PMHotArea activeHotArea = null;
 
     // Minimum size
-    int minWidth = 1;
-    int minHeight = 1;
+    final int minWidth = 1;
+    final int minHeight = 1;
 
     // Is background opaque
     private boolean bgIsOpaque = true;
@@ -324,34 +324,30 @@ public abstract class PicMap extends JComponent {
 
     @Override
     protected void processMouseMotionEvent(MouseEvent e) {
-        switch (e.getID()) {
-            case MouseEvent.MOUSE_MOVED:
-                PMHotArea ha = getAreaUnder(e.getX(), e.getY());
-                if ((ha == null && activeHotArea != null)
-                        || (ha != null && !ha.equals(activeHotArea))) {
-                    if (activeHotArea != null) {
-                        activeHotArea.onMouseExit(e);
-                    }
-                    activeHotArea = ha;
-                    if (ha != null) {
-                        ha.onMouseOver(e);
-                        setCursor(ha.getCursor());
-                    } else {
-                        setCursor(Cursor.getDefaultCursor());
-                    }
-                    update();
+        if (e.getID() == MouseEvent.MOUSE_MOVED) {
+            PMHotArea ha = getAreaUnder(e.getX(), e.getY());
+            if ((ha == null && activeHotArea != null)
+                    || (ha != null && !ha.equals(activeHotArea))) {
+                if (activeHotArea != null) {
+                    activeHotArea.onMouseExit(e);
                 }
-                break;
+                activeHotArea = ha;
+                if (ha != null) {
+                    ha.onMouseOver(e);
+                    setCursor(ha.getCursor());
+                } else {
+                    setCursor(Cursor.getDefaultCursor());
+                }
+                update();
+            }
         }
     }
 
     @Override
     protected void processComponentEvent(ComponentEvent e) {
-        switch (e.getID()) {
-            case ComponentEvent.COMPONENT_RESIZED:
-                onResize();
-                update();
-                break;
+        if (e.getID() == ComponentEvent.COMPONENT_RESIZED) {
+            onResize();
+            update();
         }
     }
 }

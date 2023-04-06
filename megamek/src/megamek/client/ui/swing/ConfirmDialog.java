@@ -54,7 +54,7 @@ public class ConfirmDialog extends JDialog{
     private final JPanel panButtons = new JPanel();
     JButton butYes;
     JButton butNo;
-    JButton defaultButton;
+    final JButton defaultButton;
 
     private static final String YESACTION = "YesAction";
     private static final String NOACTION = "NoAction";
@@ -259,9 +259,9 @@ public class ConfirmDialog extends JDialog{
 
     public boolean getShowAgain() {
         if (botherCheckbox == null) {
-            return true;
+            return false;
         }
-        return !botherCheckbox.isSelected();
+        return botherCheckbox.isSelected();
     }
 
     private void adaptToGUIScale() {

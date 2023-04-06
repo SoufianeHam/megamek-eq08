@@ -249,32 +249,32 @@ public class BotConfigDialog extends AbstractButtonDialog implements ActionListe
 
         panContent.add(buildSlider(braverySlidebar, Messages.getString("BotConfigDialog.braverySliderMin"),
                 Messages.getString("BotConfigDialog.braverySliderMax"),
-                Messages.getString("BotConfigDialog.braveryTooltip"),
-                Messages.getString("BotConfigDialog.braverySliderTitle")));
+                Messages.getString("BotConfigDialog.braveryTooltip")
+        ));
         panContent.add(Box.createVerticalStrut(7));
 
         panContent.add(buildSlider(selfPreservationSlidebar, Messages.getString("BotConfigDialog.selfPreservationSliderMin"),
                 Messages.getString("BotConfigDialog.selfPreservationSliderMax"),
-                Messages.getString("BotConfigDialog.selfPreservationTooltip"),
-                Messages.getString("BotConfigDialog.selfPreservationSliderTitle")));
+                Messages.getString("BotConfigDialog.selfPreservationTooltip")
+        ));
         panContent.add(Box.createVerticalStrut(7));
 
         panContent.add(buildSlider(aggressionSlidebar, Messages.getString("BotConfigDialog.aggressionSliderMin"),
                 Messages.getString("BotConfigDialog.aggressionSliderMax"),
-                Messages.getString("BotConfigDialog.aggressionTooltip"),
-                Messages.getString("BotConfigDialog.aggressionSliderTitle")));
+                Messages.getString("BotConfigDialog.aggressionTooltip")
+        ));
         panContent.add(Box.createVerticalStrut(7));
 
         panContent.add(buildSlider(herdingSlidebar, Messages.getString("BotConfigDialog.herdingSliderMin"),
                 Messages.getString("BotConfigDialog.herdingSliderMax"),
-                Messages.getString("BotConfigDialog.herdingToolTip"),
-                Messages.getString("BotConfigDialog.herdingSliderTitle")));
+                Messages.getString("BotConfigDialog.herdingToolTip")
+        ));
         panContent.add(Box.createVerticalStrut(7));
 
         panContent.add(buildSlider(fallShameSlidebar, Messages.getString("BotConfigDialog.fallShameSliderMin"),
                 Messages.getString("BotConfigDialog.fallShameSliderMax"),
-                Messages.getString("BotConfigDialog.fallShameToolTip"),
-                Messages.getString("BotConfigDialog.fallShameSliderTitle")));
+                Messages.getString("BotConfigDialog.fallShameToolTip")
+        ));
         
         var buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         buttonPanel.setAlignmentX(SwingConstants.CENTER);
@@ -437,7 +437,7 @@ public class BotConfigDialog extends AbstractButtonDialog implements ActionListe
     }
 
     private JPanel buildSlider(JSlider thisSlider, String minMsgProperty, 
-            String maxMsgProperty, String toolTip, String title) {
+            String maxMsgProperty, String toolTip) {
         var result = new TipPanel();
         result.setLayout(new BoxLayout(result, BoxLayout.PAGE_AXIS));
         result.setToolTipText(toolTip);
@@ -465,7 +465,7 @@ public class BotConfigDialog extends AbstractButtonDialog implements ActionListe
         butOK.setMnemonic(KeyEvent.VK_K);
         result.add(butOK);
         
-        butCancel.addActionListener(this::cancelActionPerformed);
+        butCancel.addActionListener(evt -> cancelActionPerformed());
         butCancel.setMnemonic(KeyEvent.VK_C);
         result.add(butCancel);
         

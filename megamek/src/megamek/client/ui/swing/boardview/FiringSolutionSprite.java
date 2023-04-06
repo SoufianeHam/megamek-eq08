@@ -109,7 +109,7 @@ class FiringSolutionSprite extends HexSprite {
                 bv.drawOutlineText(graph, "X", centerHex, fontSizeLarge, xColor, true, Color.BLACK);
             } else {
                 // better readable at small scale
-                bv.drawCenteredText(graph, "X", centerHex, xColor, false);
+                BoardView.drawCenteredText(graph, "X", centerHex, xColor, false);
             }
         } else {    
             // hittable: write modifier and range
@@ -121,8 +121,8 @@ class FiringSolutionSprite extends HexSprite {
             bv.drawTextShadow(graph, range, secondLine, rangeFont);
             
             // text
-            bv.drawCenteredText(graph, toHitMod, firstLine, fontColor, false, textFont);
-            bv.drawCenteredText(graph, range, secondLine, fontColor, false, rangeFont);
+            BoardView.drawCenteredText(graph, toHitMod, firstLine, fontColor, false, textFont);
+            BoardView.drawCenteredText(graph, range, secondLine, fontColor, false, rangeFont);
 
             // a small hex shape for distance
             // fill blueish

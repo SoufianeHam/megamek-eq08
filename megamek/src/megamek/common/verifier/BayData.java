@@ -221,8 +221,8 @@ public enum BayData {
      * @return true if the bay is an infantry transport bay (including battlearmor)
      */
     public boolean isInfantryBay() {
-        return (ordinal() >= INFANTRY_FOOT.ordinal())
-                && (ordinal() <= CS_BATTLE_ARMOR.ordinal());
+        return (ordinal() < INFANTRY_FOOT.ordinal())
+                || (ordinal() > CS_BATTLE_ARMOR.ordinal());
     }
     
     /**

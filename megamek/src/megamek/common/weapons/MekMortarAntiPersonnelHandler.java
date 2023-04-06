@@ -32,7 +32,7 @@ import megamek.server.Server;
 public class MekMortarAntiPersonnelHandler extends AmmoWeaponHandler {
     private static final long serialVersionUID = -2073773899108954657L;
     
-    String sSalvoType = " shell(s) ";
+    final String sSalvoType = " shell(s) ";
 
     /**
      * @param t

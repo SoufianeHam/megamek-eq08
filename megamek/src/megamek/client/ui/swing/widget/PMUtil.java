@@ -27,21 +27,19 @@ public final class PMUtil {
     /**
      * Ensures that Images is completely loaded
      */
-    public static boolean setImage(Image im, JComponent c) {
+    public static void setImage(Image im, JComponent c) {
         MediaTracker mt = new MediaTracker(c);
         mt.addImage(im, 0);
         try {
             mt.waitForID(0);
         } catch (InterruptedException e) {
             LogManager.getLogger().error("", e);
-            return false;
+            return;
         }
 
         if (mt.isErrorID(0)) {
             LogManager.getLogger().warn("Could not load image");
-            return false;
         }
 
-        return true;
     }
 }

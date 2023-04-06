@@ -105,7 +105,7 @@ public class BattleArmorBVCalculator {
                 bvReport.addLine("AMS:", "+ " + formatForReport(amsBonus), "= " + formatForReport(dBV));
             }
 
-            int runMP = battleArmor.getWalkMP(false, false, true, true, false);
+            int runMP = battleArmor.getWalkMP(false, true, false);
             int umuMP = battleArmor.getActiveUMUCount();
             int tmmRan = Compute.getTargetMovementModifier(Math.max(runMP, umuMP), false, false, battleArmor.getGame()).getValue();
             // get jump MP, ignoring burden
@@ -221,7 +221,7 @@ public class BattleArmorBVCalculator {
             }
 
             // getJumpMP won't return UMU MP, so weed need to count that extra
-            int movement = Math.max(battleArmor.getWalkMP(false, false, true, true, false),
+            int movement = Math.max(battleArmor.getWalkMP(false, true, false),
                     Math.max(battleArmor.getJumpMP(false, true, true), battleArmor.getActiveUMUCount()));
             double speedFactor = Math.pow(1 + ((double) (movement - 5) / 10), 1.2);
             speedFactor = Math.round(speedFactor * 100) / 100.0;

@@ -45,7 +45,7 @@ public class Ruleset {
         ROS ("TP", "PG", "HS", "SB"),
         NONE ();
 
-        String[] vals;
+        final String[] vals;
         RatingSystem(String... vals) {
             this.vals = vals;
         }

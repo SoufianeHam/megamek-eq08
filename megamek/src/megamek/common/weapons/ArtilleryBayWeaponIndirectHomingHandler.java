@@ -233,7 +233,7 @@ public class ArtilleryBayWeaponIndirectHomingHandler extends ArtilleryBayWeaponI
 
                     // Works out fire setting and whether continuation is
                     // necessary.
-                    if (!handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg,
+                    if (handleSpecialMiss(entityTarget, bldgDamagedOnMiss, bldg,
                             vPhaseReport)) {
                         return false;
                     }
@@ -439,7 +439,7 @@ public class ArtilleryBayWeaponIndirectHomingHandler extends ArtilleryBayWeaponI
     protected boolean handleSpecialMiss(Entity entityTarget,
             boolean bldgDamagedOnMiss, Building bldg,
             Vector<Report> vPhaseReport) {
-        return true;
+        return false;
     }
     
     /**
@@ -536,14 +536,11 @@ public class ArtilleryBayWeaponIndirectHomingHandler extends ArtilleryBayWeaponI
      */
     @Override
     protected boolean checkPDConditions() {
-        if ((target == null) 
-                || target.getTargetType() != Targetable.TYPE_ENTITY 
-                || !advancedPD
-                || !advancedAMS
-                || waa.getCounterEquipment() == null) {
-            return false;
-        }
-        return true;
+        return (target != null)
+                && target.getTargetType() == Targetable.TYPE_ENTITY
+                && advancedPD
+                && advancedAMS
+                && waa.getCounterEquipment() != null;
     }
     
     /**

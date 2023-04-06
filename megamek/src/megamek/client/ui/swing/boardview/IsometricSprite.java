@@ -18,7 +18,7 @@ import java.awt.image.ImageObserver;
  */
 class IsometricSprite extends Sprite {
 
-    Entity entity;
+    final Entity entity;
     private final Image radarBlipImage;
     private final Rectangle modelRect;
     private final int secondaryPos;

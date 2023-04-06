@@ -56,7 +56,7 @@ public class VTOLMapSet implements DisplayMapSet {
     public static final int LABEL_LOC_NUMBER    = 18;
     public static final int LABEL_BAR_RATING    = 18;
 
-    UnitDisplay unitDisplay;
+    final UnitDisplay unitDisplay;
     
     private final JComponent comp;
     private final PMSimplePolygonArea[] areas = new PMSimplePolygonArea[LABEL_LOC_NUMBER];

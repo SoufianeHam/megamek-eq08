@@ -51,7 +51,7 @@ public class DefeatCommand extends ServerCommand {
      */
     @Override
     public void run(int connId, String[] args) {
-        if (!canRunRestrictedCommand(connId)) {
+        if (canRunRestrictedCommand(connId)) {
             server.sendServerChat(connId, restrictedResponse);
             return;
         }

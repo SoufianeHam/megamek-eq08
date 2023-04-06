@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class ChassisRecord extends AbstractUnitRecord {
 
-    protected HashSet<ModelRecord> models;
+    protected final HashSet<ModelRecord> models;
     
     public ChassisRecord(String chassis) {
         super(chassis);

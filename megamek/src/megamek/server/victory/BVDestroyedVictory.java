@@ -18,7 +18,6 @@ import megamek.common.Player;
 import megamek.common.Report;
 
 import java.util.HashSet;
-import java.util.Map;
 
 /**
  * implementation which will match when a certain percentage of all enemy BV is
@@ -28,14 +27,14 @@ import java.util.Map;
 public class BVDestroyedVictory extends AbstractBVVictory {
 
     private static final long serialVersionUID = -1807333576570154144L;
-    protected int destroyedPercent;
+    protected final int destroyedPercent;
 
     public BVDestroyedVictory(int destroyedPercent) {
         this.destroyedPercent = destroyedPercent;
     }
 
     @Override
-    public VictoryResult victory(Game game, Map<String, Object> ctx) {
+    public VictoryResult victory(Game game) {
         boolean victory = false;
         VictoryResult vr = new VictoryResult(true);
         // now check for detailed victory conditions...

@@ -28,8 +28,8 @@ import org.w3c.dom.NodeList;
 public class SubforcesNode extends RulesetNode {
     String altFaction;
     boolean parentFaction;
-    ArrayList<ValueNode> subforces;
-    ArrayList<OptionGroupNode> optionSubforces;
+    final ArrayList<ValueNode> subforces;
+    final ArrayList<OptionGroupNode> optionSubforces;
 
     protected SubforcesNode() {
         altFaction = null;

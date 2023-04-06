@@ -29,7 +29,7 @@ public class AbstractUnitRecord {
     protected boolean clan;
     protected int unitType;
     protected int introYear;
-    protected HashSet<String> includedFactions;
+    protected final HashSet<String> includedFactions;
 
     public AbstractUnitRecord(String chassis) {
         this.chassis = chassis;

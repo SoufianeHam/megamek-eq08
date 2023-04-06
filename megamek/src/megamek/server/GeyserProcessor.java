@@ -99,7 +99,7 @@ public class GeyserProcessor extends DynamicTerrainProcessor {
     }
 
     private static class GeyserInfo {
-        Coords position;
+        final Coords position;
         int turnsToGo;
 
         GeyserInfo(Coords c) {

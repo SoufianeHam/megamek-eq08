@@ -226,7 +226,7 @@ public class ClientGUI extends JPanel implements BoardViewListener,
     private CommonSettingsDialog setdlg;
     private AccessibilityWindow aw;
 
-    public MegaMekController controller;
+    public final MegaMekController controller;
     private ChatterBox cb;
     public ChatterBox2 cb2;
     private BoardView bv;
@@ -509,7 +509,7 @@ public class ClientGUI extends JPanel implements BoardViewListener,
      * is created.
      */
     public void initialize() {
-        menuBar = new CommonMenuBar(getClient());
+        menuBar = new CommonMenuBar();
         initializeFrame();
         try {
             client.getGame().addGameListener(gameListener);
@@ -1999,10 +1999,11 @@ public class ClientGUI extends JPanel implements BoardViewListener,
         return false;
     }
 
-    /** Developer Utility: Save game to quicksave.sav.gz without any prompts. */
-    private boolean quickSaveGame() {
+    /**
+     * Developer Utility: Save game to quicksave.sav.gz without any prompts.
+     */
+    private void quickSaveGame() {
         client.sendChat(CG_CHATCOMMANDLOCALSAVE + " " + MMConstants.QUICKSAVE_FILE + " " + MMConstants.QUICKSAVE_PATH);
-        return true;
     }
 
     /**
@@ -2187,7 +2188,7 @@ public class ClientGUI extends JPanel implements BoardViewListener,
 
     private final GameListener gameListener = new GameListenerAdapter() {
         @Override
-        public void gamePlayerChange(GamePlayerChangeEvent evt) {
+        public void gamePlayerChange() {
              if (playerListDialog != null) {
                  playerListDialog.refreshPlayerList();
 
@@ -2269,7 +2270,7 @@ public class ClientGUI extends JPanel implements BoardViewListener,
         }
 
         @Override
-        public void gameEnd(GameEndEvent e) {
+        public void gameEnd() {
             bv.clearMovementData();
             bv.clearFieldofF();
             for (Client client2 : getBots().values()) {
@@ -2332,7 +2333,7 @@ public class ClientGUI extends JPanel implements BoardViewListener,
         @Override
         public void gameSettingsChange(GameSettingsChangeEvent evt) {
             if ((gameOptionsDialog != null) && gameOptionsDialog.isVisible() &&
-                    !evt.isMapSettingsOnlyChange()) {
+                    evt.isMapSettingsOnlyChange()) {
                 gameOptionsDialog.update(getClient().getGame().getOptions());
             }
 
@@ -2343,7 +2344,7 @@ public class ClientGUI extends JPanel implements BoardViewListener,
         }
 
         @Override
-        public void gameMapQuery(GameMapQueryEvent evt) {
+        public void gameMapQuery() {
 
         }
 
@@ -2726,12 +2727,12 @@ public class ClientGUI extends JPanel implements BoardViewListener,
     }
 
     @Override
-    public void hexCursor(BoardViewEvent b) {
+    public void hexCursor() {
         // ignored
     }
 
     @Override
-    public void boardHexHighlighted(BoardViewEvent b) {
+    public void boardHexHighlighted() {
         // ignored
     }
 
@@ -2751,7 +2752,7 @@ public class ClientGUI extends JPanel implements BoardViewListener,
     }
 
     @Override
-    public void finishedMovingUnits(BoardViewEvent b) {
+    public void finishedMovingUnits() {
         // ignored
     }
 

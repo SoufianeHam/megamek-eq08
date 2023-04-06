@@ -194,7 +194,7 @@ public class Aero extends Entity implements IAero, IBomber {
     private boolean wingsHit = false;
     // a hash map of the current weapon groups - the key is the
     // location:internal name, and the value is the weapon id
-    Map<String, Integer> weaponGroups = new HashMap<>();
+    final Map<String, Integer> weaponGroups = new HashMap<>();
 
     /*
      * According to the rules if two units of the same type and with the same
@@ -325,14 +325,14 @@ public class Aero extends Entity implements IAero, IBomber {
      */
     @Override
     public int getWalkMP(boolean gravity, boolean ignoreheat, boolean ignoremodulararmor) {
-        return getWalkMP(gravity, ignoreheat, ignoremodulararmor, false);
+        return getWalkMP(gravity, ignoreheat, false);
     }
     
     /**
      * Returns this entity's safe thrust, factored for heat, extreme
      * temperatures, gravity, partial repairs, bomb load and whether it's grounded or not.
      */
-    public int getWalkMP(boolean gravity, boolean ignoreheat, boolean ignoremodulararmor, boolean ignoreGroundedStatus) {
+    public int getWalkMP(boolean gravity, boolean ignoreGroundedStatus) {
         int j = getOriginalWalkMP();
         // adjust for engine hits
         if (engineHits >= getMaxEngineHits()) {
@@ -369,7 +369,7 @@ public class Aero extends Entity implements IAero, IBomber {
         // and also if we're not ignoring the "grounded" status
         if (!ignoreGroundedStatus && !isAirborne()) {
             j = j / 2;
-            if (isSpheroid()) {
+            if (!isSpheroid()) {
                 j = 0;
             }
         }
@@ -460,7 +460,7 @@ public class Aero extends Entity implements IAero, IBomber {
 
     @Override
     public boolean hasLifeSupport() {
-        return lifeSupport;
+        return !lifeSupport;
     }
 
     public void setLifeSupport(boolean b) {
@@ -1405,7 +1405,7 @@ public class Aero extends Entity implements IAero, IBomber {
 
             // check type
             if (this instanceof Dropship) {
-                if (isSpheroid()) {
+                if (!isSpheroid()) {
                     prd.addModifier(+1, "spheroid dropship");
                 } else {
                     prd.addModifier(0, "aerodyne dropship");
@@ -1416,7 +1416,7 @@ public class Aero extends Entity implements IAero, IBomber {
         }
 
         // life support (only applicable to non-ASFs
-        if (!hasLifeSupport()) {
+        if (hasLifeSupport()) {
             prd.addModifier(+2, "No life support");
         }
 
@@ -1685,7 +1685,7 @@ public class Aero extends Entity implements IAero, IBomber {
 
     @Override
     public boolean doomedOnGround() {
-        return game != null ? !game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_AERO_GROUND_MOVE) : false;
+        return game != null && !game.getOptions().booleanOption(OptionsConstants.ADVAERORULES_AERO_GROUND_MOVE);
     }
 
     @Override
@@ -1768,8 +1768,7 @@ public class Aero extends Entity implements IAero, IBomber {
             return CRIT_NONE;
         }
 
-        int critical = getPotCrit();
-        return critical;
+        return getPotCrit();
     }
 
     /**
@@ -2068,7 +2067,7 @@ public class Aero extends Entity implements IAero, IBomber {
 
     @Override
     public boolean isSpheroid() {
-        return spheroid;
+        return !spheroid;
     }
 
     public void setSpheroid(boolean b) {
@@ -2382,10 +2381,7 @@ public class Aero extends Entity implements IAero, IBomber {
             return true;
         }
         // if we are still here then type and velocity same, so roll for it
-        if (getWhoFirst() < other.getWhoFirst()) {
-            return false;
-        }
-        return true;
+        return getWhoFirst() >= other.getWhoFirst();
     }
 
     @Override
@@ -2506,7 +2502,7 @@ public class Aero extends Entity implements IAero, IBomber {
             toReturn.append(Messages.getString("Aero.landingGearDamageString"));
             first = false;
         }
-        if (!hasLifeSupport()) {
+        if (hasLifeSupport()) {
             if (!first) {
                 toReturn.append(", ");
             }
@@ -2696,15 +2692,11 @@ public class Aero extends Entity implements IAero, IBomber {
         // per a recent ruling on the official forums, aero units can't spot
         // for indirect LRM fire, unless they have a recon cam, an infrared or
         // hyperspec imager, or a high-res imager and it's not night
-        if (!isAirborne() || hasWorkingMisc(MiscType.F_RECON_CAMERA) || hasWorkingMisc(MiscType.F_INFRARED_IMAGER)
+        return !isAirborne() || hasWorkingMisc(MiscType.F_RECON_CAMERA) || hasWorkingMisc(MiscType.F_INFRARED_IMAGER)
                 || hasWorkingMisc(MiscType.F_HYPERSPECTRAL_IMAGER)
                 || (hasWorkingMisc(MiscType.F_HIRES_IMAGER)
-                        && ((game.getPlanetaryConditions().getLight() == PlanetaryConditions.L_DAY)
-                                || (game.getPlanetaryConditions().getLight() == PlanetaryConditions.L_DUSK)))) {
-            return true;
-        } else {
-            return false;
-        }
+                && ((game.getPlanetaryConditions().getLight() == PlanetaryConditions.L_DAY)
+                || (game.getPlanetaryConditions().getLight() == PlanetaryConditions.L_DUSK)));
     }
 
     // Damage a fighter that was part of a squadron when splitting it. Per
@@ -3286,16 +3278,12 @@ public class Aero extends Entity implements IAero, IBomber {
     public boolean isPermanentlyImmobilized(boolean checkCrew) {
         if (checkCrew && ((getCrew() == null) || getCrew().isDead())) {
             return true;
-        } else if (((getOriginalWalkMP() > 0) || (getOriginalRunMP() > 0) || (getOriginalJumpMP() > 0))
+        } else return ((getOriginalWalkMP() > 0) || (getOriginalRunMP() > 0) || (getOriginalJumpMP() > 0))
                 /*
                  * Need to make sure here that we're ignoring heat because
                  * that's not actually "permanent":
                  */
-                && ((getWalkMP(true, true, false, true) == 0)
-                    && (getRunMP(true, true, false) == 0) && (getJumpMP() == 0))) {
-            return true;
-        } else {
-            return false;
-        }
+                && ((getWalkMP(true, true, true) == 0)
+                && (getRunMP(true, true, false) == 0) && (getJumpMP() == 0));
     }
 }

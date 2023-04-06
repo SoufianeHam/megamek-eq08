@@ -226,32 +226,32 @@ public class MULParser {
     /**
      * Stores all of the  Entity's read in. This is for general use saving and loading to the chat lounge
      */
-    Vector<Entity> entities;
+    final Vector<Entity> entities;
 
     /**
      * Stores all of the  surviving Entity's read in.
      */
-    Vector<Entity> survivors;
+    final Vector<Entity> survivors;
 
     /**
      * Stores all of the allied Entity's read in.
      */
-    Vector<Entity> allies;
+    final Vector<Entity> allies;
 
     /**
      * Stores all of the enemy retreated entities read in.
      */
-    Vector<Entity> retreated;
+    final Vector<Entity> retreated;
 
     /**
      * Stores all the salvage entities read in
      */
-    Vector<Entity> salvage;
+    final Vector<Entity> salvage;
 
     /**
      * Stores all the devastated entities read in
      */
-    Vector<Entity> devastated;
+    final Vector<Entity> devastated;
 
     /**
      * Keep a separate list of pilot/crews parsed because dismounted pilots may
@@ -265,7 +265,7 @@ public class MULParser {
      */
     private final Hashtable<String, String> kills;
 
-    StringBuffer warning;
+    final StringBuffer warning;
 
     //region Constructors
     /**

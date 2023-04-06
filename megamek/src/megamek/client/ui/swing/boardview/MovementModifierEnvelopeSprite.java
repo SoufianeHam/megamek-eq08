@@ -81,8 +81,8 @@ public class MovementModifierEnvelopeSprite extends HexSprite {
         // draw the movement modifier if it's readable
         if (fontSize * bv.scale > 4) {
             graph.setFont(graph.getFont().deriveFont(fontSize));
-            Point2D.Double pos = getHexBorderAreaMid(facing.getIntValue(), borderW, inset);
-            bv.drawCenteredText(graph, modifier, (float) pos.x, (float) pos.y, fontColor, false);
+            Point2D.Double pos = getHexBorderAreaMid(facing.getIntValue(), borderW);
+            BoardView.drawCenteredText(graph, modifier, (float) pos.x, (float) pos.y, fontColor, false);
         }
 
         graph.dispose();

@@ -32,7 +32,7 @@ public interface GameListener extends java.util.EventListener {
 
     void gamePlayerDisconnected(GamePlayerDisconnectedEvent e);
 
-    void gamePlayerChange(GamePlayerChangeEvent e);
+    void gamePlayerChange();
 
     void gamePlayerChat(GamePlayerChatEvent e);
 
@@ -42,19 +42,19 @@ public interface GameListener extends java.util.EventListener {
 
     void gameReport(GameReportEvent e);
 
-    void gameEnd(GameEndEvent e);
+    void gameEnd();
 
     void gameBoardNew(GameBoardNewEvent e);
 
-    void gameBoardChanged(GameBoardChangeEvent e);
+    void gameBoardChanged();
 
     void gameSettingsChange(GameSettingsChangeEvent e);
 
-    void gameMapQuery(GameMapQueryEvent e);
+    void gameMapQuery();
 
     void gameEntityNew(GameEntityNewEvent e);
 
-    void gameEntityNewOffboard(GameEntityNewOffboardEvent e);
+    void gameEntityNewOffboard();
 
     void gameEntityRemove(GameEntityRemoveEvent e);
 
@@ -64,5 +64,5 @@ public interface GameListener extends java.util.EventListener {
     
     void gameClientFeedbackRequest(GameCFREvent e);
     
-    void gameVictory(GameVictoryEvent e);
+    void gameVictory();
 }

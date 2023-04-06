@@ -36,7 +36,6 @@ import megamek.common.actions.WeaponAttackAction;
 import megamek.common.enums.GamePhase;
 import megamek.common.options.OptionsConstants;
 import megamek.server.GameManager;
-import megamek.server.Server;
 
 /**
  * @author Jay Lawson
@@ -291,7 +290,7 @@ public class CapitalMissileHandler extends AmmoWeaponHandler {
                 // targeting a hex for igniting
                 if ((target.getTargetType() == Targetable.TYPE_HEX_IGNITE)
                         || (target.getTargetType() == Targetable.TYPE_BLDG_IGNITE)) {
-                    handleIgnitionDamage(vPhaseReport, bldg, hits);
+                    handleIgnitionDamage(vPhaseReport);
                     return false;
                 }
                 // targeting a hex for clearing
@@ -492,11 +491,7 @@ public class CapitalMissileHandler extends AmmoWeaponHandler {
      */
     @Override
     protected boolean canEngageCapitalMissile(Mounted counter) {
-        if (counter.getBayWeapons().size() < 2) {
-            return false;
-        } else {
-            return true;
-        }
+        return counter.getBayWeapons().size() >= 2;
     }
     
     /**
