@@ -3,9 +3,7 @@ package megamek.common;
 import megamek.server.victory.VictoryResult;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
 
@@ -54,5 +52,53 @@ public class GameTest {
 
         assertSame(winningPlayer, victoryResult2.getWinningPlayer());
         assertSame(winningTeam, victoryResult2.getWinningTeam());
+    }
+
+    @Test
+    public void testWinnerAndLooserGetGameScore(){
+        //Creating players
+        Player player1 = new Player(1,"player1");
+        Player player2 = new Player(2,"player2");
+
+        //Creating teams
+        Team team1 = new Team(3);
+        Team team2 = new Team(4);
+
+        //Adding the players to each team
+        player1.setTeam(team1.getId());
+        player2.setTeam(team2.getId());
+
+        //Creating a game
+        Game game = new Game();
+        game.addPlayer(player1.getId(),player1);
+        game.addPlayer(player2.getId(),player2);
+        //Ending of the game
+        game.end(player1.getId(),team1.getId());
+
+        int player1ScoreAfterWin=30;
+        int player2ScoreAfterLost=-5;
+        //Test winner points and looser points
+        assertSame(player1ScoreAfterWin,player1.getScore());
+        assertSame(player2ScoreAfterLost,player2.getScore());
+
+    }
+
+    @Test
+    public void testTeamWinnerGetScore(){
+        //Creating players
+        Player player1 = new Player(1,"player1");
+        //Creating teams
+        Team team1 = new Team(3);
+        //Adding the players to each team
+        player1.setTeam(team1.getId());
+        //Creating a game
+        Game game = new Game();
+        game.addPlayer(player1.getId(),player1);
+        //Ending of the game with no winner
+        game.end(Player.PLAYER_NONE,team1.getId());
+
+        int player1ScoreAfterTeamWin=15;
+        //Test team win score
+        assertSame(player1ScoreAfterTeamWin,player1.getScore());
     }
 }
