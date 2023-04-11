@@ -24,6 +24,7 @@ import megamek.common.actions.AttackAction;
 import megamek.common.actions.EntityAction;
 import megamek.common.annotations.Nullable;
 import megamek.common.enums.GamePhase;
+import megamek.common.enums.Rank;
 import megamek.common.event.*;
 import megamek.common.force.Forces;
 import megamek.common.options.GameOptions;
@@ -59,6 +60,11 @@ public class Game extends AbstractGame implements Serializable {
     public final Version version = MMConstants.VERSION;
 
     private GameOptions options = new GameOptions();
+    private static final int VICTORY_PLAYER_POINTS=30;
+
+    private static final int VICTORY_TEAM_POINTS=15;
+
+    private static final int LOOSER_POINTS=-5;
 
     private Board board = new Board();
 
@@ -2537,6 +2543,7 @@ public class Game extends AbstractGame implements Serializable {
     }
 
     public void end(int winner, int winnerTeam) {
+        setRankings(winner,winnerTeam);
         setVictoryPlayerId(winner);
         setVictoryTeam(winnerTeam);
         processGameEvent(new GameEndEvent(this));
@@ -3403,5 +3410,25 @@ public class Game extends AbstractGame implements Serializable {
     /** @return The TW Units (Entity) currently in the game. */
     public List<Entity> inGameTWEntities() {
         return inGameObjects.values().stream().filter(o -> o instanceof Entity).map(o -> (Entity) o).collect(toList());
+    }
+
+    private void setRankings (int winner,int winningTeam){
+        List<Player> players = getPlayersList();
+        for (Player player : players){
+            player.updateScore(getGameScore(winner, winningTeam, player));
+            Rank updatedRank = Rank.getRankForScore(player.getScore());
+            player.setRank(updatedRank);
+        }
+    }
+    private static int getGameScore(int winner, int winningTeam, Player player) {
+        int gameScore;
+        if(player.getId() == winner){
+            gameScore = VICTORY_PLAYER_POINTS;
+        }else if (player.getTeam() == winningTeam) {
+            gameScore = VICTORY_TEAM_POINTS;
+        }else {
+            gameScore = LOOSER_POINTS;
+        }
+        return gameScore;
     }
 }

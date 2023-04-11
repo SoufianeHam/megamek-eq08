@@ -14,6 +14,7 @@
 package megamek.common;
 
 import megamek.client.ui.swing.util.PlayerColour;
+import megamek.common.enums.Rank;
 import megamek.common.event.GamePlayerChangeEvent;
 import megamek.common.icons.Camouflage;
 import megamek.common.options.OptionsConstants;
@@ -86,6 +87,10 @@ public final class Player extends TurnOrdered {
     //Voting should not be stored in save game so marked transient
     private transient boolean votedToAllowTeamChange = false;
     private transient boolean votedToAllowGameMaster = false;
+
+
+    private Rank rank= Rank.BRONZE;
+    private int score = 0;
     //endregion Variable Declarations
 
     //region Constructors
@@ -708,5 +713,21 @@ public final class Player extends TurnOrdered {
         copy.admitsDefeat = admitsDefeat;
 
         return copy;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void updateScore(int updatedScore) {
+        this.score =+ updatedScore;
     }
 }
