@@ -3412,6 +3412,11 @@ public class Game extends AbstractGame implements Serializable {
         return inGameObjects.values().stream().filter(o -> o instanceof Entity).map(o -> (Entity) o).collect(toList());
     }
 
+    /**
+     * Calculate the score and the set the ranking for each player
+     * @param winner
+     * @param winningTeam
+     */
     private void setRankings (int winner,int winningTeam){
         List<Player> players = getPlayersList();
         for (Player player : players){
@@ -3420,6 +3425,15 @@ public class Game extends AbstractGame implements Serializable {
             player.setRank(updatedRank);
         }
     }
+
+    /**
+     * The function calculates the score of each player. Since it's still not known for the moment,
+     * this function can be changed with the one that the company wants to implement.
+     * @param winner
+     * @param winningTeam
+     * @param player
+     * @return the score of the player
+     */
     private static int getGameScore(int winner, int winningTeam, Player player) {
         int gameScore;
         if(player.getId() == winner){
