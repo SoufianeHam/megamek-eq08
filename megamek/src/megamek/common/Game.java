@@ -15,7 +15,6 @@
  */
 package megamek.common;
 
-import megamek.MMConstants;
 import megamek.Version;
 import megamek.client.bot.princess.BehaviorSettings;
 import megamek.common.GameTurn.SpecificEntityTurn;
@@ -57,7 +56,7 @@ public class Game extends AbstractGame implements Serializable {
     /**
      * Stores the version of MM, so that it can be serialized in saved games.
      */
-    public final Version version = MMConstants.VERSION;
+    public final Version version = megamek.SuiteConstants.VERSION;
 
     private GameOptions options = new GameOptions();
     private static final int VICTORY_PLAYER_POINTS=30;
@@ -1736,12 +1735,8 @@ public class Game extends AbstractGame implements Serializable {
         }
         boolean hasLooped = false;
         int i = (sortedEntities.indexOf(getEntity(start)) + 1) % sortedEntities.size();
-        if (i == -1) {
-            //This means we were given an invalid entity ID, punt
-            return Entity.NONE;
-        }
         int startingIndex = i;
-        while (!((hasLooped == true) && (i == startingIndex))) {
+        while (!((hasLooped) && (i == startingIndex))) {
             final Entity entity = sortedEntities.get(i);
             if (turn.isValidEntity(entity, this)) {
                 return entity.getId();
@@ -1775,7 +1770,7 @@ public class Game extends AbstractGame implements Serializable {
             i = sortedEntities.size() - 1;
         }
         int startingIndex = i;
-        while (!((hasLooped == true) && (i == startingIndex))) {
+        while (!((hasLooped) && (i == startingIndex))) {
             final Entity entity = sortedEntities.get(i);
             if (turn.isValidEntity(entity, this)) {
                 return entity.getId();
@@ -1885,9 +1880,7 @@ public class Game extends AbstractGame implements Serializable {
             }
 
             // Can that transport unload the unit?
-            if (transport.isImmobile() || (0 == transport.getWalkMP())) {
-                return true;
-            }
+            return transport.isImmobile() || (0 == transport.getWalkMP());
         }
         return false;
     }
@@ -2082,17 +2075,14 @@ public class Game extends AbstractGame implements Serializable {
         }
 
 
-        boolean useInfantryMoveLaterCheck = true;
+        boolean useInfantryMoveLaterCheck = (!getOptions().booleanOption(OptionsConstants.INIT_INF_MOVE_LATER) ||
+                (!(entity instanceof Infantry))) &&
+                (!getOptions().booleanOption(OptionsConstants.INIT_PROTOS_MOVE_LATER) ||
+                        (!(entity instanceof Protomech)));
         // If we have the "infantry move later" or "ProtoMeks move later" optional
         //  rules, then we may be removing an infantry unit that would be
         //  considered invalid unless we don't consider the extra validity
         //  checks.
-        if ((getOptions().booleanOption(OptionsConstants.INIT_INF_MOVE_LATER) &&
-             (entity instanceof Infantry)) ||
-            (getOptions().booleanOption(OptionsConstants.INIT_PROTOS_MOVE_LATER) &&
-             (entity instanceof Protomech))) {
-            useInfantryMoveLaterCheck = false;
-        }
 
         for (int i = turnVector.size() - 1; i >= turnIndex; i--) {
             GameTurn turn = turnVector.elementAt(i);
@@ -2358,7 +2348,7 @@ public class Game extends AbstractGame implements Serializable {
     public void resetPSRs(Entity entity) {
         PilotingRollData roll;
         Vector<Integer> rollsToRemove = new Vector<>();
-        int i = 0;
+        int i;
 
         // first, find all the rolls belonging to the target entity
         for (i = 0; i < pilotRolls.size(); i++) {
@@ -2387,7 +2377,7 @@ public class Game extends AbstractGame implements Serializable {
     public void resetExtremeGravityPSRs(Entity entity) {
         PilotingRollData roll;
         Vector<Integer> rollsToRemove = new Vector<>();
-        int i = 0;
+        int i;
 
         // first, find all the rolls belonging to the target entity
         for (i = 0; i < extremeGravityRolls.size(); i++) {
@@ -3142,7 +3132,7 @@ public class Game extends AbstractGame implements Serializable {
     public void resetControlRolls(Entity entity) {
         PilotingRollData roll;
         Vector<Integer> rollsToRemove = new Vector<>();
-        int i = 0;
+        int i;
 
         // first, find all the rolls belonging to the target entity
         for (i = 0; i < controlRolls.size(); i++) {
