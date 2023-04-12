@@ -93,6 +93,7 @@ public class Game extends AbstractGame implements Serializable {
 
     /**
      * The current turn list
+     * The current turn list
      */
     private Vector<GameTurn> turnVector = new Vector<>();
     private int turnIndex = 0;
@@ -1994,17 +1995,7 @@ public class Game extends AbstractGame implements Serializable {
                     OptionsConstants.INIT_INF_PROTO_MOVE_MULTI)) != 1) {
                 // exception, if the _next_ turn is an infantry turn, remove that
                 // contrived, but may come up e.g. one inf accidentally kills another
-                if (hasMoreTurns()) {
-                    GameTurn nextTurn = turnVector.elementAt(turnIndex + 1);
-                    if (nextTurn instanceof GameTurn.EntityClassTurn) {
-                        GameTurn.EntityClassTurn ect =
-                                (GameTurn.EntityClassTurn) nextTurn;
-                        if (ect.isValidClass(GameTurn.CLASS_INFANTRY)
-                            && !ect.isValidClass(~GameTurn.CLASS_INFANTRY)) {
-                            turnVector.removeElementAt(turnIndex + 1);
-                        }
-                    }
-                }
+                mech();
                 return;
             }
         }
@@ -2015,17 +2006,7 @@ public class Game extends AbstractGame implements Serializable {
                     .intOption(OptionsConstants.INIT_INF_PROTO_MOVE_MULTI)) != 1) {
                 // exception, if the _next_ turn is an ProtoMek turn, remove that
                 // contrived, but may come up e.g. one inf accidentally kills another
-                if (hasMoreTurns()) {
-                    GameTurn nextTurn = turnVector.elementAt(turnIndex + 1);
-                    if (nextTurn instanceof GameTurn.EntityClassTurn) {
-                        GameTurn.EntityClassTurn ect =
-                                (GameTurn.EntityClassTurn) nextTurn;
-                        if (ect.isValidClass(GameTurn.CLASS_PROTOMECH)
-                            && !ect.isValidClass(~GameTurn.CLASS_PROTOMECH)) {
-                            turnVector.removeElementAt(turnIndex + 1);
-                        }
-                    }
-                }
+                mech();
                 return;
             }
         }
@@ -2037,17 +2018,7 @@ public class Game extends AbstractGame implements Serializable {
                     .intOption(OptionsConstants.ADVGRNDMOV_VEHICLE_LANCE_MOVEMENT_NUMBER)) != 1) {
                 // exception, if the _next_ turn is a tank turn, remove that
                 // contrived, but may come up e.g. one tank accidentally kills another
-                if (hasMoreTurns()) {
-                    GameTurn nextTurn = turnVector.elementAt(turnIndex + 1);
-                    if (nextTurn instanceof GameTurn.EntityClassTurn) {
-                        GameTurn.EntityClassTurn ect =
-                                (GameTurn.EntityClassTurn) nextTurn;
-                        if (ect.isValidClass(GameTurn.CLASS_TANK)
-                            && !ect.isValidClass(~GameTurn.CLASS_TANK)) {
-                            turnVector.removeElementAt(turnIndex + 1);
-                        }
-                    }
-                }
+                mech();
                 return;
             }
         }
@@ -2057,19 +2028,7 @@ public class Game extends AbstractGame implements Serializable {
                 && (entity instanceof Mech) && getPhase().isMovement()) {
             if ((getMechsLeft(entity.getOwnerId()) % getOptions()
                     .intOption(OptionsConstants.ADVGRNDMOV_MEK_LANCE_MOVEMENT_NUMBER)) != 1) {
-                // exception, if the _next_ turn is a mech turn, remove that
-                // contrived, but may come up e.g. one mech accidentally kills another
-                if (hasMoreTurns()) {
-                    GameTurn nextTurn = turnVector.elementAt(turnIndex + 1);
-                    if (nextTurn instanceof GameTurn.EntityClassTurn) {
-                        GameTurn.EntityClassTurn ect =
-                                (GameTurn.EntityClassTurn) nextTurn;
-                        if (ect.isValidClass(GameTurn.CLASS_MECH)
-                            && !ect.isValidClass(~GameTurn.CLASS_MECH)) {
-                            turnVector.removeElementAt(turnIndex + 1);
-                        }
-                    }
-                }
+                mech();
                 return;
             }
         }
@@ -2084,6 +2043,26 @@ public class Game extends AbstractGame implements Serializable {
         //  considered invalid unless we don't consider the extra validity
         //  checks.
 
+        removeInfantry(entity, useInfantryMoveLaterCheck);
+    }
+
+    private void mech() {
+        // exception, if the _next_ turn is a mech turn, remove that
+        // contrived, but may come up e.g. one mech accidentally kills another
+        if (hasMoreTurns()) {
+            GameTurn nextTurn = turnVector.elementAt(turnIndex + 1);
+            if (nextTurn instanceof GameTurn.EntityClassTurn) {
+                GameTurn.EntityClassTurn ect =
+                        (GameTurn.EntityClassTurn) nextTurn;
+                if (ect.isValidClass(GameTurn.CLASS_MECH)
+                    && !ect.isValidClass(~GameTurn.CLASS_MECH)) {
+                    turnVector.removeElementAt(turnIndex + 1);
+                }
+            }
+        }
+    }
+
+    private void removeInfantry(Entity entity, boolean useInfantryMoveLaterCheck) {
         for (int i = turnVector.size() - 1; i >= turnIndex; i--) {
             GameTurn turn = turnVector.elementAt(i);
 
@@ -3026,60 +3005,80 @@ public class Game extends AbstractGame implements Serializable {
         Vector<Report> reports = new Vector<>();
         Report r;
         for (int i = flares.size() - 1; i >= 0; i--) {
-            Flare flare = flares.elementAt(i);
-            r = new Report(5235);
-            r.add(flare.position.getBoardNum());
-            r.newlines = 0;
-            reports.addElement(r);
+            Flare flare = getFlare(reports, i);
             if ((flare.flags & Flare.F_IGNITED) != 0) {
                 flare.turnsToBurn--;
-                if ((flare.flags & Flare.F_DRIFTING) != 0) {
-                    int dir = planetaryConditions.getWindDirection();
-                    int str = planetaryConditions.getWindStrength();
-
-                    // strength 1 and 2: drift 1 hex
-                    // strength 3: drift 2 hexes
-                    // strength 4: drift 3 hexes
-                    // for each above strength 4 (storm), drift one more
-                    if (str > 0) {
-                        flare.position = flare.position.translated(dir);
-                        if (str > 2) {
-                            flare.position = flare.position.translated(dir);
-                        }
-                        if (str > 3) {
-                            flare.position = flare.position.translated(dir);
-                        }
-                        if (str > 4) {
-                            flare.position = flare.position.translated(dir);
-                        }
-                        if (str > 5) {
-                            flare.position = flare.position.translated(dir);
-                        }
-                        r = new Report(5236);
-                        r.add(flare.position.getBoardNum());
-                        r.newlines = 0;
-                        reports.addElement(r);
-                    }
-                }
+                drift(reports, flare);
             } else {
                 r = new Report(5237);
                 r.newlines = 0;
                 reports.addElement(r);
                 flare.flags |= Flare.F_IGNITED;
             }
-            if (flare.turnsToBurn <= 0) {
-                r = new Report(5238);
-                reports.addElement(r);
-                flares.removeElementAt(i);
-            } else {
-                r = new Report(5239);
-                r.add(flare.turnsToBurn);
-                reports.addElement(r);
-                flares.setElementAt(flare, i);
-            }
+            addReportByFlare(reports, i, flare);
         }
         processGameEvent(new GameBoardChangeEvent(this));
         return reports;
+    }
+
+    private void drift(Vector<Report> reports, Flare flare) {
+        if ((flare.flags & Flare.F_DRIFTING) != 0) {
+            int dir = planetaryConditions.getWindDirection();
+            int str = planetaryConditions.getWindStrength();
+
+            // strength 1 and 2: drift 1 hex
+            // strength 3: drift 2 hexes
+            // strength 4: drift 3 hexes
+            // for each above strength 4 (storm), drift one more
+            if (str > 0) {
+                addReport(reports, flare, dir, str);
+            }
+        }
+    }
+
+    private Flare getFlare(Vector<Report> reports, int i) {
+        Report r;
+        Flare flare = flares.elementAt(i);
+        r = new Report(5235);
+        r.add(flare.position.getBoardNum());
+        r.newlines = 0;
+        reports.addElement(r);
+        return flare;
+    }
+
+    private void addReportByFlare(Vector<Report> reports, int i, Flare flare) {
+        Report r;
+        if (flare.turnsToBurn <= 0) {
+            r = new Report(5238);
+            reports.addElement(r);
+            flares.removeElementAt(i);
+        } else {
+            r = new Report(5239);
+            r.add(flare.turnsToBurn);
+            reports.addElement(r);
+            flares.setElementAt(flare, i);
+        }
+    }
+
+    private void addReport(Vector<Report> reports, Flare flare, int dir, int str) {
+        Report r;
+        flare.position = flare.position.translated(dir);
+        if (str > 2) {
+            flare.position = flare.position.translated(dir);
+        }
+        if (str > 3) {
+            flare.position = flare.position.translated(dir);
+        }
+        if (str > 4) {
+            flare.position = flare.position.translated(dir);
+        }
+        if (str > 5) {
+            flare.position = flare.position.translated(dir);
+        }
+        r = new Report(5236);
+        r.add(flare.position.getBoardNum());
+        r.newlines = 0;
+        reports.addElement(r);
     }
 
     public boolean gameTimerIsExpired() {
