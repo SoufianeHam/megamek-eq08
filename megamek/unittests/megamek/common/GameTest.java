@@ -3,6 +3,9 @@ package megamek.common;
 import megamek.server.victory.VictoryResult;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
@@ -27,6 +30,27 @@ public class GameTest {
         assertSame(Player.PLAYER_NONE, game.getVictoryPlayerId());
         assertSame(Player.TEAM_NONE, game.getVictoryTeam());
     }
+    @Test
+    public void testGetMapSettings() {
+        // Default test
+        Game game = new Game();
+        MapSettings mapSettings = game.getMapSettings();
+        assertNotNull(mapSettings);
+
+        // Test that same instance is returned every time
+        MapSettings mapSettings2 = game.getMapSettings();
+        assertSame(mapSettings, mapSettings2);
+    }
+
+    @Test
+    public void testSetMapSettings() {
+        // Default test
+        Game game = new Game();
+        MapSettings mapSettings = MapSettings.getInstance();
+        game.setMapSettings(mapSettings);
+        assertSame(mapSettings, game.getMapSettings());
+    }
+
 
     @Test
     public void testGetVictoryReport() {
