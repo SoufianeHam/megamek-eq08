@@ -166,11 +166,6 @@ public class Game extends AbstractGame implements Serializable {
         // empty
     }
 
-    // Added public accessors for external game id
-    public int getExternalGameId() {
-        return externalGameId;
-    }
-
     public void setExternalGameId(int value) {
         externalGameId = value;
     }
@@ -440,38 +435,6 @@ public class Game extends AbstractGame implements Serializable {
         processGameEvent(new GamePlayerChangeEvent(this, player));
     }
 
-    /**
-     * Returns the number of entities owned by the player, regardless of their
-     * status.
-     */
-    public int getAllEntitiesOwnedBy(Player player) {
-        int count = 0;
-        for (Entity entity : inGameTWEntities()) {
-            if (entity.getOwner().equals(player)) {
-                count++;
-            }
-        }
-        for (Entity entity : vOutOfGame) {
-            if (entity.getOwner().equals(player)) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /**
-     * @return the number of non-destroyed entities owned by the player
-     */
-    public int getLiveEntitiesOwnedBy(Player player) {
-        int count = 0;
-        for (Entity entity : inGameTWEntities()) {
-            if (entity.getOwner().equals(player) && !entity.isDestroyed()
-                    && !entity.isCarcass()) {
-                count++;
-            }
-        }
-        return count;
-    }
 
     /**
      * @return the number of non-destroyed entities owned by the player, including entities not yet
@@ -1838,25 +1801,6 @@ public class Game extends AbstractGame implements Serializable {
         return output;
     }
 
-    /**
-     * Get the entities for the player.
-     *
-     * @param player - the <code>Player</code> whose entities are required.
-     * @param hide   - should fighters loaded into squadrons be excluded from this list?
-     * @return a <code>Vector</code> of <code>Entity</code>s.
-     */
-    public ArrayList<Integer> getPlayerEntityIds(Player player, boolean hide) {
-        ArrayList<Integer> output = new ArrayList<>();
-        for (Entity entity : inGameTWEntities()) {
-            if (entity.isPartOfFighterSquadron() && hide) {
-                continue;
-            }
-            if (player.equals(entity.getOwner())) {
-                output.add(entity.getId());
-            }
-        }
-        return output;
-    }
 
     /**
      * Determines if the indicated entity is stranded on a transport that can't move.
@@ -2389,15 +2333,6 @@ public class Game extends AbstractGame implements Serializable {
     }
 
     /**
-     * remove an AttackHandler from the attacks list
-     *
-     * @param ah - The <code>AttackHandler</code> to remove
-     */
-    public void removeAttack(AttackHandler ah) {
-        attacks.removeElement(ah);
-    }
-
-    /**
      * get the attacks
      *
      * @return a <code>Enumeration</code> of all <code>AttackHandler</code>s
@@ -2880,16 +2815,6 @@ public class Game extends AbstractGame implements Serializable {
         return Collections.unmodifiableList(gameListeners);
     }
 
-    /**
-     * purges all Game Listener objects.
-     */
-    public void purgeGameListeners() {
-        // Since gameListeners is transient, it could be null
-        if (gameListeners == null) {
-            gameListeners = new Vector<>();
-        }
-        gameListeners.clear();
-    }
 
     /**
      * Processes game events occurring on this connection by dispatching them to
@@ -3154,39 +3079,6 @@ public class Game extends AbstractGame implements Serializable {
         controlRolls.removeAllElements();
     }
 
-    /**
-     * A set of checks for aero units to make sure that the movement order is
-     * maintained
-     */
-    public boolean checkForValidSpaceStations(int playerId) {
-        Iterator<Entity> iter = getPlayerEntities(getPlayer(playerId), false)
-                .iterator();
-        while (iter.hasNext()) {
-            Entity entity = iter.next();
-            if ((entity instanceof SpaceStation)
-                && getTurn().isValidEntity(entity, this)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean checkForValidDropShips(int playerId) {
-        Iterator<Entity> iter = getPlayerEntities(getPlayer(playerId), false).iterator();
-        while (iter.hasNext()) {
-            Entity entity = iter.next();
-            if ((entity instanceof Dropship)
-                && getTurn().isValidEntity(entity, this)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean checkForValidSmallCraft(int playerId) {
-        return getPlayerEntities(getPlayer(playerId), false).stream().anyMatch(e ->
-                (e instanceof SmallCraft) && getTurn().isValidEntity(e, this));
-    }
 
     public PlanetaryConditions getPlanetaryConditions() {
         return planetaryConditions;
@@ -3320,6 +3212,12 @@ public class Game extends AbstractGame implements Serializable {
             }
             LogManager.getLogger().info("Missing ids: " + missingIds);
         }
+        entityCoords();
+        entityPosition();
+    }
+
+
+    private void entityCoords() {
         for (Entity e : inGameTWEntities()) {
             HashSet<Coords> positions = e.getOccupiedCoords();
             for (Coords c : positions) {
@@ -3331,6 +3229,9 @@ public class Game extends AbstractGame implements Serializable {
                 }
             }
         }
+    }
+
+    private void entityPosition() {
         for (Coords c : entityPosLookup.keySet()) {
             for (Integer eId : entityPosLookup.get(c)) {
                 Entity e = getEntity(eId);
@@ -3345,6 +3246,7 @@ public class Game extends AbstractGame implements Serializable {
             }
         }
     }
+
 
     /**
      * @return a string representation of this game's UUID.
