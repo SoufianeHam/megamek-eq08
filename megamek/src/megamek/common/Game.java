@@ -3435,14 +3435,6 @@ public class Game extends AbstractGame implements Serializable {
      * @return the score of the player
      */
     private static int getGameScore(int winner, int winningTeam, Player player) {
-        int gameScore;
-        if(player.getId() == winner){
-            gameScore = VICTORY_PLAYER_POINTS;
-        }else if (player.getTeam() == winningTeam) {
-            gameScore = VICTORY_TEAM_POINTS;
-        }else {
-            gameScore = LOOSER_POINTS;
-        }
-        return gameScore;
+        return player.getId() == winner ? VICTORY_PLAYER_POINTS : player.getTeam() == winningTeam ? VICTORY_TEAM_POINTS : LOOSER_POINTS;
     }
 }
