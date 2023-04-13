@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -157,6 +158,29 @@ public class GameTest {
         assertNull(game.getPlayer(1));
         assertNotNull(game.getPlayer(0));
     }
+
+    @Test
+    public void testAgeFlares() {
+        Game game = new Game();
+        Coords coords = new Coords(0, 0);
+        Flare flare = new Flare(coords, 5, 3, Flare.F_IGNITED);
+        game.addFlare(flare);
+        assertEquals(1, game.getFlares().size());
+
+        Vector<Report> reports = game.ageFlares();
+        assertEquals(2, reports.size());
+
+        for (int i = 0; i < 4; i++) {
+            reports = game.ageFlares();
+            assertEquals(2, reports.size());
+        }
+        assertEquals(0, game.getFlares().size());
+
+        reports = game.ageFlares();
+        assertEquals(0, reports.size());
+        assertEquals(0, game.getFlares().size());
+    }
+
 
     @Test
     public void testSetPhase() {
