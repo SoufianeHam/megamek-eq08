@@ -15,7 +15,6 @@
  */
 package megamek.common;
 
-import megamek.MMConstants;
 import megamek.Version;
 import megamek.client.bot.princess.BehaviorSettings;
 import megamek.common.GameTurn.SpecificEntityTurn;
@@ -24,6 +23,7 @@ import megamek.common.actions.AttackAction;
 import megamek.common.actions.EntityAction;
 import megamek.common.annotations.Nullable;
 import megamek.common.enums.GamePhase;
+import megamek.common.enums.Rank;
 import megamek.common.event.*;
 import megamek.common.force.Forces;
 import megamek.common.options.GameOptions;
@@ -56,9 +56,14 @@ public class Game extends AbstractGame implements Serializable {
     /**
      * Stores the version of MM, so that it can be serialized in saved games.
      */
-    public final Version version = MMConstants.VERSION;
+    public final Version version = megamek.SuiteConstants.VERSION;
 
     private GameOptions options = new GameOptions();
+    private static final int VICTORY_PLAYER_POINTS=30;
+
+    private static final int VICTORY_TEAM_POINTS=15;
+
+    private static final int LOOSER_POINTS=-5;
 
     private Board board = new Board();
 
@@ -87,6 +92,7 @@ public class Game extends AbstractGame implements Serializable {
     private int roundCount = 0;
 
     /**
+     * The current turn list
      * The current turn list
      */
     private Vector<GameTurn> turnVector = new Vector<>();
@@ -158,11 +164,6 @@ public class Game extends AbstractGame implements Serializable {
      */
     public Game() {
         // empty
-    }
-
-    // Added public accessors for external game id
-    public int getExternalGameId() {
-        return externalGameId;
     }
 
     public void setExternalGameId(int value) {
@@ -434,38 +435,6 @@ public class Game extends AbstractGame implements Serializable {
         processGameEvent(new GamePlayerChangeEvent(this, player));
     }
 
-    /**
-     * Returns the number of entities owned by the player, regardless of their
-     * status.
-     */
-    public int getAllEntitiesOwnedBy(Player player) {
-        int count = 0;
-        for (Entity entity : inGameTWEntities()) {
-            if (entity.getOwner().equals(player)) {
-                count++;
-            }
-        }
-        for (Entity entity : vOutOfGame) {
-            if (entity.getOwner().equals(player)) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /**
-     * @return the number of non-destroyed entities owned by the player
-     */
-    public int getLiveEntitiesOwnedBy(Player player) {
-        int count = 0;
-        for (Entity entity : inGameTWEntities()) {
-            if (entity.getOwner().equals(player) && !entity.isDestroyed()
-                    && !entity.isCarcass()) {
-                count++;
-            }
-        }
-        return count;
-    }
 
     /**
      * @return the number of non-destroyed entities owned by the player, including entities not yet
@@ -1730,12 +1699,8 @@ public class Game extends AbstractGame implements Serializable {
         }
         boolean hasLooped = false;
         int i = (sortedEntities.indexOf(getEntity(start)) + 1) % sortedEntities.size();
-        if (i == -1) {
-            //This means we were given an invalid entity ID, punt
-            return Entity.NONE;
-        }
         int startingIndex = i;
-        while (!((hasLooped == true) && (i == startingIndex))) {
+        while (!((hasLooped) && (i == startingIndex))) {
             final Entity entity = sortedEntities.get(i);
             if (turn.isValidEntity(entity, this)) {
                 return entity.getId();
@@ -1769,7 +1734,7 @@ public class Game extends AbstractGame implements Serializable {
             i = sortedEntities.size() - 1;
         }
         int startingIndex = i;
-        while (!((hasLooped == true) && (i == startingIndex))) {
+        while (!((hasLooped) && (i == startingIndex))) {
             final Entity entity = sortedEntities.get(i);
             if (turn.isValidEntity(entity, this)) {
                 return entity.getId();
@@ -1836,25 +1801,6 @@ public class Game extends AbstractGame implements Serializable {
         return output;
     }
 
-    /**
-     * Get the entities for the player.
-     *
-     * @param player - the <code>Player</code> whose entities are required.
-     * @param hide   - should fighters loaded into squadrons be excluded from this list?
-     * @return a <code>Vector</code> of <code>Entity</code>s.
-     */
-    public ArrayList<Integer> getPlayerEntityIds(Player player, boolean hide) {
-        ArrayList<Integer> output = new ArrayList<>();
-        for (Entity entity : inGameTWEntities()) {
-            if (entity.isPartOfFighterSquadron() && hide) {
-                continue;
-            }
-            if (player.equals(entity.getOwner())) {
-                output.add(entity.getId());
-            }
-        }
-        return output;
-    }
 
     /**
      * Determines if the indicated entity is stranded on a transport that can't move.
@@ -1879,9 +1825,7 @@ public class Game extends AbstractGame implements Serializable {
             }
 
             // Can that transport unload the unit?
-            if (transport.isImmobile() || (0 == transport.getWalkMP())) {
-                return true;
-            }
+            return transport.isImmobile() || (0 == transport.getWalkMP());
         }
         return false;
     }
@@ -1995,17 +1939,7 @@ public class Game extends AbstractGame implements Serializable {
                     OptionsConstants.INIT_INF_PROTO_MOVE_MULTI)) != 1) {
                 // exception, if the _next_ turn is an infantry turn, remove that
                 // contrived, but may come up e.g. one inf accidentally kills another
-                if (hasMoreTurns()) {
-                    GameTurn nextTurn = turnVector.elementAt(turnIndex + 1);
-                    if (nextTurn instanceof GameTurn.EntityClassTurn) {
-                        GameTurn.EntityClassTurn ect =
-                                (GameTurn.EntityClassTurn) nextTurn;
-                        if (ect.isValidClass(GameTurn.CLASS_INFANTRY)
-                            && !ect.isValidClass(~GameTurn.CLASS_INFANTRY)) {
-                            turnVector.removeElementAt(turnIndex + 1);
-                        }
-                    }
-                }
+                mech();
                 return;
             }
         }
@@ -2016,17 +1950,7 @@ public class Game extends AbstractGame implements Serializable {
                     .intOption(OptionsConstants.INIT_INF_PROTO_MOVE_MULTI)) != 1) {
                 // exception, if the _next_ turn is an ProtoMek turn, remove that
                 // contrived, but may come up e.g. one inf accidentally kills another
-                if (hasMoreTurns()) {
-                    GameTurn nextTurn = turnVector.elementAt(turnIndex + 1);
-                    if (nextTurn instanceof GameTurn.EntityClassTurn) {
-                        GameTurn.EntityClassTurn ect =
-                                (GameTurn.EntityClassTurn) nextTurn;
-                        if (ect.isValidClass(GameTurn.CLASS_PROTOMECH)
-                            && !ect.isValidClass(~GameTurn.CLASS_PROTOMECH)) {
-                            turnVector.removeElementAt(turnIndex + 1);
-                        }
-                    }
-                }
+                mech();
                 return;
             }
         }
@@ -2038,17 +1962,7 @@ public class Game extends AbstractGame implements Serializable {
                     .intOption(OptionsConstants.ADVGRNDMOV_VEHICLE_LANCE_MOVEMENT_NUMBER)) != 1) {
                 // exception, if the _next_ turn is a tank turn, remove that
                 // contrived, but may come up e.g. one tank accidentally kills another
-                if (hasMoreTurns()) {
-                    GameTurn nextTurn = turnVector.elementAt(turnIndex + 1);
-                    if (nextTurn instanceof GameTurn.EntityClassTurn) {
-                        GameTurn.EntityClassTurn ect =
-                                (GameTurn.EntityClassTurn) nextTurn;
-                        if (ect.isValidClass(GameTurn.CLASS_TANK)
-                            && !ect.isValidClass(~GameTurn.CLASS_TANK)) {
-                            turnVector.removeElementAt(turnIndex + 1);
-                        }
-                    }
-                }
+                mech();
                 return;
             }
         }
@@ -2058,36 +1972,41 @@ public class Game extends AbstractGame implements Serializable {
                 && (entity instanceof Mech) && getPhase().isMovement()) {
             if ((getMechsLeft(entity.getOwnerId()) % getOptions()
                     .intOption(OptionsConstants.ADVGRNDMOV_MEK_LANCE_MOVEMENT_NUMBER)) != 1) {
-                // exception, if the _next_ turn is a mech turn, remove that
-                // contrived, but may come up e.g. one mech accidentally kills another
-                if (hasMoreTurns()) {
-                    GameTurn nextTurn = turnVector.elementAt(turnIndex + 1);
-                    if (nextTurn instanceof GameTurn.EntityClassTurn) {
-                        GameTurn.EntityClassTurn ect =
-                                (GameTurn.EntityClassTurn) nextTurn;
-                        if (ect.isValidClass(GameTurn.CLASS_MECH)
-                            && !ect.isValidClass(~GameTurn.CLASS_MECH)) {
-                            turnVector.removeElementAt(turnIndex + 1);
-                        }
-                    }
-                }
+                mech();
                 return;
             }
         }
 
 
-        boolean useInfantryMoveLaterCheck = true;
+        boolean useInfantryMoveLaterCheck = (!getOptions().booleanOption(OptionsConstants.INIT_INF_MOVE_LATER) ||
+                (!(entity instanceof Infantry))) &&
+                (!getOptions().booleanOption(OptionsConstants.INIT_PROTOS_MOVE_LATER) ||
+                        (!(entity instanceof Protomech)));
         // If we have the "infantry move later" or "ProtoMeks move later" optional
         //  rules, then we may be removing an infantry unit that would be
         //  considered invalid unless we don't consider the extra validity
         //  checks.
-        if ((getOptions().booleanOption(OptionsConstants.INIT_INF_MOVE_LATER) &&
-             (entity instanceof Infantry)) ||
-            (getOptions().booleanOption(OptionsConstants.INIT_PROTOS_MOVE_LATER) &&
-             (entity instanceof Protomech))) {
-            useInfantryMoveLaterCheck = false;
-        }
 
+        removeInfantry(entity, useInfantryMoveLaterCheck);
+    }
+
+    private void mech() {
+        // exception, if the _next_ turn is a mech turn, remove that
+        // contrived, but may come up e.g. one mech accidentally kills another
+        if (hasMoreTurns()) {
+            GameTurn nextTurn = turnVector.elementAt(turnIndex + 1);
+            if (nextTurn instanceof GameTurn.EntityClassTurn) {
+                GameTurn.EntityClassTurn ect =
+                        (GameTurn.EntityClassTurn) nextTurn;
+                if (ect.isValidClass(GameTurn.CLASS_MECH)
+                    && !ect.isValidClass(~GameTurn.CLASS_MECH)) {
+                    turnVector.removeElementAt(turnIndex + 1);
+                }
+            }
+        }
+    }
+
+    private void removeInfantry(Entity entity, boolean useInfantryMoveLaterCheck) {
         for (int i = turnVector.size() - 1; i >= turnIndex; i--) {
             GameTurn turn = turnVector.elementAt(i);
 
@@ -2352,7 +2271,7 @@ public class Game extends AbstractGame implements Serializable {
     public void resetPSRs(Entity entity) {
         PilotingRollData roll;
         Vector<Integer> rollsToRemove = new Vector<>();
-        int i = 0;
+        int i;
 
         // first, find all the rolls belonging to the target entity
         for (i = 0; i < pilotRolls.size(); i++) {
@@ -2381,7 +2300,7 @@ public class Game extends AbstractGame implements Serializable {
     public void resetExtremeGravityPSRs(Entity entity) {
         PilotingRollData roll;
         Vector<Integer> rollsToRemove = new Vector<>();
-        int i = 0;
+        int i;
 
         // first, find all the rolls belonging to the target entity
         for (i = 0; i < extremeGravityRolls.size(); i++) {
@@ -2411,15 +2330,6 @@ public class Game extends AbstractGame implements Serializable {
      */
     public void addAttack(AttackHandler ah) {
         attacks.add(ah);
-    }
-
-    /**
-     * remove an AttackHandler from the attacks list
-     *
-     * @param ah - The <code>AttackHandler</code> to remove
-     */
-    public void removeAttack(AttackHandler ah) {
-        attacks.removeElement(ah);
     }
 
     /**
@@ -2537,6 +2447,7 @@ public class Game extends AbstractGame implements Serializable {
     }
 
     public void end(int winner, int winnerTeam) {
+        setRankings(winner,winnerTeam);
         setVictoryPlayerId(winner);
         setVictoryTeam(winnerTeam);
         processGameEvent(new GameEndEvent(this));
@@ -2904,16 +2815,6 @@ public class Game extends AbstractGame implements Serializable {
         return Collections.unmodifiableList(gameListeners);
     }
 
-    /**
-     * purges all Game Listener objects.
-     */
-    public void purgeGameListeners() {
-        // Since gameListeners is transient, it could be null
-        if (gameListeners == null) {
-            gameListeners = new Vector<>();
-        }
-        gameListeners.clear();
-    }
 
     /**
      * Processes game events occurring on this connection by dispatching them to
@@ -3029,60 +2930,80 @@ public class Game extends AbstractGame implements Serializable {
         Vector<Report> reports = new Vector<>();
         Report r;
         for (int i = flares.size() - 1; i >= 0; i--) {
-            Flare flare = flares.elementAt(i);
-            r = new Report(5235);
-            r.add(flare.position.getBoardNum());
-            r.newlines = 0;
-            reports.addElement(r);
+            Flare flare = getFlare(reports, i);
             if ((flare.flags & Flare.F_IGNITED) != 0) {
                 flare.turnsToBurn--;
-                if ((flare.flags & Flare.F_DRIFTING) != 0) {
-                    int dir = planetaryConditions.getWindDirection();
-                    int str = planetaryConditions.getWindStrength();
-
-                    // strength 1 and 2: drift 1 hex
-                    // strength 3: drift 2 hexes
-                    // strength 4: drift 3 hexes
-                    // for each above strength 4 (storm), drift one more
-                    if (str > 0) {
-                        flare.position = flare.position.translated(dir);
-                        if (str > 2) {
-                            flare.position = flare.position.translated(dir);
-                        }
-                        if (str > 3) {
-                            flare.position = flare.position.translated(dir);
-                        }
-                        if (str > 4) {
-                            flare.position = flare.position.translated(dir);
-                        }
-                        if (str > 5) {
-                            flare.position = flare.position.translated(dir);
-                        }
-                        r = new Report(5236);
-                        r.add(flare.position.getBoardNum());
-                        r.newlines = 0;
-                        reports.addElement(r);
-                    }
-                }
+                drift(reports, flare);
             } else {
                 r = new Report(5237);
                 r.newlines = 0;
                 reports.addElement(r);
                 flare.flags |= Flare.F_IGNITED;
             }
-            if (flare.turnsToBurn <= 0) {
-                r = new Report(5238);
-                reports.addElement(r);
-                flares.removeElementAt(i);
-            } else {
-                r = new Report(5239);
-                r.add(flare.turnsToBurn);
-                reports.addElement(r);
-                flares.setElementAt(flare, i);
-            }
+            addReportByFlare(reports, i, flare);
         }
         processGameEvent(new GameBoardChangeEvent(this));
         return reports;
+    }
+
+    private void drift(Vector<Report> reports, Flare flare) {
+        if ((flare.flags & Flare.F_DRIFTING) != 0) {
+            int dir = planetaryConditions.getWindDirection();
+            int str = planetaryConditions.getWindStrength();
+
+            // strength 1 and 2: drift 1 hex
+            // strength 3: drift 2 hexes
+            // strength 4: drift 3 hexes
+            // for each above strength 4 (storm), drift one more
+            if (str > 0) {
+                addReport(reports, flare, dir, str);
+            }
+        }
+    }
+
+    private Flare getFlare(Vector<Report> reports, int i) {
+        Report r;
+        Flare flare = flares.elementAt(i);
+        r = new Report(5235);
+        r.add(flare.position.getBoardNum());
+        r.newlines = 0;
+        reports.addElement(r);
+        return flare;
+    }
+
+    private void addReportByFlare(Vector<Report> reports, int i, Flare flare) {
+        Report r;
+        if (flare.turnsToBurn <= 0) {
+            r = new Report(5238);
+            reports.addElement(r);
+            flares.removeElementAt(i);
+        } else {
+            r = new Report(5239);
+            r.add(flare.turnsToBurn);
+            reports.addElement(r);
+            flares.setElementAt(flare, i);
+        }
+    }
+
+    private void addReport(Vector<Report> reports, Flare flare, int dir, int str) {
+        Report r;
+        flare.position = flare.position.translated(dir);
+        if (str > 2) {
+            flare.position = flare.position.translated(dir);
+        }
+        if (str > 3) {
+            flare.position = flare.position.translated(dir);
+        }
+        if (str > 4) {
+            flare.position = flare.position.translated(dir);
+        }
+        if (str > 5) {
+            flare.position = flare.position.translated(dir);
+        }
+        r = new Report(5236);
+        r.add(flare.position.getBoardNum());
+        r.newlines = 0;
+        reports.addElement(r);
     }
 
     public boolean gameTimerIsExpired() {
@@ -3135,7 +3056,7 @@ public class Game extends AbstractGame implements Serializable {
     public void resetControlRolls(Entity entity) {
         PilotingRollData roll;
         Vector<Integer> rollsToRemove = new Vector<>();
-        int i = 0;
+        int i;
 
         // first, find all the rolls belonging to the target entity
         for (i = 0; i < controlRolls.size(); i++) {
@@ -3158,39 +3079,6 @@ public class Game extends AbstractGame implements Serializable {
         controlRolls.removeAllElements();
     }
 
-    /**
-     * A set of checks for aero units to make sure that the movement order is
-     * maintained
-     */
-    public boolean checkForValidSpaceStations(int playerId) {
-        Iterator<Entity> iter = getPlayerEntities(getPlayer(playerId), false)
-                .iterator();
-        while (iter.hasNext()) {
-            Entity entity = iter.next();
-            if ((entity instanceof SpaceStation)
-                && getTurn().isValidEntity(entity, this)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean checkForValidDropShips(int playerId) {
-        Iterator<Entity> iter = getPlayerEntities(getPlayer(playerId), false).iterator();
-        while (iter.hasNext()) {
-            Entity entity = iter.next();
-            if ((entity instanceof Dropship)
-                && getTurn().isValidEntity(entity, this)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean checkForValidSmallCraft(int playerId) {
-        return getPlayerEntities(getPlayer(playerId), false).stream().anyMatch(e ->
-                (e instanceof SmallCraft) && getTurn().isValidEntity(e, this));
-    }
 
     public PlanetaryConditions getPlanetaryConditions() {
         return planetaryConditions;
@@ -3324,6 +3212,12 @@ public class Game extends AbstractGame implements Serializable {
             }
             LogManager.getLogger().info("Missing ids: " + missingIds);
         }
+        entityCoords();
+        entityPosition();
+    }
+
+
+    private void entityCoords() {
         for (Entity e : inGameTWEntities()) {
             HashSet<Coords> positions = e.getOccupiedCoords();
             for (Coords c : positions) {
@@ -3335,6 +3229,9 @@ public class Game extends AbstractGame implements Serializable {
                 }
             }
         }
+    }
+
+    private void entityPosition() {
         for (Coords c : entityPosLookup.keySet()) {
             for (Integer eId : entityPosLookup.get(c)) {
                 Entity e = getEntity(eId);
@@ -3349,6 +3246,7 @@ public class Game extends AbstractGame implements Serializable {
             }
         }
     }
+
 
     /**
      * @return a string representation of this game's UUID.
@@ -3403,5 +3301,31 @@ public class Game extends AbstractGame implements Serializable {
     /** @return The TW Units (Entity) currently in the game. */
     public List<Entity> inGameTWEntities() {
         return inGameObjects.values().stream().filter(o -> o instanceof Entity).map(o -> (Entity) o).collect(toList());
+    }
+
+    /**
+     * Calculate the score and the set the ranking for each player
+     * @param winner
+     * @param winningTeam
+     */
+    private void setRankings (int winner,int winningTeam){
+        List<Player> players = getPlayersList();
+        for (Player player : players){
+            player.updateScore(getGameScore(winner, winningTeam, player));
+            Rank updatedRank = Rank.getRankForScore(player.getScore());
+            player.setRank(updatedRank);
+        }
+    }
+
+    /**
+     * The function calculates the score of each player. Since it's still not known for the moment,
+     * this function can be changed with the one that the company wants to implement.
+     * @param winner
+     * @param winningTeam
+     * @param player
+     * @return the score of the player
+     */
+    private static int getGameScore(int winner, int winningTeam, Player player) {
+        return player.getId() == winner ? VICTORY_PLAYER_POINTS : player.getTeam() == winningTeam ? VICTORY_TEAM_POINTS : LOOSER_POINTS;
     }
 }
